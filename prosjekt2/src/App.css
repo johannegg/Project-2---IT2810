@@ -3,6 +3,9 @@
 	margin: 0 auto;
 	padding: 2rem;
 	text-align: center;
+	--theme-dark-green: #afc188;
+	--theme-green: #D5E1BA;
+	--theme-very-light-green: #FAFFED;
 }
 
 .logo {
