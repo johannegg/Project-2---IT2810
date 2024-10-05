@@ -34,7 +34,7 @@ export function AllSongsList() {
 				{songs.map((song) => (
 					// TODO: Add link to each lyrics pace
 					<tr key={song.id} className="tableRow">
-						<td>{song.title}</td>
+						<td className="titleCell">{song.title}</td>
 						<td>{song.artist}</td>
 						<td>{song.year}</td>
 						<td className="viewsCell">

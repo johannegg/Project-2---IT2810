@@ -3,9 +3,9 @@
   margin-right: 20px;
   padding: 20px;
   border-radius: 10px;
-  background-color: var(--theme-green);
   box-shadow: 0 4px 8px 0 #00000033;
   width: 100%;
+  background-image: linear-gradient(to right, var(--theme-dark-green) , Var(--theme-green));
 }
 .songTable {
 	width: 100%;
@@ -14,13 +14,17 @@
 }
 
 .tableRow {
-  border-bottom: 1px solid var(--theme-dark-green);
+  border-bottom: 1px solid var(--theme-darker-green);
   text-align: left;
   font-size: medium;
 }
 
 .tableRow:hover {
-  background-color: var(--theme-dark-green);
+  background-color: var(--theme-darker-green);
+}
+
+.titleCell {
+  font-weight: 500;
 }
 
 .viewsCell {
