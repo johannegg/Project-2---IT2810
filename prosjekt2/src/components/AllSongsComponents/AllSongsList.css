@@ -1,0 +1,29 @@
+.songContainer {
+  margin-top: 20px;
+  margin-left: 20px;
+  margin-right: 20px;
+  padding: 20px;
+  border-radius: 5px;
+  background-color: var(--theme-green);
+  box-shadow: 0 4px 8px 0 #00000033;
+  width: 100%;
+}
+.songTable {
+	width: 100%;
+	border-collapse: collapse;
+	margin-top: 20px;
+}
+
+.tableRow {
+  border-bottom: 1px solid var(--theme-dark-green);
+  text-align: left;
+  font-size: medium;
+}
+
+.tableRow:hover {
+  background-color: var(--theme-dark-green);
+}
+
+.viewsCell {
+  font-size: small;
+}
