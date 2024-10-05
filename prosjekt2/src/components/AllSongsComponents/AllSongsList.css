@@ -1,9 +1,8 @@
 .songContainer {
-  margin-top: 20px;
   margin-left: 20px;
   margin-right: 20px;
   padding: 20px;
-  border-radius: 5px;
+  border-radius: 10px;
   background-color: var(--theme-green);
   box-shadow: 0 4px 8px 0 #00000033;
   width: 100%;
@@ -26,4 +25,9 @@
 
 .viewsCell {
   font-size: small;
+}
+
+td {
+  padding-left: 5px;
+  padding-right: 5px;
 }
