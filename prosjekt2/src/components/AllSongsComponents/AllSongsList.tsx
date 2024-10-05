@@ -1,6 +1,7 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { FaEye } from "react-icons/fa";
 import { fetchSongs, Song } from "../../utils/FetchMockData";
+import { formatViews } from "../../utils/FormatViews";
 import "./AllSongsList.css";
 
 export function AllSongsList() {
@@ -13,7 +14,7 @@ export function AllSongsList() {
 			try {
 				const data = await fetchSongs();
 				setSongs(data);
-			} catch (error) {
+			} catch {
 				setError("Failed to load data");
 			} finally {
 				setLoading(false);
@@ -23,11 +24,6 @@ export function AllSongsList() {
 		loadData();
 	}, []);
 
-	const formatViews = (views: number): string => {
-		return new Intl.NumberFormat("en", { notation: "compact", compactDisplay: "short" }).format(
-			views,
-		);
-	};
 
 	if (loading) return <p>Loading songs...</p>;
 	if (error) return <p>{error}</p>;
