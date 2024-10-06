@@ -1,0 +1,40 @@
+.header {
+    background-color: var(--theme-green); 
+    padding: 20px; 
+    display: flex; 
+    align-items: center; 
+    justify-content: flex-start; 
+    position: fixed; 
+    top: 0; 
+    left: 0;
+    width: 100%; 
+    box-sizing: border-box; 
+    z-index: 1000; 
+    height: 70px;
+
+  }
+  
+  .header-content {
+    display: flex;
+    align-items: center;
+    justify-content: center; 
+    width: 100%;
+    max-width: 1200px; 
+    margin: 0 auto; 
+  }
+  
+  .sofa-icon {
+    height: 60px;
+    width: 60px;
+    margin-right: 15px;
+    filter: drop-shadow(2px 2px 3px rgba(0,0,0,0.15)); 
+  }
+  
+  .header-title {
+    font-family: 'Roboto', sans-serif;
+    font-size: 28px; 
+    color: #333; 
+    font-weight: bold;
+    margin: 0; 
+  }
+  
