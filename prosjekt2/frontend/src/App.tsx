@@ -3,11 +3,13 @@ import Home from "./pages/Home";
 import DynamicLyric from "./components/DynamicLyric";
 import "./App.css";
 import Header from "./components/Header/Header";
+import NavBar from "./components/NavBar/NavBar";
 
 function App() {
     return (
         <>
         <Header/>
+        <NavBar/>
         <Router>
             <Routes>
                 
