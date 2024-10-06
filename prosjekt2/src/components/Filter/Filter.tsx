@@ -1,29 +1,32 @@
 import { useState, useEffect } from "react";
-import { Song } from "../../utils/FetchMockData";
+import { Song, fetchSongs } from "../../utils/FetchMockData";
 import "./Filter.css";
 
 
 function Filter() {
   const [data, setData] = useState<Song[]>([]);
+  const [error, setError] = useState<string | null>(null);
+	const [loading, setLoading] = useState<boolean>(true);
 
-  // Fetching data from mockdata.json
+  // loading songs from mockdata.json
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await fetch('/mockdata.json'); // Fetching mocked data
-        if (!response.ok) {
-          throw new Error(`HTTP error! status: ${response.status}`);
-        }
-        const result: Song[] = await response.json();
-        console.log('Fetched data:', result);
-        setData(result);
-      } catch (error) {
-        console.error("Error fetching data:", error);
-      }
-    };
+		const loadData = async () => {
+			try {
+				const data = await fetchSongs();
+				setData(data);
+			} catch {
+				setError("Failed to load data");
+			} finally {
+				setLoading(false);
+			}
+		};
 
-    fetchData();
-  }, []);
+		loadData();
+	}, []);
+
+
+	if (loading) return <p>Loading songs...</p>;
+	if (error) return <p>{error}</p>;
 
   // Finding unique genres to show in filter
   const uniqueGenres = [...new Set(data.map(song => song.genre))];
