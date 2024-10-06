@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { FaEye } from "react-icons/fa";
 import { fetchSongs, Song } from "../../utils/FetchMockData";
 import { formatViews } from "../../utils/FormatViews";
@@ -23,7 +23,6 @@ export function AllSongsList() {
 
 		loadData();
 	}, []);
-
 
 	if (loading) return <p>Loading songs...</p>;
 	if (error) return <p>{error}</p>;
