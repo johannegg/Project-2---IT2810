@@ -1,4 +1,4 @@
-import "./Lyric.css"
+import "./Lyrics.css"
 
 export interface LyricProps {
     title: string,
