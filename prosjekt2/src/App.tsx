@@ -1,7 +1,7 @@
 import { useState } from "react";
 import "./App.css";
 import { AllSongsList } from "./components/AllSongsComponents/AllSongsList";
-import Header from "./components/Heading/Heading";
+import Header from "./components/Header/Header";
 
 function App() {
 
