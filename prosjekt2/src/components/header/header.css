@@ -1,5 +1,5 @@
 .header {
-    background-color: #D5E1BA; 
+    background-color: var(--theme-green); 
     padding: 20px; 
     display: flex; 
     align-items: center; 
