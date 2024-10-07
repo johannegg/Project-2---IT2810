@@ -1,5 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import { AllSongsList } from "../components/AllSongsComponents/AllSongsList";
+import Filter from "../components/Filter/Filter";
 
 const Home = () => {
     const navigate = useNavigate();
@@ -11,7 +12,10 @@ const Home = () => {
 
     return (
         <>
-            <AllSongsList/>
+            <div className="appContainer">
+				<Filter />
+				<AllSongsList />
+			</div>
             {/* Example buttons to navigate to different songs */}
             <button onClick={() => routeChange("Ed Sheeran", "Perfect")}>
                 Perfect by Ed Sheeran
