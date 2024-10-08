@@ -4,45 +4,52 @@ import { fetchSongs, Song } from "../../utils/FetchMockData";
 import { formatViews } from "../../utils/FormatViews";
 import "./AllSongsList.css";
 
-export function AllSongsList() {
-	const [songs, setSongs] = useState<Song[]>([]);
-	const [error, setError] = useState<string | null>(null);
-	const [loading, setLoading] = useState<boolean>(true);
+interface AllSongsListProps {
+  genres: string[];
+}
 
-	useEffect(() => {
-		const loadData = async () => {
-			try {
-				const data = await fetchSongs();
-				setSongs(data);
-			} catch {
-				setError("Failed to load data");
-			} finally {
-				setLoading(false);
-			}
-		};
+export function AllSongsList({ genres }: AllSongsListProps) {
+  const [songs, setSongs] = useState<Song[]>([]);
+  const [error, setError] = useState<string | null>(null);
+  const [loading, setLoading] = useState<boolean>(true);
 
-		loadData();
-	}, []);
+  useEffect(() => {
+    const loadData = async () => {
+      try {
+        const data = await fetchSongs();
+        setSongs(data);
+      } catch {
+        setError("Failed to load data");
+      } finally {
+        setLoading(false);
+      }
+    };
 
-	if (loading) return <p>Loading songs...</p>;
-	if (error) return <p>{error}</p>;
+    loadData();
+  }, []);
 
-	return (
-		<section className="songContainer">
-			<table className="songTable">
-				{songs.map((song) => (
-					// TODO: Add link to each lyrics pace
-					<tr key={song.id} className="tableRow">
-						<td className="titleCell">{song.title}</td>
-						<td>{song.artist}</td>
-						<td>{song.year}</td>
-						<td className="viewsCell">
-							<FaEye style={{ marginRight: "5px" }} />
-							{formatViews(song.views)}
-						</td>
-					</tr>
-				))}
-			</table>
-		</section>
-	);
+  if (loading) return <p>Loading songs...</p>;
+  if (error) return <p>{error}</p>;
+
+  const filteredSongs = genres.length > 0 
+    ? songs.filter(song => genres.includes(song.genre))
+    : songs;
+
+  return (
+    <section className="songContainer">
+      <table className="songTable">
+        {filteredSongs.map((song) => (
+          <tr key={song.id} className="tableRow">
+            <td className="titleCell">{song.title}</td>
+            <td>{song.artist}</td>
+            <td>{song.year}</td>
+            <td className="viewsCell">
+              <FaEye style={{ marginRight: "5px" }} />
+              {formatViews(song.views)}
+            </td>
+          </tr>
+        ))}
+      </table>
+    </section>
+  );
 }
