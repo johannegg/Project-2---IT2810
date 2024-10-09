@@ -1,6 +1,6 @@
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import Home from "./pages/Home";
-import DynamicLyric from "./components/LyricsComponent/DynamicLyric";
+import DynamicLyric from "./components/Lyrics/DynamicLyrics";
 import "./App.css";
 import Header from "./components/Header/Header";
 
