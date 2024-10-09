@@ -1,42 +1,36 @@
-import React, { useState } from 'react';
+import React from 'react';
+import { Link, useLocation } from 'react-router-dom';
 import './NavBar.css';
 
 const NavBar: React.FC = () => {
-  const [activeLink, setActiveLink] = useState<string>('Home'); 
-
-  const handleClick = (link: string) => {
-    setActiveLink(link); 
-  }
+  const location = useLocation(); 
 
   return (
     <nav className="navbar">
       <ul className="navbar-menu">
         <li>
-          <a
-            href="/"
-            className={activeLink === 'Home' ? 'active' : ''}
-            onClick={() => handleClick('Home')}
+          <Link
+            to="/"
+            className={location.pathname === '/' ? 'active' : ''}
           >
             Home
-          </a>
+          </Link>
         </li>
         <li>
-          <a
-            href="/favorites"
-            className={activeLink === 'Favorited songs' ? 'active' : ''}
-            onClick={() => handleClick('Favorited songs')}
+          <Link
+            to="/favorites"
+            className={location.pathname === '/favorites' ? 'active' : ''}
           >
             Favorited songs
-          </a>
+          </Link>
         </li>
         <li>
-          <a
-            href="/playlists"
-            className={activeLink === 'Your playlists' ? 'active' : ''}
-            onClick={() => handleClick('Your playlists')}
+          <Link
+            to="/playlists"
+            className={location.pathname === '/playlists' ? 'active' : ''}
           >
             Your playlists
-          </a>
+          </Link>
         </li>
       </ul>
     </nav>
