@@ -16,7 +16,7 @@ export function AllSongsList() {
 		const path = `/${song.artist.toLowerCase().replace(/ /g, "-")}/${song.title
 			.toLowerCase()
 			.replace(/ /g, "-")}`;
-		  navigate(path, { state: song });
+		navigate(path, { state: song });
     };
 
 	useEffect(() => {
