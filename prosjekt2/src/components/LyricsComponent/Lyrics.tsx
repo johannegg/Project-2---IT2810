@@ -1,18 +1,33 @@
+import { FaEye } from "react-icons/fa";
+import { Song } from "../../utils/FetchMockData";
 import "./Lyrics.css"
+import { formatViews } from "../../utils/FormatViews";
 
-export interface LyricProps {
-    title: string,
-    artist: string,
-    lyrics: string,
-}
 
-const Lyric = (songData: LyricProps) => {
+const Lyric = (songData: Song) => {
+
     
     return (
         <div className="lyrics">
             <h1>{songData.title}</h1>
-            <h2>{songData.artist}</h2>
-            <p>{songData.lyrics}</p>
+            <h2>{songData.artist}</h2>   
+            <section className="songInfo">
+                <p>Release year: {songData.year}</p>
+                <p>Genre: {songData.genre}</p>
+                <div className="viewsInfo">
+                    <FaEye style={{ marginRight: "5px" }} />
+                    <p>{formatViews(songData.views)} Views</p>
+                </div>
+            </section>
+            <hr/>
+            <p>
+                {songData.lyrics.split("\n").map((line, index) => (
+                    <span key={index}>
+                        {line}
+                        <br />
+                    </span>
+                ))}
+            </p>
         </div>
     )
 
