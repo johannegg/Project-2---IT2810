@@ -1,0 +1,52 @@
+.lyrics {
+    min-height: 100vh;
+    margin-top: 50px;
+    color: #493843;
+}
+
+.lyrics h1 {
+    text-align: center;
+    font-size: xx-large;
+    margin-top: 80px;
+    margin-bottom: 0px;
+}
+
+.lyrics p {
+    text-align: left;
+    align-self: center;
+}
+
+.songInfo {
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    align-items: center; 
+    padding: 8px;
+    border-radius: 8px;
+    margin-top: 20px;
+    width: 700px; 
+    height: 20px; 
+}
+
+.songInfo p {
+    font-weight: bold;
+    margin: 0;
+    text-align: center; 
+}
+
+hr {
+    display: block; 
+    border: none;
+    margin: 0.5em auto;
+    height: 2px;
+    background-color: #D5E1BA;
+    width: 100%; 
+    overflow: hidden;
+    margin-bottom: 30px;
+}
+
+
+.viewsInfo {
+    display: flex;
+    align-items: center; 
+    justify-content: center;
+}
