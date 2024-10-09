@@ -38,8 +38,7 @@ function Filter({ onGenreChange }: FilterProps) {
         ? prevSelected.filter((g) => g !== genre) 
         : [...prevSelected, genre];
 
-      // Sender de valgte sjangrene opp til parent-komponenten
-      onGenreChange(newSelectedGenres.length > 0 ? newSelectedGenres : []); // Hvis ingen sjanger er valgt, send tom liste
+      onGenreChange(newSelectedGenres.length > 0 ? newSelectedGenres : []);
       return newSelectedGenres;
     });
   };
