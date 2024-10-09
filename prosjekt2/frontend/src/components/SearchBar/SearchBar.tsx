@@ -5,7 +5,7 @@ export function SearchBar() {
 		<div className="searchContainer">
 			<input className="searchInput" placeholder="Search after a song or an artist" />
 			<button type="submit" className="searchButton">
-				<FaSearch className="searchIcon"/>
+				<FaSearch className="searchIcon" />
 			</button>
 		</div>
 	);

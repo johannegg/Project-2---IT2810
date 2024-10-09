@@ -1,54 +1,50 @@
 .searchContainer {
-  width: 70%;
-  position: relative;
-  display: flex;
-  margin: auto;
+	width: 70%;
+	position: relative;
+	display: flex;
+	margin: auto;
+  margin-bottom: 20px;
 }
 
 .searchInput {
-  width: 100%;
-  border: 3px solid var(--theme-green);
-  padding: 5px;
-  padding-left: 10px;
-  height: 25px;
-  border-radius: 20px;
-  outline: none;
-  color: #9DBFAF;
+	width: 100%;
+	border: 3px solid var(--theme-green);
+	padding: 5px;
+	padding-left: 10px;
+	height: 25px;
+	border-radius: 20px;
+	outline: none;
+}
+
+.searchInput::placeholder {
+	color: var(--theme-darker-green);
 }
 
 .searchInput:focus {
-  border: 3px solid var(--theme-dark-green);
+	border: 3px solid var(--theme-dark-green);
 }
 
 .searchButton {
-  width: 37px;
-  padding: 0;
-  height: 90%;
-  cursor: pointer;
-  font-size: 20px;
-  position: relative;
-  right: 45px;
-  top: 7px;
-  background-color: transparent;
-  border: none;
-}
-
-.searchButton:hover {
-  outline: none;
-  border: none;
+	width: 37px;
+	padding: 0;
+	height: 90%;
+	cursor: pointer;
+	font-size: 20px;
+	position: relative;
+	right: 45px;
+	top: 9px;
+	background-color: transparent;
 }
 
 .searchButton:focus {
-  outline: none;
-  border: none;
+	outline: none;
 }
 
 .searchIcon {
-  font-size: 20px;
-  color: var(--theme-green);
-  
+	font-size: 20px;
+	color: var(--theme-green);
 }
 
 .searchIcon:hover {
-  color: var(--theme-dark-green);
+	color: var(--theme-dark-green);
 }
