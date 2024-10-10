@@ -9,15 +9,18 @@ type SearchBarProps = {
 };
 
 export function SearchBar({ songs, setSearchedSongs }: SearchBarProps) {
-	const [searchInput, setSearchInput] = useState<string>('');
+	const [searchInput, setSearchInput] = useState<string>("");
 
 	useEffect(() => {
 		function filterSongs(): Song[] {
-			if (searchInput === '') return songs;
-			const keywords = searchInput.toLowerCase().split(' ');
+			if (searchInput === "") return songs;
+			const keywords = searchInput.toLowerCase().split(" ");
 			return songs.filter((song) => {
 				return keywords.every((keyword) => {
-					return song.title.toLowerCase().includes(keyword) || song.artist.toLowerCase().includes(keyword);
+					return (
+						song.title.toLowerCase().includes(keyword) ||
+						song.artist.toLowerCase().includes(keyword)
+					);
 				});
 			});
 		}
@@ -26,12 +29,11 @@ export function SearchBar({ songs, setSearchedSongs }: SearchBarProps) {
 		setSearchedSongs(searchedSongs);
 	}, [searchInput, songs, setSearchedSongs]);
 
-		
 	return (
 		<div className="searchContainer">
-			<input 
-				className="searchInput" 
-				placeholder="Search after a song or an artist" 
+			<input
+				className="searchInput"
+				placeholder="Search after a song or an artist"
 				value={searchInput}
 				onChange={(e) => setSearchInput(e.target.value)}
 			/>

@@ -14,9 +14,9 @@
 
 	--theme-darker-green: #a3b57d;
 	--theme-dark-green: #afc188;
-	--theme-green: #D5E1BA;
+	--theme-green: #d5e1ba;
 	--theme-light-green: #e3f0c8;
-	--theme-lighter-green: #FAFFED;
+	--theme-lighter-green: #faffed;
 }
 
 a {
@@ -36,7 +36,7 @@ body {
 	min-height: 100vh;
 	overflow-x: hidden;
 	justify-content: center;
-	background-color: #EAF2D7;
+	background-color: #eaf2d7;
 }
 
 h1 {

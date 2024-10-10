@@ -29,8 +29,7 @@ const Home = () => {
 
 	const handleGenreChange = (genres: string[]) => {
 		setSelectedGenres(genres);
-};
-
+	};
 
 	if (loading) return <p>Loading songs...</p>;
 	if (error) return <p>{error}</p>;
@@ -40,7 +39,7 @@ const Home = () => {
 			<SearchBar songs={songs} setSearchedSongs={setSearchedSongs} />
 			<div className="appContainer">
 				<Filter onGenreChange={handleGenreChange} />
-				<AllSongsList songs={searchedSongs} genres={selectedGenres}/>
+				<AllSongsList songs={searchedSongs} genres={selectedGenres} />
 			</div>
 		</>
 	);
