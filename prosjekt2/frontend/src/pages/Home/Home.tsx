@@ -3,6 +3,7 @@ import { AllSongsList } from "../../components/AllSongsComponents/AllSongsList";
 import { SearchBar } from "../../components/SearchBar/SearchBar";
 import { fetchSongs, Song } from "../../utils/FetchMockData";
 import { Filter } from "../../components/Filter/Filter";
+import "./Home.css";
 
 const Home = () => {
 	const [songs, setSongs] = useState<Song[]>([]);

@@ -1,0 +1,8 @@
+.appContainer {
+	position: absolute;
+	top: 230px;
+	left: 20%;
+	display: flex;
+	align-items: flex-start;
+  width: 55%;
+}

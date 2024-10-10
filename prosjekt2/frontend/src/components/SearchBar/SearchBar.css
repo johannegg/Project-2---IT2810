@@ -1,9 +1,10 @@
 .searchContainer {
 	width: 30%;
-	position: relative;
+	position: absolute;
 	display: flex;
-	margin: auto;
+	left: 36%;
   margin-bottom: 20px;
+	top: 160px
 }
 
 .searchInput {
