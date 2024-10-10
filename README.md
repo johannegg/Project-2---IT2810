@@ -34,4 +34,6 @@ Next, we will implement some more functionalities, that makes it possible for th
 - Favorite songs
 - Make own playlists
 
+Another future enhancement will be to address responsiveness, which is not yet included in the design. Currently, the layout and components does not adjust dynamically across different devices. For now, the design is best viewed on standard desktop resolutions.
+
 We will also implemant a database and create a proper backend.
