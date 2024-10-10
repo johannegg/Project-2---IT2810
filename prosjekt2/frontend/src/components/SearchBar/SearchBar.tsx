@@ -37,9 +37,9 @@ export function SearchBar({ songs, setSearchedSongs }: SearchBarProps) {
 				value={searchInput}
 				onChange={(e) => setSearchInput(e.target.value)}
 			/>
-			<button type="submit" className="searchButton">
+			<div className="iconContainer">
 				<FaSearch className="searchIcon" />
-			</button>
+			</div>
 		</div>
 	);
 }
