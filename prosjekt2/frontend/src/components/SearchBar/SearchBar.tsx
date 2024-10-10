@@ -14,10 +14,10 @@ export function SearchBar({ songs, setSearchedSongs }: SearchBarProps) {
 	useEffect(() => {
 		function filterSongs(): Song[] {
 			if (searchInput === '') return songs;
-			const keywords = searchInput.split(' ');
+			const keywords = searchInput.toLowerCase().split(' ');
 			return songs.filter((song) => {
 				return keywords.every((keyword) => {
-					return song.title.includes(keyword) || song.artist.includes(keyword);
+					return song.title.toLowerCase().includes(keyword) || song.artist.toLowerCase().includes(keyword);
 				});
 			});
 		}
