@@ -5,10 +5,10 @@ import { Song } from "../../utils/FetchMockData";
 
 type SearchBarProps = {
 	songs: Song[];
-	setFilteredSongs: (filteredSongs: Song[]) => void;
+	setSearchedSongs: (SearchedSongs: Song[]) => void;
 };
 
-export function SearchBar({ songs, setFilteredSongs }: SearchBarProps) {
+export function SearchBar({ songs, setSearchedSongs }: SearchBarProps) {
 	const [searchInput, setSearchInput] = useState<string>('');
 
 	useEffect(() => {
@@ -22,9 +22,9 @@ export function SearchBar({ songs, setFilteredSongs }: SearchBarProps) {
 			});
 		}
 
-		const filteredSongs = filterSongs();
-		setFilteredSongs(filteredSongs);
-	}, [searchInput, songs, setFilteredSongs]);
+		const searchedSongs = filterSongs();
+		setSearchedSongs(searchedSongs);
+	}, [searchInput, songs, setSearchedSongs]);
 
 		
 	return (

@@ -7,7 +7,7 @@ import "./Home.css";
 
 const Home = () => {
 	const [songs, setSongs] = useState<Song[]>([]);
-	const [filteredSongs, setFilteredSongs] = useState<Song[]>([]);
+	const [searchedSongs, setSearchedSongs] = useState<Song[]>([]);
 	const [error, setError] = useState<string | null>(null);
 	const [loading, setLoading] = useState<boolean>(true);
 	const [selectedGenres, setSelectedGenres] = useState<string[]>([]);
@@ -37,10 +37,10 @@ const Home = () => {
 
 	return (
 		<>
-			<SearchBar songs={songs} setFilteredSongs={setFilteredSongs} />
+			<SearchBar songs={songs} setSearchedSongs={setSearchedSongs} />
 			<div className="appContainer">
 				<Filter onGenreChange={handleGenreChange} />
-				<AllSongsList songs={filteredSongs} genres={selectedGenres}/>
+				<AllSongsList songs={searchedSongs} genres={selectedGenres}/>
 			</div>
 		</>
 	);
