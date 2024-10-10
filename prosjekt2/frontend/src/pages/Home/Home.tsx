@@ -1,14 +1,15 @@
 import { useEffect, useState } from "react";
 import { AllSongsList } from "../../components/AllSongsComponents/AllSongsList";
-import Filter from "../../components/Filter/Filter";
 import { SearchBar } from "../../components/SearchBar/SearchBar";
 import { fetchSongs, Song } from "../../utils/FetchMockData";
+import { Filter } from "../../components/Filter/Filter";
 
 const Home = () => {
 	const [songs, setSongs] = useState<Song[]>([]);
 	const [filteredSongs, setFilteredSongs] = useState<Song[]>([]);
 	const [error, setError] = useState<string | null>(null);
 	const [loading, setLoading] = useState<boolean>(true);
+	const [selectedGenres, setSelectedGenres] = useState<string[]>([]);
 
 	useEffect(() => {
 		const loadData = async () => {
@@ -25,6 +26,11 @@ const Home = () => {
 		loadData();
 	}, []);
 
+	const handleGenreChange = (genres: string[]) => {
+		setSelectedGenres(genres);
+};
+
+
 	if (loading) return <p>Loading songs...</p>;
 	if (error) return <p>{error}</p>;
 
@@ -32,8 +38,8 @@ const Home = () => {
 		<>
 			<SearchBar songs={songs} setFilteredSongs={setFilteredSongs} />
 			<div className="appContainer">
-				<Filter />
-				<AllSongsList songs={filteredSongs} />
+				<Filter onGenreChange={handleGenreChange} />
+				<AllSongsList songs={filteredSongs} genres={selectedGenres}/>
 			</div>
 		</>
 	);

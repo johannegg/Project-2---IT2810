@@ -7,17 +7,19 @@ import { useNavigate } from "react-router-dom";
 
 type AllSongsListProps = {
 	songs: Song[];
+	genres: string[];
 };
 
-export function AllSongsList({ songs }: AllSongsListProps) {
+export function AllSongsList({ songs, genres }: AllSongsListProps) {
 	const navigate = useNavigate();
 
 	const routeChange = (song: Song) => {
-		const path = `/${song.artist.toLowerCase().replace(/ /g, "-")}/${song.title
-			.toLowerCase()
-			.replace(/ /g, "-")}`;
+		const path = `/${song.artist.toLowerCase().replace(/ /g, "-")}/${song.title.toLowerCase().replace(/ /g, "-")}`;
 		navigate(path, { state: song });
 	};
+
+	const filteredSongs =
+		genres.length > 0 ? songs.filter((song) => genres.includes(song.genre)) : songs;
 
 	return (
 		<section className="songContainer">
@@ -25,7 +27,7 @@ export function AllSongsList({ songs }: AllSongsListProps) {
 				<p>No songs found</p>
 			) : (
 				<table className="songTable">
-					{songs.map((song) => (
+					{filteredSongs.map((song) => (
 						<tr key={song.id} className="tableRow" onClick={() => routeChange(song)}>
 							<td className="titleCell">{song.title}</td>
 							<td>{song.artist}</td>
