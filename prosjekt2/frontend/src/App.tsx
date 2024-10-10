@@ -11,8 +11,10 @@ function App() {
 	return (
 		<>
 			<Router>
-				<Header />
-				<NavBar />
+				<section className="headerContainer">
+					<Header />
+					<NavBar />
+				</section>
 				<Routes>
 					<Route path="/" element={<Home />} />
 					<Route path="/favorites" element={<Favorites />} />
