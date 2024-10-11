@@ -1,7 +1,7 @@
 .searchContainer {
 	width: 30%;
 	position: absolute;
-	left: 36%;
+	left: auto;
 	margin-bottom: 20px;
 	top: 160px;
 }
@@ -14,6 +14,7 @@
 	height: 25px;
 	border-radius: 20px;
 	outline: none;
+	background-color: white;
 }
 
 .searchInput::placeholder {
@@ -52,4 +53,11 @@
 	position: absolute;
 	left: 12px;
 	top: 11px;
+}
+
+@media (max-width: 700px) {
+	.searchContainer {
+		left: 18%;
+		width: 54%;
+	}
 }
