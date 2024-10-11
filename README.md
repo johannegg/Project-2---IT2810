@@ -43,4 +43,4 @@ Next, we will implement some more functionalities, that makes it possible for th
 
 We will also make sure to increment "views" when someone views a song.
 
-Another future enhancement will be to address responsiveness, which is not yet included in the design. Currently, the layout and components does not adjust dynamically across different devices. For now, the design is best viewed on standard desktop resolutions.
+Another future enhancement will be to address responsiveness, which is only included in the design of the home page. Currently, the layout and components does not adjust dynamically across different devices on the lyrics pages. For now, the design is best viewed on standard desktop resolutions.
