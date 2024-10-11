@@ -35,13 +35,13 @@ const Home = () => {
 	if (error) return <p>{error}</p>;
 
 	return (
-		<>
+		<div className="homeComponents">
 			<SearchBar songs={songs} setSearchedSongs={setSearchedSongs} />
 			<div className="appContainer">
 				<Filter onGenreChange={handleGenreChange} />
 				<AllSongsList songs={searchedSongs} genres={selectedGenres} />
 			</div>
-		</>
+		</div>
 	);
 };
 
