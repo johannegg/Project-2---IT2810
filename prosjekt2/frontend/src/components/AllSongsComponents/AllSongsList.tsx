@@ -29,8 +29,10 @@ export function AllSongsList({ songs, genres }: AllSongsListProps) {
 				<table className="songTable">
 					{filteredSongs.map((song) => (
 						<tr key={song.id} className="tableRow" onClick={() => routeChange(song)}>
-							<td className="titleCell">{song.title}</td>
-							<td>{song.artist}</td>
+							<td className="title-artist-cell">
+								<span className="titleCell">{song.title}</span>
+								<span className="artistCell">{song.artist}</span>
+            				</td>
 							<td>{song.year}</td>
 							<td className="viewsCell">
 								<FaEye style={{ marginRight: "5px" }} />
