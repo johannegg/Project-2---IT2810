@@ -37,6 +37,7 @@ body {
 	overflow-x: hidden;
 	justify-content: center;
 	background-color: #eaf2d7;
+	overflow-y: scroll;
 }
 
 h1 {
