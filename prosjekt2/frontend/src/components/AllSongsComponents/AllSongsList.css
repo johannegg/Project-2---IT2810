@@ -1,11 +1,11 @@
 .songContainer {
-  margin-left: 20px;
-  margin-right: 20px;
-  padding: 20px;
-  border-radius: 10px;
-  box-shadow: 0 4px 8px 0 #00000033;
-  width: 700px;
-  background-image: linear-gradient(to right, var(--theme-dark-green) , Var(--theme-green));
+	margin-left: 20px;
+	margin-right: 20px;
+	padding: 20px;
+	border-radius: 10px;
+	box-shadow: 0 4px 8px 0 #00000033;
+	width: 100%;
+	background-image: linear-gradient(to right, var(--theme-dark-green), Var(--theme-green));
 }
 .songTable {
 	width: 100%;
@@ -14,24 +14,24 @@
 }
 
 .tableRow {
-  border-bottom: 1px solid var(--theme-darker-green);
-  text-align: left;
-  font-size: medium;
+	border-bottom: 1px solid var(--theme-darker-green);
+	text-align: left;
+	font-size: medium;
 }
 
 .tableRow:hover {
-  background-color: var(--theme-darker-green);
+	background-color: var(--theme-darker-green);
 }
 
 .titleCell {
-  font-weight: 500;
+	font-weight: 500;
 }
 
 .viewsCell {
-  font-size: small;
+	font-size: small;
 }
 
 td {
-  padding-left: 5px;
-  padding-right: 5px;
+	padding-left: 5px;
+	padding-right: 5px;
 }

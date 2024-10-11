@@ -1,5 +1,5 @@
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
-import Home from "./pages/Home";
+import Home from "./pages/Home/Home";
 import Favorites from "./pages/Favorites";
 import Playlists from "./pages/Playlists";
 import "./App.css";
@@ -11,8 +11,10 @@ function App() {
 	return (
 		<>
 			<Router>
-				<Header />
-				<NavBar />
+				<section className="headerContainer">
+					<Header />
+					<NavBar />
+				</section>
 				<Routes>
 					<Route path="/" element={<Home />} />
 					<Route path="/favorites" element={<Favorites />} />
