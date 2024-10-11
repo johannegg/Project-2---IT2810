@@ -26,7 +26,14 @@ You can filter songs based on song genres, by usig the filter menu in the "Home"
 ### Navigation
 You can navigate between the pages "Home", "Favorited songs" and "Your Playlists". "Favorited songs" and "Your playlists" are currently empty. We will implement functionality for these soon.
 
-## Next steps ##
+## Data
+### The dataset
+The dataset we have chosen is from genius and after some manipulation it includes 24 753 songs. The information on each song is title, artist, genre, year, views (how many times someone have looked it up on genius) and songlyrics. We have also added an id for each song. The format is the same as the data we have mocked in ./public/mockdata.json. 
+
+### Backend
+We have talked about looking into GraphQL and Neo4j for backend, but have not started to implement this yet. 
+
+## Next steps
 Next, we will implement some more functionalities, that makes it possible for the user to:
 - Search after songs by title or artist
 - Sort songs by titles or artists
@@ -34,6 +41,6 @@ Next, we will implement some more functionalities, that makes it possible for th
 - Favorite songs
 - Make own playlists
 
-Another future enhancement will be to address responsiveness, which is not yet included in the design. Currently, the layout and components does not adjust dynamically across different devices. For now, the design is best viewed on standard desktop resolutions.
+We will also make sure to increment "views" when someone views a song.
 
-We will also implemant a database and create a proper backend.
+Another future enhancement will be to address responsiveness, which is not yet included in the design. Currently, the layout and components does not adjust dynamically across different devices. For now, the design is best viewed on standard desktop resolutions.
