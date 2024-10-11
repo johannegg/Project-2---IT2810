@@ -7,6 +7,7 @@
     text-align: left;
     display: inline-block;
     min-width: 90px;
+    color: #493843;
 }
 
 .filterRow {
@@ -19,4 +20,45 @@
 	padding: 0;
 	font-size: 1.5em;
 	font-weight: 500;
+}
+
+.filterRow input {
+    background-color:aqua;
+    color: #493843;
+}
+
+input[type="checkbox"] {
+    accent-color: #493843;
+    color: #493843;
+}
+  
+
+@media (max-width: 700px) {
+    .filterContainer {
+        margin-bottom: 15px;
+        align-self: flex-start;
+        width: 90%;
+        margin-right: 20px;
+        border-color: var(--theme-dark-green);
+        border-style: solid;
+        background-color: transparent;
+    }
+
+    .filterContainer h2 {
+        font-size: 1.0rem;
+    }
+
+    .filterContainer label {
+        font-size: 1.0rem;
+    }
+
+    .categories {
+        display: flex;
+        justify-content: space-between;
+        flex-basis: auto;
+    }
+}
+
+input[type="checkbox"] {
+    background: #990000;    
 }

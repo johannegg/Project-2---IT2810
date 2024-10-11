@@ -50,17 +50,19 @@ export function Filter({ onGenreChange }: FilterProps) {
     <> 
       <section className="filterContainer">
         <h2>Genre</h2>
-        {uniqueGenres.map((genre, index) => (
-          <div className="filterRow" key={index}>
-            <input 
-              type="checkbox" 
-              id={genre} 
-              checked={selectedGenres.includes(genre)} 
-              onChange={() => handleGenreChange(genre)}
-            />
-            <label htmlFor={genre}>{genre.charAt(0).toUpperCase() + genre.slice(1)}</label>
-          </div>
-        ))}
+        <section className="categories">
+          {uniqueGenres.map((genre, index) => (
+            <div className="filterRow" key={index}>
+              <input 
+                type="checkbox" 
+                id={genre} 
+                checked={selectedGenres.includes(genre)} 
+                onChange={() => handleGenreChange(genre)}
+                />
+              <label htmlFor={genre}>{genre.charAt(0).toUpperCase() + genre.slice(1)}</label>
+            </div>
+          ))}
+        </section>
       </section>
     </>
   );
