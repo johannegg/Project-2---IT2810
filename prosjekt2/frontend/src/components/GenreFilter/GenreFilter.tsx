@@ -6,7 +6,7 @@ interface FilterProps {
   onGenreChange: (selectedGenres: string[]) => void;
 }
 
-export function Filter({ onGenreChange }: FilterProps) {
+export function GenreFilter({ onGenreChange }: FilterProps) {
   const [data, setData] = useState<Song[]>([]);
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
