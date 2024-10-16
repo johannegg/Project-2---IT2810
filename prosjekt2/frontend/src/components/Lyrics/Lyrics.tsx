@@ -2,6 +2,7 @@ import { FaEye } from "react-icons/fa";
 import { Song } from "../../utils/FetchMockData";
 import "./Lyrics.css"
 import { formatViews } from "../../utils/FormatViews";
+import FavoriteButton from "../FavoriteButton/FavoriteButton";
 
 
 const Lyric = (songData: Song) => {
@@ -9,6 +10,7 @@ const Lyric = (songData: Song) => {
     
     return (
         <div className="lyrics">
+            <FavoriteButton song={songData} size="large"/>
             <h1>{songData.title}</h1>
             <h2>{songData.artist}</h2>   
             <section className="songInfo">
