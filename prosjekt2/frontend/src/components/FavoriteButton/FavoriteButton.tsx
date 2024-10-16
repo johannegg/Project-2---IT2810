@@ -7,9 +7,10 @@ import { Song } from "../../utils/FetchMockData";
 
 type FavoriteProps = {
     song: Song;
+    size?: "small" | "large";
 };
   
-const FavoriteButton = ({song}: FavoriteProps) => {
+const FavoriteButton = ({song, size = "small"}: FavoriteProps) => {
     const [hearted, setHearted] = useState<boolean>(false);
 
     useEffect(() => {
@@ -35,13 +36,15 @@ const FavoriteButton = ({song}: FavoriteProps) => {
         }
         setHearted(!hearted);
     }
+
+    const heartSize = size === "large" ? "xl" : "lg";
     
     return (
-        <button className="favoriteButton" onClick={(e) => handleFavorite(e)}>
-            {hearted ? (
-                <FontAwesomeIcon icon={heartSolid} style={{color: "#E27396"}}/>
-            ) : (
-                <FontAwesomeIcon icon={heartRegular} style={{color: "#E27396"}}/>
+        <button className={`favoriteButton ${heartSize}`} onClick={(e) => handleFavorite(e)}>
+            {hearted ? 
+                <FontAwesomeIcon icon={heartSolid} style={{color: "#E27396"}} size={heartSize}/>
+             : (
+                <FontAwesomeIcon icon={heartRegular} style={{color: "#E27396"}} size={heartSize}/>
             )
             }
         </button>
