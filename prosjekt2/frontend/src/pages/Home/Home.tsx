@@ -2,7 +2,8 @@ import { useEffect, useState } from "react";
 import { AllSongsList } from "../../components/AllSongsComponents/AllSongsList";
 import { SearchBar } from "../../components/SearchBar/SearchBar";
 import { fetchSongs, Song } from "../../utils/FetchMockData";
-import { Filter } from "../../components/GenreFilter/GenreFilter";
+import { GenreFilter } from "../../components/GenreFilter/GenreFilter";
+import ViewsFilter from "../../components/ViewsFilter/ViewsFilter";
 import "./Home.css";
 
 const Home = () => {
@@ -38,7 +39,8 @@ const Home = () => {
 		<div className="homeComponents">
 			<SearchBar songs={songs} setSearchedSongs={setSearchedSongs} />
 			<div className="appContainer">
-				<Filter onGenreChange={handleGenreChange} />
+				<GenreFilter onGenreChange={handleGenreChange} />
+				<ViewsFilter />
 				<AllSongsList songs={searchedSongs} genres={selectedGenres} />
 			</div>
 		</div>
