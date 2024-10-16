@@ -4,6 +4,7 @@ import { Song } from "../../utils/FetchMockData";
 import { formatViews } from "../../utils/FormatViews";
 import "./AllSongsList.css";
 import { useNavigate } from "react-router-dom";
+import FavoriteButton from "../FavoriteButton/FavoriteButton";
 
 type AllSongsListProps = {
 	songs: Song[];
@@ -38,6 +39,7 @@ export function AllSongsList({ songs, genres }: AllSongsListProps) {
 								<FaEye style={{ marginRight: "5px" }} />
 								{formatViews(song.views)}
 							</td>
+              <td><FavoriteButton song={song}/></td>
 						</tr>
 					))}
 				</table>
