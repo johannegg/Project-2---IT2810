@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { AllSongsList } from "../../components/AllSongsComponents/AllSongsList";
 import { SearchBar } from "../../components/SearchBar/SearchBar";
 import { fetchSongs, Song } from "../../utils/FetchMockData";
-import { Filter } from "../../components/Filter/Filter";
+import { Filter } from "../../components/GenreFilter/GenreFilter";
 import "./Home.css";
 
 const Home = () => {

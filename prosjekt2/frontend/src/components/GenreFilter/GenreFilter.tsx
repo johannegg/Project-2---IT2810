@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { Song, fetchSongs } from "../../utils/FetchMockData";
-import "./Filter.css";
+import "./GenreFilter.css";
 
 interface FilterProps {
   onGenreChange: (selectedGenres: string[]) => void;
