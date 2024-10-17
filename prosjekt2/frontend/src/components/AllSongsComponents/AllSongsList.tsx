@@ -5,6 +5,7 @@ import { formatViews } from "../../utils/FormatViews";
 import "./AllSongsList.css";
 import { useNavigate } from "react-router-dom";
 import FavoriteButton from "../FavoriteButton/FavoriteButton";
+import { routeChange } from "../../utils/SongRouteChange";
 
 type AllSongsListProps = {
 	songs: Song[];
@@ -13,11 +14,6 @@ type AllSongsListProps = {
 
 export function AllSongsList({ songs, genres }: AllSongsListProps) {
 	const navigate = useNavigate();
-
-	const routeChange = (song: Song) => {
-		const path = `/${song.artist.toLowerCase().replace(/ /g, "-")}/${song.title.toLowerCase().replace(/ /g, "-")}`;
-		navigate(path, { state: song });
-	};
 
 	const filteredSongs =
 		genres.length > 0 ? songs.filter((song) => genres.includes(song.genre)) : songs;
@@ -29,7 +25,7 @@ export function AllSongsList({ songs, genres }: AllSongsListProps) {
 			) : (
 				<table className="songTable">
 					{filteredSongs.map((song) => (
-						<tr key={song.id} className="tableRow" onClick={() => routeChange(song)}>
+						<tr key={song.id} className="tableRow" onClick={() => routeChange(song, navigate)}>
 							<td className="title-artist-cell">
 								<span className="titleCell">{song.title}</span>
 								<span className="artistCell">{song.artist}</span>
@@ -39,7 +35,7 @@ export function AllSongsList({ songs, genres }: AllSongsListProps) {
 								<FaEye style={{ marginRight: "5px" }} />
 								{formatViews(song.views)}
 							</td>
-              <td><FavoriteButton song={song}/></td>
+            				<td><FavoriteButton song={song}/></td>
 						</tr>
 					))}
 				</table>
