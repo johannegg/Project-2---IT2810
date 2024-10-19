@@ -6,7 +6,6 @@
     box-shadow: 0 4px 8px 0 #00000033;
     text-align: left;
     display: inline-block;
-    min-width: 90px;
     color: #493843;
 }
 
@@ -30,18 +29,18 @@
 input[type="checkbox"] {
     accent-color: #493843;
     color: #493843;
+    cursor: pointer;
 }
   
 
 @media (max-width: 700px) {
     .filterContainer {
+        margin: auto;
         margin-bottom: 15px;
-        align-self: flex-start;
-        width: 90%;
-        margin-right: 20px;
-        border-color: var(--theme-dark-green);
-        border-style: solid;
+        border: solid 3px var(--theme-dark-green);
         background-color: transparent;
+        width: 95%;
+        max-width: 400px;
     }
 
     .filterContainer h2 {
@@ -57,8 +56,4 @@ input[type="checkbox"] {
         justify-content: space-between;
         flex-basis: auto;
     }
-}
-
-input[type="checkbox"] {
-    background: #990000;    
 }

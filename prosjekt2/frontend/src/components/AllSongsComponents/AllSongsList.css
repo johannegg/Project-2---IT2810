@@ -1,28 +1,23 @@
 .songContainer {
-	margin-left: 20px;
-	margin-right: 20px;
-	margin-bottom: 30px;
-	padding: 20px;
-	border-radius: 10px;
-	box-shadow: 0 4px 8px 0 #00000033;
 	width: 100%;
-	background-image: linear-gradient(to right, var(--theme-dark-green), Var(--theme-green));
 	color: #493843;
+	position: relative;
 }
+
 .songTable {
 	width: 100%;
 	border-collapse: collapse;
-	margin-top: 20px;
 }
 
 .tableRow {
 	border-bottom: 1px solid var(--theme-darker-green);
 	text-align: left;
-	font-size: medium;
+	font-size: x-large;
 }
 
 .tableRow:hover {
 	background-color: var(--theme-darker-green);
+	cursor: pointer;
 }
 
 .titleCell {
@@ -41,21 +36,15 @@ td {
 
 .title-artist-cell {
 	display: grid;
-    grid-template-columns: 1fr 1fr;
-    column-gap: 10px;
+	grid-template-columns: 1fr 1fr;
+	column-gap: 10px;
 	align-items: center;
 }
 
 @media (max-width: 600px) {
 
-	.songContainer {
+	.tableRow {
+		font-size: large;
+	}
 
-	}
-  
-	.title-artist-cell {
-	  display: flex;
-	  flex-direction: column;
-	  align-items: flex-start;
-	  max-width: 200px;
-	}
 }

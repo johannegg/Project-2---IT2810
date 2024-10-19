@@ -4,7 +4,7 @@
     padding: 10px;
     margin: 10px 0;
     border-radius: 10px;
-    background-color: #EA9AB2; 
+    background-color: var(--theme-pink); 
     box-shadow: 0 4px 8px 0 #00000033;
 }
 
@@ -29,7 +29,7 @@ select {
 
 select:hover,
 select:focus {
-    border-color: #888;  
+    border-color: #888;
 }
 
 option {
@@ -42,4 +42,14 @@ option {
     margin-bottom: 0px;
     font-weight: normal;
     text-align: left; 
+}
+
+@media (max-width: 700px) {
+    .sort-container {
+        background-color: transparent;
+        border: solid 3px var(--theme-pink);
+        width: 95%;
+        max-width: 400px;
+        margin: auto;
+    }
 }

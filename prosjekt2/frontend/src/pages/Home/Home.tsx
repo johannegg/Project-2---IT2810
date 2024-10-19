@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { AllSongsList } from "../../components/AllSongsComponents/AllSongsList";
 import { SearchBar } from "../../components/SearchBar/SearchBar";
-import { fetchSongs, Song } from "../../utils/FetchMockData";
+import { fetchSongs, type Song } from "../../utils/FetchMockData";
 import { Filter } from "../../components/Filter/Filter";
 import "./Home.css";
 import Sort from "../../components/Sort/Sort";
@@ -46,7 +46,9 @@ const Home = () => {
 
     return (
         <div className="homeComponents">
-            <SearchBar songs={songs} setSearchedSongs={setSearchedSongs} />
+            <div className="searchBarContainer">
+                <SearchBar songs={songs} setSearchedSongs={setSearchedSongs} />
+            </div>
             <div className="appContainer">
 				
                 <div className="filter-sort-container">

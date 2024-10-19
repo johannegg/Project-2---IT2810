@@ -31,9 +31,16 @@
   
   .header-title {
     font-family: 'Roboto', sans-serif;
-    font-size: 28px; 
+    font-size: 40px;
     color: #333; 
     font-weight: bold;
     margin: 0; 
   }
+
+  @media (max-width: 700px) {
+    .header-title {
+      font-size: 35px;
+    }
+  }
+
   
