@@ -2,9 +2,7 @@ import { useEffect, useState } from "react";
 import { AllSongsList } from "../../components/AllSongsComponents/AllSongsList";
 import { SearchBar } from "../../components/SearchBar/SearchBar";
 import { fetchSongs, type Song } from "../../utils/FetchMockData";
-import { Filter } from "../../components/Filter/Filter";
 import "./Home.css";
-import Sort from "../../components/Sort/Sort";
 import { Sidebar } from "../../components/SideBar/SideBar";
 
 const Home = () => {
@@ -14,15 +12,12 @@ const Home = () => {
 	const [loading, setLoading] = useState<boolean>(true);
 	const [selectedGenres, setSelectedGenres] = useState<string[]>([]);
 	const [sortOption, setSortOption] = useState<string>("title-asc");
-	const [sortedSongs, setSortedSongs] = useState<Song[]>([]);
 
 	useEffect(() => {
 		const loadData = async () => {
 			try {
 				const data = await fetchSongs();
 				setSongs(data);
-				setSearchedSongs(data);
-				setSortedSongs(data);
 			} catch {
 				setError("Failed to load data");
 			} finally {
@@ -39,7 +34,7 @@ const Home = () => {
 
 	const handleSortChange = (newSortOption: string, sortedSongs: Song[]) => {
 		setSortOption(newSortOption);
-		setSortedSongs(sortedSongs);
+		setSongs(sortedSongs);
 	};
 
 	if (loading) return <p>Loading songs...</p>;
@@ -47,13 +42,18 @@ const Home = () => {
 
 	return (
 		<>
-			<Sidebar onGenreChange={handleGenreChange} sortOption={sortOption} onSortChange={handleSortChange} songs={sortedSongs}/>
+			<Sidebar
+				onGenreChange={handleGenreChange}
+				sortOption={sortOption}
+				onSortChange={handleSortChange}
+				songs={searchedSongs}
+			/>
 			<div className="homeComponents">
 				<div className="searchBarContainer">
 					<SearchBar songs={songs} setSearchedSongs={setSearchedSongs} />
 				</div>
 				<div className="appContainer">
-					<AllSongsList songs={sortedSongs} genres={selectedGenres} />
+					<AllSongsList songs={searchedSongs} genres={selectedGenres} />
 				</div>
 			</div>
 		</>
