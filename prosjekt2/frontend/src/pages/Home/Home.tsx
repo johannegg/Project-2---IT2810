@@ -12,6 +12,7 @@ const Home = () => {
 	const [loading, setLoading] = useState<boolean>(true);
 	const [selectedGenres, setSelectedGenres] = useState<string[]>([]);
 	const [sortOption, setSortOption] = useState<string>("title-asc");
+    const [isSidebarOpen, setIsSidebarOpen] = useState<boolean>(false);
 
 	useEffect(() => {
 		const loadData = async () => {
@@ -37,6 +38,10 @@ const Home = () => {
 		setSongs(sortedSongs);
 	};
 
+    const handleSidebarToggle = (isOpen: boolean) => {
+		setIsSidebarOpen(isOpen);
+	};
+
 	if (loading) return <p>Loading songs...</p>;
 	if (error) return <p>{error}</p>;
 
@@ -47,8 +52,9 @@ const Home = () => {
 				sortOption={sortOption}
 				onSortChange={handleSortChange}
 				songs={searchedSongs}
+                onToggle={handleSidebarToggle}
 			/>
-			<div className="homeComponents">
+			<div className={`homeComponents ${isSidebarOpen ? "shifted" : ""}`}>
 				<div className="searchBarContainer">
 					<SearchBar songs={songs} setSearchedSongs={setSearchedSongs} />
 				</div>

@@ -1,12 +1,12 @@
 .filterContainer {
     margin: 0;
     padding: 10px;
-    background-color: var(--theme-dark-green);
     border-radius: 10px;
     box-shadow: 0 4px 8px 0 #00000033;
     text-align: left;
     display: inline-block;
     color: #493843;
+    width: 200px;
 }
 
 .filterRow {
@@ -30,8 +30,8 @@ input[type="checkbox"] {
     accent-color: #493843;
     color: #493843;
     cursor: pointer;
+    margin: 10px;
 }
-  
 
 @media (max-width: 700px) {
     .filterContainer {

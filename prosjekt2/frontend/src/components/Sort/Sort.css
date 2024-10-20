@@ -1,18 +1,10 @@
 .sort-container {
     display: inline-block;
-    font-family: Arial, sans-serif;
     padding: 10px;
     margin: 10px 0;
     border-radius: 10px;
-    background-color: var(--theme-pink); 
     box-shadow: 0 4px 8px 0 #00000033;
-}
-
-label {
-    font-size: 16px;
-    font-weight: bold;
-    color: #333;  
-    margin-right: 10px;
+    width: 200px;
 }
 
 select {
@@ -40,8 +32,14 @@ option {
 .sort-heading{
     margin-top: 0px;
     margin-bottom: 0px;
-    font-weight: normal;
     text-align: left; 
+    font-weight: normal;
+}
+
+.sort-options {
+    margin: 10px;
+    border: none;
+    box-shadow: 0 4px 8px 0 #00000033;
 }
 
 @media (max-width: 700px) {

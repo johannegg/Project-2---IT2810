@@ -1,5 +1,5 @@
-import React from "react";
-import { Song } from "../../utils/FetchMockData";
+import type React from "react";
+import type { Song } from "../../utils/FetchMockData";
 import "./Sort.css";
 
 type SortProps = {
@@ -32,8 +32,8 @@ const Sort: React.FC<SortProps> = ({ songs, sortOption, onSortChange }) => {
 
     return (
         <div className="sort-container">
-            <h2 className="sort-heading">Sort by:</h2>
-            <select id="sort-options" value={sortOption} onChange={handleSortChange}>
+            <h2 className="sort-heading">Sort by</h2>
+            <select className="sort-options" value={sortOption} onChange={handleSortChange}>
                 <option value="title-asc">Title A-Z</option>
                 <option value="title-desc">Title Z-A</option>
                 <option value="artist-asc">Artist A-Z</option>
