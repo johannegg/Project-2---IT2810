@@ -35,12 +35,7 @@ input[type="checkbox"] {
 
 @media (max-width: 700px) {
     .filterContainer {
-        margin: auto;
-        margin-bottom: 15px;
-        border: solid 3px var(--theme-dark-green);
-        background-color: transparent;
-        width: 95%;
-        max-width: 400px;
+        width: 90%;
     }
 
     .filterContainer h2 {
@@ -50,10 +45,11 @@ input[type="checkbox"] {
     .filterContainer label {
         font-size: 1.0rem;
     }
+}
 
-    .categories {
-        display: flex;
-        justify-content: space-between;
-        flex-basis: auto;
+@media (max-width: 400px) {
+    .filterContainer {
+        width: 190px;
     }
+
 }

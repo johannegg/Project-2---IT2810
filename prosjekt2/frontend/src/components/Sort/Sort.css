@@ -44,10 +44,14 @@ option {
 
 @media (max-width: 700px) {
     .sort-container {
-        background-color: transparent;
-        border: solid 3px var(--theme-pink);
-        width: 95%;
-        max-width: 400px;
-        margin: auto;
+        width: 90%;
     }
+}
+
+
+@media (max-width: 400px) {
+    .sort-container {
+        width: 190px;
+    }
+
 }

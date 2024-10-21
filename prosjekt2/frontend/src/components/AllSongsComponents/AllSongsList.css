@@ -1,7 +1,9 @@
 .songContainer {
-	width: 100%;
+	width: 700px;
 	color: #493843;
 	position: relative;
+	max-width: 700px;
+	margin: 0 auto;
 }
 
 .songTable {
@@ -13,6 +15,7 @@
 	border-bottom: 1px solid var(--theme-darker-green);
 	text-align: left;
 	font-size: x-large;
+	width: 100%;
 }
 
 .tableRow:hover {
@@ -22,6 +25,7 @@
 
 .titleCell {
 	font-weight: 500;
+	width: 100%;
 }
 
 .viewsCell {
@@ -41,10 +45,40 @@ td {
 	align-items: center;
 }
 
-@media (max-width: 600px) {
+@media (max-width: 730px) {
+	.songContainer {
+		width: 590px;
+	}
+}
 
+@media (max-width: 650px) {
 	.tableRow {
 		font-size: large;
 	}
 
+	.songContainer {
+		width: 490px;
+	}
+}
+
+@media (max-width: 520px) {
+	.songContainer {
+		width: 400px;
+	}
+}
+
+@media (max-width: 450px) {
+	.songContainer {
+		width: 350px;
+	}
+
+	.tableRow {
+		font-size: medium;
+	}
+}
+
+@media (max-width: 400px) {
+	.songContainer {
+		width: 330px;
+	}
 }

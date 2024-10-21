@@ -50,3 +50,22 @@
 		width: 90%;
 	}
 }
+
+@media (max-width: 500px) {
+	.searchInput {
+		width: 400px;
+	}
+}
+
+@media (max-width: 450px) {
+	.searchInput {
+		width: 250px;
+		margin: auto;
+		font-size: medium;
+	}
+
+	.iconContainer {
+		left: 72px;
+}
+
+

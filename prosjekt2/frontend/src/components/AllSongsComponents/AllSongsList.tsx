@@ -1,6 +1,6 @@
 import React from "react";
 import { FaEye } from "react-icons/fa";
-import { Song } from "../../utils/FetchMockData";
+import type { Song } from "../../utils/FetchMockData";
 import { formatViews } from "../../utils/FormatViews";
 import "./AllSongsList.css";
 import { useNavigate } from "react-router-dom";
