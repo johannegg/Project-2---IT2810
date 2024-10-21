@@ -9,14 +9,20 @@ type SidebarProps = {
 	sortOption: string;
 	onSortChange: (newSort: string, sortedSongs: Song[]) => void;
 	songs: Song[];
-  onToggle: (isOpen: boolean) => void;
+	onToggle: (isOpen: boolean) => void;
 };
-export function Sidebar({ onGenreChange, sortOption, onSortChange, songs, onToggle }: SidebarProps) {
+export function Sidebar({
+	onGenreChange,
+	sortOption,
+	onSortChange,
+	songs,
+	onToggle,
+}: SidebarProps) {
 	const [isOpen, setIsOpen] = useState(false);
 
 	const toggleMenu = () => {
 		setIsOpen(!isOpen);
-    onToggle(!isOpen); // Notify the parent component about the toggle
+		onToggle(!isOpen); // Notify the parent component about the toggle
 	};
 
 	return (

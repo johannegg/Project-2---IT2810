@@ -1,12 +1,12 @@
 .filterContainer {
-    margin: 0;
-    padding: 10px;
-    border-radius: 10px;
-    box-shadow: 0 4px 8px 0 #00000033;
-    text-align: left;
-    display: inline-block;
-    width: 200px;
-    background-color: white;
+	margin: 0;
+	padding: 10px;
+	border-radius: 10px;
+	box-shadow: 0 4px 8px 0 #00000033;
+	text-align: left;
+	display: inline-block;
+	width: 200px;
+	background-color: white;
 }
 
 .filterRow {
@@ -22,33 +22,32 @@
 }
 
 .filterRow input {
-    background-color:aqua;
-    color: #493843;
+	background-color: aqua;
+	color: #493843;
 }
 
 input[type="checkbox"] {
-    accent-color: #493843;
-    color: #493843;
-    cursor: pointer;
-    margin: 10px;
+	accent-color: #493843;
+	color: #493843;
+	cursor: pointer;
+	margin: 10px;
 }
 
 @media (max-width: 600px) {
-    .filterContainer {
-        width: 300px;
-    }
+	.filterContainer {
+		width: 300px;
+	}
 }
 
 @media (max-width: 400px) {
-    .filterContainer {
-        width: 190px;
-    }
-
+	.filterContainer {
+		width: 190px;
+	}
 }
 
 @media (prefers-color-scheme: dark) {
-    .filterContainer {
-        background-color: var(--theme-almost-black);
-        color: white;
-    }
+	.filterContainer {
+		background-color: var(--theme-almost-black);
+		color: white;
+	}
 }

@@ -29,13 +29,15 @@ export function AllSongsList({ songs, genres }: AllSongsListProps) {
 							<td className="title-artist-cell">
 								<span className="titleCell">{song.title}</span>
 								<span className="artistCell">{song.artist}</span>
-            				</td>
+							</td>
 							<td>{song.year}</td>
 							<td className="viewsCell">
 								<FaEye style={{ marginRight: "5px" }} />
 								{formatViews(song.views)}
 							</td>
-            				<td><FavoriteButton song={song}/></td>
+							<td>
+								<FavoriteButton song={song} />
+							</td>
 						</tr>
 					))}
 				</table>
