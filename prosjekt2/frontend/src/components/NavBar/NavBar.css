@@ -61,3 +61,23 @@
 		font-size: 12px;
 	}
 }
+
+@media (prefers-color-scheme: dark) {
+	.navbar {
+		background-color: var(--theme-even-darker-green);
+	}
+
+	.navbar-menu li a{
+		color: white;
+	}
+	.navbar-menu li a.active{
+		color: white;
+	}
+
+	.navbar-menu li a:hover{
+		color: var(--theme-light-grey);
+	}
+	.navbar-menu li a.active:hover{
+		color: var(--theme-light-grey);
+	}
+}

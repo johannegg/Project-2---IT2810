@@ -27,10 +27,6 @@
 	color: var(--theme-green);
 }
 
-.searchButton:focus {
-	outline: none;
-}
-
 .searchIcon {
 	font-size: 19px;
 	color: var(--theme-light-green);
@@ -63,5 +59,19 @@
 
 	.iconContainer {
 		left: 72px;
+	}
+}
+
+@media (prefers-color-scheme: dark) {
+	.searchInput:focus {
+		border-color: var(--theme-darker-green);
+	}
+
+	.searchIcon {
+		color: var(--theme-darker-green);
+	}
+
+	.searchContainer:focus-within .searchIcon {
+		color: var(--theme-darker-green);
 	}
 }

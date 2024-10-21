@@ -17,6 +17,12 @@
 	--theme-light-green: #e3f0c8;
 	--theme-lighter-green: #faffed;
 	--theme-pink: #ea9ab2;
+
+	--theme-light-grey: #d1cfcb;
+	--theme-dark-grey: #333;
+	--theme-dark-pink: #dd5b82;
+	--theme-even-darker-green: #8da656;
+	--theme-almost-black: rgb(28, 28, 28);
 }
 
 a {
@@ -54,7 +60,7 @@ button {
 }
 
 @media (prefers-color-scheme: light) {
-	:root {
+	/* :root {
 		color: #213547;
 	}
 	a:hover {
@@ -62,5 +68,5 @@ button {
 	}
 	button {
 		background-color: #f9f9f9;
-	}
+	} */
 }

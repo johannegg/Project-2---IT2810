@@ -32,7 +32,7 @@
 .header-title {
 	font-family: "Roboto", sans-serif;
 	font-size: 40px;
-	color: #333;
+	color: var(--theme-dark-grey);
 	font-weight: bold;
 	margin: 0;
 }
@@ -52,5 +52,15 @@
 @media (max-width: 420px) {
 	.header-title {
 		font-size: 20px;
+	}
+}
+
+@media (prefers-color-scheme: dark) {
+	.header {
+		background-color: var(--theme-even-darker-green);
+	}
+
+	.header-title {
+		color: white;
 	}
 }

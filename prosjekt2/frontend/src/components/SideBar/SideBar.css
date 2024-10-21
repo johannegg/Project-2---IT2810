@@ -15,7 +15,7 @@
 .hamburger-icon .line {
   width: 25px;
   height: 3px;
-  background-color: #333;
+  background-color: var(--theme-dark-grey);
   transition: transform 0.3s ease, opacity 0.3s ease;
 }
 
@@ -78,5 +78,11 @@
   .hamburger-icon {
     top: 10px;
     left: 5px;
+  }
+}
+
+@media (prefers-color-scheme:dark) {
+  .sidebar {
+    background-color: var(--theme-dark-pink);
   }
 }

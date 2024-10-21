@@ -46,3 +46,10 @@ input[type="checkbox"] {
     }
 
 }
+
+@media (prefers-color-scheme: dark) {
+    .filterContainer {
+        background-color: var(--theme-almost-black);
+        color: white;
+    }
+}

@@ -14,7 +14,7 @@ select {
     border-radius: 5px;
     background-color: #fff; 
     font-size: 16px;
-    color: #333;  
+    color: var(--theme-dark-grey);
     cursor: pointer;
     outline: none;
     transition: border-color 0.3s;
@@ -27,7 +27,7 @@ select:focus {
 
 option {
     font-size: 16px;
-    color: #333;
+    color: var(--theme-dark-grey);
 }
 
 .sort-heading{
@@ -55,4 +55,10 @@ option {
         width: 190px;
     }
 
+}
+
+@media (prefers-color-scheme: dark) {
+    .sort-container {
+        background-color: var(--theme-almost-black);
+    }
 }

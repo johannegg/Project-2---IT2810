@@ -83,3 +83,9 @@ td {
 		width: 330px;
 	}
 }
+
+@media (prefers-color-scheme: dark){
+	.tableRow {
+		border-color: var(--theme-darker-green);
+	}
+}
