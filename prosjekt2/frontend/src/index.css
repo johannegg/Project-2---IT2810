@@ -5,7 +5,6 @@
 
 	color-scheme: light dark;
 	color: rgba(255, 255, 255, 0.87);
-	background-color: #eaf2d7;
 
 	font-synthesis: none;
 	text-rendering: optimizeLegibility;
@@ -37,7 +36,6 @@ body {
 	min-height: 100vh;
 	overflow-x: hidden;
 	justify-content: center;
-	background-color: #eaf2d7;
 	overflow-y: scroll;
 }
 
@@ -58,7 +56,6 @@ button {
 @media (prefers-color-scheme: light) {
 	:root {
 		color: #213547;
-		background-color: #eaf2d7;
 	}
 	a:hover {
 		color: #747bff;

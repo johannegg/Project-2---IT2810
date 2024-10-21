@@ -1,6 +1,5 @@
 .songContainer {
 	width: 700px;
-	color: #493843;
 	position: relative;
 	max-width: 700px;
 	margin: 0 auto;
@@ -12,15 +11,17 @@
 }
 
 .tableRow {
-	border-bottom: 1px solid var(--theme-darker-green);
+	border-bottom: 1px solid var(--theme-green);
 	text-align: left;
 	font-size: x-large;
 	width: 100%;
 }
 
 .tableRow:hover {
-	background-color: var(--theme-darker-green);
+	background-color: var(--theme-green);
 	cursor: pointer;
+	transition-duration: 0.4s;
+	transition-timing-function: ease;
 }
 
 .titleCell {

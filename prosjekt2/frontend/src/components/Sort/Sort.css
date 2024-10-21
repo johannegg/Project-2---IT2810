@@ -5,6 +5,7 @@
     border-radius: 10px;
     box-shadow: 0 4px 8px 0 #00000033;
     width: 200px;
+    background-color: white;
 }
 
 select {
