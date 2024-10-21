@@ -34,7 +34,8 @@ option {
     margin-top: 0px;
     margin-bottom: 0px;
     text-align: left; 
-    font-weight: normal;
+    font-size: 1.5em;
+	font-weight: 500;
 }
 
 .sort-options {
