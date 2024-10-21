@@ -33,17 +33,9 @@ input[type="checkbox"] {
     margin: 10px;
 }
 
-@media (max-width: 700px) {
+@media (max-width: 600px) {
     .filterContainer {
-        width: 90%;
-    }
-
-    .filterContainer h2 {
-        font-size: 1.0rem;
-    }
-
-    .filterContainer label {
-        font-size: 1.0rem;
+        width: 300px;
     }
 }
 

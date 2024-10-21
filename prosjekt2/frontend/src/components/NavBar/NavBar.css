@@ -55,3 +55,9 @@
     font-size: 14px;
   }
 }
+
+@media (max-width: 420px) {
+	.navbar-menu li {
+		font-size: 12px;
+	}
+}

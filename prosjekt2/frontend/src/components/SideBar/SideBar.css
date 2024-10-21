@@ -68,7 +68,7 @@
   width: 90%;
 }
 
-@media (max-width: 700px) {
+@media (max-width: 600px) {
   .sidebar {
     width: 85%;
   }
