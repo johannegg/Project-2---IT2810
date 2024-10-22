@@ -1,0 +1,69 @@
+.favorites-container {
+  color: #493843;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  margin-top: 50px;
+}
+
+.favorites-container h1 {
+  font-size: 28px;
+  color: #493843;
+  align-self: center;
+  margin: 40px;
+}
+
+.favorites-table {
+	width: 100%;
+	border-collapse: collapse;
+	margin-top: 20px;
+}
+
+.favorites-row {
+	border-bottom: 1px solid var(--theme-darker-green);
+	text-align: left;
+	font-size: medium;
+	cursor: pointer;
+  font-size: 18px;
+}
+
+.favorites-row:hover {
+	background-color: var(--theme-darker-green);
+}
+
+.titleCell {
+	font-weight: 500;
+}
+
+.favorites-publishyear {
+  padding-left: 10px;
+  padding-right: 10px;
+}
+
+.viewsCell {
+	white-space: nowrap;
+}
+
+.favcorites-container td {
+	padding-left: 5px;
+	padding-right: 5px;
+}
+
+.favorites-title-artist-cell {
+	display: grid;
+  grid-template-columns: 1fr 1fr;
+  column-gap: 10px;
+	align-items: center;
+}
+
+@media (max-width: 600px) {
+  
+	.favorites-title-artist-cell {
+	  display: flex;
+	  flex-direction: column;
+	  align-items: flex-start;
+	  max-width: 200px;
+	}
+}
+
+  
