@@ -79,7 +79,7 @@
 		height: 50px;
 		width: 50px;
 	}
-	.icon {
+	.navIcon {
 		font-size: 28px;
 	}
 }
@@ -96,7 +96,7 @@
 	.navText {
 		display: none;
 	}
-	.icon {
+	.navIcon {
 		font-size: xx-large;
 	}
 }
@@ -107,18 +107,20 @@
 	}
 }
 
-@media (max-width: 500px) {
-	.header-title {
-		font-size: 24px;
-	}
-}
-
 @media (max-width: 420px) {
 	.header-title {
 		font-size: 20px;
 	}
 	.header-width {
 		width: 300px;
+	}
+
+	.navButton {
+		margin: 3px;
+	}
+
+	.navIcon {
+		font-size: 24px;
 	}
 }
 
