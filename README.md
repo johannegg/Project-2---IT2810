@@ -2,14 +2,19 @@
 Lyrical Lounge is an applicatin where you can discover new songs. So far, you can filter songs based on different genres and click on them to view song lyrics, release year, genre and views. 
 
 ## Running the project
-If you want to install the project from your computer, clone as normal and then write the following in the terminal:
- 
-`cd prosjekt2`   
-`cd frontend`   
+If you want to install the project from your computer, clone as normal and then write the following in one terminal to start backend:
+
+`cd prosjekt2/backend`   
+`npm install`  
+`npx ts-node src/index.ts`
+
+Then open a new terminal and write the following to start frontend: 
+
+`cd prosjekt2/frontend`   
 `npm install`  
 `npm run dev`
 
-If the webpage doesn't open automatically, copy the link from the terminal (starting with http://localhost:..) and paste in browser. 
+If the webpage doesn't open automatically, copy the link from the terminal (starting with http://localhost:5173) and paste in browser. 
 
 ## Technology  
 Technologies used are mainly TypeScript, React, CSS and HTML. 
