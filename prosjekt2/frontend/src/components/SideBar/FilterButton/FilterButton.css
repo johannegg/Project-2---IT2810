@@ -27,3 +27,18 @@
 		display: none;
 	}
 }
+
+@media (prefers-color-scheme: dark) {
+  .filterButton {
+    color: var(--theme-light-pink);
+    box-shadow: 2px 2px 2px 2px rgba(137, 136, 136, 0.2);
+  }
+
+  .filterButton:hover {
+    background-color: var(--theme-dark-grey);
+  }
+
+  .filterSortIcon {
+    color: var(--theme-pink);
+  }
+}

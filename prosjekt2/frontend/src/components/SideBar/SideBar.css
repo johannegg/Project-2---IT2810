@@ -62,6 +62,6 @@
 
 @media (prefers-color-scheme: dark) {
 	.sidebar {
-		background-color: var(--theme-dark-pink);
+		background-color: var(--theme-even-darker-pink);
 	}
 }

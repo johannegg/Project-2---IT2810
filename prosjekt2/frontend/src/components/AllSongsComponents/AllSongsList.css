@@ -86,6 +86,11 @@ td {
 
 @media (prefers-color-scheme: dark) {
 	.tableRow {
-		border-color: var(--theme-darker-green);
+		border-color: var(--theme-even-darker-green);
+		border-width: 2px;
+	}
+
+	.tableRow:hover {
+		background-color: var(--theme-even-darker-green);
 	}
 }
