@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import './Playlists.css';
 import Playlist from '../../components/Playlist/Playlist';
-import Modal from '../../components/MakePlaylist/MakePlaylist';
+import PlaylistForm from '../../components/PlaylistForm/PlaylistForm';
 
 interface PlaylistData {
 	name: string;
@@ -15,7 +15,7 @@ interface PlaylistData {
 	  { name: 'My playlist 2', backgroundColor: '#ffffff', icon: '🎧' }
 	]);
   
-	const [showModal, setShowModal] = useState(false);
+	const [showForm, setShowForm] = useState(false);
   
 	const addNewPlaylist = (newPlaylistName: string, backgroundColor: string, icon: string) => {
 	  setPlaylists([...playlists, { name: newPlaylistName, backgroundColor, icon }]);
@@ -28,12 +28,12 @@ interface PlaylistData {
   
 	return (
 	  <div className="playlists-page">
-		<button onClick={() => setShowModal(true)} className="new-playlist-button">New Playlist</button>
+		<button onClick={() => setShowForm(true)} className="new-playlist-button">New Playlist</button>
 		<h2>Your Playlists</h2>
   
-		<Modal 
-		  show={showModal} 
-		  onClose={() => setShowModal(false)} 
+		<PlaylistForm
+		  show={showForm} 
+		  onClose={() => setShowForm(false)} 
 		  onSubmit={addNewPlaylist} 
 		/>
   

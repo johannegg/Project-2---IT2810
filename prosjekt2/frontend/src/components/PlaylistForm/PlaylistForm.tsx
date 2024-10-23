@@ -1,13 +1,13 @@
 import React, { useState } from "react";
-import "./MakePlaylist.css";
+import "./PlaylistForm.css";
 
-interface ModalProps {
+interface PlaylistFormProps {
 	show: boolean;
 	onClose: () => void;
 	onSubmit: (playlistName: string, backgroundColor: string, icon: string) => void;
 }
 
-const Modal: React.FC<ModalProps> = ({ show, onClose, onSubmit }) => {
+const PlaylistForm: React.FC<PlaylistFormProps> = ({ show, onClose, onSubmit }) => {
 	const [inputValue, setInputValue] = useState("");
 	const [backgroundColor, setBackgroundColor] = useState("#ffffff"); 
 	const [selectedIcon, setSelectedIcon] = useState("🎵"); 
@@ -25,8 +25,8 @@ const Modal: React.FC<ModalProps> = ({ show, onClose, onSubmit }) => {
 	const colorOptions = ["ffffff", "#e8dff5", "#fce1e4", "#fcf4dd", "#ddedea", "#daeaf6"];
 
 	return (
-		<div className="modal-overlay">
-			<div className="modal-content">
+		<div className="form-overlay">
+			<div className="form-content">
 				<h2>Create New Playlist</h2>
 				<input
 					type="text"
@@ -76,10 +76,10 @@ const Modal: React.FC<ModalProps> = ({ show, onClose, onSubmit }) => {
 					</button>
 				</div>
 
-				<button className="modal-close-button" onClick={onClose}>
+				<button className="form-close-button" onClick={onClose}>
 					Close
 				</button>
-				<button className="modal-submit-button" onClick={handleSubmit}>
+				<button className="form-submit-button" onClick={handleSubmit}>
 					Submit
 				</button>
 			</div>
@@ -87,4 +87,4 @@ const Modal: React.FC<ModalProps> = ({ show, onClose, onSubmit }) => {
 	);
 };
 
-export default Modal;
+export default PlaylistForm;
