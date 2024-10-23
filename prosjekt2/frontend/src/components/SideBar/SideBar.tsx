@@ -1,4 +1,3 @@
-import React, { useState } from "react";
 import "./Sidebar.css";
 import { Filter } from "../Filter/Filter";
 import Sort from "../Sort/Sort";
@@ -10,6 +9,7 @@ type SidebarProps = {
 	onSortChange: (newSort: string, sortedSongs: Song[]) => void;
 	songs: Song[];
 	onToggle: (isOpen: boolean) => void;
+	isOpen: boolean;
 };
 export function Sidebar({
 	onGenreChange,
@@ -17,31 +17,22 @@ export function Sidebar({
 	onSortChange,
 	songs,
 	onToggle,
+	isOpen,
 }: SidebarProps) {
-	const [isOpen, setIsOpen] = useState(false);
-
 	const toggleMenu = () => {
-		setIsOpen(!isOpen);
-		onToggle(!isOpen); // Notify the parent component about the toggle
+		onToggle(!isOpen);
 	};
 
 	return (
-		<div className="sidebar-menu">
-			<button className="hamburger-icon" onClick={toggleMenu}>
-				{/* Hamburger icon (3 lines) */}
-				<div className={isOpen ? "line open" : "line"} />
-				<div className={isOpen ? "line open" : "line"} />
-				<div className={isOpen ? "line open" : "line"} />
+		<div className={`sidebar ${isOpen ? "open" : ""}`}>
+			<button className="close-button" onClick={toggleMenu} type="button">
+				✕
 			</button>
-			<div className={`sidebar ${isOpen ? "open" : ""}`}>
-				<div className="filteringContainer">
-					<Filter onGenreChange={onGenreChange} />
-					<br />
-					<Sort songs={songs} sortOption={sortOption} onSortChange={onSortChange} />
-				</div>
+			<div className="filteringContainer">
+				<Filter onGenreChange={onGenreChange} />
+				<br />
+				<Sort songs={songs} sortOption={sortOption} onSortChange={onSortChange} />
 			</div>
-			{/* Overlay to close the sidebar */}
-			{isOpen && <div className="overlay" onClick={toggleMenu} />}
 		</div>
 	);
 }

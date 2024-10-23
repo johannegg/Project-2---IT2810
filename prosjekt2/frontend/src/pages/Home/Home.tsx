@@ -4,6 +4,7 @@ import { SearchBar } from "../../components/SearchBar/SearchBar";
 import { fetchSongs, type Song } from "../../utils/FetchMockData";
 import "./Home.css";
 import { Sidebar } from "../../components/SideBar/SideBar";
+import { FilterButton } from "../../components/SideBar/FilterButton/FilterButton";
 
 const Home = () => {
 	const [songs, setSongs] = useState<Song[]>([]);
@@ -38,8 +39,8 @@ const Home = () => {
 		setSongs(sortedSongs);
 	};
 
-	const handleSidebarToggle = (isOpen: boolean) => {
-		setIsSidebarOpen(isOpen);
+	const toggleSidebar = () => {
+		setIsSidebarOpen((prev) => !prev);
 	};
 
 	if (loading) return <p>Loading songs...</p>;
@@ -52,16 +53,20 @@ const Home = () => {
 				sortOption={sortOption}
 				onSortChange={handleSortChange}
 				songs={searchedSongs}
-				onToggle={handleSidebarToggle}
+				onToggle={setIsSidebarOpen} //setIsSidebarOpen
+				isOpen={isSidebarOpen}
 			/>
-			<div className={`homeComponents ${isSidebarOpen ? "shifted" : ""}`}>
-				<div className="searchBarContainer">
+			<section className={`homeComponents ${isSidebarOpen ? "shifted" : ""}`}>
+				<section className="searchBarContainer">
 					<SearchBar songs={songs} setSearchedSongs={setSearchedSongs} />
-				</div>
-				<div className="appContainer">
+				</section>
+				<section className="filterButtonContainer">
+					<FilterButton onClick={toggleSidebar} />
+				</section>
+				<section className="allSongsContainer">
 					<AllSongsList songs={searchedSongs} genres={selectedGenres} />
-				</div>
-			</div>
+				</section>
+			</section>
 		</>
 	);
 };

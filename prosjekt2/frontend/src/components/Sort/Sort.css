@@ -44,6 +44,12 @@ option {
     box-shadow: 0 4px 8px 0 #00000033;
 }
 
+@media (max-width: 1050px) {
+	.sort-container {
+		width: 70%;
+	}
+}
+
 @media (max-width: 600px) {
     .sort-container {
         width: 300px;

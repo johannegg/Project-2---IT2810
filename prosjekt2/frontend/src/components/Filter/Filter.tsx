@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { Song, fetchSongs } from "../../utils/FetchMockData";
+import { type Song, fetchSongs } from "../../utils/FetchMockData";
 import "./Filter.css";
 
 interface FilterProps {
@@ -49,7 +49,7 @@ export function Filter({ onGenreChange }: FilterProps) {
   return (
     <> 
       <section className="filterContainer">
-        <h2>Genre</h2>
+        <h2>Filter</h2>
         <section className="categories">
           {uniqueGenres.map((genre, index) => (
             <div className="filterRow" key={index}>

@@ -21,16 +21,16 @@
 	font-weight: 500;
 }
 
-.filterRow input {
-	background-color: aqua;
-	color: #493843;
-}
-
 input[type="checkbox"] {
-	accent-color: #493843;
-	color: #493843;
+	accent-color: var(--theme-green);
 	cursor: pointer;
 	margin: 10px;
+}
+
+@media (max-width: 1050px) {
+	.filterContainer {
+		width: 70%;
+	}
 }
 
 @media (max-width: 600px) {
@@ -43,6 +43,7 @@ input[type="checkbox"] {
 	.filterContainer {
 		width: 190px;
 	}
+
 }
 
 @media (prefers-color-scheme: dark) {

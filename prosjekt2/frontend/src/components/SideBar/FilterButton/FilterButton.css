@@ -1,0 +1,28 @@
+.filterButton {
+  padding: 8px;
+  padding-right: 10px;
+  margin: 10px;
+  box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.2);
+  border-radius: 5px;
+  color: var(--theme-dark-pink);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: transparent;
+}
+
+.filterSortIcon {
+  color: var(--theme-dark-pink);
+  margin: 7px;
+}
+
+.filterButton:hover {
+  background-color: var(--theme-lighter-green);
+  transition: all 0.3s ease;
+}
+
+@media (max-width: 730px) {
+	.buttonText {
+		display: none;
+	}
+}
