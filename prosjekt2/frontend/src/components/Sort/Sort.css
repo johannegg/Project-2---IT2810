@@ -44,6 +44,15 @@ option {
     box-shadow: 0 4px 8px 0 #00000033;
 }
 
+.sortHeader {
+    display: flex;
+    align-items: center;
+}
+
+.sortIcon {
+    font-size: 20px;
+}
+
 @media (max-width: 1050px) {
 	.sort-container {
 		width: 70%;

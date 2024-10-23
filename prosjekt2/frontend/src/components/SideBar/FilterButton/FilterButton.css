@@ -17,6 +17,10 @@
 	margin: 7px;
 }
 
+.sortIcon {
+	font-size: 20px;
+}
+
 .filterButton:hover {
 	background-color: var(--theme-lighter-green);
 	transition: all 0.3s ease;

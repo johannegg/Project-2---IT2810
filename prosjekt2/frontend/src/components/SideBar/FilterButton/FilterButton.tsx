@@ -8,7 +8,7 @@ export function FilterButton({ onClick }: filterButtonProps) {
 	return (
 		<button className="filterButton" onClick={onClick} type="button">
 			<FaFilter className="filterSortIcon" /> <span className="buttonText">Filter /</span>{" "}
-			<FaSort className="filterSortIcon" /> <span className="buttonText">Sort</span>
+			<FaSort className="filterSortIcon sortIcon" /> <span className="buttonText">Sort</span>
 		</button>
 	);
 }

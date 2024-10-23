@@ -27,6 +27,11 @@ input[type="checkbox"] {
 	margin: 10px;
 }
 
+.filterHeader {
+	display: flex;
+	align-items: center;
+}
+
 @media (max-width: 1050px) {
 	.filterContainer {
 		width: 70%;

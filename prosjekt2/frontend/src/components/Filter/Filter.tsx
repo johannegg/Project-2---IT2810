@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
-import { type Song, fetchSongs } from "../../utils/FetchMockData";
+import { Song, fetchSongs } from "../../utils/FetchMockData";
 import "./Filter.css";
+import { FaFilter } from "react-icons/fa";
 
 interface FilterProps {
   onGenreChange: (selectedGenres: string[]) => void;
@@ -49,7 +50,10 @@ export function Filter({ onGenreChange }: FilterProps) {
   return (
     <> 
       <section className="filterContainer">
-        <h2>Filter</h2>
+        <section className="filterHeader">
+					<FaFilter className="filterSortIcon" />
+					<h2>Filter</h2>{" "}
+				</section>
         <section className="categories">
           {uniqueGenres.map((genre, index) => (
             <div className="filterRow" key={index}>
