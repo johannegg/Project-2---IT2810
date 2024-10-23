@@ -92,7 +92,7 @@
 		margin-left: 15px;
 		margin-right: 5px;
 	}
-	
+
 	.navText {
 		display: none;
 	}
@@ -101,12 +101,10 @@
 	}
 }
 
-
 @media (max-width: 600px) {
 	.header-title {
 		font-size: 22px;
 	}
-
 }
 
 @media (max-width: 500px) {

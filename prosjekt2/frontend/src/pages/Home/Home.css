@@ -38,24 +38,23 @@
 .filterButtonContainer {
 	margin-bottom: 30px;
 	position: relative;
-	left: -270px
+	left: -270px;
 }
 
 @media (max-width: 1190px) {
-	.homeComponents.homeComponents.shifted{
+	.homeComponents.homeComponents.shifted {
 		transform: translateX(15%);
 	}
 }
 
 @media (max-width: 1050px) {
-	.homeComponents.homeComponents.shifted{
+	.homeComponents.homeComponents.shifted {
 		transform: translateX(10%);
 	}
 }
 
-
 @media (max-width: 730px) {
-	.allSongsContainer{
+	.allSongsContainer {
 		position: relative;
 		margin: 0 auto;
 		display: flex;

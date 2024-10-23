@@ -43,7 +43,6 @@ input[type="checkbox"] {
 	.filterContainer {
 		width: 190px;
 	}
-
 }
 
 @media (prefers-color-scheme: dark) {
