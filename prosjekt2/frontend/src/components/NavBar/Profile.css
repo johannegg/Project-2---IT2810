@@ -1,0 +1,65 @@
+.profile-login {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    background-color: white;
+    width: 15%;
+    border-radius: 5px;
+    height: fit-content;
+    padding-left: 2px;
+    justify-content: space-between;
+    position: absolute;
+    right: 10px;
+}
+
+.login-input {
+    border-color: transparent;
+    width: 100%;
+    outline: none;
+}
+
+.profile {
+    background-color: transparent;
+    z-index: 10;
+}
+
+.login-button {
+    background-color: #E27396;
+    border-top-right-radius: inherit;
+    border-bottom-right-radius: inherit;
+}
+  
+.dropdown {
+    position: absolute;
+    display: inline-block;
+    right: 10px;
+    bottom: 10px;
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #f9f9f9;
+    min-width: 140px;
+    z-index: 1;
+    right: 5px;
+    cursor: pointer;
+    border-radius: 5px;
+  }
+  
+  .dropdown-content a {
+    color: black;
+    font-size: smaller;
+    padding: 10px 10px;
+    display: flex;
+    flex-direction: column;
+    border-radius: 5px;
+  }
+  
+.dropdown-content a:hover {background-color: #f1f1f1}
+
+.dropdown:hover .dropdown-content {
+    display: block;
+}
+
+  

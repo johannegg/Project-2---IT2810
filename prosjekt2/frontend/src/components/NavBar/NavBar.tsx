@@ -1,6 +1,8 @@
 import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import './NavBar.css';
+import Profile from './Profile';
+
 
 const NavBar: React.FC = () => {
   const location = useLocation(); 
@@ -33,6 +35,7 @@ const NavBar: React.FC = () => {
           </Link>
         </li>
       </ul>
+      <Profile/>
     </nav>
   );
 }

@@ -7,9 +7,9 @@
     position: fixed;
     top: 70px; 
     left: 0;
-    z-index: 999; 
+    z-index: 10; 
     box-sizing: border-box;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 4px 4px rgba(0, 0, 0, 0.1);
   }
   
   .navbar-menu {
@@ -43,4 +43,3 @@
     font-weight: bold;
     color: #3C3C3C; 
   }
-  
