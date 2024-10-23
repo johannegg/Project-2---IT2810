@@ -20,7 +20,7 @@ const Header: React.FC = () => {
 						type="button"
 						className={`navButton ${location.pathname === "/favorites" ? "active" : ""}`}
 					>
-						<FontAwesomeIcon icon={faHeart} size="2x" className="icon" />
+						<FontAwesomeIcon icon={faHeart} size="2x" className="navIcon" />
 						<span className="navText">Favorited songs</span>
 					</button>
 				</Link>
@@ -29,7 +29,7 @@ const Header: React.FC = () => {
 						type="button"
 						className={`navButton ${location.pathname === "/playlists" ? "active" : ""}`}
 					>
-						<BsMusicNoteList className="icon musicIcon" />
+						<BsMusicNoteList className="navIcon musicIcon" />
 						<span className="navText">Your playlists</span>
 					</button>
 				</Link>

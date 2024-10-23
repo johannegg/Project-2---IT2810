@@ -24,10 +24,9 @@
 }
 
 .sofa-icon {
-	height: 60px;
-	width: 60px;
+	height: 55px;
+	width: 55px;
 	margin-right: 15px;
-	filter: drop-shadow(2px 2px 3px rgba(0, 0, 0, 0.15));
 }
 
 .header-title {
@@ -60,7 +59,7 @@
 	transition: all 0.3s ease;
 }
 
-.icon {
+.navIcon {
 	margin: 10px;
 }
 
@@ -116,15 +115,12 @@
 	}
 }
 
-@media (max-width: 400px) {
-	.navbar {
-		display: none;
-	}
-}
-
 @media (max-width: 420px) {
 	.header-title {
 		font-size: 20px;
+	}
+	.header-width {
+		width: 300px;
 	}
 }
 

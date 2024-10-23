@@ -35,7 +35,7 @@
 .iconContainer {
 	position: absolute;
 	left: 22px;
-	top: 11px;
+	top: 10px;
 }
 
 @media (max-width: 700px) {

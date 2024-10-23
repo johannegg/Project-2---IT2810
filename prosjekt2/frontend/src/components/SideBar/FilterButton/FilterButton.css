@@ -1,10 +1,11 @@
 .filterButton {
   padding: 8px;
-  padding-right: 10px;
+  padding-bottom: 5px;
+  padding-top: 5px;
   margin: 10px;
   box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.2);
   border-radius: 5px;
-  color: var(--theme-dark-pink);
+  color: var(--theme-favorite-pink);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -12,7 +13,7 @@
 }
 
 .filterSortIcon {
-  color: var(--theme-dark-pink);
+  color: var(--theme-favorite-pink);
   margin: 7px;
 }
 
