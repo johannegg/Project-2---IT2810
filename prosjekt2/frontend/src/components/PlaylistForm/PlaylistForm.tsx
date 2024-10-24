@@ -40,7 +40,30 @@ const PlaylistForm: React.FC<PlaylistFormProps> = ({ show, onClose, onSubmit }) 
     { color: "#ddedea", name: "Green" },
     { color: "#daeaf6", name: "Blue" }
   ];
-  
+
+  const iconOptions = [
+    { icon: "🎵", name: "Music Note" },
+    { icon: "🎸", name: "Guitar" },
+    { icon: "🎤", name: "Microphone" },
+    { icon: "❤️‍🔥", name: "Heart on Fire" },
+    { icon: "🍄", name: "Mushroom" },
+    { icon: "🌸", name: "Flower" },
+    { icon: "✨", name: "Sparkles" },
+    { icon: "🎻", name: "Violin" },
+    { icon: "📽️", name: "Projector" },
+    { icon: "🧘‍♀️", name: "Yoga" },
+    { icon: "🏋️‍♀️", name: "Weight Lifting" },
+    { icon: "🏃‍♀️‍➡️", name: "Running" },
+    { icon: "🦄", name: "Unicorn" },
+    { icon: "🪩", name: "Disco Ball" },
+    { icon: "🕺", name: "Dancer" },
+    { icon: "🍂", name: "Falling Leaf" },
+    { icon: "🌿", name: "Herb" },
+    { icon: "🎄", name: "Christmas Tree" },
+    { icon: "🎃", name: "Pumpkin" },
+    { icon: "💔", name: "Broken Heart" }
+  ];
+
   return (
     <div className="form-overlay">
       <form className="form-content" onSubmit={handleSubmit}>
@@ -74,12 +97,13 @@ const PlaylistForm: React.FC<PlaylistFormProps> = ({ show, onClose, onSubmit }) 
   
           <label>Select an icon:</label>
           <div className="icon-options">
-            {["🎵", "🎸", "🎤", "❤️‍🔥", "🍄", "🌸", "✨", "🎻", "📽️", "🧘‍♀️", "🏋️‍♀️", "🏃‍♀️‍➡️", "🦄", "🪩", "🕺", "🍂", "🌿", "🎄", "🎃", "💔"].map((icon) => (
+            {iconOptions.map(({ icon, name }) => (
               <button
                 key={icon}
                 type="button"
                 className={selectedIcon === icon ? "icon-button active" : "icon-button"}
                 onClick={() => setSelectedIcon(icon)}
+                data-iconname={name} 
               >
                 {icon}
               </button>
