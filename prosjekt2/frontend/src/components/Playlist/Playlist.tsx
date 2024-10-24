@@ -1,10 +1,12 @@
 import React from 'react';
 import './Playlist.css';
+import { Song } from '../../utils/FetchMockData';
 
 interface PlaylistProps {
     name: string;
     backgroundColor: string;
     icon: string;
+    songs: Song[];
     onClick: () => void;
   }
   
