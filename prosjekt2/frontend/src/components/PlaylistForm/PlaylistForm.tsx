@@ -32,14 +32,21 @@ const PlaylistForm: React.FC<PlaylistFormProps> = ({ show, onClose, onSubmit }) 
 
   if (!show) return null;
 
-  const colorOptions = ["#ffffff", "#e8dff5", "#fce1e4", "#fcf4dd", "#ddedea", "#daeaf6"];
-
+  const colorOptions = [
+    { color: "#ffffff", name: "White" },
+    { color: "#e8dff5", name: "Purple" },
+    { color: "#fce1e4", name: "Pink" },
+    { color: "#fcf4dd", name: "Yellow" },
+    { color: "#ddedea", name: "Green" },
+    { color: "#daeaf6", name: "Blue" }
+  ];
+  
   return (
     <div className="form-overlay">
       <form className="form-content" onSubmit={handleSubmit}>
         <h2>Create new playlist</h2>
         <fieldset>
-
+  
           <label htmlFor="playlist-name">Enter playlist name:</label>
           <input
             id="playlist-name"
@@ -50,20 +57,21 @@ const PlaylistForm: React.FC<PlaylistFormProps> = ({ show, onClose, onSubmit }) 
             maxLength={20}
             className={hasError ? "input-error" : ""} 
           />
-
+  
           <label>Select background color:</label>
           <div className="color-options">
-            {colorOptions.map((color) => (
+            {colorOptions.map(({ color, name }) => (
               <button
                 key={color}
                 className={`color-button ${backgroundColor === color ? "selected" : ""}`}
                 style={{ backgroundColor: color }}
                 type="button"
                 onClick={() => setBackgroundColor(color)}
+                data-colorname={name} 
               />
             ))}
           </div>
-
+  
           <label>Select an icon:</label>
           <div className="icon-options">
             {["🎵", "🎸", "🎤", "❤️‍🔥", "🍄", "🌸", "✨", "🎻", "📽️", "🧘‍♀️", "🏋️‍♀️", "🏃‍♀️‍➡️", "🦄", "🪩", "🕺", "🍂", "🌿", "🎄", "🎃", "💔"].map((icon) => (
@@ -78,7 +86,7 @@ const PlaylistForm: React.FC<PlaylistFormProps> = ({ show, onClose, onSubmit }) 
             ))}
           </div>
         </fieldset>
-
+  
         <button type="button" className="form-close-button" onClick={handleClose}>
           Close
         </button>
@@ -88,6 +96,7 @@ const PlaylistForm: React.FC<PlaylistFormProps> = ({ show, onClose, onSubmit }) 
       </form>
     </div>
   );
-};
+}
+  
 
 export default PlaylistForm;
