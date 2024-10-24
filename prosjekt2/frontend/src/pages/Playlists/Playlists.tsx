@@ -28,7 +28,6 @@ interface PlaylistData {
   
 	return (
 	  <section className="playlists-page">
-		<button onClick={() => setShowForm(true)} className="new-playlist-button">New Playlist</button>
 		<h2>Your Playlists</h2>
   
 		<PlaylistForm
@@ -36,17 +35,19 @@ interface PlaylistData {
 		  onClose={() => setShowForm(false)} 
 		  onSubmit={addNewPlaylist} 
 		/>
-  
-		<div className="playlists-container">
-		  {playlists.map((playlist) => (
-			<Playlist 
-			  key={playlist.name} 
-			  name={playlist.name}
-			  backgroundColor={playlist.backgroundColor}
-			  icon={playlist.icon}
-			  onClick={() => handlePlaylistClick(playlist.name)} 
-			/>
-		  ))}
+		<div className='outer-playlist-container'>
+			<button onClick={() => setShowForm(true)} className="new-playlist-button">New Playlist</button>
+				<div className="playlists-container">
+				{playlists.map((playlist) => (
+					<Playlist 
+					key={playlist.name} 
+					name={playlist.name}
+					backgroundColor={playlist.backgroundColor}
+					icon={playlist.icon}
+					onClick={() => handlePlaylistClick(playlist.name)} 
+					/>
+				))}
+				</div>
 		</div>
 	  </section>
 	);

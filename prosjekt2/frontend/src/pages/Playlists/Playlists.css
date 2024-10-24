@@ -1,7 +1,6 @@
 .playlists-page {
     display: flex;
     flex-direction: column;
-    align-items: center;
     margin-top: 0; 
     padding-top: 20px; 
     position: absolute; 
@@ -23,15 +22,35 @@
     font-size: 16px;
 }
 
+
 .playlists-container {
+    grid-column: 1 / -1; 
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); 
-    gap: 50px;
-    max-width: 1000px; 
-    width: 60%; 
+    grid-template-columns: repeat(4, 1fr);
+    gap: 30px; 
+    max-width: 1200px; 
     margin: 0 auto;
     margin-top: 20px; 
     margin-bottom: 20px;
+}
+
+
+@media (max-width: 1200px) {
+    .playlists-container {
+        grid-template-columns: repeat(3, 1fr); 
+    }
+}
+
+@media (max-width: 1024px) {
+    .playlists-container {
+        grid-template-columns: repeat(2, 1fr); 
+    }
+}
+
+@media (max-width: 600px) {
+    .playlists-container {
+        grid-template-columns: repeat(1, 1fr); 
+    }
 }
 
 
@@ -49,3 +68,13 @@
     justify-content: center;
     align-items: center;
 }
+
+.outer-playlist-container {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    max-width: 1200px;
+    margin: 0 auto;
+    margin-top: 20px;
+}
+
