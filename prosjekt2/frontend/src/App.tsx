@@ -6,6 +6,7 @@ import "./App.css";
 import Header from "./components/Header/Header";
 import NavBar from "./components/NavBar/NavBar";
 import DynamicLyric from "./components/Lyrics/DynamicLyrics";
+import DynamicPlaylist from "./components/DisplayPlaylist/DynamicPlaylist";
 
 function App() {
 	return (
@@ -21,6 +22,7 @@ function App() {
 					<Route path="/playlists" element={<Playlists />} />
 					{/* Dynamic route with artistName and songTitle */}
 					<Route path="/:artistName/:songTitle" element={<DynamicLyric />} />
+					<Route path="/playlist/:playlistName" element={<DynamicPlaylist />} />
 				</Routes>
 			</Router>
 		</>
