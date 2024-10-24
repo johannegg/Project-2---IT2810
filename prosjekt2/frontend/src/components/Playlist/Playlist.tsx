@@ -10,14 +10,14 @@ interface PlaylistProps {
   
   const Playlist: React.FC<PlaylistProps> = ({ name, backgroundColor, icon, onClick }) => {
     return (
-      <div 
+      <article 
         className="playlist-card" 
         onClick={onClick} 
         style={{ backgroundColor: backgroundColor }} 
       >
         <div className="playlist-icon">{icon}</div> 
         <h3>{name}</h3>
-      </div>
+      </article>
     );
   };
   

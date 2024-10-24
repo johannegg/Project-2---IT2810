@@ -27,7 +27,7 @@ interface PlaylistData {
 	};
   
 	return (
-	  <div className="playlists-page">
+	  <section className="playlists-page">
 		<button onClick={() => setShowForm(true)} className="new-playlist-button">New Playlist</button>
 		<h2>Your Playlists</h2>
   
@@ -48,7 +48,7 @@ interface PlaylistData {
 			/>
 		  ))}
 		</div>
-	  </div>
+	  </section>
 	);
   };
 
