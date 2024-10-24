@@ -2,89 +2,81 @@ import React, { useState } from "react";
 import "./PlaylistForm.css";
 
 interface PlaylistFormProps {
-	show: boolean;
-	onClose: () => void;
-	onSubmit: (playlistName: string, backgroundColor: string, icon: string) => void;
+  show: boolean;
+  onClose: () => void;
+  onSubmit: (playlistName: string, backgroundColor: string, icon: string) => void;
 }
 
 const PlaylistForm: React.FC<PlaylistFormProps> = ({ show, onClose, onSubmit }) => {
-	const [inputValue, setInputValue] = useState("");
-	const [backgroundColor, setBackgroundColor] = useState("#ffffff"); 
-	const [selectedIcon, setSelectedIcon] = useState("🎵"); 
+  const [inputValue, setInputValue] = useState("");
+  const [backgroundColor, setBackgroundColor] = useState("#ffffff"); 
+  const [selectedIcon, setSelectedIcon] = useState("🎵"); 
 
-	const handleSubmit = () => {
-		if (inputValue.trim()) {
-			onSubmit(inputValue, backgroundColor, selectedIcon);
-			onClose();
-		}
-	};
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault(); 
+    if (inputValue.trim()) {
+      onSubmit(inputValue, backgroundColor, selectedIcon);
+      onClose();
+    }
+  };
 
-	if (!show) return null;
+  if (!show) return null;
 
-	// List of predefined colors
-	const colorOptions = ["ffffff", "#e8dff5", "#fce1e4", "#fcf4dd", "#ddedea", "#daeaf6"];
+  const colorOptions = ["#ffffff", "#e8dff5", "#fce1e4", "#fcf4dd", "#ddedea", "#daeaf6"];
 
-	return (
-		<div className="form-overlay">
-			<div className="form-content">
-				<h2>Create New Playlist</h2>
-				<input
-					type="text"
-					placeholder="Enter playlist name"
-					value={inputValue}
-					onChange={(e) => setInputValue(e.target.value)}
-					maxLength={20}
-				/>
+  return (
+    <div className="form-overlay">
+      <form className="form-content" onSubmit={handleSubmit}>
+		<h2>Create new playlist</h2>
+        <fieldset>
 
-				<label>Select background color:</label>
-				<div className="color-options">
-					{colorOptions.map((color) => (
-						<button
-							key={color}
-							className={`color-button ${backgroundColor === color ? "selected" : ""}`}
-							style={{ backgroundColor: color }}
-							onClick={() => setBackgroundColor(color)}
-						/>
-					))}
-				</div>
+          <label htmlFor="playlist-name">Enter playlist name:</label>
+          <input
+            id="playlist-name"
+            type="text"
+            placeholder="Enter playlist name"
+            value={inputValue}
+            onChange={(e) => setInputValue(e.target.value)}
+            maxLength={20}
+          />
 
-				<label>Select an icon:</label>
-				<div className="icon-options">
-					<button
-						className={selectedIcon === "🎵" ? "icon-button active" : "icon-button"}
-						onClick={() => setSelectedIcon("🎵")}
-					>
-						🎵
-					</button>
-					<button
-						className={selectedIcon === "🎸" ? "icon-button active" : "icon-button"}
-						onClick={() => setSelectedIcon("🎸")}
-					>
-						🎸
-					</button>
-					<button
-						className={selectedIcon === "🎤" ? "icon-button active" : "icon-button"}
-						onClick={() => setSelectedIcon("🎤")}
-					>
-						🎤
-					</button>
-					<button
-						className={selectedIcon === "🎧" ? "icon-button active" : "icon-button"}
-						onClick={() => setSelectedIcon("🎧")}
-					>
-						🎧
-					</button>
-				</div>
+          <label>Select background color:</label>
+          <div className="color-options">
+            {colorOptions.map((color) => (
+              <button
+                key={color}
+                className={`color-button ${backgroundColor === color ? "selected" : ""}`}
+                style={{ backgroundColor: color }}
+                type="button"
+                onClick={() => setBackgroundColor(color)}
+              />
+            ))}
+          </div>
 
-				<button className="form-close-button" onClick={onClose}>
-					Close
+          <label>Select an icon:</label>
+			<div className="icon-options">
+			{["🎵", "🎸", "🎤", "❤️‍🔥", "🍄", "🌸", "✨", "🎻", "📽️", "🧘‍♀️", "🏋️‍♀️", "🏃‍♀️‍➡️", "🦄", "🪩", "🕺", "🍂", "🌿", "🎄", "🎃", "💔"].map((icon) => (
+				<button
+				key={icon}
+				type="button"
+				className={selectedIcon === icon ? "icon-button active" : "icon-button"}
+				onClick={() => setSelectedIcon(icon)}
+				>
+				{icon}
 				</button>
-				<button className="form-submit-button" onClick={handleSubmit}>
-					Submit
-				</button>
+			))}
 			</div>
-		</div>
-	);
+        </fieldset>
+
+        <button type="button" className="form-close-button" onClick={onClose}>
+          Close
+        </button>
+        <button type="submit" className="form-submit-button">
+          Submit
+        </button>
+      </form>
+    </div>
+  );
 };
 
 export default PlaylistForm;

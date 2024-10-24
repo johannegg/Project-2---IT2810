@@ -18,6 +18,7 @@
     text-align: center;
     width: 350px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); 
+   
   }
   
   input {
@@ -39,7 +40,7 @@
     width: 30px;
     height: 30px;
     border-radius: 50%;
-    border: 2px solid transparent;
+    border: 2px solid #d4d4d4;
     cursor: pointer;
     transition: border-color 0.3s ease;
   }
@@ -53,13 +54,13 @@
   }
   
   .icon-options {
-    display: flex;
-    justify-content: space-around;
-    margin-bottom: 15px;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(50px, 1fr)); 
+    gap: 5px;
   }
   
   .icon-button {
-    margin: 0 10px;
+    margin: 5px;
     font-size: 30px;
     cursor: pointer;
     background: none;
@@ -72,7 +73,7 @@
   }
   
   .icon-button.active {
-    border-color: #4CAF50;
+    border-color: #000;
     border-radius: 5px;
   }
   
@@ -94,5 +95,9 @@
     border-radius: 5px;
     color: white;
     cursor: pointer;
+  }
+
+  form fieldset {
+    border: none;
   }
   
