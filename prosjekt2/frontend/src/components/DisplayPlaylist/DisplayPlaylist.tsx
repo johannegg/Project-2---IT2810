@@ -11,7 +11,7 @@ interface DisplayPlaylistProps {
 const DisplayPlaylist: React.FC<DisplayPlaylistProps> = ({ playlist }) => {
     return (
         <section className="playlist-details">
-            <h1>{playlist.name}</h1>
+            <h1>{playlist.name + " "+ playlist.icon}</h1>
                 {playlist.songs.length > 0 ? (
                     <AllSongsList songs={playlist.songs} genres={[]} /> 
                 ) : (
