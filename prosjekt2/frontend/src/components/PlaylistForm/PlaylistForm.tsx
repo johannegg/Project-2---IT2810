@@ -11,16 +11,22 @@ const PlaylistForm: React.FC<PlaylistFormProps> = ({ show, onClose, onSubmit }) 
   const [inputValue, setInputValue] = useState("");
   const [backgroundColor, setBackgroundColor] = useState("#ffffff"); 
   const [selectedIcon, setSelectedIcon] = useState("🎵"); 
-  const [hasError, setHasError] = useState(false); // Holder styr på inputfeil
+  const [hasError, setHasError] = useState(false); 
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault(); 
     if (!inputValue.trim()) {
-      setHasError(true); // Hvis navnet ikke er fylt inn, sett hasError til true
+      setHasError(true); 
       return;
     }
-    setHasError(false); // Hvis navnet er fylt inn, fjern eventuelle feil
+    setHasError(false); 
     onSubmit(inputValue, backgroundColor, selectedIcon);
+    handleClose(); 
+  };
+
+  const handleClose = () => {
+    setInputValue(""); 
+    setHasError(false); 
     onClose();
   };
 
@@ -42,7 +48,7 @@ const PlaylistForm: React.FC<PlaylistFormProps> = ({ show, onClose, onSubmit }) 
             value={inputValue}
             onChange={(e) => setInputValue(e.target.value)}
             maxLength={20}
-            className={hasError ? "input-error" : ""} // Legg til en klasse ved feil
+            className={hasError ? "input-error" : ""} 
           />
 
           <label>Select background color:</label>
@@ -73,7 +79,7 @@ const PlaylistForm: React.FC<PlaylistFormProps> = ({ show, onClose, onSubmit }) 
           </div>
         </fieldset>
 
-        <button type="button" className="form-close-button" onClick={onClose}>
+        <button type="button" className="form-close-button" onClick={handleClose}>
           Close
         </button>
         <button type="submit" className="form-submit-button">
