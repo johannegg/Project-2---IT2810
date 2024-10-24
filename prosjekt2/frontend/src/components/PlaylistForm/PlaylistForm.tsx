@@ -11,13 +11,17 @@ const PlaylistForm: React.FC<PlaylistFormProps> = ({ show, onClose, onSubmit }) 
   const [inputValue, setInputValue] = useState("");
   const [backgroundColor, setBackgroundColor] = useState("#ffffff"); 
   const [selectedIcon, setSelectedIcon] = useState("🎵"); 
+  const [hasError, setHasError] = useState(false); // Holder styr på inputfeil
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault(); 
-    if (inputValue.trim()) {
-      onSubmit(inputValue, backgroundColor, selectedIcon);
-      onClose();
+    if (!inputValue.trim()) {
+      setHasError(true); // Hvis navnet ikke er fylt inn, sett hasError til true
+      return;
     }
+    setHasError(false); // Hvis navnet er fylt inn, fjern eventuelle feil
+    onSubmit(inputValue, backgroundColor, selectedIcon);
+    onClose();
   };
 
   if (!show) return null;
@@ -27,7 +31,7 @@ const PlaylistForm: React.FC<PlaylistFormProps> = ({ show, onClose, onSubmit }) 
   return (
     <div className="form-overlay">
       <form className="form-content" onSubmit={handleSubmit}>
-		<h2>Create new playlist</h2>
+        <h2>Create new playlist</h2>
         <fieldset>
 
           <label htmlFor="playlist-name">Enter playlist name:</label>
@@ -38,6 +42,7 @@ const PlaylistForm: React.FC<PlaylistFormProps> = ({ show, onClose, onSubmit }) 
             value={inputValue}
             onChange={(e) => setInputValue(e.target.value)}
             maxLength={20}
+            className={hasError ? "input-error" : ""} // Legg til en klasse ved feil
           />
 
           <label>Select background color:</label>
@@ -54,18 +59,18 @@ const PlaylistForm: React.FC<PlaylistFormProps> = ({ show, onClose, onSubmit }) 
           </div>
 
           <label>Select an icon:</label>
-			<div className="icon-options">
-			{["🎵", "🎸", "🎤", "❤️‍🔥", "🍄", "🌸", "✨", "🎻", "📽️", "🧘‍♀️", "🏋️‍♀️", "🏃‍♀️‍➡️", "🦄", "🪩", "🕺", "🍂", "🌿", "🎄", "🎃", "💔"].map((icon) => (
-				<button
-				key={icon}
-				type="button"
-				className={selectedIcon === icon ? "icon-button active" : "icon-button"}
-				onClick={() => setSelectedIcon(icon)}
-				>
-				{icon}
-				</button>
-			))}
-			</div>
+          <div className="icon-options">
+            {["🎵", "🎸", "🎤", "❤️‍🔥", "🍄", "🌸", "✨", "🎻", "📽️", "🧘‍♀️", "🏋️‍♀️", "🏃‍♀️‍➡️", "🦄", "🪩", "🕺", "🍂", "🌿", "🎄", "🎃", "💔"].map((icon) => (
+              <button
+                key={icon}
+                type="button"
+                className={selectedIcon === icon ? "icon-button active" : "icon-button"}
+                onClick={() => setSelectedIcon(icon)}
+              >
+                {icon}
+              </button>
+            ))}
+          </div>
         </fieldset>
 
         <button type="button" className="form-close-button" onClick={onClose}>
