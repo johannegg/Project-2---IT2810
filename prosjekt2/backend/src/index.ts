@@ -1,8 +1,11 @@
 import { ApolloServer } from 'apollo-server';
 import { Neo4jGraphQL } from '@neo4j/graphql';
+import { makeExecutableSchema } from '@graphql-tools/schema'; // Importer schema-funksjonen
 import neo4j from 'neo4j-driver';
 import dotenv from 'dotenv';
 import { typeDefs } from './graphql/typeDefs';
+import { resolvers } from './graphql/resolvers';
+
 
 dotenv.config();
 
@@ -13,14 +16,18 @@ const driver = neo4j.driver(
 );
 
 
-// Create Apollo-server with Neo4j GraphQL schema
-const neoSchema = new Neo4jGraphQL({ typeDefs, driver });
+// Create Neo4j GraphQL schema
+const neoSchema = new Neo4jGraphQL({ typeDefs, driver, resolvers });
 
 async function startApolloServer() {
   try {
     const schema = await neoSchema.getSchema();
     const server = new ApolloServer({
       schema,
+      context: ({ req }) => {
+        // Pass the Neo4j driver into the context
+        return { driver };
+      },
     });
 
     server.listen().then(({ url }) => {
