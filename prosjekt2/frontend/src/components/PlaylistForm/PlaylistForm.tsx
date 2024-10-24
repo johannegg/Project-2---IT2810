@@ -57,8 +57,8 @@ const PlaylistForm: React.FC<PlaylistFormProps> = ({ show, onClose, onSubmit }) 
     { icon: "🦄", name: "Unicorn" },
     { icon: "🪩", name: "Disco Ball" },
     { icon: "🕺", name: "Dancer" },
-    { icon: "🍂", name: "Falling Leaf" },
-    { icon: "🌿", name: "Herb" },
+    { icon: "🍂", name: "Autumn Leaf" },
+    { icon: "🌿", name: "Leaf" },
     { icon: "🎄", name: "Christmas Tree" },
     { icon: "🎃", name: "Pumpkin" },
     { icon: "💔", name: "Broken Heart" }
@@ -77,7 +77,7 @@ const PlaylistForm: React.FC<PlaylistFormProps> = ({ show, onClose, onSubmit }) 
             placeholder="Enter playlist name"
             value={inputValue}
             onChange={(e) => setInputValue(e.target.value)}
-            maxLength={20}
+            maxLength={15}
             className={hasError ? "input-error" : ""} 
           />
   
