@@ -1,55 +1,45 @@
 import React, { useEffect, useState } from "react";
 import { Song } from "../../utils/FetchMockData";
-import "./Favorites.css"
+import "./Favorites.css";
 import { AllSongsList } from "../../components/AllSongsComponents/AllSongsList";
 import { SearchBar } from "../../components/SearchBar/SearchBar";
+import { useNavigate } from "react-router-dom";
 
 const Favorites: React.FC = () => {
+  const [favorites, setFavorites] = useState<Song[]>([]);
+  const [searchedSongs, setSearchedSongs] = useState<Song[]>([]);
+  const genres = ["pop", "rock", "rap", "country"];
+  const navigate = useNavigate()
 
-	const [favorites, setFavorites] = useState<Song[]>([]);
-	const [searchedSongs, setSearchedSongs] = useState<Song[]>([]);
-	const genres = ["pop", "rock"]
+  useEffect(() => {
+    const favoriteSongs = JSON.parse(localStorage.getItem("favoriteSongs") || "[]");
+    setFavorites(favoriteSongs);
+  }, []);
 
-	useEffect(() => {
-		
-		const favoriteSongs = JSON.parse(localStorage.getItem("favoriteSongs") || "[]");
-		setFavorites(favoriteSongs)	
-		  
-	}, [])
+  // Show message if no favorite songs are found
+  if (favorites.length === 0) {
+    return (
+      <section className="no-favorites-container">
+        <h2>You have no favorited songs</h2>
+		<p>Get started by adding some from the homepage!</p>
+		<button onClick={() => navigate("/")}>
+			Go to home
+		</button>
+      </section>
+    );
+  }
 
-	return (
-		<section className="favorites-container">
-			<h1>Your Favorite Songs</h1>
-			<section className="favorites-searchBarContainer">
-				<SearchBar songs={favorites} setSearchedSongs={setSearchedSongs} />
-			</section>
-			<section className="favorites-allSongsContainer">
-				<AllSongsList songs={searchedSongs} genres={genres} />
-			</section>
-		</section>
-	)
-
-	/* return (
-		<section className="favorites-container">
-			<h1>Your Favorite Songs</h1>
-			<table className="favorites-table">
-					{favorites.map((song) => (
-						<tr key={song.id} className="favorites-row" onClick={() => routeChange(song, navigate)}>
-							<td className="favorites-title-artist-cell">
-								<span className="titleCell">{song.title}</span>
-								<span className="artistCell">{song.artist}</span>
-            				</td>
-							<td className="favorites-publishyear">{song.year}</td>
-							<td className="favorites-viewsCell">
-								<FaEye style={{ marginRight: "5px" }} />
-								{formatViews(song.views)}
-							</td>
-              				<td><FavoriteButton song={song}/></td>
-						</tr>
-					))}
-				</table>
-		</section>
-	); */
+  return (
+    <section className="favorites-container">
+      <h1>Your Favorite Songs</h1>
+      <section className="favorites-searchBarContainer">
+        <SearchBar songs={favorites} setSearchedSongs={setSearchedSongs} />
+      </section>
+      <section className="favorites-allSongsContainer">
+        <AllSongsList songs={searchedSongs.length ? searchedSongs : favorites} genres={genres} />
+      </section>
+    </section>
+  );
 };
 
 export default Favorites;

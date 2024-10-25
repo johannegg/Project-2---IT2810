@@ -25,3 +25,26 @@
 	align-items: center;
 	justify-content: center;
 }
+
+.no-favorites-container {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	flex-direction: column;
+	position: absolute;
+	top: 200px;
+	left: 0;
+	right: 0;
+	margin-left: auto;
+}
+
+.no-favorites-container button {
+	width: 100px;
+	height: 40px;
+	border-radius: 6px;
+	background-color: var(--theme-pink);
+}
+
+.no-favorites-container button:hover {
+	background-color: var(--theme-light-pink);
+}
