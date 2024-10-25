@@ -1,6 +1,6 @@
 import React from "react";
 import { FaEye } from "react-icons/fa";
-import { Song } from "../../utils/FetchMockData";
+import type { Song } from "../../utils/FetchMockData";
 import { formatViews } from "../../utils/FormatViews";
 import "./AllSongsList.css";
 import { useNavigate } from "react-router-dom";
@@ -29,13 +29,15 @@ export function AllSongsList({ songs, genres }: AllSongsListProps) {
 							<td className="title-artist-cell">
 								<span className="titleCell">{song.title}</span>
 								<span className="artistCell">{song.artist}</span>
-            				</td>
+							</td>
 							<td>{song.year}</td>
 							<td className="viewsCell">
 								<FaEye style={{ marginRight: "5px" }} />
 								{formatViews(song.views)}
 							</td>
-            				<td><FavoriteButton song={song}/></td>
+							<td>
+								<FavoriteButton song={song} />
+							</td>
 						</tr>
 					))}
 				</table>

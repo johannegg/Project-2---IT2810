@@ -1,13 +1,12 @@
 .filterContainer {
-    margin: 0;
-    padding: 10px;
-    background-color: var(--theme-dark-green);
-    border-radius: 10px;
-    box-shadow: 0 4px 8px 0 #00000033;
-    text-align: left;
-    display: inline-block;
-    min-width: 90px;
-    color: #493843;
+	margin: 0;
+	padding: 10px;
+	border-radius: 10px;
+	box-shadow: 0 4px 8px 0 #00000033;
+	text-align: left;
+	display: inline-block;
+	width: 200px;
+	background-color: white;
 }
 
 .filterRow {
@@ -22,43 +21,38 @@
 	font-weight: 500;
 }
 
-.filterRow input {
-    background-color:aqua;
-    color: #493843;
-}
-
 input[type="checkbox"] {
-    accent-color: #493843;
-    color: #493843;
-}
-  
-
-@media (max-width: 700px) {
-    .filterContainer {
-        margin-bottom: 15px;
-        align-self: flex-start;
-        width: 90%;
-        margin-right: 20px;
-        border-color: var(--theme-dark-green);
-        border-style: solid;
-        background-color: transparent;
-    }
-
-    .filterContainer h2 {
-        font-size: 1.0rem;
-    }
-
-    .filterContainer label {
-        font-size: 1.0rem;
-    }
-
-    .categories {
-        display: flex;
-        justify-content: space-between;
-        flex-basis: auto;
-    }
+	accent-color: var(--theme-green);
+	cursor: pointer;
+	margin: 10px;
 }
 
-input[type="checkbox"] {
-    background: #990000;    
+.filterHeader {
+	display: flex;
+	align-items: center;
+}
+
+@media (max-width: 1050px) {
+	.filterContainer {
+		width: 70%;
+	}
+}
+
+@media (max-width: 600px) {
+	.filterContainer {
+		width: 300px;
+	}
+}
+
+@media (max-width: 400px) {
+	.filterContainer {
+		width: 190px;
+	}
+}
+
+@media (prefers-color-scheme: dark) {
+	.filterContainer {
+		background-color: var(--theme-almost-black);
+		color: white;
+	}
 }
