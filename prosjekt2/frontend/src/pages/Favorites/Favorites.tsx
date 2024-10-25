@@ -1,16 +1,15 @@
 import React, { useEffect, useState } from "react";
-import { FaEye } from "react-icons/fa";
-import FavoriteButton from "../../components/FavoriteButton/FavoriteButton";
 import { Song } from "../../utils/FetchMockData";
-import { formatViews } from "../../utils/FormatViews";
-import { routeChange } from "../../utils/SongRouteChange";
-import { useNavigate } from "react-router-dom";
 import "./Favorites.css"
+import { AllSongsList } from "../../components/AllSongsComponents/AllSongsList";
+import { SearchBar } from "../../components/SearchBar/SearchBar";
 
 const Favorites: React.FC = () => {
 
 	const [favorites, setFavorites] = useState<Song[]>([]);
-	const navigate = useNavigate();
+	const [searchedSongs, setSearchedSongs] = useState<Song[]>([]);
+	const genres = ["pop", "rock"]
+
 	useEffect(() => {
 		
 		const favoriteSongs = JSON.parse(localStorage.getItem("favoriteSongs") || "[]");
@@ -19,6 +18,18 @@ const Favorites: React.FC = () => {
 	}, [])
 
 	return (
+		<section className="favorites-container">
+			<h1>Your Favorite Songs</h1>
+			<section className="favorites-searchBarContainer">
+				<SearchBar songs={favorites} setSearchedSongs={setSearchedSongs} />
+			</section>
+			<section className="favorites-allSongsContainer">
+				<AllSongsList songs={searchedSongs} genres={genres} />
+			</section>
+		</section>
+	)
+
+	/* return (
 		<section className="favorites-container">
 			<h1>Your Favorite Songs</h1>
 			<table className="favorites-table">
@@ -38,7 +49,7 @@ const Favorites: React.FC = () => {
 					))}
 				</table>
 		</section>
-	);
+	); */
 };
 
 export default Favorites;
