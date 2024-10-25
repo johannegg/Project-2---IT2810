@@ -43,4 +43,5 @@
 
 .headerContainer {
 	padding-bottom: 40px;
+	z-index: 1002;
 }

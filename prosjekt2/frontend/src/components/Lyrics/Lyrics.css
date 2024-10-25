@@ -59,3 +59,13 @@ hr {
     align-items: center; 
     justify-content: center;
 }
+
+@media (prefers-color-scheme: dark) {
+    .lyrics {
+        color: white;
+    }
+
+    hr {
+        background-color: var(--theme-even-darker-green);
+    }
+}
