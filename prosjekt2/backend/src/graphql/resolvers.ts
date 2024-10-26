@@ -44,7 +44,7 @@ export const resolvers = {
                 `
                 MATCH (s:Song)-[:PERFORMED_BY]->(a:Artist), (s)-[:HAS_GENRE]->(g:Genre)
                 RETURN s, a, g
-                LIMIT 10
+                LIMIT 30
                 `
             );
             // Map the result to fit the GraphQL schema
