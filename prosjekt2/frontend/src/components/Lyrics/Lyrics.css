@@ -1,7 +1,16 @@
 .lyrics {
+    position: relative;
     min-height: 100vh;
     margin-top: 50px;
     color: #493843;
+}
+
+.lyrics button {
+    position: absolute;
+    top: 10px; 
+    right: 10px;
+    cursor: pointer;
+    z-index: 5;
 }
 
 .lyrics h1 {
@@ -49,4 +58,14 @@ hr {
     display: flex;
     align-items: center; 
     justify-content: center;
+}
+
+@media (prefers-color-scheme: dark) {
+    .lyrics {
+        color: white;
+    }
+
+    hr {
+        background-color: var(--theme-even-darker-green);
+    }
 }

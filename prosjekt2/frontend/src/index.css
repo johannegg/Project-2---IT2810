@@ -5,7 +5,6 @@
 
 	color-scheme: light dark;
 	color: rgba(255, 255, 255, 0.87);
-	background-color: #eaf2d7;
 
 	font-synthesis: none;
 	text-rendering: optimizeLegibility;
@@ -17,6 +16,16 @@
 	--theme-green: #d5e1ba;
 	--theme-light-green: #e3f0c8;
 	--theme-lighter-green: #faffed;
+	--theme-pink: #ea9ab2;
+	--theme-light-pink: #f1c1dd;
+	--theme-favorite-pink: #e27396;
+
+	--theme-light-grey: #d1cfcb;
+	--theme-dark-grey: #333;
+	--theme-dark-pink: #dd5b82;
+	--theme-even-darker-pink: #871c3c;
+	--theme-even-darker-green: #384125;
+	--theme-almost-black: rgb(28, 28, 28);
 }
 
 a {
@@ -36,7 +45,6 @@ body {
 	min-height: 100vh;
 	overflow-x: hidden;
 	justify-content: center;
-	background-color: #eaf2d7;
 	overflow-y: scroll;
 }
 
@@ -57,10 +65,6 @@ button {
 @media (prefers-color-scheme: light) {
 	:root {
 		color: #213547;
-		background-color: #eaf2d7;
-	}
-	a:hover {
-		color: #747bff;
 	}
 	button {
 		background-color: #f9f9f9;

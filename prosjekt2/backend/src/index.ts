@@ -1,6 +1,5 @@
 import { ApolloServer } from 'apollo-server';
 import { Neo4jGraphQL } from '@neo4j/graphql';
-import { makeExecutableSchema } from '@graphql-tools/schema'; // Importer schema-funksjonen
 import neo4j from 'neo4j-driver';
 import dotenv from 'dotenv';
 import { typeDefs } from './graphql/typeDefs';

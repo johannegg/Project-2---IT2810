@@ -1,13 +1,18 @@
 import React from "react";
 import { FaEye } from "react-icons/fa";
-import { Song } from "../../utils/FetchMockData";
+import type { Song } from "../../utils/FetchMockData";
 import { formatViews } from "../../utils/FormatViews";
 import "./AllSongsList.css";
 import { useNavigate } from "react-router-dom";
+<<<<<<< Updated upstream
+import FavoriteButton from "../FavoriteButton/FavoriteButton";
+import { routeChange } from "../../utils/SongRouteChange";
+=======
+>>>>>>> Stashed changes
 
 type AllSongsListProps = {
-	songs: Song[];
-	genres: string[];
+    songs: Song[];
+    genres: string[];
 };
 
 export function AllSongsList({ songs, genres }: AllSongsListProps) {
@@ -28,15 +33,18 @@ export function AllSongsList({ songs, genres }: AllSongsListProps) {
 			) : (
 				<table className="songTable">
 					{filteredSongs.map((song) => (
-						<tr key={song.id} className="tableRow" onClick={() => routeChange(song)}>
+						<tr key={song.id} className="tableRow" onClick={() => routeChange(song, navigate)}>
 							<td className="title-artist-cell">
 								<span className="titleCell">{song.title}</span>
 								<span className="artistCell">{song.artist}</span>
-            				</td>
+							</td>
 							<td>{song.year}</td>
 							<td className="viewsCell">
 								<FaEye style={{ marginRight: "5px" }} />
 								{formatViews(song.views)}
+							</td>
+							<td>
+								<FavoriteButton song={song} />
 							</td>
 						</tr>
 					))}
