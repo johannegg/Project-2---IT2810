@@ -4,11 +4,8 @@ import type { Song } from "../../utils/FetchMockData";
 import { formatViews } from "../../utils/FormatViews";
 import "./AllSongsList.css";
 import { useNavigate } from "react-router-dom";
-<<<<<<< Updated upstream
 import FavoriteButton from "../FavoriteButton/FavoriteButton";
 import { routeChange } from "../../utils/SongRouteChange";
-=======
->>>>>>> Stashed changes
 
 type AllSongsListProps = {
     songs: Song[];
@@ -17,11 +14,6 @@ type AllSongsListProps = {
 
 export function AllSongsList({ songs, genres }: AllSongsListProps) {
 	const navigate = useNavigate();
-
-	const routeChange = (song: Song) => {
-		const path = `/${song.artist.toLowerCase().replace(/ /g, "-")}/${song.title.toLowerCase().replace(/ /g, "-")}`;
-		navigate(path, { state: song });
-	};
 
 	const filteredSongs =
 		genres.length > 0 ? songs.filter((song) => genres.includes(song.genre)) : songs;
