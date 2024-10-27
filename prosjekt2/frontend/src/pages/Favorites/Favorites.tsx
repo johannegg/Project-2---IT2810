@@ -13,9 +13,11 @@ const Favorites: React.FC = () => {
 
   useEffect(() => {
     const favoriteSongs = JSON.parse(localStorage.getItem("favoriteSongs") || "[]");
+    console.log("Favorite Songs:", favoriteSongs); 
     setFavorites(favoriteSongs);
   }, []);
 
+  
   // Show message if no favorite songs are found
   if (favorites.length === 0) {
     return (
@@ -36,7 +38,7 @@ const Favorites: React.FC = () => {
         <SearchBar songs={favorites} setSearchedSongs={setSearchedSongs} />
       </section>
       <section className="favorites-allSongsContainer">
-        <AllSongsList songs={searchedSongs.length ? searchedSongs : favorites} genres={genres} />
+        <AllSongsList songs={searchedSongs} genres={genres} />
       </section>
     </section>
   );
