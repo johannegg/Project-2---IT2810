@@ -70,15 +70,15 @@ const PlaylistForm: React.FC<PlaylistFormProps> = ({ show, onClose, onSubmit }) 
         <h2>Create new playlist</h2>
         <fieldset>
   
-          <label htmlFor="playlist-name">Enter playlist name:</label>
-          <input
+        <label htmlFor="playlist-name" className="playlist-label">Enter playlist name:</label>
+          <input 
             id="playlist-name"
             type="text"
             placeholder="Enter playlist name"
             value={inputValue}
             onChange={(e) => setInputValue(e.target.value)}
             maxLength={15}
-            className={hasError ? "input-error" : ""} 
+            className={`playlist-input ${hasError ? "input-error" : ""}`} 
           />
   
           <label>Select background color:</label>

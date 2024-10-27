@@ -20,7 +20,7 @@
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); 
 }
 
-input {
+.playlist-input {
   padding: 10px;
   margin: 5px 0 20px 0;
   width: 90%;
@@ -142,10 +142,10 @@ form fieldset {
   border: none;
 }
 
-label {
+.playlist-label {
   display: block;
   font-weight: bold;
-  margin-bottom: 15px; 
+  margin-bottom: 15px;
 }
 
 h2 {
@@ -153,11 +153,11 @@ h2 {
   margin-bottom: 5px;
 }
 
-.input-error {
+.playlist-input.input-error {
   border-color: red; 
   background-color: #ffe6e6;
 }
 
-.input-error:focus {
+.playlist-input.input-error:focus {
   outline-color: red; 
 }
