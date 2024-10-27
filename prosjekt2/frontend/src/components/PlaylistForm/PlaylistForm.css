@@ -110,6 +110,7 @@
   color: #555;
   pointer-events: none;
   transition: opacity 0.3s ease;
+  z-index: 1;
 }
 
 .icon-button:hover::after {
