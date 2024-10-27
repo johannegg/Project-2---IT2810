@@ -1,7 +1,42 @@
 .playlist-details h1 {
-    text-align: center;
-    font-size: 2rem;
-    margin-bottom: 10px;
+        text-align: center;
+        font-size: 2rem;
+        margin-bottom: 10px;
+        position: absolute; 
+        top: 130px; 
+        left: 0; 
+        right: 0;
 }
+
+.playlist-details .songs-container {
+        text-align: center;
+        font-size: 2rem;
+        margin-bottom: 10px;
+        position: absolute; 
+        top: 230px; 
+        left: 0; 
+        right: 0;
+}
+
+@media (max-width: 650px) {
+    .playlist-details h1 {
+        font-size: 1.7rem;
+    }
+    .playlist-details .songs-container {
+        top: 215px; 
+    }
+}
+
+@media (max-width: 450px) {
+    .playlist-details h1 {
+        font-size: 1.5rem;
+    }
+    .playlist-details .songs-container {
+        top: 205px; 
+    }
+}
+
+
+
 
 
