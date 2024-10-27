@@ -3,7 +3,7 @@ import { faHeart as heartRegular} from "@fortawesome/free-regular-svg-icons";
 import { faHeart as heartSolid} from "@fortawesome/free-solid-svg-icons";
 import "./FavoriteButton.css"
 import { useEffect, useState } from "react";
-import { Song } from "../../utils/FetchMockData";
+import type { Song } from "../../utils/FetchMockData";
 
 type FavoriteProps = {
     song: Song;
@@ -40,11 +40,11 @@ const FavoriteButton = ({song, size = "small"}: FavoriteProps) => {
     const heartSize = size === "large" ? "xl" : "lg";
     
     return (
-        <button className={`favoriteButton ${heartSize}`} onClick={(e) => handleFavorite(e)}>
+        <button className={`favoriteButton ${heartSize}`} onClick={(e) => handleFavorite(e)} type="button">
             {hearted ? 
-                <FontAwesomeIcon icon={heartSolid} style={{color: "#E27396"}} size={heartSize}/>
+                <FontAwesomeIcon icon={heartSolid} style={{color: "var(--theme-favorite-pink)"}} size={heartSize}/>
              : (
-                <FontAwesomeIcon icon={heartRegular} style={{color: "#E27396"}} size={heartSize}/>
+                <FontAwesomeIcon icon={heartRegular} style={{color: "var(--theme-favorite-pink)"}} size={heartSize}/>
             )
             }
         </button>

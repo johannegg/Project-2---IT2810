@@ -4,7 +4,6 @@ import Favorites from "./pages/Favorites";
 import Playlists from "./pages/Playlists/Playlists";
 import "./App.css";
 import Header from "./components/Header/Header";
-import NavBar from "./components/NavBar/NavBar";
 import DynamicLyric from "./components/Lyrics/DynamicLyrics";
 import DynamicPlaylist from "./components/DisplayPlaylist/DynamicPlaylist";
 
@@ -14,7 +13,6 @@ function App() {
 			<Router>
 				<section className="headerContainer">
 					<Header />
-					<NavBar />
 				</section>
 				<Routes>
 					<Route path="/" element={<Home />} />
