@@ -1,0 +1,48 @@
+.filterButton {
+	padding: 8px;
+	padding-bottom: 5px;
+	padding-top: 5px;
+	margin: 10px;
+	box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.2);
+	border-radius: 5px;
+	color: var(--theme-favorite-pink);
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	background-color: transparent;
+}
+
+.filterSortIcon {
+	color: var(--theme-favorite-pink);
+	margin: 7px;
+}
+
+.sortIcon {
+	font-size: 20px;
+}
+
+.filterButton:hover {
+	background-color: var(--theme-lighter-green);
+	transition: all 0.3s ease;
+}
+
+@media (max-width: 730px) {
+	.buttonText {
+		display: none;
+	}
+}
+
+@media (prefers-color-scheme: dark) {
+	.filterButton {
+		color: var(--theme-light-pink);
+		box-shadow: 2px 2px 2px 2px rgba(137, 136, 136, 0.2);
+	}
+
+	.filterButton:hover {
+		background-color: var(--theme-dark-grey);
+	}
+
+	.filterSortIcon {
+		color: var(--theme-pink);
+	}
+}

@@ -33,7 +33,7 @@ export function SearchBar({ songs, setSearchedSongs }: SearchBarProps) {
 		<div className="searchContainer">
 			<input
 				className="searchInput"
-				placeholder="Search after a song or an artist"
+				placeholder="Search for a song or an artist"
 				value={searchInput}
 				onChange={(e) => setSearchInput(e.target.value)}
 			/>
