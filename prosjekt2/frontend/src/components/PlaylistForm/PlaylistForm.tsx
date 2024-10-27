@@ -1,10 +1,11 @@
 import React, { useState } from "react";
 import "./PlaylistForm.css";
+import { v4 as uuidv4 } from 'uuid';
 
 interface PlaylistFormProps {
   show: boolean;
   onClose: () => void;
-  onSubmit: (playlistName: string, backgroundColor: string, icon: string) => void;
+  onSubmit: (playlistName: string, backgroundColor: string, icon: string, id:string) => void;
 }
 
 const PlaylistForm: React.FC<PlaylistFormProps> = ({ show, onClose, onSubmit }) => {
@@ -20,13 +21,16 @@ const PlaylistForm: React.FC<PlaylistFormProps> = ({ show, onClose, onSubmit }) 
       return;
     }
     setHasError(false); 
-    onSubmit(inputValue, backgroundColor, selectedIcon);
-    handleClose(); 
+    const playlistId = uuidv4(); 
+    onSubmit(inputValue, backgroundColor, selectedIcon, playlistId); // Sender playlistId med onSubmit
+    handleClose();
   };
 
   const handleClose = () => {
-    setInputValue(""); 
-    setHasError(false); 
+    setInputValue("");
+    setHasError(false);
+    setSelectedIcon("🎵"); 
+    setBackgroundColor("#ffffff"); 
     onClose();
   };
 
