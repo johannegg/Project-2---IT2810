@@ -14,7 +14,7 @@
     color: white;
     border: none;
     padding: 10px;
-    border-radius: 20px;
+    border-radius: 15px;
     cursor: pointer;
     width: 120px;
     text-align: center;
@@ -78,3 +78,14 @@
     margin-top: 20px;
 }
 
+@media (prefers-color-scheme: dark) {
+    .playlist-card {
+        border-color: #ffffff !important;
+        color: #ffffff !important;
+    }    
+
+    .new-playlist-button{
+        background-color: var(--theme-favorite-pink);
+    }
+
+}

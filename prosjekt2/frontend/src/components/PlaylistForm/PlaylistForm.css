@@ -162,3 +162,32 @@ h2 {
 .playlist-input.input-error:focus {
   outline-color: red; 
 }
+
+@media (prefers-color-scheme: dark) {
+  .form-content {
+      border-color: #ffffff !important;
+      color: #ffffff !important;
+      background-color: #000000;
+  }    
+
+  .form-overlay{
+      background-color: rgba(28, 28, 28, 0.8); 
+  }
+
+  .new-playlist-button{
+      background-color: var(--theme-favorite-pink);
+  }
+
+  .color-button.selected {
+    border: 3px solid #ffffff;
+  }
+
+  .icon-button.active {
+    border: 3px solid #ffffff;
+  }
+
+  .playlist-input.input-error {
+    background-color: #2d1b1f;
+  }
+
+}

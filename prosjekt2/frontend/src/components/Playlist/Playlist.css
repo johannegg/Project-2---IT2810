@@ -17,5 +17,11 @@
  .playlist-icon{
     font-size: 40px;
  }
+
+ @media (prefers-color-scheme: dark) {
+   .playlist-card{
+      box-shadow: 0 4px 8px rgba(129, 125, 125, 0.931);
+   }
+ }
   
   

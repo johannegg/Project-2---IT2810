@@ -1,42 +1,22 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import "./PlaylistForm.css";
 import { v4 as uuidv4 } from 'uuid';
 
 interface PlaylistFormProps {
   show: boolean;
   onClose: () => void;
-  onSubmit: (playlistName: string, backgroundColor: string, icon: string, id:string) => void;
+  onSubmit: (playlistName: string, backgroundColor: string, icon: string, id: string) => void;
 }
 
 const PlaylistForm: React.FC<PlaylistFormProps> = ({ show, onClose, onSubmit }) => {
   const [inputValue, setInputValue] = useState("");
-  const [backgroundColor, setBackgroundColor] = useState("#ffffff"); 
   const [selectedIcon, setSelectedIcon] = useState("🎵"); 
   const [hasError, setHasError] = useState(false); 
+  const [selectedColor, setSelectedColor] = useState("#ffffff");
+  const [isDarkMode, setIsDarkMode] = useState(window.matchMedia('(prefers-color-scheme: dark)').matches);
+  const inputRef = useRef<HTMLInputElement>(null); 
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault(); 
-    if (!inputValue.trim()) {
-      setHasError(true); 
-      return;
-    }
-    setHasError(false); 
-    const playlistId = uuidv4(); 
-    onSubmit(inputValue, backgroundColor, selectedIcon, playlistId); // Sender playlistId med onSubmit
-    handleClose();
-  };
-
-  const handleClose = () => {
-    setInputValue("");
-    setHasError(false);
-    setSelectedIcon("🎵"); 
-    setBackgroundColor("#ffffff"); 
-    onClose();
-  };
-
-  if (!show) return null;
-
-  const colorOptions = [
+  const lightModeColors = [
     { color: "#ffffff", name: "White" },
     { color: "#e8dff5", name: "Purple" },
     { color: "#fce1e4", name: "Pink" },
@@ -44,6 +24,82 @@ const PlaylistForm: React.FC<PlaylistFormProps> = ({ show, onClose, onSubmit }) 
     { color: "#ddedea", name: "Green" },
     { color: "#daeaf6", name: "Blue" }
   ];
+
+  const darkModeColors = [
+    { color: "#8a8587", name: "Dark Gray" },
+    { color: "#866f95", name: "Dark Purple" },
+    { color: "#9e3369", name: "Dark Pink" },
+    { color: "#d7ba28", name: "Dark Yellow" },
+    { color: "#35693f", name: "Dark Green" },
+    { color: "#445988", name: "Dark Blue" }
+  ];
+
+  const colorMapping: Record<string, string> = {
+    "#ffffff": "#8a8587",
+    "#e8dff5": "#866f95",
+    "#fce1e4": "#9e3369",
+    "#fcf4dd": "#d7ba28",
+    "#ddedea": "#35693f",
+    "#daeaf6": "#445988",
+    "#8a8587": "#ffffff",
+    "#866f95": "#e8dff5",
+    "#9e3369": "#fce1e4",
+    "#d7ba28": "#fcf4dd",
+    "#35693f": "#ddedea",
+    "#445988": "#daeaf6"
+  };
+
+
+  useEffect(() => {
+    if (show && inputRef.current) {
+      inputRef.current.focus(); 
+    }
+  }, [show]);
+
+  useEffect(() => {
+    const updateDarkMode = (e: MediaQueryListEvent) => {
+      setIsDarkMode(e.matches);
+    };
+
+    const colorSchemeMedia = window.matchMedia('(prefers-color-scheme: dark)');
+    colorSchemeMedia.addEventListener("change", updateDarkMode);
+
+    return () => colorSchemeMedia.removeEventListener("change", updateDarkMode);
+  }, []);
+
+  useEffect(() => {
+    if (show) {
+      const initialColor = isDarkMode ? colorMapping["#8a8587"] : "#ffffff";
+      setSelectedColor(initialColor);
+    }
+  }, [show, isDarkMode]);
+
+  const handleColorSelection = (color: string) => {
+    const mappedColor = isDarkMode ? colorMapping[color] || color : color;
+    setSelectedColor(mappedColor); 
+  };
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!inputValue.trim()) {
+      setHasError(true);
+      return;
+    }
+    setHasError(false);
+    const playlistId = uuidv4();
+    onSubmit(inputValue, selectedColor, selectedIcon, playlistId);
+    handleClose();
+  };
+
+  const handleClose = () => {
+    setInputValue("");
+    setHasError(false);
+    setSelectedIcon("🎵");
+    setSelectedColor(isDarkMode ? colorMapping["#8a8587"] : "#ffffff");
+    onClose();
+  };
+
+  if (!show) return null;
 
   const iconOptions = [
     { icon: "🎵", name: "Music Note" },
@@ -68,38 +124,40 @@ const PlaylistForm: React.FC<PlaylistFormProps> = ({ show, onClose, onSubmit }) 
     { icon: "💔", name: "Broken Heart" }
   ];
 
+  const colorOptions = isDarkMode ? darkModeColors : lightModeColors;
+
   return (
     <div className="form-overlay">
       <form className="form-content" onSubmit={handleSubmit}>
         <h2>Create new playlist</h2>
         <fieldset>
-  
-        <label htmlFor="playlist-name" className="playlist-label">Enter playlist name:</label>
-          <input 
+          <label htmlFor="playlist-name" className="playlist-label">Enter playlist name:</label>
+          <input
             id="playlist-name"
             type="text"
             placeholder="Enter playlist name"
             value={inputValue}
             onChange={(e) => setInputValue(e.target.value)}
             maxLength={15}
-            className={`playlist-input ${hasError ? "input-error" : ""}`} 
+            ref={inputRef}
+            className={`playlist-input ${hasError ? "input-error" : ""}`}
           />
-  
-          <label>Select background color:</label>
+
+          <label className="playlist-label">Select background color:</label>
           <div className="color-options">
             {colorOptions.map(({ color, name }) => (
               <button
                 key={color}
-                className={`color-button ${backgroundColor === color ? "selected" : ""}`}
+                className={`color-button ${selectedColor === (isDarkMode ? colorMapping[color] : color) ? "selected" : ""}`}
                 style={{ backgroundColor: color }}
                 type="button"
-                onClick={() => setBackgroundColor(color)}
-                data-colorname={name} 
+                onClick={() => handleColorSelection(color)}
+                data-colorname={name}
               />
             ))}
           </div>
-  
-          <label>Select an icon:</label>
+
+          <label className="playlist-label">Select an icon:</label>
           <div className="icon-options">
             {iconOptions.map(({ icon, name }) => (
               <button
@@ -107,14 +165,14 @@ const PlaylistForm: React.FC<PlaylistFormProps> = ({ show, onClose, onSubmit }) 
                 type="button"
                 className={selectedIcon === icon ? "icon-button active" : "icon-button"}
                 onClick={() => setSelectedIcon(icon)}
-                data-iconname={name} 
+                data-iconname={name}
               >
                 {icon}
               </button>
             ))}
           </div>
         </fieldset>
-  
+
         <button type="button" className="form-close-button" onClick={handleClose}>
           Close
         </button>
@@ -125,6 +183,5 @@ const PlaylistForm: React.FC<PlaylistFormProps> = ({ show, onClose, onSubmit }) 
     </div>
   );
 }
-  
 
 export default PlaylistForm;

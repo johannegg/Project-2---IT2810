@@ -15,7 +15,7 @@ const DisplayPlaylist: React.FC<DisplayPlaylistProps> = ({ playlist }) => {
 				{playlist.songs.length > 0 ? (
 					<AllSongsList songs={playlist.songs} genres={[]} />
 				) : (
-					<p>No songs available</p>
+					<p>No songs here yet.</p>
 				)}
 			</div>
 		</section>
