@@ -8,8 +8,8 @@ import FavoriteButton from "../FavoriteButton/FavoriteButton";
 import { routeChange } from "../../utils/SongRouteChange";
 
 type AllSongsListProps = {
-	songs: Song[];
-	genres: string[];
+    songs: Song[];
+    genres: string[];
 };
 
 export function AllSongsList({ songs, genres }: AllSongsListProps) {
