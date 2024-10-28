@@ -1,25 +1,25 @@
 import { FaSearch } from "react-icons/fa";
 import "./SearchBar.css";
 import { useEffect, useState } from "react";
-import { Song } from "../../utils/FetchMockData";
+import { SongData } from "../../utils/types/SongTypes";
 
 type SearchBarProps = {
-	songs: Song[];
-	setSearchedSongs: (SearchedSongs: Song[]) => void;
+	songs: SongData[];
+	setSearchedSongs: (SearchedSongs: SongData[]) => void;
 };
 
 export function SearchBar({ songs, setSearchedSongs }: SearchBarProps) {
 	const [searchInput, setSearchInput] = useState<string>("");
 
 	useEffect(() => {
-		function filterSongs(): Song[] {
+		function filterSongs(): SongData[] {
 			if (searchInput === "") return songs;
 			const keywords = searchInput.toLowerCase().split(" ");
 			return songs.filter((song) => {
 				return keywords.every((keyword) => {
 					return (
 						song.title.toLowerCase().includes(keyword) ||
-						song.artist.toLowerCase().includes(keyword)
+						song.artist.name.toLowerCase().includes(keyword)
 					);
 				});
 			});
