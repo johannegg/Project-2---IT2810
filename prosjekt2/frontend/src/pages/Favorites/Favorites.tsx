@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from "react";
-import { Song } from "../../utils/FetchMockData";
 import "./Favorites.css";
 import { AllSongsList } from "../../components/AllSongsComponents/AllSongsList";
 import { SearchBar } from "../../components/SearchBar/SearchBar";
 import { useNavigate } from "react-router-dom";
+import { SongData } from "../../utils/types/SongTypes";
 
 const Favorites: React.FC = () => {
-  const [favorites, setFavorites] = useState<Song[]>([]);
-  const [searchedSongs, setSearchedSongs] = useState<Song[]>([]);
+  const [favorites, setFavorites] = useState<SongData[]>([]);
+  const [searchedSongs, setSearchedSongs] = useState<SongData[]>([]);
   const genres = ["pop", "rock", "rap", "country"];
   const navigate = useNavigate()
 
@@ -23,10 +23,10 @@ const Favorites: React.FC = () => {
     return (
       <section className="no-favorites-container">
         <h2>You have no favorited songs</h2>
-		<p>Get started by adding some from the homepage!</p>
-		<button onClick={() => navigate("/")}>
-			Go to home
-		</button>
+        <p>Get started by adding some from the homepage!</p>
+        <button onClick={() => navigate("/")}>
+          Go to home
+        </button>
       </section>
     );
   }
