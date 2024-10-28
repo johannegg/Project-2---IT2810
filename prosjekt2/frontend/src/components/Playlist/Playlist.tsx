@@ -31,8 +31,8 @@ const Playlist: React.FC<PlaylistProps> = ({ id, name, backgroundColor, icon, so
 				"#9e3369": "#fce1e4",
 				"#d7ba28": "#fcf4dd",
 				"#35693f": "#ddedea",
-				"#445988": "#daeaf6"
-			  };
+				"#445988": "#daeaf6",
+			};
 
 			const targetColor =
 				isDarkModeActive && backgroundColor in colorMapping
