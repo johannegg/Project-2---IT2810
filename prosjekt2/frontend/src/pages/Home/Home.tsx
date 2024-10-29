@@ -65,9 +65,8 @@ const Home = () => {
 		sessionStorage.setItem("selectedGenres", JSON.stringify(genres));
 	};
 
-	const handleSortChange = (newSortOption: string, sortedSongs: SongData[]) => {
+	const handleSortChange = (newSortOption: string) => {
 		setSortOption(newSortOption);
-		setSongs(sortedSongs);
 	};
 
 	const toggleSidebar = () => {
