@@ -23,8 +23,16 @@ export const typeDefs = gql`
     songs: [Song]
   }
 
+  enum SortBy {
+    title_asc
+    title_desc
+    artist_asc
+    artist_desc
+    views_desc
+  }
+
   type Query {
-    songs(skip: Int, limit: Int, genres: [String]): [Song]
+    songs(skip: Int, limit: Int, genres: [String], sortBy: SortBy): [Song]
     song(id: ID!): Song
     artists: [Artist]
     artist(id: ID!): Artist
