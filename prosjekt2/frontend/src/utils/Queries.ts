@@ -1,8 +1,8 @@
 import { gql } from '@apollo/client';
 
 export const GET_SONGS = gql`
-    query Songs {
-        songs {
+    query GetSongs($skip: Int, $limit: Int, $genres: [String]) {
+        songs(skip: $skip, limit: $limit, genres: $genres) {
             id
             title
             views
