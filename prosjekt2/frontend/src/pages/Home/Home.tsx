@@ -46,6 +46,11 @@ const Home = () => {
 	}, [data]);
 
 	useEffect(() => {
+		const savedGenres = JSON.parse(sessionStorage.getItem("selectedGenres") || "[]");
+		setSelectedGenres(savedGenres.length > 0 ? savedGenres : null);
+	}, [])
+
+	useEffect(() => {
 		let loadingTimeout: NodeJS.Timeout;
 		if (loading) {
 			loadingTimeout = setTimeout(() => setShowLoading(true), 500); // Added delay 

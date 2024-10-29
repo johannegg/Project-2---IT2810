@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import "./Filter.css";
 import { FaFilter } from "react-icons/fa";
 import { SongData } from "../../utils/types/SongTypes";
@@ -22,6 +22,11 @@ export function Filter({ songs, onGenreChange }: FilterProps) {
       return newSelectedGenres;
     });
   };
+
+  useEffect(() => {
+		const savedGenres = JSON.parse(sessionStorage.getItem("selectedGenres") || "[]");
+		setSelectedGenres(savedGenres.length > 0 ? savedGenres : []);
+	}, [])
 
   // Initial genres array
   const predefinedGenres = ["pop", "rb", "rap", "rock", "country"];
