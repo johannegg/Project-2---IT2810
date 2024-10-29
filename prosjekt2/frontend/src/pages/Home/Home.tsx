@@ -13,12 +13,12 @@ const Home = () => {
 	const [songs, setSongs] = useState<SongData[]>([]);
 	const [searchedSongs, setSearchedSongs] = useState<SongData[]>([]);
 	const [selectedGenres, setSelectedGenres] = useState<string[] | null>(null);
-	const [sortOption, setSortOption] = useState<string>("title-asc");
+	const [sortOption, setSortOption] = useState<string>("views_desc");
 	const [isSidebarOpen, setIsSidebarOpen] = useState<boolean>(false);
 	const [showLoading, setShowLoading] = useState(false);
 
 	const { loading, error, data, fetchMore } = useQuery<SongsQueryResponse>(GET_SONGS, {
-        variables: { skip: 0, limit: 30, genres: selectedGenres || null}, // Fetch the first 30 songs
+        variables: { skip: 0, limit: 30, genres: selectedGenres || null, sortBy: sortOption }, // Fetch the first 30 songs
     });
 
     const loadMoreSongs = () => {

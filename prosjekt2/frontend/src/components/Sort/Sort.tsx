@@ -38,10 +38,11 @@ const Sort: React.FC<SortProps> = ({ songs, sortOption, onSortChange }) => {
                 <h2 className="sort-heading">Sort by</h2>
 			</section>
             <select className="sort-options" value={sortOption} onChange={handleSortChange}>
-                <option value="title-asc">Title A-Z</option>
-                <option value="title-desc">Title Z-A</option>
-                <option value="artist-asc">Artist A-Z</option>
-                <option value="artist-desc">Artist Z-A</option>
+                <option value="title_asc">Title A-Z</option>
+                <option value="title_desc">Title Z-A</option>
+                <option value="artist_asc">Artist A-Z</option>
+                <option value="artist_desc">Artist Z-A</option>
+                <option value="views_desc">Views</option>
             </select>
         </div>
     );
