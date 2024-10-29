@@ -18,42 +18,43 @@ const Home = () => {
 	const [showLoading, setShowLoading] = useState(false);
 
 	const { loading, error, data, fetchMore } = useQuery<SongsQueryResponse>(GET_SONGS, {
-        variables: { skip: 0, limit: 30, genres: selectedGenres || null, sortBy: sortOption }, // Fetch the first 30 songs
-    });
+		variables: { skip: 0, limit: 30, genres: selectedGenres || null, sortBy: sortOption }, // Fetch the first 30 songs
+	});
 
-    const loadMoreSongs = () => {
+	const loadMoreSongs = () => {
 		if (!data || !data.songs) return; // Prevent running if data is not available
 
 		fetchMore({
 			variables: {
 				skip: data.songs.length, // Increment skip based on current number of songs fetched
-				limit: 30,				// TODO: save skip value to use in dynamic paging	
+				limit: 30, // TODO: save skip value to use in dynamic paging
 			},
-		}).then(response => {
-			const newSongs = response.data.songs;
-            // Update the state by adding the new songs to the existing ones
-            setSongs(prevSongs => [...prevSongs, ...newSongs]);
-
-		}).catch(error => {
-			console.error("Error fetching more songs: ", error);
-		});
+		})
+			.then((response) => {
+				const newSongs = response.data.songs;
+				// Update the state by adding the new songs to the existing ones
+				setSongs((prevSongs) => [...prevSongs, ...newSongs]);
+			})
+			.catch((error) => {
+				console.error("Error fetching more songs: ", error);
+			});
 	};
 
 	useEffect(() => {
-		if(data) {
-			setSongs(data.songs)
+		if (data) {
+			setSongs(data.songs);
 		}
 	}, [data]);
 
 	useEffect(() => {
 		const savedGenres = JSON.parse(sessionStorage.getItem("selectedGenres") || "[]");
 		setSelectedGenres(savedGenres.length > 0 ? savedGenres : null);
-	}, [])
+	}, []);
 
 	useEffect(() => {
 		let loadingTimeout: NodeJS.Timeout;
 		if (loading) {
-			loadingTimeout = setTimeout(() => setShowLoading(true), 500); // Added delay 
+			loadingTimeout = setTimeout(() => setShowLoading(true), 500); // Added delay
 		} else {
 			setShowLoading(false); // Hide loading message if data is loaded
 		}
@@ -96,10 +97,13 @@ const Home = () => {
 					<p>Loading songs...</p>
 				) : (
 					<section className="allSongsContainer">
-						<AllSongsList songs={searchedSongs} genres={selectedGenres==null ? []: selectedGenres} />
-					</section>)
-				}
-			<button onClick={loadMoreSongs}>Load More Songs</button>
+						<AllSongsList
+							songs={searchedSongs}
+							genres={selectedGenres == null ? [] : selectedGenres}
+						/>
+					</section>
+				)}
+				{!loading && <button onClick={loadMoreSongs}>Load More Songs</button>}
 			</section>
 		</>
 	);
