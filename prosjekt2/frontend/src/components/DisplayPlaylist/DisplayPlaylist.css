@@ -1,4 +1,4 @@
-.playlist-details{
+.playlist-details {
 	display: flex;
 	flex-direction: column;
 	margin-top: 0;
@@ -107,7 +107,7 @@
 		min-width: 330px;
 	}
 
-	.playlist-details{
+	.playlist-details {
 		top: 90px;
 	}
 }
@@ -122,19 +122,16 @@
 		width: 115px;
 		font-size: 0.8rem;
 	}
-	.playlist-details{
+	.playlist-details {
 		top: 80px;
 	}
 }
 
-
 @media (prefers-color-scheme: dark) {
-	.delete-button{
+	.delete-button {
 		background-color: var(--theme-favorite-pink);
 	}
 	.modal {
 		background-color: rgb(54, 51, 51);
 	}
-
-
 }

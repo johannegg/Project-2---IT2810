@@ -75,13 +75,13 @@ const Playlists = () => {
 	const [playlists, setPlaylists] = useState<PlaylistData[]>(() => {
 		const storedPlaylists = localStorage.getItem("playlists");
 		const userPlaylists = storedPlaylists ? JSON.parse(storedPlaylists) : [];
-		return [...defaultPlaylists, ...userPlaylists]; 
+		return [...defaultPlaylists, ...userPlaylists];
 	});
 
 	const [showForm, setShowForm] = useState(false);
 
 	useEffect(() => {
-		const userPlaylists = playlists.slice(defaultPlaylists.length); 
+		const userPlaylists = playlists.slice(defaultPlaylists.length);
 		localStorage.setItem("playlists", JSON.stringify(userPlaylists));
 	}, [playlists]);
 

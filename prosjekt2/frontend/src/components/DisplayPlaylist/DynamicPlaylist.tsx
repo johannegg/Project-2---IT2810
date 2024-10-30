@@ -13,7 +13,9 @@ const DynamicPlaylist = () => {
 		const storedPlaylists = localStorage.getItem("playlists");
 		const playlists = storedPlaylists ? JSON.parse(storedPlaylists) : [];
 
-		const updatedPlaylists = playlists.filter((playlist: PlaylistData) => playlist.id !== playlistData.id);
+		const updatedPlaylists = playlists.filter(
+			(playlist: PlaylistData) => playlist.id !== playlistData.id,
+		);
 
 		localStorage.setItem("playlists", JSON.stringify(updatedPlaylists));
 
