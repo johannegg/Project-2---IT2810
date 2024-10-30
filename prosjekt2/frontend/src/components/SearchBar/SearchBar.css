@@ -27,10 +27,6 @@
 	box-shadow: 0 8px 20px 0 #83818133;
 }
 
-.searchContainer:focus-within .searchIcon {
-	color: var(--theme-green);
-}
-
 .searchIcon {
 	font-size: 19px;
 	color: white;
@@ -46,6 +42,25 @@
 	border-radius: 20px;
 	margin-left: 3px;
 	background-color: var(--theme-darker-green);
+}
+
+.iconContainer:hover {
+	background-color: var(--theme-green);
+}
+
+.clearButton {
+	position: absolute;
+	left: 15px;
+	top: 7px;
+	border: none;
+	background-color: transparent;
+	color: var(--theme-dark-grey);
+	font-size: 16px;
+	cursor: pointer;
+}
+
+.clearButton:hover {
+	color: #454444d8;
 }
 
 @media (max-width: 700px) {
@@ -74,6 +89,10 @@
 	.iconContainer {
 		right: 48px;
 	}
+
+	.clearButton {
+		left: 48px;
+	}
 }
 
 @media (prefers-color-scheme: dark) {
@@ -81,11 +100,19 @@
 		border-color: var(--theme-darker-green);
 	}
 
-	.searchIcon {
-		color: var(--theme-darker-green);
+	.iconContainer {
+		background-color: var(--theme-even-darker-green);
 	}
 
-	.searchContainer:focus-within .searchIcon {
-		color: var(--theme-darker-green);
+	.iconContainer:hover {
+		background-color: var(--theme-darker-green);
+	}
+
+	.clearButton {
+		color: #555;
+	}
+
+	.clearButton:hover {
+		color: var(--theme-lighter-green)
 	}
 }
