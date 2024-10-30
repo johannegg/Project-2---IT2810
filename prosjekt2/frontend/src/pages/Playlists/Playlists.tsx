@@ -108,7 +108,7 @@ const Playlists = () => {
 
 	return (
 		<section className="playlists-page">
-			<h2>Your Playlists</h2>
+			<h1>Your Playlists</h1>
 
 			<PlaylistForm show={showForm} onClose={() => setShowForm(false)} onSubmit={addNewPlaylist} />
 			<div className="outer-playlist-container">

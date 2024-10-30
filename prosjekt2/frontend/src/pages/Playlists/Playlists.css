@@ -1,12 +1,18 @@
 .playlists-page {
 	display: flex;
+	justify-content: center;
+	align-items: center;
 	flex-direction: column;
-	margin-top: 0;
-	padding-top: 20px;
 	position: absolute;
-	top: 130px;
+	top: 100px;
 	left: 0;
 	right: 0;
+	margin-left: auto;
+	padding-bottom: 30px;
+}
+
+.playlists-page h1 {
+	font-size: 28px;
 }
 
 .new-playlist-button {
