@@ -1,4 +1,3 @@
-import React from "react";
 import { FaEye } from "react-icons/fa";
 import type { Song } from "../../utils/FetchMockData";
 import { formatViews } from "../../utils/FormatViews";
