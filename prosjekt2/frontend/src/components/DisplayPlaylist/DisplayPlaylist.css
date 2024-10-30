@@ -3,17 +3,17 @@
 	font-size: 2rem;
 	margin-bottom: 10px;
 	position: absolute;
-	top: 130px;
+	top: 170px;
 	left: 0;
 	right: 0;
 }
 
 .playlist-details .songs-container {
 	text-align: center;
-	font-size: 2rem;
+	font-size: 1 rem;
 	margin-bottom: 10px;
 	position: absolute;
-	top: 230px;
+	top: 270px;
 	left: 0;
 	right: 0;
 }
@@ -34,4 +34,20 @@
 	.playlist-details .songs-container {
 		top: 205px;
 	}
+}
+
+
+.delete-button {
+	position: absolute;
+	top: 150px;
+	right: 370px;
+	background-color: #ea9ab2;
+	color: white;
+	border: none;
+	padding: 10px;
+	border-radius: 15px;
+	cursor: pointer;
+	width: 130px;
+	text-align: center;
+	font-size: 16px;
 }
