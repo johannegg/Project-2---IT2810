@@ -32,7 +32,13 @@ export const typeDefs = gql`
   }
 
   type Query {
-    songs(skip: Int, limit: Int, genres: [String], sortBy: SortBy): [Song]
+    songs(
+      skip: Int
+      limit: Int
+      genres: [String]
+      sortBy: SortBy
+      searchTerm: String
+    ): [Song]
     song(id: ID!): Song
     artists: [Artist]
     artist(id: ID!): Artist
