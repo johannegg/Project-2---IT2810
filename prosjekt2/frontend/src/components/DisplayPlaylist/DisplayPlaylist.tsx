@@ -26,33 +26,35 @@ const DisplayPlaylist: React.FC<DisplayPlaylistProps> = ({ playlist, onDelete })
 
 	return (
 		<section className="playlist-details">
-			<button onClick={handleDeleteClick} className="delete-button">
-				Delete Playlist
-			</button>
-			<h1>{playlist.name + " " + playlist.icon}</h1>
-			<div className="songs-container">
-				{playlist.songs.length > 0 ? (
-					<AllSongsList songs={playlist.songs} genres={[]} />
-				) : (
-					<p>No songs here yet.</p>
-				)}
-			</div>
+			<div className="playlist-details-container">
+				<button onClick={handleDeleteClick} className="delete-button">
+					Delete Playlist
+				</button>
+				<h1>{playlist.name + " " + playlist.icon}</h1>
+				<div className="songs-container">
+					{playlist.songs.length > 0 ? (
+						<AllSongsList songs={playlist.songs} genres={[]} />
+					) : (
+						<p>No songs here yet.</p>
+					)}
+				</div>
 
-			{showConfirmDelete && (
-				<div className="modal-overlay">
-					<div className="modal">
-						<p>Are you sure you want to delete this playlist?</p>
-						<div className="modal-buttons">
-							<button onClick={handleCancelDelete} className="cancel-button">
-								No
-							</button>
-							<button onClick={handleConfirmDelete} className="confirm-button">
-								Yes
-							</button>
+				{showConfirmDelete && (
+					<div className="modal-overlay">
+						<div className="modal">
+							<p>Are you sure you want to delete this playlist?</p>
+							<div className="modal-buttons">
+								<button onClick={handleCancelDelete} className="cancel-button">
+									No
+								</button>
+								<button onClick={handleConfirmDelete} className="confirm-button">
+									Yes
+								</button>
+							</div>
 						</div>
 					</div>
-				</div>
-			)}
+				)}
+			</div>
 		</section>
 	);
 };

@@ -1,27 +1,34 @@
-.playlist-details h1 {
-	text-align: center;
-	font-size: 2rem;
-	margin-bottom: 10px;
+.playlist-details{
+	display: flex;
+	flex-direction: column;
+	margin-top: 0;
+	padding-top: 20px;
 	position: absolute;
-	top: 170px;
+	top: 120px;
 	left: 0;
 	right: 0;
+}
+
+.playlist-details-container {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	margin: 0 auto;
+	min-width: 700px;
+}
+
+.playlist-details h1 {
+	font-size: 2rem;
+	margin-bottom: 25px;
+	position: relative;
+	align-self: center;
 }
 
 .playlist-details .songs-container {
 	text-align: center;
-	font-size: 1 rem;
-	margin-bottom: 10px;
-	position: absolute;
-	top: 270px;
-	left: 0;
-	right: 0;
 }
 
 .delete-button {
-	position: absolute;
-	top: 150px;
-	right: 370px;
 	background-color: #ea9ab2;
 	color: white;
 	border: none;
@@ -30,7 +37,7 @@
 	cursor: pointer;
 	width: 130px;
 	text-align: center;
-	font-size: 16px;
+	align-self: flex-end;
 }
 
 .modal-overlay {
@@ -68,7 +75,7 @@
 
 .confirm-button {
 	background-color: #ea9ab2;
-	color: white;
+	color: #000;
 	border: none;
 	padding: 10px 20px;
 	border-radius: 5px;
@@ -77,7 +84,7 @@
 
 .cancel-button {
 	background-color: #ccc;
-	color: white;
+	color: #000;
 	border: none;
 	padding: 10px 20px;
 	border-radius: 5px;
@@ -92,27 +99,41 @@
 	background-color: #aaa;
 }
 
-@media (max-width: 650px) {
+@media (max-width: 850px) {
 	.playlist-details h1 {
 		font-size: 1.7rem;
 	}
-	.playlist-details .songs-container {
-		top: 215px;
+	.playlist-details-container {
+		min-width: 330px;
+	}
+
+	.playlist-details{
+		top: 90px;
 	}
 }
 
-@media (max-width: 450px) {
+@media (max-width: 520px) {
 	.playlist-details h1 {
 		font-size: 1.5rem;
 	}
-	.playlist-details .songs-container {
-		top: 205px;
+
+	.delete-button {
+		padding: 8px;
+		width: 115px;
+		font-size: 0.8rem;
+	}
+	.playlist-details{
+		top: 80px;
 	}
 }
+
 
 @media (prefers-color-scheme: dark) {
 	.delete-button{
 		background-color: var(--theme-favorite-pink);
+	}
+	.modal {
+		background-color: rgb(54, 51, 51);
 	}
 
 
