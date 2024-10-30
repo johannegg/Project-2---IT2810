@@ -6,11 +6,11 @@ import { useNavigate } from "react-router-dom";
 import { SongData } from "../../utils/types/SongTypes";
 
 const Favorites: React.FC = () => {
-  const [favorites, setFavorites] = useState<SongData[]>([]);
-  const [searchedSongs, setSearchedSongs] = useState<SongData[]>([]);
+	const [favorites, setFavorites] = useState<SongData[]>([]);
+	const [searchedSongs, setSearchedSongs] = useState<SongData[]>([]);
   const [searchTerm, setSearchTerm] = useState<string>("");
-  const genres = ["pop", "rock", "rap", "rb", "country"];
-  const navigate = useNavigate()
+	const genres = ["pop", "rock", "rap", "rb", "country"];
+	const navigate = useNavigate();
 
   useEffect(() => {
     const favoriteSongs = JSON.parse(localStorage.getItem("favoriteSongs") || "[]");
