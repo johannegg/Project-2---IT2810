@@ -110,7 +110,11 @@ const Home = () => {
 						<AllSongsList songs={songs} genres={selectedGenres == null ? [] : selectedGenres} />
 					</section>
 				)}
-				{!loading && <button onClick={loadMoreSongs}>Load More Songs</button>}
+				{!loading && songs.length >= 30 && (
+					<button className="loadMoreButton" onClick={loadMoreSongs}>
+						Load More Songs
+					</button>
+				)}
 			</section>
 		</>
 	);
