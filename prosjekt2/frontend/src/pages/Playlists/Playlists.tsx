@@ -1,8 +1,8 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import "./Playlists.css";
 import Playlist from "../../components/Playlist/Playlist";
 import PlaylistForm from "../../components/PlaylistForm/PlaylistForm";
-import { Song } from "../../utils/FetchMockData";
+import { SongData } from "../../utils/types/SongTypes";
 import { useNavigate } from "react-router-dom";
 import { v4 as uuidv4 } from "uuid";
 
@@ -11,12 +11,13 @@ export interface PlaylistData {
 	name: string;
 	backgroundColor: string;
 	icon: string;
-	songs: Song[];
+	songs: SongData[];
 }
 
 const Playlists = () => {
 	const navigate = useNavigate();
-	const [playlists, setPlaylists] = useState<PlaylistData[]>([
+
+	const defaultPlaylists: PlaylistData[] = [
 		{
 			id: uuidv4(),
 			name: "My playlist 1",
@@ -24,22 +25,22 @@ const Playlists = () => {
 			icon: "🎵",
 			songs: [
 				{
-					id: 0,
+					id: "0",
 					title: "Song A",
-					artist: "Artist 1",
+					artist: { id: "id1", name: "Artist 1" },
 					year: 2015,
 					views: 500,
 					lyrics: "...",
-					genre: "pop",
+					genre: { name: "pop" },
 				},
 				{
-					id: 1,
+					id: "1",
 					title: "Song B",
-					artist: "Artist 2",
+					artist: { id: "id2", name: "Artist 2" },
 					year: 2016,
 					views: 500,
 					lyrics: "...",
-					genre: "pop",
+					genre: { name: "pop" },
 				},
 			],
 		},
@@ -50,28 +51,39 @@ const Playlists = () => {
 			icon: "🎧",
 			songs: [
 				{
-					id: 2,
+					id: "2",
 					title: "Song C",
-					artist: "Artist 3",
+					artist: { id: "id3", name: "Artist 3" },
 					year: 2015,
 					views: 300,
 					lyrics: "...",
-					genre: "pop",
+					genre: { name: "pop" },
 				},
 				{
-					id: 3,
+					id: "3",
 					title: "Song D",
-					artist: "Artist 4",
+					artist: { id: "id4", name: "Artist 4" },
 					year: 2015,
 					views: 500,
 					lyrics: "...",
-					genre: "pop",
+					genre: { name: "pop" },
 				},
 			],
 		},
-	]);
+	];
+
+	const [playlists, setPlaylists] = useState<PlaylistData[]>(() => {
+		const storedPlaylists = localStorage.getItem("playlists");
+		const userPlaylists = storedPlaylists ? JSON.parse(storedPlaylists) : [];
+		return [...defaultPlaylists, ...userPlaylists]; 
+	});
 
 	const [showForm, setShowForm] = useState(false);
+
+	useEffect(() => {
+		const userPlaylists = playlists.slice(defaultPlaylists.length); 
+		localStorage.setItem("playlists", JSON.stringify(userPlaylists));
+	}, [playlists]);
 
 	const addNewPlaylist = (newPlaylistName: string, backgroundColor: string, icon: string) => {
 		const newPlaylist = {
@@ -82,11 +94,16 @@ const Playlists = () => {
 			songs: [],
 		};
 
-		setPlaylists([...playlists, newPlaylist]);
+		setPlaylists([...defaultPlaylists, ...playlists.slice(defaultPlaylists.length), newPlaylist]);
+	};
+
+	const deletePlaylist = (playlistId: string) => {
+		const updatedPlaylists = playlists.filter((playlist) => playlist.id !== playlistId);
+		setPlaylists(updatedPlaylists);
 	};
 
 	const handlePlaylistClick = (playlist: PlaylistData) => {
-		navigate(`/playlist/${playlist.id}`, { state: { playlist } });
+		navigate(`/playlist/${playlist.id}`, { state: { playlist, deletePlaylist } });
 	};
 
 	return (
@@ -102,7 +119,7 @@ const Playlists = () => {
 					{playlists.map((playlist) => (
 						<Playlist
 							id={playlist.id}
-							key={playlist.name}
+							key={playlist.id}
 							name={playlist.name}
 							backgroundColor={playlist.backgroundColor}
 							icon={playlist.icon}
