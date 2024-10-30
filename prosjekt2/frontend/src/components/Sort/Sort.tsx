@@ -1,12 +1,12 @@
 import type React from "react";
-import type { Song } from "../../utils/FetchMockData";
-import "./Sort.css";
 import { FaSort } from "react-icons/fa";
+import { SongData } from "../../utils/types/SongTypes";
+import "./Sort.css";
 
 type SortProps = {
-    songs: Song[];
+    songs: SongData[];
     sortOption: string;
-    onSortChange: (newSort: string, sortedSongs: Song[]) => void;
+    onSortChange: (newSort: string, sortedSongs: SongData[]) => void;
 };
 
 const Sort: React.FC<SortProps> = ({ songs, sortOption, onSortChange }) => {
@@ -20,9 +20,9 @@ const Sort: React.FC<SortProps> = ({ songs, sortOption, onSortChange }) => {
                 case 'title-desc':
                     return b.title.localeCompare(a.title);
                 case 'artist-asc':
-                    return a.artist.localeCompare(b.artist);
+                    return a.artist.name.localeCompare(b.artist.name);
                 case 'artist-desc':
-                    return b.artist.localeCompare(a.artist);
+                    return b.artist.name.localeCompare(a.artist.name);
                 default:
                     return 0;
             }

@@ -3,10 +3,10 @@ import { faHeart as heartRegular} from "@fortawesome/free-regular-svg-icons";
 import { faHeart as heartSolid} from "@fortawesome/free-solid-svg-icons";
 import "./FavoriteButton.css"
 import { useEffect, useState } from "react";
-import type { Song } from "../../utils/FetchMockData";
+import { SongData } from "../../utils/types/SongTypes";
 
 type FavoriteProps = {
-    song: Song;
+    song: SongData;
     size?: "small" | "large";
 };
   
@@ -16,15 +16,15 @@ const FavoriteButton = ({song, size = "small"}: FavoriteProps) => {
     useEffect(() => {
         // Check if the song is already favorited (saved in localstorage)
         const favoriteSongs = JSON.parse(localStorage.getItem("favoriteSongs") || "[]");
-        if (favoriteSongs.some((favSong: Song) => favSong.id === song.id)) {
+        if (favoriteSongs.some((favSong: SongData) => favSong.id === song.id)) {
             setHearted(true);
         }
-    }, [song.id])
+    }, [song])
 
     const handleFavorite = (e: React.MouseEvent<HTMLButtonElement>) => {
         e.stopPropagation();
 
-        const favoriteSongs: Song[] = JSON.parse(localStorage.getItem("favoriteSongs") || "[]")
+        const favoriteSongs: SongData[] = JSON.parse(localStorage.getItem("favoriteSongs") || "[]")
         // Remove song from favorites when toggling a already hearted the favorite button 
         if(hearted) {
             const updatedFavorites = favoriteSongs.filter((favoriteSong) => favoriteSong.id !== song.id);

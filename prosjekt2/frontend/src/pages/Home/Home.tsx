@@ -1,40 +1,33 @@
 import { useEffect, useState } from "react";
 import { AllSongsList } from "../../components/AllSongsComponents/AllSongsList";
 import { SearchBar } from "../../components/SearchBar/SearchBar";
-import { fetchSongs, type Song } from "../../utils/FetchMockData";
-import "./Home.css";
 import { Sidebar } from "../../components/SideBar/SideBar";
 import { FilterButton } from "../../components/SideBar/FilterButton/FilterButton";
+import { useQuery } from "@apollo/client";
+import { GET_SONGS } from "../../utils/Queries";
+import { SongsQueryResponse } from "../../utils/types/QueryTypes";
+import { SongData } from "../../utils/types/SongTypes";
+import "./Home.css";
 
 const Home = () => {
-	const [songs, setSongs] = useState<Song[]>([]);
-	const [searchedSongs, setSearchedSongs] = useState<Song[]>([]);
-	const [error, setError] = useState<string | null>(null);
-	const [loading, setLoading] = useState<boolean>(true);
+	const [songs, setSongs] = useState<SongData[]>([]);
+	const [searchedSongs, setSearchedSongs] = useState<SongData[]>([]);
 	const [selectedGenres, setSelectedGenres] = useState<string[]>([]);
 	const [sortOption, setSortOption] = useState<string>("title-asc");
 	const [isSidebarOpen, setIsSidebarOpen] = useState<boolean>(false);
+	const { loading, error, data } = useQuery<SongsQueryResponse>(GET_SONGS);
 
 	useEffect(() => {
-		const loadData = async () => {
-			try {
-				const data = await fetchSongs();
-				setSongs(data);
-			} catch {
-				setError("Failed to load data");
-			} finally {
-				setLoading(false);
-			}
-		};
-
-		loadData();
-	}, []);
+		if(data) {
+			setSongs(data.songs)
+		}
+	}, [data]);
 
 	const handleGenreChange = (genres: string[]) => {
 		setSelectedGenres(genres);
 	};
 
-	const handleSortChange = (newSortOption: string, sortedSongs: Song[]) => {
+	const handleSortChange = (newSortOption: string, sortedSongs: SongData[]) => {
 		setSortOption(newSortOption);
 		setSongs(sortedSongs);
 	};
@@ -44,7 +37,7 @@ const Home = () => {
 	};
 
 	if (loading) return <p>Loading songs...</p>;
-	if (error) return <p>{error}</p>;
+	if (error || !data) return <p>{error?.message}</p>;
 
 	return (
 		<>

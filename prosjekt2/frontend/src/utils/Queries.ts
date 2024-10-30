@@ -7,6 +7,7 @@ export const GET_SONGS = gql`
             title
             views
             year
+            lyrics
             artist {
                 name
                 id
