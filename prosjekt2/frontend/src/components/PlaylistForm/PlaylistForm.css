@@ -1,0 +1,204 @@
+.form-overlay {
+	position: fixed;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	background-color: rgba(0, 0, 0, 0.5);
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	z-index: 1000;
+	overflow-y: auto;
+}
+
+.form-content {
+	background-color: white;
+	padding: 30px;
+	border-radius: 12px;
+	text-align: center;
+	width: 80vw;
+	max-width: 350px;
+	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+	max-height: 90vh;
+	overflow-y: auto;
+	position: relative;
+}
+
+.playlist-input {
+	padding: 10px;
+	margin: 5px 0 20px 0;
+	width: 90%;
+	border: 1px solid #000000;
+	border-radius: 5px;
+	box-sizing: border-box;
+	font-size: 1rem;
+}
+
+.color-options {
+	display: flex;
+	justify-content: space-around;
+	margin-bottom: 15px;
+	position: relative;
+}
+
+.color-button {
+	width: 30px;
+	height: 30px;
+	border-radius: 50%;
+	border: 1px solid #000000;
+	cursor: pointer;
+	position: relative;
+	transition: border-color 0.3s ease;
+}
+
+.color-button::after {
+	content: attr(data-colorname);
+	position: absolute;
+	bottom: -25px;
+	left: 50%;
+	transform: translateX(-50%);
+	background-color: #fff;
+	padding: 3px 8px;
+	border-radius: 4px;
+	border: 1px solid #d4d4d4;
+	opacity: 0;
+	white-space: nowrap;
+	font-size: 12px;
+	font-weight: bold;
+	color: #555;
+	pointer-events: none;
+	transition: opacity 0.3s ease;
+}
+
+.color-button:hover::after {
+	opacity: 1;
+}
+
+.color-button.selected {
+	border: 3px solid #000;
+}
+
+.icon-options {
+	display: grid;
+	grid-template-columns: repeat(auto-fill, minmax(50px, 1fr));
+	gap: 5px;
+}
+
+.icon-button {
+	margin: 5px;
+	font-size: 30px;
+	cursor: pointer;
+	background: none;
+	border: 2px solid transparent;
+	transition: border-color 0.3s ease;
+	position: relative;
+}
+
+.icon-button:hover {
+	border-color: #a19e9e;
+}
+
+.icon-button::after {
+	content: attr(data-iconname);
+	position: absolute;
+	bottom: -25px;
+	left: 50%;
+	transform: translateX(-50%);
+	background-color: #fff;
+	padding: 3px 8px;
+	border-radius: 4px;
+	border: 1px solid #d4d4d4;
+	opacity: 0;
+	white-space: nowrap;
+	font-size: 12px;
+	font-weight: bold;
+	color: #555;
+	pointer-events: none;
+	transition: opacity 0.3s ease;
+	z-index: 1;
+}
+
+.icon-button:hover::after {
+	opacity: 1;
+}
+
+.icon-button.active {
+	border-radius: 5px;
+	border: 3px solid #000;
+}
+
+.form-submit-button,
+.form-close-button {
+	margin: 10px;
+	padding: 10px 20px;
+	border: none;
+	border-radius: 5px;
+	color: white;
+	cursor: pointer;
+	min-width: 100px;
+}
+
+.form-submit-button {
+	background-color: #4caf50;
+}
+
+.form-close-button {
+	background-color: #f44336;
+}
+
+form fieldset {
+	border: none;
+}
+
+.playlist-label {
+	display: block;
+	font-weight: bold;
+	margin-bottom: 15px;
+}
+
+h2 {
+	margin: 0px;
+	margin-bottom: 5px;
+}
+
+.playlist-input.input-error {
+	border-color: red;
+	background-color: #ffe6e6;
+}
+
+.playlist-input.input-error:focus {
+	outline-color: red;
+}
+
+@media (prefers-color-scheme: dark) {
+	.form-content {
+		border-color: #ffffff !important;
+		color: #ffffff !important;
+		background-color: #000000;
+	}
+
+	.form-overlay {
+		background-color: rgba(28, 28, 28, 0.8);
+	}
+
+	.new-playlist-button {
+		background-color: var(--theme-favorite-pink);
+	}
+
+	.color-button.selected {
+		border: 3px solid #ffffff;
+	}
+
+	.icon-button.active {
+		border: 3px solid #ffffff;
+	}
+
+	.playlist-input.input-error {
+		background-color: #2d1b1f;
+	}
+
+	.playlist-input {
+		border: 1px solid #ffffff;
+	}
+}
