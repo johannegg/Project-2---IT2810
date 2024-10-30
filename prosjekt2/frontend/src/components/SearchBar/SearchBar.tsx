@@ -1,45 +1,32 @@
 import { FaSearch } from "react-icons/fa";
 import "./SearchBar.css";
-import { useEffect, useState } from "react";
-import { SongData } from "../../utils/types/SongTypes";
+import { useState } from "react";
 
 type SearchBarProps = {
-	songs: SongData[];
-	setSearchedSongs: (SearchedSongs: SongData[]) => void;
+	setSearchTerm: (setSearchTerm: string) => void;
 };
 
-export function SearchBar({ songs, setSearchedSongs }: SearchBarProps) {
+export function SearchBar({ setSearchTerm }: SearchBarProps) {
 	const [searchInput, setSearchInput] = useState<string>("");
 
-	useEffect(() => {
-		function filterSongs(): SongData[] {
-			if (searchInput === "") return songs;
-			const keywords = searchInput.toLowerCase().split(" ");
-			return songs.filter((song) => {
-				return keywords.every((keyword) => {
-					return (
-						song.title.toLowerCase().includes(keyword) ||
-						song.artist.name.toLowerCase().includes(keyword)
-					);
-				});
-			});
-		}
-
-		const searchedSongs = filterSongs();
-		setSearchedSongs(searchedSongs);
-	}, [searchInput, songs, setSearchedSongs]);
+	const handleSearchSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+		event.preventDefault(); 
+		setSearchTerm(searchInput); // Pass search input to Home page
+	};
 
 	return (
 		<div className="searchContainer">
-			<input
-				className="searchInput"
-				placeholder="Search for a song or an artist"
-				value={searchInput}
-				onChange={(e) => setSearchInput(e.target.value)}
-			/>
-			<div className="iconContainer">
-				<FaSearch className="searchIcon" />
-			</div>
+			<form className="searchForm" onSubmit={handleSearchSubmit}>
+				<input
+					className="searchInput"
+					placeholder="Search for a song or an artist"
+					value={searchInput}
+					onChange={(e) => setSearchInput(e.target.value)}
+				/>
+				<button type="submit" className="iconContainer">
+					<FaSearch className="searchIcon" />
+				</button>
+			</form>
 		</div>
 	);
 }

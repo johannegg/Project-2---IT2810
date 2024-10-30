@@ -11,14 +11,20 @@ import "./Home.css";
 
 const Home = () => {
 	const [songs, setSongs] = useState<SongData[]>([]);
-	const [searchedSongs, setSearchedSongs] = useState<SongData[]>([]);
 	const [selectedGenres, setSelectedGenres] = useState<string[] | null>(null);
 	const [sortOption, setSortOption] = useState<string>("views_desc");
 	const [isSidebarOpen, setIsSidebarOpen] = useState<boolean>(false);
 	const [showLoading, setShowLoading] = useState(false);
+	const [searchTerm, setSearchTerm] = useState<string>("");
 
 	const { loading, error, data, fetchMore } = useQuery<SongsQueryResponse>(GET_SONGS, {
-		variables: { skip: 0, limit: 30, genres: selectedGenres || null, sortBy: sortOption }, // Fetch the first 30 songs
+		variables: {
+			skip: 0,
+			limit: 30,
+			genres: selectedGenres || null,
+			sortBy: sortOption,
+			searchTerm,
+		}, // Fetch the first 30 songs
 	});
 
 	const loadMoreSongs = () => {
@@ -76,19 +82,23 @@ const Home = () => {
 
 	if (error) return <p>{error?.message}</p>;
 
+	const handleSearchSubmit = (term: string) => {
+		setSearchTerm(term); // Updates search term based on button click
+	};
+
 	return (
 		<>
 			<Sidebar
 				onGenreChange={handleGenreChange}
 				sortOption={sortOption}
 				onSortChange={handleSortChange}
-				songs={searchedSongs}
+				songs={songs}
 				onToggle={setIsSidebarOpen} //setIsSidebarOpen
 				isOpen={isSidebarOpen}
 			/>
 			<section className={`homeComponents ${isSidebarOpen ? "shifted" : ""}`}>
 				<section className="searchBarContainer">
-					<SearchBar songs={songs} setSearchedSongs={setSearchedSongs} />
+					<SearchBar setSearchTerm={handleSearchSubmit} />
 				</section>
 				<section className="filterButtonContainer">
 					<FilterButton onClick={toggleSidebar} />
@@ -97,10 +107,7 @@ const Home = () => {
 					<p>Loading songs...</p>
 				) : (
 					<section className="allSongsContainer">
-						<AllSongsList
-							songs={searchedSongs}
-							genres={selectedGenres == null ? [] : selectedGenres}
-						/>
+						<AllSongsList songs={songs} genres={selectedGenres == null ? [] : selectedGenres} />
 					</section>
 				)}
 				{!loading && <button onClick={loadMoreSongs}>Load More Songs</button>}
