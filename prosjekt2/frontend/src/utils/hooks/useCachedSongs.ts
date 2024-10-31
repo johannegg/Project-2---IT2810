@@ -17,7 +17,7 @@ export const useCachedSongs = (
 ) => {
 	const [songs, setSongs] = useState<SongData[]>([]);
 	const [isLoading, setIsLoading] = useState<boolean>(false);
-	const { loading, error, data, fetchMore } = useQuery(GET_SONGS, {
+	const { loading, error, data, fetchMore, refetch } = useQuery(GET_SONGS, {
 		variables: { skip: 0, limit: 30, genres: selectedGenres, sortBy: sortOption, searchTerm },
 		fetchPolicy: "cache-first",
 	});
@@ -34,13 +34,25 @@ export const useCachedSongs = (
 		}
 	}, [cacheKey, data, loading]);
 
+  // Trigger refetch on search, genre, or sort changes
+	useEffect(() => {
+		refetch({
+			skip: 0,
+			limit: 30,
+			genres: selectedGenres || null,
+			sortBy: sortOption,
+			searchTerm,
+		});
+	}, [refetch, searchTerm, selectedGenres, sortOption]);
+
+  // Append fetched songs on "Load More"
 	const loadMoreSongs = () => {
 		if (!data?.songs) return;
 		setIsLoading(true);
 
 		fetchMore({
 			variables: {
-				skip: data.songs.length, // Increment skip based on current number of songs fetched
+				skip: songs.length, // Increment skip based on current number of songs fetched
 				limit: 30,
 			},
 		})

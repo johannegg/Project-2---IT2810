@@ -19,17 +19,6 @@ const Home = () => {
 		searchTerm,
 	);
 
-	// Trigger refetch on search, genre, or sort changes
-	useEffect(() => {
-		refetch({
-			skip: 0,
-			limit: 30,
-			genres: selectedGenres || null,
-			sortBy: sortOption,
-			searchTerm,
-		});
-	}, [refetch, searchTerm, selectedGenres, sortOption]);
-
 	// Load selected genres from session storage on initial render
 	useEffect(() => {
 		const savedGenres = JSON.parse(sessionStorage.getItem("selectedGenres") || "[]");
@@ -60,13 +49,12 @@ const Home = () => {
 		setIsSidebarOpen((prev) => !prev);
 	};
 
-	if (error) return <p>Error loading songs: {error?.message}</p>;
-
+	
 	const handleSearchSubmit = (term: string) => {
 		setSearchTerm(term);
 	};
-
-	if (error) return <p>{error?.message}</p>;
+	
+	if (error) return <p>Error loading songs: {error?.message}</p>;
 
 	return (
 		<>
