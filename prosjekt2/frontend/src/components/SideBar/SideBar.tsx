@@ -6,7 +6,7 @@ import { SongData } from "../../utils/types/SongTypes";
 type SidebarProps = {
 	onGenreChange: (selectedGenres: string[]) => void;
 	sortOption: string;
-	onSortChange: (newSort: string, sortedSongs: SongData[]) => void;
+	onSortChange: (newSort: string) => void;
 	songs: SongData[];
 	onToggle: (isOpen: boolean) => void;
 	isOpen: boolean;
