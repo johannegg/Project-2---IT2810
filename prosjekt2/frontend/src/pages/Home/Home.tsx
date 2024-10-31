@@ -17,7 +17,7 @@ const Home = () => {
 	const [showLoading, setShowLoading] = useState(false);
 	const [searchTerm, setSearchTerm] = useState<string>("");
 
-	const { loading, error, data, fetchMore } = useQuery<SongsQueryResponse>(GET_SONGS, {
+	const { loading, error, data, fetchMore, refetch } = useQuery<SongsQueryResponse>(GET_SONGS, {
 		variables: {
 			skip: 0,
 			limit: 30,
@@ -27,18 +27,18 @@ const Home = () => {
 		}, // Fetch the first 30 songs
 	});
 
+	// Append fetched songs on "Load More"
 	const loadMoreSongs = () => {
 		if (!data || !data.songs) return; // Prevent running if data is not available
 
 		fetchMore({
 			variables: {
-				skip: data.songs.length, // Increment skip based on current number of songs fetched
-				limit: 30, // TODO: save skip value to use in dynamic paging
+				skip: songs.length, // Increment skip based on current number of songs fetched
+				limit: 30,
 			},
 		})
 			.then((response) => {
 				const newSongs = response.data.songs;
-				// Update the state by adding the new songs to the existing ones
 				setSongs((prevSongs) => [...prevSongs, ...newSongs]);
 			})
 			.catch((error) => {
@@ -47,24 +47,37 @@ const Home = () => {
 	};
 
 	useEffect(() => {
-		if (data) {
+		if (data && data.songs) {
 			setSongs(data.songs);
 		}
 	}, [data]);
 
+	// Trigger refetch on search, genre, or sort changes
+	useEffect(() => {
+		refetch({
+			skip: 0,
+			limit: 30,
+			genres: selectedGenres || null,
+			sortBy: sortOption,
+			searchTerm,
+		});
+	}, [refetch, searchTerm, selectedGenres, sortOption]);
+
+	// Load selected genres from session storage on initial render
 	useEffect(() => {
 		const savedGenres = JSON.parse(sessionStorage.getItem("selectedGenres") || "[]");
 		setSelectedGenres(savedGenres.length > 0 ? savedGenres : null);
 	}, []);
 
+	// Loading delay
 	useEffect(() => {
 		let loadingTimeout: NodeJS.Timeout;
 		if (loading) {
-			loadingTimeout = setTimeout(() => setShowLoading(true), 500); // Added delay
+			loadingTimeout = setTimeout(() => setShowLoading(true), 500);
 		} else {
-			setShowLoading(false); // Hide loading message if data is loaded
+			setShowLoading(false);
 		}
-		return () => clearTimeout(loadingTimeout); // Cleanup on unmount or if loading changes
+		return () => clearTimeout(loadingTimeout);
 	}, [loading]);
 
 	const handleGenreChange = (genres: string[]) => {
@@ -80,11 +93,11 @@ const Home = () => {
 		setIsSidebarOpen((prev) => !prev);
 	};
 
-	if (error) return <p>{error?.message}</p>;
-
 	const handleSearchSubmit = (term: string) => {
-		setSearchTerm(term); // Updates search term based on button click
+		setSearchTerm(term);
 	};
+
+	if (error) return <p>{error?.message}</p>;
 
 	return (
 		<>
