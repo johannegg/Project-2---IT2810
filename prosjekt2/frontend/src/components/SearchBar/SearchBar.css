@@ -54,7 +54,7 @@
 	top: 8px;
 	border: none;
 	background-color: transparent;
-	color: var(--theme-dark-grey);
+	color: var(--theme-light-grey);
 	font-size: 16px;
 	cursor: pointer;
 }
