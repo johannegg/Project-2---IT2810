@@ -4,20 +4,23 @@ import { AllSongsList } from "../../components/AllSongsComponents/AllSongsList";
 import { SearchBar } from "../../components/SearchBar/SearchBar";
 import { useNavigate } from "react-router-dom";
 import { SongData } from "../../utils/types/SongTypes";
+import { PlaylistData } from "../../pages/Playlists/Playlists";
 
 const Favorites: React.FC = () => {
 	const [favorites, setFavorites] = useState<SongData[]>([]);
 	const [searchedSongs, setSearchedSongs] = useState<SongData[]>([]);
+	const [playlists, setPlaylists] = useState<PlaylistData[]>([]);
 	const genres = ["pop", "rock", "rap", "country"];
 	const navigate = useNavigate();
 
 	useEffect(() => {
 		const favoriteSongs = JSON.parse(localStorage.getItem("favoriteSongs") || "[]");
-		console.log("Favorite Songs:", favoriteSongs);
 		setFavorites(favoriteSongs);
+
+		const storedPlaylists = JSON.parse(localStorage.getItem("playlists") || "[]");
+		setPlaylists(storedPlaylists);
 	}, []);
 
-	// Show message if no favorite songs are found
 	if (favorites.length === 0) {
 		return (
 			<section className="no-favorites-container">
@@ -35,7 +38,7 @@ const Favorites: React.FC = () => {
 				<SearchBar songs={favorites} setSearchedSongs={setSearchedSongs} />
 			</section>
 			<section className="favorites-allSongsContainer">
-				<AllSongsList songs={searchedSongs} genres={genres} />
+				<AllSongsList songs={searchedSongs} genres={genres} isInPlaylist={false} playlists={playlists} />
 			</section>
 		</section>
 	);

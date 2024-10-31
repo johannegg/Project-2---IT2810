@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { PlaylistData } from "../../pages/Playlists/Playlists";
 import "./DisplayPlaylist.css";
 import { AllSongsList } from "../AllSongsComponents/AllSongsList";
@@ -10,6 +10,12 @@ interface DisplayPlaylistProps {
 
 const DisplayPlaylist: React.FC<DisplayPlaylistProps> = ({ playlist, onDelete }) => {
 	const [showConfirmDelete, setShowConfirmDelete] = useState(false);
+	const [playlists, setPlaylists] = useState<PlaylistData[]>([]);
+
+	useEffect(() => {
+		const storedPlaylists = JSON.parse(localStorage.getItem("playlists") || "[]");
+		setPlaylists(storedPlaylists);
+	}, []);
 
 	const handleDeleteClick = () => {
 		setShowConfirmDelete(true);
@@ -33,7 +39,7 @@ const DisplayPlaylist: React.FC<DisplayPlaylistProps> = ({ playlist, onDelete })
 				<h1>{playlist.name + " " + playlist.icon}</h1>
 				<div className="songs-container">
 					{playlist.songs.length > 0 ? (
-						<AllSongsList songs={playlist.songs} genres={[]} />
+						<AllSongsList songs={playlist.songs} genres={[]} isInPlaylist playlists={playlists} />
 					) : (
 						<p>No songs here yet.</p>
 					)}

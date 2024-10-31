@@ -7,6 +7,7 @@ import { useQuery } from "@apollo/client";
 import { GET_SONGS } from "../../utils/Queries";
 import { SongsQueryResponse } from "../../utils/types/QueryTypes";
 import { SongData } from "../../utils/types/SongTypes";
+import { PlaylistData } from "../../pages/Playlists/Playlists";
 import "./Home.css";
 
 const Home = () => {
@@ -15,12 +16,16 @@ const Home = () => {
 	const [selectedGenres, setSelectedGenres] = useState<string[]>([]);
 	const [sortOption, setSortOption] = useState<string>("title-asc");
 	const [isSidebarOpen, setIsSidebarOpen] = useState<boolean>(false);
+	const [playlists, setPlaylists] = useState<PlaylistData[]>([]);
 	const { loading, error, data } = useQuery<SongsQueryResponse>(GET_SONGS);
 
 	useEffect(() => {
-		if(data) {
-			setSongs(data.songs)
+		if (data) {
+			setSongs(data.songs);
 		}
+
+		const storedPlaylists = JSON.parse(localStorage.getItem("playlists") || "[]");
+		setPlaylists(storedPlaylists);
 	}, [data]);
 
 	const handleGenreChange = (genres: string[]) => {
@@ -46,7 +51,7 @@ const Home = () => {
 				sortOption={sortOption}
 				onSortChange={handleSortChange}
 				songs={searchedSongs}
-				onToggle={setIsSidebarOpen} //setIsSidebarOpen
+				onToggle={setIsSidebarOpen}
 				isOpen={isSidebarOpen}
 			/>
 			<section className={`homeComponents ${isSidebarOpen ? "shifted" : ""}`}>
@@ -57,7 +62,7 @@ const Home = () => {
 					<FilterButton onClick={toggleSidebar} />
 				</section>
 				<section className="allSongsContainer">
-					<AllSongsList songs={searchedSongs} genres={selectedGenres} />
+					<AllSongsList songs={searchedSongs} genres={selectedGenres} isInPlaylist={false} playlists={playlists} />
 				</section>
 			</section>
 		</>
