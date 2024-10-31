@@ -1,9 +1,14 @@
 import { Driver } from "neo4j-driver";
+import neo4j from "neo4j-driver";
 
-const executeCypherQuery = async (driver: Driver, cypherQuery: String) => {
+const executeCypherQuery = async (
+  driver: Driver,
+  cypherQuery: String,
+  params: any = {},
+) => {
   const session = driver.session();
   try {
-    const result = await session.run(cypherQuery);
+    const result = await session.run(cypherQuery, params);
     return result.records;
   } catch (error) {
     console.error("Error executing Cypher query:", error);
@@ -44,15 +49,73 @@ export const resolvers = {
         };
       });
     },
-    songs: async (_: any, __: any, { driver }: any) => {
+    songs: async (
+      _: any,
+      {
+        skip = 0,
+        limit = 30,
+        genres,
+        sortBy,
+        searchTerm,
+      }: {
+        skip: number;
+        limit: number;
+        genres?: string[];
+        sortBy?: string;
+        searchTerm?: string;
+      },
+      { driver }: any,
+    ) => {
+      // Parse skip and limit to integers
+      const intSkip = parseInt(skip as unknown as string, 10);
+      const intLimit = parseInt(limit as unknown as string, 10);
+
+      // Map sortBy to cypher ORDER BY
+      let orderByClause = "";
+      switch (sortBy) {
+        case "title_asc":
+          orderByClause = "ORDER BY s.title ASC";
+          break;
+        case "title_desc":
+          orderByClause = "ORDER BY s.title DESC";
+          break;
+        case "artist_asc":
+          orderByClause = "ORDER BY a.name ASC";
+          break;
+        case "artist_desc":
+          orderByClause = "ORDER BY a.name DESC";
+          break;
+        case "views_desc":
+          orderByClause = "ORDER BY s.views DESC";
+          break;
+        default:
+          orderByClause = ""; // Default sorting
+      }
+
+      // Create insensitive search clause using the search term
+      const searchClause = searchTerm
+        ? "AND (toLower(s.title) CONTAINS toLower($searchTerm) OR toLower(a.name) CONTAINS toLower($searchTerm))"
+        : "";
+
+      // Execute the Cypher query with pagination
       const records = await executeCypherQuery(
         driver,
         `
-                MATCH (s:Song)-[:PERFORMED_BY]->(a:Artist), (s)-[:HAS_GENRE]->(g:Genre)
-                RETURN s, a, g
-                LIMIT 30
-                `,
+        MATCH (s:Song)-[:PERFORMED_BY]->(a:Artist), (s)-[:HAS_GENRE]->(g:Genre)
+        WHERE ($genres IS NULL OR g.name IN $genres) ${searchClause}
+        RETURN s, a, g
+        ${orderByClause}
+        SKIP $skip
+        LIMIT $limit
+        `,
+        {
+          skip: neo4j.int(intSkip), // Use neo4j.int() for correct type
+          limit: neo4j.int(intLimit),
+          genres: genres || null,
+          searchTerm: searchTerm || "",
+        },
       );
+
       // Map the result to fit the GraphQL schema
       return records.map((record) => {
         const songNode = record.get("s"); // Song node

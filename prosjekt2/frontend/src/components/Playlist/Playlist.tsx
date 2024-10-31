@@ -1,14 +1,14 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "./Playlist.css";
-import { Song } from "../../utils/FetchMockData";
+import { SongData } from "../../utils/types/SongTypes";
 
 interface PlaylistProps {
 	id: string;
 	name: string;
 	backgroundColor: string;
 	icon: string;
-	songs: Song[];
+	songs: SongData[];
 	onClick: () => void;
 }
 

@@ -41,6 +41,18 @@
 	left: -270px;
 }
 
+.loadMoreButton {
+	border-radius: 5px;
+	width: 150px;
+	height: 34px;
+	margin: 15px 0 40px 0;
+	background-color: var(--theme-green);
+}
+
+.loadMoreButton:hover {
+	background-color: var(--theme-light-green);
+}
+
 @media (max-width: 1190px) {
 	.homeComponents.homeComponents.shifted {
 		transform: translateX(15%);
@@ -122,5 +134,15 @@
 
 	.filterButtonContainer {
 		left: -120px;
+	}
+}
+
+@media (prefers-color-scheme: dark) {
+	.loadMoreButton {
+		background-color: var(--theme-even-darker-green);
+	}
+
+	.loadMoreButton:hover {
+		background-color: var(--theme-darker-green);
 	}
 }

@@ -1,36 +1,15 @@
-import { useState, useEffect } from "react";
-import { Song, fetchSongs } from "../../utils/FetchMockData";
+import { useEffect, useState } from "react";
 import "./Filter.css";
 import { FaFilter } from "react-icons/fa";
+import { SongData } from "../../utils/types/SongTypes";
 
 interface FilterProps {
+  songs: SongData[];
   onGenreChange: (selectedGenres: string[]) => void;
 }
 
-export function Filter({ onGenreChange }: FilterProps) {
-  const [data, setData] = useState<Song[]>([]);
-  const [error, setError] = useState<string | null>(null);
-  const [loading, setLoading] = useState<boolean>(true);
+export function Filter({ songs, onGenreChange }: FilterProps) {
   const [selectedGenres, setSelectedGenres] = useState<string[]>([]);
-
-  // loading songs from mockdata.json
-  useEffect(() => {
-    const loadData = async () => {
-      try {
-        const data = await fetchSongs();
-        setData(data);
-      } catch {
-        setError("Failed to load data");
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    loadData();
-  }, []);
-
-  if (loading) return <p>Loading songs...</p>;
-  if (error) return <p>{error}</p>;
 
   const handleGenreChange = (genre: string) => {
     setSelectedGenres((prevSelected) => {
@@ -44,16 +23,27 @@ export function Filter({ onGenreChange }: FilterProps) {
     });
   };
 
-  // Finding unique genres to show in filter
-  const uniqueGenres = [...new Set(data.map(song => song.genre))];
+  useEffect(() => {
+		const savedGenres = JSON.parse(sessionStorage.getItem("selectedGenres") || "[]");
+		setSelectedGenres(savedGenres.length > 0 ? savedGenres : []);
+	}, [])
+
+  // Initial genres array
+  const predefinedGenres = ["pop", "rb", "rap", "rock", "country"];
+
+  // Find unique genres, starting with predefined ones
+  const uniqueGenres = [...new Set([
+    ...predefinedGenres, 
+    ...songs.map(song => song.genre.name)
+  ])];
 
   return (
     <> 
       <section className="filterContainer">
         <section className="filterHeader">
-					<FaFilter className="filterSortIcon" />
-					<h2>Filter</h2>{" "}
-				</section>
+          <FaFilter className="filterSortIcon" />
+          <h2>Filter</h2>
+        </section>
         <section className="categories">
           {uniqueGenres.map((genre, index) => (
             <div className="filterRow" key={index}>
@@ -62,7 +52,7 @@ export function Filter({ onGenreChange }: FilterProps) {
                 id={genre} 
                 checked={selectedGenres.includes(genre)} 
                 onChange={() => handleGenreChange(genre)}
-                />
+              />
               <label htmlFor={genre}>{genre.charAt(0).toUpperCase() + genre.slice(1)}</label>
             </div>
           ))}

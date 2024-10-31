@@ -1,45 +1,52 @@
 import { FaSearch } from "react-icons/fa";
 import "./SearchBar.css";
-import { useEffect, useState } from "react";
-import { Song } from "../../utils/FetchMockData";
+import { useState } from "react";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faXmark } from "@fortawesome/free-solid-svg-icons";
 
 type SearchBarProps = {
-	songs: Song[];
-	setSearchedSongs: (SearchedSongs: Song[]) => void;
+	setSearchTerm: (setSearchTerm: string) => void;
 };
 
-export function SearchBar({ songs, setSearchedSongs }: SearchBarProps) {
+export function SearchBar({ setSearchTerm }: SearchBarProps) {
 	const [searchInput, setSearchInput] = useState<string>("");
+	const [hasInput, setHasInput] = useState<boolean>(false);
 
-	useEffect(() => {
-		function filterSongs(): Song[] {
-			if (searchInput === "") return songs;
-			const keywords = searchInput.toLowerCase().split(" ");
-			return songs.filter((song) => {
-				return keywords.every((keyword) => {
-					return (
-						song.title.toLowerCase().includes(keyword) ||
-						song.artist.toLowerCase().includes(keyword)
-					);
-				});
-			});
-		}
+	const handleSearchSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+		event.preventDefault(); 
+		setSearchTerm(searchInput); // Pass search input to Home page
+	};
 
-		const searchedSongs = filterSongs();
-		setSearchedSongs(searchedSongs);
-	}, [searchInput, songs, setSearchedSongs]);
+	const handleSearchInput = (input: string) => {
+		setSearchInput(input);
+		if (input == "") setHasInput(false);
+		else setHasInput(true)
+	}
+
+	const clearInput = () => {
+		setSearchInput("");
+		setSearchTerm("");
+		setHasInput(false);
+	}
 
 	return (
 		<div className="searchContainer">
-			<input
-				className="searchInput"
-				placeholder="Search for a song or an artist"
-				value={searchInput}
-				onChange={(e) => setSearchInput(e.target.value)}
-			/>
-			<div className="iconContainer">
-				<FaSearch className="searchIcon" />
-			</div>
+			<form className="searchForm" onSubmit={handleSearchSubmit}>
+				<input
+					className="searchInput"
+					placeholder="Search for a song or an artist"
+					value={searchInput}
+					onChange={(e) => handleSearchInput(e.target.value)}
+				/>
+				<button type="submit" className="iconContainer">
+					<FaSearch className="searchIcon" />
+				</button>
+			</form>
+			{hasInput &&
+				<button className="clearButton" onClick={clearInput}>
+					<FontAwesomeIcon icon={faXmark} />
+				</button>
+			}
 		</div>
 	);
 }
