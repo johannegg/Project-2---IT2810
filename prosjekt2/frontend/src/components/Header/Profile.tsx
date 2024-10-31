@@ -1,5 +1,5 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faArrowRight, faCircleUser } from '@fortawesome/free-solid-svg-icons';
+import { faArrowRight, faCircleUser, faXmark } from '@fortawesome/free-solid-svg-icons';
 import { useEffect, useState } from 'react';
 import "./Profile.css";
 
@@ -54,8 +54,9 @@ const Profile: React.FC = () => {
                     </div>
                     {showLogin &&
                         <div className="login-overlay">
+                            <FontAwesomeIcon className="close-login-button" icon={faXmark} onClick={() => setShowLogin(false)}/>
                         <form className="profile-login" onSubmit={(e) => { e.preventDefault(); logIn(); }}>  
-                            <FontAwesomeIcon icon={faCircleUser} size="lg" style={{ color: "#E27396" }}/>
+                            <FontAwesomeIcon className="profile-login-icon" icon={faCircleUser} size="lg" style={{ color: "#E27396" }}/>
                             <input
                                 className="login-input"
                                 placeholder="Enter profile name"
