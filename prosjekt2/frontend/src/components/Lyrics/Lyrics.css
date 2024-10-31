@@ -3,6 +3,7 @@
     min-height: 100vh;
     margin-top: 50px;
     color: #493843;
+    width: 700px;
 }
 
 .lyrics button {
@@ -16,24 +17,31 @@
 .lyrics h1 {
     text-align: center;
     font-size: xx-large;
-    margin-top: 80px;
     margin-bottom: 0px;
 }
 
 .lyrics p {
     text-align: left;
-    align-self: center;
+    font-size: 18px;
 }
 
 .songInfo {
     display: grid;
     grid-template-columns: 1fr auto 1fr;
-    align-items: center; 
+    justify-content: space-between;
+    align-items: center;
     padding: 8px;
     border-radius: 8px;
     margin-top: 20px;
-    width: 700px; 
-    height: 20px; 
+    height: auto;
+}
+
+.songInfo > :first-child {
+    justify-self: start;
+}
+
+.songInfo > :last-child {
+    justify-self: end; 
 }
 
 .songInfo p {
@@ -45,20 +53,19 @@
 hr {
     display: block; 
     border: none;
-    margin: 0.5em auto;
     height: 2px;
     background-color: #D5E1BA;
-    width: 100%; 
-    overflow: hidden;
     margin-bottom: 30px;
+    overflow: hidden;
 }
-
 
 .viewsInfo {
     display: flex;
-    align-items: center; 
-    justify-content: center;
+    flex-direction: row;
+    justify-content: flex-end;
+    align-items: center;
 }
+
 
 @media (prefers-color-scheme: dark) {
     .lyrics {
@@ -69,3 +76,46 @@ hr {
         background-color: var(--theme-even-darker-green);
     }
 }
+
+
+@media (max-width: 760px) {
+    .lyrics {
+        width: 550px;
+    }
+
+    .lyrics h1 {
+        font-size: 20px;
+        padding-left: 40px;
+        padding-right: 40px;
+    }
+
+    .lyrics h2 {
+        font-size: 18px;
+    }
+
+
+    .lyrics p {
+        font-size: 16px;
+    }
+}
+
+@media (max-width: 650px) {
+    .lyrics {
+        width: 450px;
+    }
+}
+
+@media (max-width: 560px) {
+    .lyrics {
+        width: 350px;
+    }
+
+    .lyrics p {
+        font-size: 14px;
+    }
+
+    .songInfo p {
+        font-size: 12px;
+    }
+}
+
