@@ -19,17 +19,30 @@ const Home = () => {
 		searchTerm,
 	);
 
+	// Trigger refetch on search, genre, or sort changes
+	useEffect(() => {
+		refetch({
+			skip: 0,
+			limit: 30,
+			genres: selectedGenres || null,
+			sortBy: sortOption,
+			searchTerm,
+		});
+	}, [refetch, searchTerm, selectedGenres, sortOption]);
+
+	// Load selected genres from session storage on initial render
 	useEffect(() => {
 		const savedGenres = JSON.parse(sessionStorage.getItem("selectedGenres") || "[]");
 		setSelectedGenres(savedGenres.length > 0 ? savedGenres : null);
 	}, []);
 
+	// Loading delay
 	useEffect(() => {
 		let loadingTimeout: NodeJS.Timeout;
 		if (isLoading) {
 			loadingTimeout = setTimeout(() => setShowLoading(true), 500); // Added delay
 		} else {
-			setShowLoading(false); // Hide loading message if data is loaded
+			setShowLoading(false);
 		}
 		return () => clearTimeout(loadingTimeout); // Cleanup on unmount or if loading changes
 	}, [isLoading]);
@@ -50,8 +63,10 @@ const Home = () => {
 	if (error) return <p>Error loading songs: {error?.message}</p>;
 
 	const handleSearchSubmit = (term: string) => {
-		setSearchTerm(term); // Updates search term based on button click
+		setSearchTerm(term);
 	};
+
+	if (error) return <p>{error?.message}</p>;
 
 	return (
 		<>
