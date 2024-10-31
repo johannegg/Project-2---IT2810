@@ -50,8 +50,8 @@
 
 .clearButton {
 	position: absolute;
-	left: 15px;
-	top: 7px;
+	left: 20px;
+	top: 8px;
 	border: none;
 	background-color: transparent;
 	color: var(--theme-dark-grey);
