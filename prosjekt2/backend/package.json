@@ -10,6 +10,7 @@
   "license": "ISC",
   "dependencies": {
     "@apollo/client": "^3.11.8",
+    "@apollo/server": "^4.11.2",
     "@neo4j/graphql": "^5.9.1",
     "@types/graphql": "^14.2.3",
     "apollo-server": "^3.13.0",
