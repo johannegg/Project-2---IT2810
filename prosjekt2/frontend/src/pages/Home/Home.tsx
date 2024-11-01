@@ -3,65 +3,21 @@ import { AllSongsList } from "../../components/AllSongsComponents/AllSongsList";
 import { SearchBar } from "../../components/SearchBar/SearchBar";
 import { Sidebar } from "../../components/SideBar/SideBar";
 import { FilterButton } from "../../components/SideBar/FilterButton/FilterButton";
-import { SongData } from "../../utils/types/SongTypes";
-import { SongsQueryResponse } from "../../utils/types/QueryTypes";
-import { useQuery } from "@apollo/client";
-import { GET_SONGS } from "../../utils/Queries";
+import { useCachedSongs } from "../../utils/hooks/useCachedSongs";
 import "./Home.css";
 
 const Home = () => {
-	const [songs, setSongs] = useState<SongData[]>([]);
 	const [selectedGenres, setSelectedGenres] = useState<string[] | null>(null);
 	const [sortOption, setSortOption] = useState<string>("views_desc");
 	const [isSidebarOpen, setIsSidebarOpen] = useState<boolean>(false);
 	const [showLoading, setShowLoading] = useState(false);
 	const [searchTerm, setSearchTerm] = useState<string>("");
 
-	const { loading, error, data, fetchMore, refetch } = useQuery<SongsQueryResponse>(GET_SONGS, {
-		variables: {
-			skip: 0,
-			limit: 30,
-			genres: selectedGenres || null,
-			sortBy: sortOption,
-			searchTerm,
-		}, // Fetch the first 30 songs
-	});
-
-	// Append fetched songs on "Load More"
-	const loadMoreSongs = () => {
-		if (!data || !data.songs) return; // Prevent running if data is not available
-
-		fetchMore({
-			variables: {
-				skip: songs.length, // Increment skip based on current number of songs fetched
-				limit: 30,
-			},
-		})
-			.then((response) => {
-				const newSongs = response.data.songs;
-				setSongs((prevSongs) => [...prevSongs, ...newSongs]);
-			})
-			.catch((error) => {
-				console.error("Error fetching more songs: ", error);
-			});
-	};
-
-	useEffect(() => {
-		if (data && data.songs) {
-			setSongs(data.songs);
-		}
-	}, [data]);
-
-	// Trigger refetch on search, genre, or sort changes
-	useEffect(() => {
-		refetch({
-			skip: 0,
-			limit: 30,
-			genres: selectedGenres || null,
-			sortBy: sortOption,
-			searchTerm,
-		});
-	}, [refetch, searchTerm, selectedGenres, sortOption]);
+	const { songs, isLoading, error, loadMoreSongs } = useCachedSongs(
+		selectedGenres,
+		sortOption,
+		searchTerm,
+	);
 
 	// Load selected genres from session storage on initial render
 	useEffect(() => {
@@ -72,13 +28,13 @@ const Home = () => {
 	// Loading delay
 	useEffect(() => {
 		let loadingTimeout: NodeJS.Timeout;
-		if (loading) {
-			loadingTimeout = setTimeout(() => setShowLoading(true), 500);
+		if (isLoading) {
+			loadingTimeout = setTimeout(() => setShowLoading(true), 500); // Added delay
 		} else {
 			setShowLoading(false);
 		}
-		return () => clearTimeout(loadingTimeout);
-	}, [loading]);
+		return () => clearTimeout(loadingTimeout); // Cleanup on unmount or if loading changes
+	}, [isLoading]);
 
 	const handleGenreChange = (genres: string[]) => {
 		setSelectedGenres(genres.length > 0 ? genres : null);
@@ -93,11 +49,12 @@ const Home = () => {
 		setIsSidebarOpen((prev) => !prev);
 	};
 
+	
 	const handleSearchSubmit = (term: string) => {
 		setSearchTerm(term);
 	};
-
-	if (error) return <p>{error?.message}</p>;
+	
+	if (error) return <p>Error loading songs: {error?.message}</p>;
 
 	return (
 		<>
@@ -123,7 +80,7 @@ const Home = () => {
 						<AllSongsList songs={songs} genres={selectedGenres == null ? [] : selectedGenres} />
 					</section>
 				)}
-				{!loading && songs.length >= 30 && (
+				{!isLoading && songs.length >= 30 && (
 					<button className="loadMoreButton" onClick={loadMoreSongs}>
 						Load More Songs
 					</button>

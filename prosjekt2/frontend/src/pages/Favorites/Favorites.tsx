@@ -26,8 +26,8 @@ const Favorites: React.FC = () => {
 
 			return favorites.filter((song) => {
 				return keywords.every((keyword) => 
-					song.title.toLowerCase().includes(keyword) ||
-					song.artist.name.toLowerCase().includes(keyword)	
+					(song.title?.toLowerCase().includes(keyword) || "") ||
+					(song.artist?.name?.toLowerCase().includes(keyword) || "")
 				);
 			});
 		}
