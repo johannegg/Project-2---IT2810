@@ -2,6 +2,7 @@ import { useState } from "react";
 import "./ViewsFilter.css";
 import ReactSlider from "react-slider";
 import { formatViews } from "../../utils/FormatViews";
+import { FaFilter } from "react-icons/fa";
 
 function ViewsFilter() {
     const [minViews, setMinViews] = useState(0);
@@ -9,7 +10,10 @@ function ViewsFilter() {
 
     return (
         <section className="filterContainer">
-            <h2>Views</h2>
+            <section className="filterHeader">
+                <FaFilter className="filterSortIcon" />
+                <h2>Filter on views</h2>
+        </section>
             <div className="slider">
                 <ReactSlider
                     className="horizontal-slider"
@@ -28,6 +32,7 @@ function ViewsFilter() {
                 />
                 <div className="viewValues">
                     <span>Min: {formatViews(minViews)}</span>
+                    &nbsp; &nbsp;
                     <span>Max: {formatViews(maxViews)}</span>
                 </div>
             </div>

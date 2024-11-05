@@ -42,7 +42,7 @@ export function Filter({ songs, onGenreChange }: FilterProps) {
       <section className="filterContainer">
         <section className="filterHeader">
           <FaFilter className="filterSortIcon" />
-          <h2>Filter</h2>
+          <h2>Filter on genre</h2>
         </section>
         <section className="categories">
           {uniqueGenres.map((genre, index) => (
