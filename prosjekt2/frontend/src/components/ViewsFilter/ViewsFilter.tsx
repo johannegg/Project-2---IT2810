@@ -4,9 +4,11 @@ import ReactSlider from "react-slider";
 import { formatViews } from "../../utils/FormatViews";
 import { FaFilter } from "react-icons/fa";
 
+// Filteret ligger på rett sted og ser pent ut, men det funker ikke, filtrerer ikke faktisk
+
 function ViewsFilter() {
     const [minViews, setMinViews] = useState(0);
-    const [maxViews, setMaxViews] = useState(10000000);
+    const [maxViews, setMaxViews] = useState(3000000);
 
     return (
         <section className="filterContainer">
@@ -20,7 +22,7 @@ function ViewsFilter() {
                     thumbClassName="thumb"
                     trackClassName="track"
                     min={0}
-                    max={10000000}
+                    max={3000000}
                     value={[minViews, maxViews]}
                     onChange={(values) => {
                         setMinViews(values[0]);
