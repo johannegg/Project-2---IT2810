@@ -1,49 +1,92 @@
 import { useEffect, useState } from "react";
 import { AllSongsList } from "../../components/AllSongsComponents/AllSongsList";
 import { SearchBar } from "../../components/SearchBar/SearchBar";
-import { fetchSongs, Song } from "../../utils/FetchMockData";
-import { GenreFilter } from "../../components/GenreFilter/GenreFilter";
-import ViewsFilter from "../../components/ViewsFilter/ViewsFilter";
+import { Sidebar } from "../../components/SideBar/SideBar";
+import { FilterButton } from "../../components/SideBar/FilterButton/FilterButton";
+import { useCachedSongs } from "../../utils/hooks/useCachedSongs";
 import "./Home.css";
 
 const Home = () => {
-	const [songs, setSongs] = useState<Song[]>([]);
-	const [searchedSongs, setSearchedSongs] = useState<Song[]>([]);
-	const [error, setError] = useState<string | null>(null);
-	const [loading, setLoading] = useState<boolean>(true);
-	const [selectedGenres, setSelectedGenres] = useState<string[]>([]);
+	const [selectedGenres, setSelectedGenres] = useState<string[] | null>(null);
+	const [sortOption, setSortOption] = useState<string>("views_desc");
+	const [isSidebarOpen, setIsSidebarOpen] = useState<boolean>(false);
+	const [showLoading, setShowLoading] = useState(false);
+	const [searchTerm, setSearchTerm] = useState<string>("");
 
+	const { songs, isLoading, error, loadMoreSongs } = useCachedSongs(
+		selectedGenres,
+		sortOption,
+		searchTerm,
+	);
+
+	// Load selected genres from session storage on initial render
 	useEffect(() => {
-		const loadData = async () => {
-			try {
-				const data = await fetchSongs();
-				setSongs(data);
-			} catch {
-				setError("Failed to load data");
-			} finally {
-				setLoading(false);
-			}
-		};
-
-		loadData();
+		const savedGenres = JSON.parse(sessionStorage.getItem("selectedGenres") || "[]");
+		setSelectedGenres(savedGenres.length > 0 ? savedGenres : null);
 	}, []);
 
+	// Loading delay
+	useEffect(() => {
+		let loadingTimeout: NodeJS.Timeout;
+		if (isLoading) {
+			loadingTimeout = setTimeout(() => setShowLoading(true), 500); // Added delay
+		} else {
+			setShowLoading(false);
+		}
+		return () => clearTimeout(loadingTimeout); // Cleanup on unmount or if loading changes
+	}, [isLoading]);
+
 	const handleGenreChange = (genres: string[]) => {
-		setSelectedGenres(genres);
+		setSelectedGenres(genres.length > 0 ? genres : null);
+		sessionStorage.setItem("selectedGenres", JSON.stringify(genres));
 	};
 
-	if (loading) return <p>Loading songs...</p>;
-	if (error) return <p>{error}</p>;
+	const handleSortChange = (newSortOption: string) => {
+		setSortOption(newSortOption);
+	};
+
+	const toggleSidebar = () => {
+		setIsSidebarOpen((prev) => !prev);
+	};
+
+	
+	const handleSearchSubmit = (term: string) => {
+		setSearchTerm(term);
+	};
+	
+	if (error) return <p>Error loading songs: {error?.message}</p>;
 
 	return (
-		<div className="homeComponents">
-			<SearchBar songs={songs} setSearchedSongs={setSearchedSongs} />
-			<div className="appContainer">
-				<GenreFilter onGenreChange={handleGenreChange} />
-				<ViewsFilter />
-				<AllSongsList songs={searchedSongs} genres={selectedGenres} />
-			</div>
-		</div>
+		<>
+			<Sidebar
+				onGenreChange={handleGenreChange}
+				sortOption={sortOption}
+				onSortChange={handleSortChange}
+				songs={songs}
+				onToggle={setIsSidebarOpen} //setIsSidebarOpen
+				isOpen={isSidebarOpen}
+			/>
+			<section className={`homeComponents ${isSidebarOpen ? "shifted" : ""}`}>
+				<section className="searchBarContainer">
+					<SearchBar setSearchTerm={handleSearchSubmit} />
+				</section>
+				<section className="filterButtonContainer">
+					<FilterButton onClick={toggleSidebar} />
+				</section>
+				{showLoading ? (
+					<p>Loading songs...</p>
+				) : (
+					<section className="allSongsContainer">
+						<AllSongsList songs={songs} genres={selectedGenres == null ? [] : selectedGenres} />
+					</section>
+				)}
+				{!isLoading && songs.length >= 30 && (
+					<button className="loadMoreButton" onClick={loadMoreSongs}>
+						Load More Songs
+					</button>
+				)}
+			</section>
+		</>
 	);
 };
 

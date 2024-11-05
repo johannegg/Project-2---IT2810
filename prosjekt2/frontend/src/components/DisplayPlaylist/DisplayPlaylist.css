@@ -1,0 +1,137 @@
+.playlist-details {
+	display: flex;
+	flex-direction: column;
+	margin-top: 0;
+	padding-top: 20px;
+	position: absolute;
+	top: 100px;
+	left: 0;
+	right: 0;
+}
+
+.playlist-details-container {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	margin: 0 auto;
+	min-width: 700px;
+}
+
+.playlist-details h1 {
+	font-size: 2rem;
+	margin-bottom: 25px;
+	position: relative;
+	align-self: center;
+}
+
+.playlist-details .songs-container {
+	text-align: center;
+}
+
+.delete-button {
+	background-color: #ea9ab2;
+	color: white;
+	border: none;
+	padding: 10px;
+	border-radius: 15px;
+	cursor: pointer;
+	width: 130px;
+	text-align: center;
+	align-self: flex-end;
+}
+
+.modal-overlay {
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background-color: rgba(0, 0, 0, 0.5);
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	z-index: 1000;
+}
+
+.modal {
+	background-color: white;
+	padding: 20px;
+	border-radius: 8px;
+	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+	text-align: center;
+	width: 300px;
+}
+
+.modal p {
+	margin-bottom: 20px;
+	font-size: 1.1rem;
+}
+
+.modal-buttons {
+	display: flex;
+	justify-content: center;
+	gap: 20px;
+}
+
+.confirm-button {
+	background-color: #ea9ab2;
+	color: #000;
+	border: none;
+	padding: 10px 20px;
+	border-radius: 5px;
+	cursor: pointer;
+}
+
+.cancel-button {
+	background-color: #ccc;
+	color: #000;
+	border: none;
+	padding: 10px 20px;
+	border-radius: 5px;
+	cursor: pointer;
+}
+
+.confirm-button:hover {
+	background-color: #d9829f;
+}
+
+.cancel-button:hover {
+	background-color: #aaa;
+}
+
+@media (max-width: 850px) {
+	.playlist-details h1 {
+		font-size: 1.7rem;
+	}
+	.playlist-details-container {
+		min-width: 330px;
+	}
+
+	.playlist-details {
+		top: 90px;
+	}
+}
+
+@media (max-width: 520px) {
+	.playlist-details h1 {
+		font-size: 1.5rem;
+	}
+
+	.delete-button {
+		padding: 8px;
+		width: 115px;
+		font-size: 0.8rem;
+	}
+	.playlist-details {
+		top: 80px;
+	}
+}
+
+@media (prefers-color-scheme: dark) {
+	.delete-button {
+		background-color: var(--theme-favorite-pink);
+	}
+	.modal {
+		background-color: rgb(54, 51, 51);
+	}
+}
