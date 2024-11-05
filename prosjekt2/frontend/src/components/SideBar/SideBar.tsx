@@ -1,5 +1,6 @@
 import "./Sidebar.css";
 import { Filter } from "../GenreFilter/GenreFilter";
+import ViewsFilter from "../ViewsFilter/ViewsFilter";
 import Sort from "../Sort/Sort";
 import { SongData } from "../../utils/types/SongTypes";
 
@@ -11,6 +12,7 @@ type SidebarProps = {
 	onToggle: (isOpen: boolean) => void;
 	isOpen: boolean;
 };
+
 export function Sidebar({
 	onGenreChange,
 	sortOption,
@@ -30,6 +32,8 @@ export function Sidebar({
 			</button>
 			<div className="filteringContainer">
 				<Filter onGenreChange={onGenreChange} songs={songs} />
+				<br />
+				<ViewsFilter />
 				<br />
 				<Sort songs={songs} sortOption={sortOption} onSortChange={onSortChange} />
 			</div>
