@@ -1,27 +1,10 @@
 # Lyrical Lounge
 Lyrical Lounge is an application where you can discover new songs and read their lyrics. The songs are displayed in a list, and you can click each song to read the lyrics and find more information about it. 
 
-The main functionality of our application as of now, is to view a specific song, save your favorite songs and make playlists. 
+The main functionality of our application as of now, is to view a specific song, save your favorite songs and make playlists. On the homepage, you can search for songs, filter and sort. 
 
-On the homepage, you can search for songs, filter and sort. 
-
-**WARNING:** After some trouble with uploading the backend to the virtual machine, the project is only fully available if you clone it to your computer:( You also have to be either on NTNU network or use a vpn to make it work, as the database is on the VM.  
-*Will be fixed ASAP.*
-
-## Running the project
-If you want to install the project from your computer, clone as normal and then write the following in one terminal to start backend:
-
-`cd prosjekt2/backend`   
-`npm install`  
-`npx ts-node src/index.ts`
-
-Then open a new terminal and write the following to start frontend: 
-
-`cd prosjekt2/frontend`   
-`npm install`  
-`npm run dev`
-
-If the webpage doesn't open automatically, copy the link from the terminal (starting with http://localhost:5173) and paste in browser. 
+The project is available on http://it2810-12.idi.ntnu.no/project2/  
+In order to see the project, you have to be on NTNU network or use VPN.
 
 ## Technology  
 We have used the GRAND stack, with the technology GraphQL, React with TypeScript, Apollo and Neo4j Database. CSS and HTML is also used in frontend. Prettier and ESLint is used to maintain code quality. 
@@ -52,3 +35,18 @@ The dataset we have chosen is from genius and after some manipulation it include
 Next, we will implement some more functionalities, that makes it possible for the user to:
 - Add songs to a playlist.
 - Remove songs from a playlist.
+
+## Running the project
+If you want to install the project from your computer, clone as normal and then write the following in one terminal to start backend:
+
+`cd prosjekt2/backend`   
+`npm install`  
+`npx ts-node src/index.ts`
+
+Then open a new terminal and write the following to start frontend: 
+
+`cd prosjekt2/frontend`   
+`npm install`  
+`npm run dev`
+
+If the webpage doesn't open automatically, copy the link from the terminal (starting with http://localhost:5173) and paste in browser. 
