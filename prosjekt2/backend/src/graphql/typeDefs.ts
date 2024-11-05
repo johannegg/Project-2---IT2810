@@ -1,6 +1,8 @@
-import { gql } from "apollo-server-express";
+import { ApolloServer } from '@apollo/server';
+import { startStandaloneServer } from '@apollo/server/standalone';
 
-export const typeDefs = gql`
+export const typeDefs = `#graphql
+
   type Song {
     id: ID!
     title: String!
