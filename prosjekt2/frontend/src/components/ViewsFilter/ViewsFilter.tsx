@@ -38,7 +38,7 @@ export function ViewsFilter({ onViewsChange }: ViewsFilterProps) {
 		<section className="filterContainer">
 			<section className="filterHeader">
 				<FaFilter className="filterSortIcon" />
-				<h2>Filter on views</h2>
+				<h2>Views</h2>
 			</section>
 			<div className="slider">
 				<ReactSlider
@@ -53,8 +53,7 @@ export function ViewsFilter({ onViewsChange }: ViewsFilterProps) {
 					renderThumb={(props) => <div {...props} />}
 				/>
 				<div className="viewValues">
-					<span>Min: {formatViews(minViews)}</span>
-					<span>Max: {formatViews(maxViews)}</span>
+					<span>{formatViews(minViews)} - {formatViews(maxViews)}</span>
 				</div>
 			</div>
 		</section>
