@@ -4,88 +4,79 @@ import "./DisplayPlaylist.css";
 import { AllSongsList } from "../AllSongsComponents/AllSongsList";
 
 interface DisplayPlaylistProps {
-	playlist: PlaylistData;
-	onDelete: () => void;
+    playlist: PlaylistData;
+    onDelete: () => void;
 }
 
 const DisplayPlaylist: React.FC<DisplayPlaylistProps> = ({ playlist, onDelete }) => {
-	const [showConfirmDelete, setShowConfirmDelete] = useState(false);
-	const [currentPlaylist, setCurrentPlaylist] = useState<PlaylistData>(playlist); 
+    const [showConfirmDelete, setShowConfirmDelete] = useState(false);
+    const [currentPlaylist, setCurrentPlaylist] = useState<PlaylistData>(playlist);
 
-	useEffect(() => {
-		const storedPlaylists = JSON.parse(localStorage.getItem("playlists") || "[]");
-		const updatedPlaylist = storedPlaylists.find((pl: PlaylistData) => pl.id === playlist.id);
-		if (updatedPlaylist) {
-			setCurrentPlaylist(updatedPlaylist);
-		}
-	}, [playlist.id]);
+    const updatePlaylistFromStorage = () => {
+        const storedPlaylists = JSON.parse(localStorage.getItem("playlists") || "[]");
+        const updatedPlaylist = storedPlaylists.find((pl: PlaylistData) => pl.id === playlist.id);
+        if (updatedPlaylist) {
+            setCurrentPlaylist(updatedPlaylist);
+        }
+    };
 
-	const handleDeleteClick = () => {
-		setShowConfirmDelete(true);
-	};
+    useEffect(() => {
+        updatePlaylistFromStorage();
 
-	const handleConfirmDelete = () => {
-		onDelete();
-		setShowConfirmDelete(false);
-	};
+        const handleStorageChange = () => {
+            updatePlaylistFromStorage();
+        };
 
-	const handleCancelDelete = () => {
-		setShowConfirmDelete(false);
-	};
+        window.addEventListener("storage", handleStorageChange);
 
-	const handleSongRemoved = (songId: string) => {
-		const updatedPlaylist = {
-			...currentPlaylist,
-			songs: currentPlaylist.songs.filter((song) => song.id !== songId),
-		};
-		setCurrentPlaylist(updatedPlaylist);
+        return () => {
+            window.removeEventListener("storage", handleStorageChange);
+        };
+    }, [playlist.id]);
 
-		const storedPlaylists = JSON.parse(localStorage.getItem("playlists") || "[]");
-		const updatedPlaylists = storedPlaylists.map((pl: PlaylistData) =>
-			pl.id === playlist.id ? updatedPlaylist : pl
-		);
-		localStorage.setItem("playlists", JSON.stringify(updatedPlaylists));
-	};
+    const handleSongRemoved = () => {
+        updatePlaylistFromStorage(); // Oppdater currentPlaylist umiddelbart
+    };
 
-	return (
-		<section className="playlist-details">
-			<div className="playlist-details-container">
-				<button onClick={handleDeleteClick} className="delete-button">
-					Delete Playlist
-				</button>
-				<h1>{currentPlaylist.name + " " + currentPlaylist.icon}</h1>
-				<div className="songs-container">
-					{currentPlaylist.songs.length > 0 ? (
-						<AllSongsList
-							songs={currentPlaylist.songs}
-							genres={[]}
-							isInPlaylist
-							playlistId={currentPlaylist.id}
-							onSongRemoved={handleSongRemoved} 
-						/>
-					) : (
-						<p>No songs here yet.</p>
-					)}
-				</div>
+    return (
+        <section className="playlist-details">
+            <div className="playlist-details-container">
+                <button onClick={() => setShowConfirmDelete(true)} className="delete-button">
+                    Delete Playlist
+                </button>
+                <h1>{currentPlaylist.name + " " + currentPlaylist.icon}</h1>
+                <div className="songs-container">
+                    {currentPlaylist.songs.length > 0 ? (
+                        <AllSongsList
+                            songs={currentPlaylist.songs}
+                            genres={[]}
+                            isInPlaylist
+                            playlistId={currentPlaylist.id}
+                            onSongRemoved={handleSongRemoved} // Send callback til AllSongsList
+                        />
+                    ) : (
+                        <p>No songs here yet.</p>
+                    )}
+                </div>
 
-				{showConfirmDelete && (
-					<div className="modal-overlay">
-						<div className="modal">
-							<p>Are you sure you want to delete this playlist?</p>
-							<div className="modal-buttons">
-								<button onClick={handleCancelDelete} className="cancel-button">
-									No
-								</button>
-								<button onClick={handleConfirmDelete} className="confirm-button">
-									Yes
-								</button>
-							</div>
-						</div>
-					</div>
-				)}
-			</div>
-		</section>
-	);
+                {showConfirmDelete && (
+                    <div className="modal-overlay">
+                        <div className="modal">
+                            <p>Are you sure you want to delete this playlist?</p>
+                            <div className="modal-buttons">
+                                <button onClick={() => setShowConfirmDelete(false)} className="cancel-button">
+                                    No
+                                </button>
+                                <button onClick={() => { onDelete(); setShowConfirmDelete(false); }} className="confirm-button">
+                                    Yes
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                )}
+            </div>
+        </section>
+    );
 };
 
 export default DisplayPlaylist;

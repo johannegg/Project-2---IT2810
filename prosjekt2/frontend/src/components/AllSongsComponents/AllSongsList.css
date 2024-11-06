@@ -51,37 +51,6 @@ td {
 	align-items: center;
 }
 
-.playlist-selection {
-    list-style: none;
-    padding: 0;
-}
-
-.playlist-selection li {
-    margin-bottom: 10px;
-}
-
-.playlist-selection button {
-    padding: 8px 16px;
-    background-color: #afc188;
-    border: none;
-    color: white;
-    border-radius: 5px;
-    cursor: pointer;
-	width: 210px;
-}
-
-.playlist-selection button:hover {
-    background-color: #8a9b70;
-}
-
-.closeBtn{
-	background-color: var(--theme-even-darker-green);
-	color: white;
-	border: none;
-	border-radius: 10px;
-	cursor: pointer;
-	padding: 8px 16px;
-}
 
 @media (max-width: 730px) {
 	.songContainer {
