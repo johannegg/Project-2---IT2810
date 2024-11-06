@@ -39,7 +39,7 @@ const DisplayPlaylist: React.FC<DisplayPlaylistProps> = ({ playlist, onDelete })
 				<h1>{playlist.name + " " + playlist.icon}</h1>
 				<div className="songs-container">
 					{playlist.songs.length > 0 ? (
-						<AllSongsList songs={playlist.songs} genres={[]} isInPlaylist playlists={playlists} />
+						<AllSongsList songs={playlist.songs} genres={[]} isInPlaylist playlists={playlists} playlistId={playlist.id} />
 					) : (
 						<p>No songs here yet.</p>
 					)}

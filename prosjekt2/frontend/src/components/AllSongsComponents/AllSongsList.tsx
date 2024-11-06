@@ -13,10 +13,11 @@ type AllSongsListProps = {
     songs: SongData[];
     genres: string[];
     isInPlaylist: boolean;
-    playlists: PlaylistData[]; 
+    playlists: PlaylistData[];
+    playlistId?: string; 
 };
 
-export function AllSongsList({ songs, genres, isInPlaylist, playlists: initialPlaylists }: AllSongsListProps) {
+export function AllSongsList({ songs, genres, isInPlaylist, playlists: initialPlaylists, playlistId }: AllSongsListProps) {
     const navigate = useNavigate();
     const [selectedSong, setSelectedSong] = useState<SongData | null>(null);
     const [showAddToPlaylistModal, setShowAddToPlaylistModal] = useState(false);
@@ -57,6 +58,18 @@ export function AllSongsList({ songs, genres, isInPlaylist, playlists: initialPl
         handleCloseModal();
     };
 
+    const handleRemoveSongFromPlaylist = (songId: string) => {
+        console.log("Removing song", songId, "from playlist", playlistId); // Logg for å sjekke klikket
+        setPlaylists((prevPlaylists) =>
+            prevPlaylists.map((playlist) => {
+                if (playlist.id === playlistId) {
+                    return { ...playlist, songs: playlist.songs.filter((song) => song.id !== songId) };
+                }
+                return playlist;
+            })
+        );
+    };
+
     return (
         <section className="songContainer">
             {songs.length === 0 ? (
@@ -76,7 +89,14 @@ export function AllSongsList({ songs, genres, isInPlaylist, playlists: initialPl
                             </td>
                             <td className="plusMinusCell">
                                 {isInPlaylist ? (
-                                    <FiMinusCircle color="#afc188" fontSize="28px" />
+                                    <FiMinusCircle
+                                        color="#afc188"
+                                        fontSize="28px"
+                                        onClick={(e) => {
+                                            e.stopPropagation();
+                                            handleRemoveSongFromPlaylist(song.id);
+                                        }}
+                                    />
                                 ) : (
                                     <FiPlusCircle
                                         color="#afc188"
