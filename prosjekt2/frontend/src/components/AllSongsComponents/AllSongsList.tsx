@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { FaEye } from "react-icons/fa";
 import { FiPlusCircle, FiMinusCircle } from "react-icons/fi";
 import { formatViews } from "../../utils/FormatViews";
@@ -7,19 +7,27 @@ import { useNavigate } from "react-router-dom";
 import FavoriteButton from "../FavoriteButton/FavoriteButton";
 import { routeChange } from "../../utils/SongRouteChange";
 import { SongData } from "../../utils/types/SongTypes";
-import { PlaylistData } from "../../pages/Playlists/Playlists"; // Importer PlaylistData-type
+import { PlaylistData } from "../../pages/Playlists/Playlists"; 
 
 type AllSongsListProps = {
     songs: SongData[];
     genres: string[];
     isInPlaylist: boolean;
-    playlists: PlaylistData[]; // Ny prop for tilgjengelige spillelister
+    playlists: PlaylistData[]; 
 };
 
-export function AllSongsList({ songs, genres, isInPlaylist, playlists }: AllSongsListProps) {
+export function AllSongsList({ songs, genres, isInPlaylist, playlists: initialPlaylists }: AllSongsListProps) {
     const navigate = useNavigate();
     const [selectedSong, setSelectedSong] = useState<SongData | null>(null);
     const [showAddToPlaylistModal, setShowAddToPlaylistModal] = useState(false);
+    const [playlists, setPlaylists] = useState<PlaylistData[]>(() => {
+        const savedPlaylists = localStorage.getItem("playlists");
+        return savedPlaylists ? JSON.parse(savedPlaylists) : initialPlaylists;
+    });
+
+    useEffect(() => {
+        localStorage.setItem("playlists", JSON.stringify(playlists));
+    }, [playlists]);
 
     const filteredSongs =
         genres.length > 0 ? songs.filter((song) => genres.includes(song.genre.name)) : songs;
@@ -35,17 +43,17 @@ export function AllSongsList({ songs, genres, isInPlaylist, playlists }: AllSong
     };
 
     const handleAddSongToPlaylist = (playlistId: string) => {
-        const updatedPlaylists = playlists.map((playlist) => {
-            if (playlist.id === playlistId) {
-                return { ...playlist, songs: [...playlist.songs, selectedSong!] };
-            }
-            return playlist;
-        });
-
-        // Oppdater localStorage eller en funksjon for å håndtere oppdateringen eksternt
-        localStorage.setItem("playlists", JSON.stringify(updatedPlaylists));
-
-        // Lukk modal og nullstill valgt sang
+        setPlaylists((prevPlaylists) =>
+            prevPlaylists.map((playlist) => {
+                if (playlist.id === playlistId) {
+                    const isSongAlreadyInPlaylist = playlist.songs.some((s) => s.id === selectedSong!.id);
+                    if (!isSongAlreadyInPlaylist) {
+                        return { ...playlist, songs: [...playlist.songs, selectedSong!] };
+                    }
+                }
+                return playlist;
+            })
+        );
         handleCloseModal();
     };
 
