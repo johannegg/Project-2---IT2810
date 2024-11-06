@@ -37,16 +37,10 @@ Next, we will implement some more functionalities, that makes it possible for th
 - Remove songs from a playlist.
 
 ## Running the project
-If you want to install the project from your computer, clone as normal and then write the following in one terminal to start backend:
-
-`cd prosjekt2/backend`   
-`npm install`  
-`npx ts-node src/index.ts`
-
-Then open a new terminal and write the following to start frontend: 
+If you want to install the project from your computer, clone as normal and then write the following in the terminal to start frontend: 
 
 `cd prosjekt2/frontend`   
 `npm install`  
 `npm run dev`
 
-If the webpage doesn't open automatically, copy the link from the terminal (starting with http://localhost:5173) and paste in browser. 
+If the webpage doesn't open automatically, copy the link from the terminal (http://localhost:5173/project2) and paste in browser. 

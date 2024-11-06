@@ -12,6 +12,8 @@ const Home = () => {
 	const [isSidebarOpen, setIsSidebarOpen] = useState<boolean>(false);
 	const [showLoading, setShowLoading] = useState(false);
 	const [searchTerm, setSearchTerm] = useState<string>("");
+	const [minViews, setMinViews] = useState<number>(0);
+	const [maxViews, setMaxViews] = useState<number>(3000000);
 
 	const { songs, isLoading, error, loadMoreSongs } = useCachedSongs(
 		selectedGenres,
@@ -41,6 +43,13 @@ const Home = () => {
 		sessionStorage.setItem("selectedGenres", JSON.stringify(genres));
 	};
 
+	const handleViewsChange = (minViews: number, maxViews: number) => {
+		setMinViews(minViews);
+		setMaxViews(maxViews);
+		sessionStorage.setItem("minViews", JSON.stringify(minViews));
+		sessionStorage.setItem("maxViews", JSON.stringify(maxViews));
+	};
+
 	const handleSortChange = (newSortOption: string) => {
 		setSortOption(newSortOption);
 	};
@@ -65,6 +74,7 @@ const Home = () => {
 				songs={songs}
 				onToggle={setIsSidebarOpen} //setIsSidebarOpen
 				isOpen={isSidebarOpen}
+				onViewsChange={handleViewsChange}
 			/>
 			<section className={`homeComponents ${isSidebarOpen ? "shifted" : ""}`}>
 				<section className="searchBarContainer">
@@ -77,7 +87,7 @@ const Home = () => {
 					<p>Loading songs...</p>
 				) : (
 					<section className="allSongsContainer">
-						<AllSongsList songs={songs} genres={selectedGenres == null ? [] : selectedGenres} />
+						<AllSongsList songs={songs} genres={selectedGenres == null ? [] : selectedGenres} maxViews={maxViews} minViews={minViews} />
 					</section>
 				)}
 				{!isLoading && songs.length >= 30 && (

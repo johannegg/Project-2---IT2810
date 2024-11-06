@@ -9,12 +9,16 @@ import { SongData } from "../../utils/types/SongTypes";
 type AllSongsListProps = {
     songs: SongData[];
     genres: string[];
+	minViews: number;
+	maxViews: number;
 };
 
-export function AllSongsList({ songs, genres }: AllSongsListProps) {
+export function AllSongsList({ songs, genres, maxViews, minViews }: AllSongsListProps) {
 	const navigate = useNavigate();
     const filteredSongs =
         genres.length > 0 ? songs.filter((song) => genres.includes(song.genre.name)) : songs;
+	
+	const filteredSongsViews = filteredSongs.filter((song) => song.views >= minViews && song.views <= maxViews);
 
 	return (
 		<section className="songContainer">
@@ -22,7 +26,7 @@ export function AllSongsList({ songs, genres }: AllSongsListProps) {
 				<p>No songs found</p>
 			) : (
 				<table className="songTable">
-					{filteredSongs.map((song) => (
+					{filteredSongsViews.map((song) => (
 						<tr key={song.id} className="tableRow" onClick={() => routeChange(song, navigate)}>
 							<td className="title-artist-cell">
 								<span className="titleCell">{song.title}</span>

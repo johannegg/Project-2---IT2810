@@ -27,6 +27,7 @@
 
 .viewValues {
     display: flex;
+    gap: 15px;
     justify-content: space-between;
     margin-top: 10px;
     color: #493843;
