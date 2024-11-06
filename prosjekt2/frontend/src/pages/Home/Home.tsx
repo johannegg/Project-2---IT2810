@@ -58,11 +58,10 @@ const Home = () => {
 		setIsSidebarOpen((prev) => !prev);
 	};
 
-	
 	const handleSearchSubmit = (term: string) => {
 		setSearchTerm(term);
 	};
-	
+
 	if (error) return <p>Error loading songs: {error?.message}</p>;
 
 	return (
@@ -87,7 +86,12 @@ const Home = () => {
 					<p>Loading songs...</p>
 				) : (
 					<section className="allSongsContainer">
-						<AllSongsList songs={songs} genres={selectedGenres == null ? [] : selectedGenres} maxViews={maxViews} minViews={minViews} />
+						<AllSongsList
+							songs={songs}
+							genres={selectedGenres == null ? [] : selectedGenres}
+							maxViews={maxViews}
+							minViews={minViews}
+						/>
 					</section>
 				)}
 				{!isLoading && songs.length >= 30 && (
