@@ -10,12 +10,15 @@ interface DisplayPlaylistProps {
 
 const DisplayPlaylist: React.FC<DisplayPlaylistProps> = ({ playlist, onDelete }) => {
 	const [showConfirmDelete, setShowConfirmDelete] = useState(false);
-	const [playlists, setPlaylists] = useState<PlaylistData[]>([]);
+	const [currentPlaylist, setCurrentPlaylist] = useState<PlaylistData>(playlist); 
 
 	useEffect(() => {
 		const storedPlaylists = JSON.parse(localStorage.getItem("playlists") || "[]");
-		setPlaylists(storedPlaylists);
-	}, []);
+		const updatedPlaylist = storedPlaylists.find((pl: PlaylistData) => pl.id === playlist.id);
+		if (updatedPlaylist) {
+			setCurrentPlaylist(updatedPlaylist);
+		}
+	}, [playlist.id]);
 
 	const handleDeleteClick = () => {
 		setShowConfirmDelete(true);
@@ -30,16 +33,36 @@ const DisplayPlaylist: React.FC<DisplayPlaylistProps> = ({ playlist, onDelete })
 		setShowConfirmDelete(false);
 	};
 
+	const handleSongRemoved = (songId: string) => {
+		const updatedPlaylist = {
+			...currentPlaylist,
+			songs: currentPlaylist.songs.filter((song) => song.id !== songId),
+		};
+		setCurrentPlaylist(updatedPlaylist);
+
+		const storedPlaylists = JSON.parse(localStorage.getItem("playlists") || "[]");
+		const updatedPlaylists = storedPlaylists.map((pl: PlaylistData) =>
+			pl.id === playlist.id ? updatedPlaylist : pl
+		);
+		localStorage.setItem("playlists", JSON.stringify(updatedPlaylists));
+	};
+
 	return (
 		<section className="playlist-details">
 			<div className="playlist-details-container">
 				<button onClick={handleDeleteClick} className="delete-button">
 					Delete Playlist
 				</button>
-				<h1>{playlist.name + " " + playlist.icon}</h1>
+				<h1>{currentPlaylist.name + " " + currentPlaylist.icon}</h1>
 				<div className="songs-container">
-					{playlist.songs.length > 0 ? (
-						<AllSongsList songs={playlist.songs} genres={[]} isInPlaylist playlists={playlists} playlistId={playlist.id} />
+					{currentPlaylist.songs.length > 0 ? (
+						<AllSongsList
+							songs={currentPlaylist.songs}
+							genres={[]}
+							isInPlaylist
+							playlistId={currentPlaylist.id}
+							onSongRemoved={handleSongRemoved} 
+						/>
 					) : (
 						<p>No songs here yet.</p>
 					)}

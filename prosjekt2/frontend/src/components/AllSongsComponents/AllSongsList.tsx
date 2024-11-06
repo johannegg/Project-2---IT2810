@@ -7,17 +7,18 @@ import { useNavigate } from "react-router-dom";
 import FavoriteButton from "../FavoriteButton/FavoriteButton";
 import { routeChange } from "../../utils/SongRouteChange";
 import { SongData } from "../../utils/types/SongTypes";
-import { PlaylistData } from "../../pages/Playlists/Playlists"; 
+import { PlaylistData } from "../../pages/Playlists/Playlists";
 
 type AllSongsListProps = {
     songs: SongData[];
     genres: string[];
     isInPlaylist: boolean;
-    playlists: PlaylistData[];
-    playlistId?: string; 
+    playlists?: PlaylistData[];
+    playlistId?: string;
+    onSongRemoved?: (songId: string) => void; 
 };
 
-export function AllSongsList({ songs, genres, isInPlaylist, playlists: initialPlaylists, playlistId }: AllSongsListProps) {
+export function AllSongsList({ songs, genres, isInPlaylist, playlists: initialPlaylists, playlistId, onSongRemoved }: AllSongsListProps) {
     const navigate = useNavigate();
     const [selectedSong, setSelectedSong] = useState<SongData | null>(null);
     const [showAddToPlaylistModal, setShowAddToPlaylistModal] = useState(false);
@@ -59,7 +60,6 @@ export function AllSongsList({ songs, genres, isInPlaylist, playlists: initialPl
     };
 
     const handleRemoveSongFromPlaylist = (songId: string) => {
-        console.log("Removing song", songId, "from playlist", playlistId); // Logg for å sjekke klikket
         setPlaylists((prevPlaylists) =>
             prevPlaylists.map((playlist) => {
                 if (playlist.id === playlistId) {
@@ -68,6 +68,9 @@ export function AllSongsList({ songs, genres, isInPlaylist, playlists: initialPl
                 return playlist;
             })
         );
+        if (onSongRemoved) {
+            onSongRemoved(songId); 
+        }
     };
 
     return (
