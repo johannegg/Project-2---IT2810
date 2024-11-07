@@ -18,6 +18,7 @@ const PlusMinusButton: React.FC<PlusMinusButtonProps> = ({
 	onSongRemoved,
 }) => {
 	const [showModal, setShowModal] = useState(false);
+	const [feedbackMessage, setFeedbackMessage] = useState("");
 
 	const getPlaylists = () => {
 		const savedPlaylists = localStorage.getItem("playlists");
@@ -30,17 +31,29 @@ const PlusMinusButton: React.FC<PlusMinusButtonProps> = ({
 
 	const handleAddSongToPlaylist = (playlistId: string) => {
 		const currentPlaylists = getPlaylists();
+		let songAdded = false;
+
 		const updatedPlaylists = currentPlaylists.map((playlist: PlaylistData) => {
 			if (playlist.id === playlistId) {
 				const isSongAlreadyInPlaylist = playlist.songs.some((s) => s.id === song.id);
 				if (!isSongAlreadyInPlaylist) {
+					songAdded = true;
 					return { ...playlist, songs: [...playlist.songs, song] };
+				} else {
+					setFeedbackMessage("Song is already in playlist.");
+					return playlist;
 				}
 			}
 			return playlist;
 		});
+
+		if (songAdded) {
+			setFeedbackMessage("Song successfully added!");
+		}
+
 		updatePlaylists(updatedPlaylists);
-		setShowModal(false);
+
+		setTimeout(() => setFeedbackMessage(""), 3000);
 	};
 
 	const handleRemoveSongFromPlaylist = () => {
@@ -79,6 +92,13 @@ const PlusMinusButton: React.FC<PlusMinusButtonProps> = ({
 				<div className="playlist-modal-overlay" onClick={(e) => e.stopPropagation()}>
 					<div className="playlist-modal-container">
 						<h3>Select a playlist to add "{song.title}"</h3>
+						{feedbackMessage && (
+							<div
+								className={`feedback-message ${feedbackMessage === "Song successfully added" ? "success" : "error"}`}
+							>
+								{feedbackMessage}
+							</div>
+						)}
 						<ul className="playlist-selection">
 							{getPlaylists().map((playlist: PlaylistData) => (
 								<li key={playlist.id}>
