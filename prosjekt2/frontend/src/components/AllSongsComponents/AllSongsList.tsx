@@ -9,8 +9,8 @@ import { SongData } from "../../utils/types/SongTypes";
 type AllSongsListProps = {
 	songs: SongData[];
 	genres: string[];
-	minViews: number;
-	maxViews: number;
+	minViews?: number;
+	maxViews?: number;
 };
 
 export function AllSongsList({ songs, genres, maxViews, minViews }: AllSongsListProps) {
@@ -19,7 +19,7 @@ export function AllSongsList({ songs, genres, maxViews, minViews }: AllSongsList
 		genres.length > 0 ? songs.filter((song) => genres.includes(song.genre.name)) : songs;
 
 	const filteredSongsViews = filteredSongs.filter(
-		(song) => song.views >= minViews && song.views <= maxViews,
+		(song) => song.views >= (minViews ?? 0) && song.views <= (maxViews ?? Infinity),
 	);
 
 	return (
