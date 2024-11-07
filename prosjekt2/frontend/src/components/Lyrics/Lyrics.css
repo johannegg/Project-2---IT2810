@@ -1,84 +1,82 @@
 .lyrics {
-    position: relative;
-    min-height: 100vh;
-    margin-top: 50px;
-    color: #493843;
+	position: relative;
+	min-height: 100vh;
+	margin-top: 50px;
+	color: #493843;
 }
 
 .lyrics button {
-    top: 10px; 
-    right: 10px;
-    cursor: pointer;
-    z-index: 5;
+	top: 10px;
+	right: 10px;
+	cursor: pointer;
+	z-index: 5;
 }
 
 .button-container {
-    position: absolute;
-    top: 20px;
-    right: 20px;
-    display: flex;
-    gap: 10px; 
+	position: absolute;
+	top: 20px;
+	right: 20px;
+	display: flex;
+	gap: 10px;
 }
 
 .button-container button {
-    border: none;
-    cursor: pointer;
+	border: none;
+	cursor: pointer;
 }
 
 .lyrics h1 {
-    text-align: center;
-    font-size: xx-large;
-    margin-top: 80px;
-    margin-bottom: 0px;
+	text-align: center;
+	font-size: xx-large;
+	margin-top: 80px;
+	margin-bottom: 0px;
 }
 
 .lyrics p {
-    text-align: left;
-    align-self: center;
+	text-align: left;
+	align-self: center;
 }
 
 .songInfo {
-    display: grid;
-    grid-template-columns: 1fr auto 1fr;
-    align-items: center; 
-    padding: 8px;
-    border-radius: 8px;
-    margin-top: 20px;
-    width: 700px; 
-    height: 20px; 
+	display: grid;
+	grid-template-columns: 1fr auto 1fr;
+	align-items: center;
+	padding: 8px;
+	border-radius: 8px;
+	margin-top: 20px;
+	width: 700px;
+	height: 20px;
 }
 
 .songInfo p {
-    font-weight: bold;
-    margin: 0;
-    text-align: center; 
+	font-weight: bold;
+	margin: 0;
+	text-align: center;
 }
 
 hr {
-    display: block; 
-    border: none;
-    margin: 0.5em auto;
-    height: 2px;
-    background-color: #D5E1BA;
-    width: 100%; 
-    overflow: hidden;
-    margin-bottom: 30px;
+	display: block;
+	border: none;
+	margin: 0.5em auto;
+	height: 2px;
+	background-color: #d5e1ba;
+	width: 100%;
+	overflow: hidden;
+	margin-bottom: 30px;
 }
-
 
 .viewsInfo {
-    display: flex;
-    align-items: center; 
-    justify-content: center;
+	display: flex;
+	align-items: center;
+	justify-content: center;
 }
 
-
 @media (prefers-color-scheme: dark) {
-    .lyrics {
-        color: white;
-    }
+	.lyrics {
+		color: white;
+	}
 
-    hr {
-        background-color: var(--theme-even-darker-green);
-    }
+	hr {
+		background-color: var(--theme-even-darker-green);
+	}
 }

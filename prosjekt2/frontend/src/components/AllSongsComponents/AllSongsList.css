@@ -35,7 +35,7 @@
 }
 
 .plusMinusCell {
-    font-size: small;
+	font-size: small;
 	white-space: nowrap;
 }
 
@@ -50,7 +50,6 @@ td {
 	column-gap: 10px;
 	align-items: center;
 }
-
 
 @media (max-width: 730px) {
 	.songContainer {

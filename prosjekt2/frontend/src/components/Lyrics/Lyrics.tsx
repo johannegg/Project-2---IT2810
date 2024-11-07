@@ -47,5 +47,4 @@ const Lyric = ({ songData, isInPlaylist, playlistId, onSongRemoved }: LyricProps
 	);
 };
 
-
 export default Lyric;
