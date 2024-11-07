@@ -6,11 +6,23 @@
 }
 
 .lyrics button {
-    position: absolute;
     top: 10px; 
     right: 10px;
     cursor: pointer;
     z-index: 5;
+}
+
+.button-container {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    display: flex;
+    gap: 10px; 
+}
+
+.button-container button {
+    border: none;
+    cursor: pointer;
 }
 
 .lyrics h1 {
@@ -59,6 +71,7 @@ hr {
     align-items: center; 
     justify-content: center;
 }
+
 
 @media (prefers-color-scheme: dark) {
     .lyrics {

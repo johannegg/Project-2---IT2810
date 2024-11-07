@@ -53,7 +53,7 @@ const PlusMinusButton: React.FC<PlusMinusButtonProps> = ({
 				return playlist;
 			});
 			updatePlaylists(updatedPlaylists);
-			if (onSongRemoved) onSongRemoved(); // Kall onSongRemoved når en sang fjernes
+			if (onSongRemoved) onSongRemoved();
 		}
 	};
 
@@ -61,25 +61,19 @@ const PlusMinusButton: React.FC<PlusMinusButtonProps> = ({
 
 	return (
 		<>
-			{isInPlaylist ? (
-				<FiMinusCircle
-					color="#afc188"
-					fontSize="28px"
-					onClick={(e) => {
-						e.stopPropagation();
-						handleRemoveSongFromPlaylist();
-					}}
-				/>
-			) : (
-				<FiPlusCircle
-					color="#afc188"
-					fontSize="28px"
-					onClick={(e) => {
-						e.stopPropagation();
-						toggleModal();
-					}}
-				/>
-			)}
+			<button
+				className="plusMinus-button"
+				onClick={(e) => {
+					e.stopPropagation();
+					isInPlaylist ? handleRemoveSongFromPlaylist() : toggleModal();
+				}}
+			>
+				{isInPlaylist ? (
+					<FiMinusCircle color="#afc188" fontSize="28px" />
+				) : (
+					<FiPlusCircle color="#afc188" fontSize="28px" />
+				)}
+			</button>
 
 			{showModal && (
 				<div className="playlist-modal-overlay" onClick={(e) => e.stopPropagation()}>

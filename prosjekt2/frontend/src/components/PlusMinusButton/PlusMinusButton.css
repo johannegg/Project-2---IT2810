@@ -78,6 +78,18 @@
     display: inline-block;
 }
 
+.plusMinus-button {
+    background: none;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    outline: none;
+    margin: 5px;
+}
+
 .closeBtn:hover {
 	background-color: #aaa;
 }
