@@ -1,15 +1,17 @@
 .sidebar {
 	position: fixed;
 	top: 80px;
+	bottom: 0;
 	left: 0;
 	background-color: var(--theme-pink);
 	width: 300px;
-	height: 100%;
+	height: calc(100vh - 130px); /* looks a bit weird, but it works and we can fix later;)*/
 	padding-top: 60px;
 	box-shadow: 2px 0 5px rgba(0, 0, 0, 0.2);
 	transform: translateX(-100%);
 	transition: transform 0.3s ease;
 	z-index: 998;
+	overflow-y: auto;
 }
 
 .sidebar.open {
