@@ -1,6 +1,43 @@
+.playlist-modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    cursor: default;
+}
+
+.playlist-modal-container {
+    background: #ffffff;
+    padding: 20px;
+    width: 290px;
+    max-width: 90%;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    text-align: center;
+    overflow: hidden; 
+    word-wrap: break-word; 
+}
+
+.playlist-modal-container h3 {
+    font-size: 1.2em;
+    color: #3d3d3d;
+    margin-bottom: 15px;
+    padding: 0 10px; 
+    white-space: normal; 
+}
+
 .playlist-selection {
     list-style: none;
     padding: 0;
+    margin: 0;
+    max-height: 300px; 
+	overflow-y: auto; 
 }
 
 .playlist-selection li {
@@ -8,24 +45,73 @@
 }
 
 .playlist-selection button {
-    padding: 8px 16px;
-    background-color: #afc188;
+    width: 200px;
+    padding: 10px;
+    background-color: var(--theme-darker-green);
     border: none;
-    color: white;
+    color: black;
     border-radius: 5px;
     cursor: pointer;
-	width: 210px;
+    font-size: 1.0rem;
+    transition: background-color 0.3s, transform 0.2s;
+    overflow: hidden; 
+    text-overflow: ellipsis; 
+    white-space: nowrap; 
 }
 
 .playlist-selection button:hover {
-    background-color: #8a9b70;
+    background-color: var(--theme-even-darker-green);
+    transform: scale(1.02);
+    color: #ffffff;
 }
 
-.closeBtn{
-	background-color: var(--theme-even-darker-green);
-	color: white;
-	border: none;
-	border-radius: 10px;
-	cursor: pointer;
-	padding: 8px 16px;
+.closeBtn {
+    background-color: #ccc;
+    color: #000;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    padding: 8px 16px;
+    font-size: 1.0rem;
+    margin-top: 15px;
+    transition: background-color 0.3s;
+    display: inline-block;
 }
+
+.closeBtn:hover {
+	background-color: #aaa;
+}
+
+@media (prefers-color-scheme: dark) {
+	.playlist-modal-container {
+        background-color: #000;
+    }
+
+    .playlist-modal-container h3{
+        color: #ffffff;
+    }
+
+    .playlist-modal-overlay  {
+		background-color: rgba(28, 28, 28, 0.8);
+	}
+
+    .playlist-selection button {
+        background-color: var(--theme-even-darker-green);
+    }
+
+    .playlist-selection button:hover {
+        background-color: var(--theme-darker-green);
+        color: #000;
+    }
+
+    .closeBtn{
+        background-color: #aaa;
+    }
+
+    .closeBtn:hover {
+        background-color: #ccc;
+    }
+
+}
+
+
