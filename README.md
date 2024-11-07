@@ -14,7 +14,7 @@ We have used the GRAND stack, with the technology GraphQL, React with TypeScript
 ### View songs
 When you click on a song in the all songs list, you are sent to a new page where more information about the song is displayed.
 
-### Filte/Sort/Search
+### Filter/Sort/Search
 You can filter songs based on song genres, by using the filter menu in the "Home" page. You can also sort songs based on title, artist og views. You can search for songs in the search field by entering the song’s title or the name of the song’s artist.
 
 ### Navigation
@@ -25,11 +25,11 @@ You can make new playlists in the “Your playlists” page, by clicking on the 
 
 ### Favorite songs
 You can favorite songs by clicking on the heart icon next to a song. Favorited songs are shown in the “Favorited songs” page.
+You can navigate between the pages "Home", "Favorited songs" and "Your playlists". 
 
 ## Data
 ### The dataset
 The dataset we have chosen is from genius and after some manipulation it includes 24 753 songs. The information on each song is title, artist, genre, year, views (how many times someone have looked it up on genius) and songlyrics. We have also added an id for each song. As the databse on the virtual machine had limited space, it is 3000 songs in the application right now.
-
 
 ## Next steps
 Next, we will implement some more functionalities, that makes it possible for the user to:
@@ -37,10 +37,16 @@ Next, we will implement some more functionalities, that makes it possible for th
 - Remove songs from a playlist.
 
 ## Running the project
-If you want to install the project from your computer, clone as normal and then write the following in the terminal to start frontend: 
+If you want to install the project from your computer, clone as normal and then write the following in one terminal to start backend:
+
+`cd prosjekt2/backend`   
+`npm install`  
+`npx ts-node src/index.ts`
+
+Then open a new terminal and write the following to start frontend: 
 
 `cd prosjekt2/frontend`   
 `npm install`  
 `npm run dev`
 
-If the webpage doesn't open automatically, copy the link from the terminal (http://localhost:5173/project2) and paste in browser. 
+If the webpage doesn't open automatically, copy the link from the terminal (starting with http://localhost:5173) and paste in browser. 
