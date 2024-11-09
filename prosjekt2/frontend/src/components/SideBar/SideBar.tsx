@@ -1,13 +1,13 @@
 import "./Sidebar.css";
 import { Filter } from "../Filter/Filter";
 import Sort from "../Sort/Sort";
-import type { Song } from "../../utils/FetchMockData";
+import { SongData } from "../../utils/types/SongTypes";
 
 type SidebarProps = {
 	onGenreChange: (selectedGenres: string[]) => void;
 	sortOption: string;
-	onSortChange: (newSort: string, sortedSongs: Song[]) => void;
-	songs: Song[];
+	onSortChange: (newSort: string) => void;
+	songs: SongData[];
 	onToggle: (isOpen: boolean) => void;
 	isOpen: boolean;
 };
@@ -29,7 +29,7 @@ export function Sidebar({
 				✕
 			</button>
 			<div className="filteringContainer">
-				<Filter onGenreChange={onGenreChange} />
+				<Filter onGenreChange={onGenreChange} songs={songs} />
 				<br />
 				<Sort songs={songs} sortOption={sortOption} onSortChange={onSortChange} />
 			</div>
