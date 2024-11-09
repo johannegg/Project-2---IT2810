@@ -27,10 +27,9 @@
 
 .playlist-details h1 {
 	font-size: 2rem;
-	margin-bottom: 35px;
+	margin-bottom: 25px;
 	position: relative;
 	align-self: center;
-	margin-top: 5px;
 }
 
 .playlist-details .songs-container {
@@ -136,7 +135,6 @@
 
 	.delete-playlist-button{
 		font-size: 30px;
-		margin-bottom: 5px;
 	}
 }
 
