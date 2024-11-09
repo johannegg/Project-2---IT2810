@@ -4,24 +4,24 @@ import { formatViews } from "../../utils/FormatViews";
 import FavoriteButton from "../FavoriteButton/FavoriteButton";
 import PlusMinusButton from "../PlusMinusButton/PlusMinusButton";
 import { SongData } from "../../utils/types/SongTypes";
-import { useNavigate } from "react-router-dom";
+import BackButton from "../BackButton/BackButton";
 
 type LyricProps = {
 	songData: SongData;
 };
 
-const Lyric = ({ songData }: LyricProps) => {
-	const navigate = useNavigate();
+const Lyric = ({ songData}: LyricProps) => {
 	return (
 		<div className="lyrics">
-			<button className="back-button" onClick={() => navigate(-1)}>
-				&#10094; Go back
-			</button>
-			<div className="button-container">
-				<FavoriteButton song={songData} />
-				<PlusMinusButton song={songData} />
+			<div className="lyrics-header">
+				<BackButton />
+				<div className="button-container">
+					<FavoriteButton song={songData} />
+					<PlusMinusButton
+						song={songData}
+					/>
+				</div>
 			</div>
-
 			<h1>{songData.title}</h1>
 			<h2>{songData.artist.name}</h2>
 			<section className="songInfo">

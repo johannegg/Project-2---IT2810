@@ -2,8 +2,8 @@ import React, { useState, useEffect } from "react";
 import { PlaylistData } from "../../pages/Playlists/Playlists";
 import "./DisplayPlaylist.css";
 import { AllSongsList } from "../AllSongsComponents/AllSongsList";
-import { useNavigate } from 'react-router-dom';
 import { AiOutlineDelete } from "react-icons/ai";
+import BackButton from "../BackButton/BackButton";
 
 interface DisplayPlaylistProps {
 	playlist: PlaylistData;
@@ -13,8 +13,6 @@ interface DisplayPlaylistProps {
 const DisplayPlaylist: React.FC<DisplayPlaylistProps> = ({ playlist, onDelete }) => {
 	const [showConfirmDelete, setShowConfirmDelete] = useState(false);
 	const [currentPlaylist, setCurrentPlaylist] = useState<PlaylistData>(playlist);
-	const navigate = useNavigate();
-
 	const updatePlaylistFromStorage = () => {
 		const storedPlaylists = JSON.parse(localStorage.getItem("playlists") || "[]");
 		const updatedPlaylist = storedPlaylists.find((pl: PlaylistData) => pl.id === playlist.id);
@@ -44,10 +42,12 @@ const DisplayPlaylist: React.FC<DisplayPlaylistProps> = ({ playlist, onDelete })
 	return (
 		<section className="playlist-details">
 			<div className="playlist-details-container">
-				<button className="back-button" onClick={() => navigate(-1)}>&#10094; Go back</button>
-				<button onClick={() => setShowConfirmDelete(true)} className="delete-playlist-button">
-					<AiOutlineDelete color="#ea9ab2"></AiOutlineDelete> 
-				</button>
+				<header className="playlist-header">
+					<BackButton />
+					<button onClick={() => setShowConfirmDelete(true)} className="delete-playlist-button">
+						<AiOutlineDelete color="#ea9ab2" />
+					</button>
+				</header>
 				<h1>{currentPlaylist.name + " " + currentPlaylist.icon}</h1>
 				<div className="songs-container">
 					{currentPlaylist.songs.length > 0 ? (
@@ -56,7 +56,7 @@ const DisplayPlaylist: React.FC<DisplayPlaylistProps> = ({ playlist, onDelete })
 							genres={[]}
 							isInPlaylist
 							playlistId={currentPlaylist.id}
-							onSongRemoved={handleSongRemoved} // Send callback til AllSongsList
+							onSongRemoved={handleSongRemoved}
 						/>
 					) : (
 						<p>No songs here yet.</p>

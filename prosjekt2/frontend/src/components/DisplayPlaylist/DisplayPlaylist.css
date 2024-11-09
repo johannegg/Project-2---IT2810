@@ -17,6 +17,14 @@
 	min-width: 700px;
 }
 
+.playlist-header {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	width: 100%;
+	padding: 0 20px;
+}
+
 .playlist-details h1 {
 	font-size: 2rem;
 	margin-bottom: 35px;
@@ -40,14 +48,7 @@
 	font-size: 35px;
 }
 
-.back-button{
-	padding: 8px;
-	color: #d9829f;
-	background-color: transparent;
-	font-size: 18px;
-	border: none;
-	align-self: flex-start;
-}
+
 .modal-overlay {
 	position: fixed;
 	top: 0;
