@@ -22,6 +22,8 @@
 	text-align: center;
 	overflow: hidden;
 	word-wrap: break-word;
+	overflow-y: auto; 
+	max-height: 80vh;
 }
 
 .playlist-modal-container h3 {
