@@ -3,6 +3,7 @@ import { PlaylistData } from "../../pages/Playlists/Playlists";
 import "./DisplayPlaylist.css";
 import { AllSongsList } from "../AllSongsComponents/AllSongsList";
 import { useNavigate } from 'react-router-dom';
+import { AiOutlineDelete } from "react-icons/ai";
 
 interface DisplayPlaylistProps {
 	playlist: PlaylistData;
@@ -44,8 +45,8 @@ const DisplayPlaylist: React.FC<DisplayPlaylistProps> = ({ playlist, onDelete })
 		<section className="playlist-details">
 			<div className="playlist-details-container">
 				<button className="back-button" onClick={() => navigate(-1)}>&#10094; Go back</button>
-				<button onClick={() => setShowConfirmDelete(true)} className="delete-button">
-					Delete Playlist
+				<button onClick={() => setShowConfirmDelete(true)} className="delete-playlist-button">
+					<AiOutlineDelete color="#ea9ab2"></AiOutlineDelete> 
 				</button>
 				<h1>{currentPlaylist.name + " " + currentPlaylist.icon}</h1>
 				<div className="songs-container">

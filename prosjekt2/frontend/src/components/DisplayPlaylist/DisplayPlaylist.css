@@ -19,25 +19,25 @@
 
 .playlist-details h1 {
 	font-size: 2rem;
-	margin-bottom: 25px;
+	margin-bottom: 35px;
 	position: relative;
 	align-self: center;
+	margin-top: 5px;
 }
 
 .playlist-details .songs-container {
 	text-align: center;
 }
 
-.delete-button {
-	background-color: #ea9ab2;
-	color: white;
+.delete-playlist-button {
+	background: none;
 	border: none;
-	padding: 10px;
-	border-radius: 15px;
 	cursor: pointer;
-	width: 130px;
-	text-align: center;
+	padding: 0; 
+	display: inline-flex;
+	align-items: center;
 	align-self: flex-end;
+	font-size: 35px;
 }
 
 .back-button{
@@ -121,23 +121,27 @@
 	}
 }
 
-@media (max-width: 520px) {
+@media (max-width: 650px) {
 	.playlist-details h1 {
 		font-size: 1.5rem;
-	}
-
-	.delete-button {
-		padding: 8px;
-		width: 115px;
-		font-size: 0.9rem;
-		margin-bottom: 10px;
 	}
 	.playlist-details {
 		top: 80px;
 	}
 
-	.backButton{
+	.back-button{
 		font-size: 15px;
+	}
+
+	.delete-playlist-button{
+		font-size: 30px;
+		margin-bottom: 5px;
+	}
+}
+
+@media (max-width: 450px) {
+	.delete-playlist-button{
+		font-size: 25px;
 	}
 }
 
