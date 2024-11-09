@@ -1,6 +1,30 @@
 import { Driver } from "neo4j-driver";
 import neo4j from "neo4j-driver";
 
+interface Artist {
+  properties: {
+    name: string;
+  };
+}
+
+interface Song {
+  properties: {
+    id: string;
+    title: string;
+  };
+}
+
+interface FavoriteSong {
+  song: Song;
+  artist: Artist;
+}
+
+interface User {
+  properties: {
+    username: string;
+  };
+}
+
 const executeCypherQuery = async (
   driver: Driver,
   cypherQuery: String,
@@ -137,6 +161,243 @@ export const resolvers = {
           },
         };
       });
+    },
+
+    /* users: async (_: any, __: any, { driver }: any) => {
+      const records = await executeCypherQuery(
+        driver,
+        `
+        MATCH (user:User)-[:HAS_FAVORITES]->(song:Song)-[:PERFORMED_BY]->(artist:Artist)
+        RETURN user, collect( { song: song, artist: artist}) AS favoriteSongs
+        `
+      );
+  
+      // Map the result to the desired format
+      return records.map((record) => {
+        const userNode = record.get("user") as User;
+        const favoriteSongs = record.get("favoriteSongs") as FavoriteSong[];
+  
+        return {
+          username: userNode.properties.username,
+          favoriteSongs: favoriteSongs.map(({song, artist}) => {
+            return {
+              id: song.properties.id,
+              title: song.properties.title,
+              artist: {
+                name: artist.properties.name,
+              },
+            };
+          }),
+        };
+      });
+    }, */
+  },
+  Mutation: {
+    createUser: async (
+      _: any,
+      { username }: { username: string },
+      { driver }: any,
+    ) => {
+      const records = await executeCypherQuery(
+        driver,
+        `
+        MERGE (user:User {username: $username})
+        ON CREATE SET user.id = randomUUID()
+        RETURN user { .id, .username } AS user
+        `,
+        { username },
+      );
+      if (records.length > 0) {
+        const user = records[0].get("user");
+        return {
+          id: user.id,
+          username: user.username,
+          playlists: user.playlist,
+          favoriteSongs: user.favoriteSongs,
+        };
+      }
+      throw new Error("Failed to create or retrieve user");
+    },
+
+    deleteUser: async (
+      _: any,
+      { username }: { username: string },
+      { driver }: any,
+    ) => {
+      const records = await executeCypherQuery(
+        driver,
+        `
+        MATCH (user:User {username: $username})
+        DETACH DELETE user
+        RETURN COUNT(user) AS count
+        `,
+        { username },
+      );
+      const isDeleted = records[0].get("count").toInt();
+      return isDeleted > 0;
+    },
+
+    addFavoriteSong: async (
+      _: any,
+      { username, songId }: { username: string; songId: string },
+      { driver }: any,
+    ) => {
+      const records = await executeCypherQuery(
+        driver,
+        `
+        MATCH (user:User {username: $username}), (song:Song {id: $songId})
+        MERGE (user)-[:HAS_FAVORITES]->(song)
+        RETURN COUNT(song) > 0 AS count
+        `,
+        { username, songId },
+      );
+      const isAdded = records[0].get("count");
+      return isAdded > 0;
+    },
+
+    removeFavoriteSong: async (
+      _: any,
+      { username, songId }: { username: string; songId: string },
+      { driver }: any,
+    ) => {
+      const records = await executeCypherQuery(
+        driver,
+        `
+        MATCH (user:User {username: $username})-[f:HAS_FAVORITES]->(song:Song {id: $songId})
+        DELETE f
+        RETURN COUNT(f) > 0 AS count
+        `,
+        { username, songId },
+      );
+      const isRemoved = records[0].get("count");
+      return isRemoved > 0;
+    },
+
+    createPlaylist: async (
+      _: any,
+      {
+        username,
+        name,
+        backgroundcolor,
+        icon,
+      }: {
+        username: string;
+        name: string;
+        backgroundcolor: string;
+        icon: string;
+      },
+      { driver }: any,
+    ) => {
+      const records = await executeCypherQuery(
+        driver,
+        `
+        MATCH (user:User {username: $username})
+        CREATE (playlist:Playlist {id: randomUUID(), name: $name, backgroundcolor: $backgroundcolor, icon: $icon})
+        MERGE (user)-[:OWNS]->(playlist)
+        RETURN playlist { .id, .name, .backgroundcolor, .icon } AS playlist
+        `,
+        { username, name, backgroundcolor, icon },
+      );
+      if (records.length > 0) {
+        const playlist = records[0].get("playlist");
+        return {
+          id: playlist.id,
+          name: playlist.name,
+          backgroundcolor: playlist.backgroundcolor,
+          icon: playlist.icon,
+        };
+      }
+    },
+
+    deletePlaylist: async (
+      _: any,
+      { username, playlistId }: { username: string; playlistId: string },
+      { driver }: any,
+    ) => {
+      const records = await executeCypherQuery(
+        driver,
+        `
+        MATCH (user:User {username: $username})-[o:OWNS]->(playlist:Playlist {id: $playlistId})
+        DELETE o
+        RETURN COUNT(o) > 0 AS count
+        `,
+        { username, playlistId },
+      );
+      const isRemoved = records[0].get("count");
+      return isRemoved > 0;
+    },
+
+    addSongToPlaylist: async (
+      _: any,
+      {
+        username,
+        playlistId,
+        songId,
+      }: { username: string; playlistId: string; songId: string },
+      { driver }: any,
+    ) => {
+      const records = await executeCypherQuery(
+        driver,
+        `
+        MATCH (user:User {username: $username})-[:OWNS]->(playlist:Playlist {id: $playlistId}), (song:Song {id: $songId})
+        MERGE (playlist)-[:CONTAINS]->(song)
+        WITH playlist
+        MATCH (playlist)-[:CONTAINS]->(s:Song)-[:PERFORMED_BY]->(a:Artist)
+        RETURN playlist { .id, .name, songs: collect({ id: s.id, title: s.title, views: s.views, artist: { name: a.name } }) } AS playlist
+        `,
+        { username, playlistId, songId },
+      );
+      if (records.length > 0) {
+        const playlist = records[0].get("playlist");
+        return {
+          id: playlist.id,
+          name: playlist.name,
+          songs: playlist.songs.map((song: any) => ({
+            id: song.id,
+            title: song.title,
+            views: song.views,
+            artist: {
+              name: song.artist.name,
+            },
+          })),
+        };
+      }
+      throw new Error("Failed to add song to playlist");
+    },
+
+    removeSongFromPlaylist: async (
+      _: any,
+      {
+        username,
+        playlistId,
+        songId,
+      }: { username: string; playlistId: string; songId: string },
+      { driver }: any,
+    ) => {
+      const records = await executeCypherQuery(
+        driver,
+        `
+        MATCH (user:User {username: $username})-[:OWNS]->(playlist:Playlist {id: $playlistId})-[c:CONTAINS]->(song:Song {id: $songId})
+        DELETE c
+        WITH playlist
+        MATCH (playlist)-[:CONTAINS]->(s:Song)-[:PERFORMED_BY]->(a:Artist)
+        RETURN playlist { .id, .name, songs: collect({ id: s.id, title: s.title, views: s.views, artist: { name: a.name } }) } AS playlist
+        `,
+        { username, playlistId, songId },
+      );
+      const playlist = records[0].get("playlist");
+      return {
+        id: playlist.id,
+        name: playlist.name,
+        songs: playlist.songs.map((song: any) => ({
+          id: song.id,
+          title: song.title,
+          views: song.views,
+          artist: {
+            name: song.artist.name,
+          },
+        })),
+      };
     },
   },
 };
