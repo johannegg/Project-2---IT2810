@@ -10,16 +10,14 @@ type LyricProps = {
 	songData: SongData;
 };
 
-const Lyric = ({ songData}: LyricProps) => {
+const Lyric = ({ songData }: LyricProps) => {
 	return (
 		<div className="lyrics">
 			<div className="lyrics-header">
 				<BackButton />
 				<div className="button-container">
 					<FavoriteButton song={songData} />
-					<PlusMinusButton
-						song={songData}
-					/>
+					<PlusMinusButton song={songData} />
 				</div>
 			</div>
 			<h1>{songData.title}</h1>

@@ -81,11 +81,7 @@ const PlusMinusButton: React.FC<PlusMinusButtonProps> = ({
 					isInPlaylist ? handleRemoveSongFromPlaylist() : toggleModal();
 				}}
 			>
-				{isInPlaylist ? (
-					<FiMinusCircle color="#afc188" />
-				) : (
-					<FiPlusCircle color="#afc188" />
-				)}
+				{isInPlaylist ? <FiMinusCircle color="#afc188" /> : <FiPlusCircle color="#afc188" />}
 			</button>
 
 			{showModal && (

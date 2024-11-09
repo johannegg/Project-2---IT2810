@@ -7,10 +7,9 @@ import { SongData } from "../../utils/types/SongTypes";
 
 type FavoriteProps = {
 	song: SongData;
-
 };
 
-const FavoriteButton = ({ song}: FavoriteProps) => {
+const FavoriteButton = ({ song }: FavoriteProps) => {
 	const [hearted, setHearted] = useState<boolean>(false);
 
 	useEffect(() => {
@@ -37,23 +36,12 @@ const FavoriteButton = ({ song}: FavoriteProps) => {
 		setHearted(!hearted);
 	};
 
-
 	return (
-		<button
-			className={`favoriteButton `}
-			onClick={(e) => handleFavorite(e)}
-			type="button"
-		>
+		<button className={`favoriteButton `} onClick={(e) => handleFavorite(e)} type="button">
 			{hearted ? (
-				<FontAwesomeIcon
-					icon={heartSolid}
-					style={{ color: "var(--theme-favorite-pink)" }}
-				/>
+				<FontAwesomeIcon icon={heartSolid} style={{ color: "var(--theme-favorite-pink)" }} />
 			) : (
-				<FontAwesomeIcon
-					icon={heartRegular}
-					style={{ color: "var(--theme-favorite-pink)" }}
-				/>
+				<FontAwesomeIcon icon={heartRegular} style={{ color: "var(--theme-favorite-pink)" }} />
 			)}
 		</button>
 	);
