@@ -10,7 +10,7 @@ import DynamicPlaylist from "./components/DisplayPlaylist/DynamicPlaylist";
 function App() {
 	return (
 		<>
-			<Router>
+			<Router basename="project2">
 				<section className="headerContainer">
 					<Header />
 				</section>

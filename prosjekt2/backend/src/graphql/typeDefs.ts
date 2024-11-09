@@ -1,6 +1,8 @@
-import { gql } from "apollo-server-express";
+import { ApolloServer } from '@apollo/server';
+import { startStandaloneServer } from '@apollo/server/standalone';
 
-export const typeDefs = gql`
+export const typeDefs = `#graphql
+
   type Song {
     id: ID!
     title: String!
@@ -23,8 +25,22 @@ export const typeDefs = gql`
     songs: [Song]
   }
 
+  enum SortBy {
+    title_asc
+    title_desc
+    artist_asc
+    artist_desc
+    views_desc
+  }
+
   type Query {
-    songs: [Song]
+    songs(
+      skip: Int
+      limit: Int
+      genres: [String]
+      sortBy: SortBy
+      searchTerm: String
+    ): [Song]
     song(id: ID!): Song
     artists: [Artist]
     artist(id: ID!): Artist

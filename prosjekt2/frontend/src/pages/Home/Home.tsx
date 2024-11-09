@@ -3,41 +3,58 @@ import { AllSongsList } from "../../components/AllSongsComponents/AllSongsList";
 import { SearchBar } from "../../components/SearchBar/SearchBar";
 import { Sidebar } from "../../components/SideBar/SideBar";
 import { FilterButton } from "../../components/SideBar/FilterButton/FilterButton";
-import { useQuery } from "@apollo/client";
-import { GET_SONGS } from "../../utils/Queries";
-import { SongsQueryResponse } from "../../utils/types/QueryTypes";
-import { SongData } from "../../utils/types/SongTypes";
+import { useCachedSongs } from "../../utils/hooks/useCachedSongs";
 import "./Home.css";
 
 const Home = () => {
-	const [songs, setSongs] = useState<SongData[]>([]);
-	const [searchedSongs, setSearchedSongs] = useState<SongData[]>([]);
-	const [selectedGenres, setSelectedGenres] = useState<string[]>([]);
-	const [sortOption, setSortOption] = useState<string>("title-asc");
+	const [selectedGenres, setSelectedGenres] = useState<string[] | null>(null);
+	const [sortOption, setSortOption] = useState<string>("views_desc");
 	const [isSidebarOpen, setIsSidebarOpen] = useState<boolean>(false);
-	const { loading, error, data } = useQuery<SongsQueryResponse>(GET_SONGS);
+	const [showLoading, setShowLoading] = useState(false);
+	const [searchTerm, setSearchTerm] = useState<string>("");
 
+	const { songs, isLoading, error, loadMoreSongs } = useCachedSongs(
+		selectedGenres,
+		sortOption,
+		searchTerm,
+	);
+
+	// Load selected genres from session storage on initial render
 	useEffect(() => {
-		if (data) {
-			setSongs(data.songs);
+		const savedGenres = JSON.parse(sessionStorage.getItem("selectedGenres") || "[]");
+		setSelectedGenres(savedGenres.length > 0 ? savedGenres : null);
+	}, []);
+
+	// Loading delay
+	useEffect(() => {
+		let loadingTimeout: NodeJS.Timeout;
+		if (isLoading) {
+			loadingTimeout = setTimeout(() => setShowLoading(true), 500); // Added delay
+		} else {
+			setShowLoading(false);
 		}
-	}, [data]);
+		return () => clearTimeout(loadingTimeout); // Cleanup on unmount or if loading changes
+	}, [isLoading]);
 
 	const handleGenreChange = (genres: string[]) => {
-		setSelectedGenres(genres);
+		setSelectedGenres(genres.length > 0 ? genres : null);
+		sessionStorage.setItem("selectedGenres", JSON.stringify(genres));
 	};
 
-	const handleSortChange = (newSortOption: string, sortedSongs: SongData[]) => {
+	const handleSortChange = (newSortOption: string) => {
 		setSortOption(newSortOption);
-		setSongs(sortedSongs);
 	};
 
 	const toggleSidebar = () => {
 		setIsSidebarOpen((prev) => !prev);
 	};
 
-	if (loading) return <p>Loading songs...</p>;
-	if (error || !data) return <p>{error?.message}</p>;
+	
+	const handleSearchSubmit = (term: string) => {
+		setSearchTerm(term);
+	};
+	
+	if (error) return <p>Error loading songs: {error?.message}</p>;
 
 	return (
 		<>
@@ -45,20 +62,29 @@ const Home = () => {
 				onGenreChange={handleGenreChange}
 				sortOption={sortOption}
 				onSortChange={handleSortChange}
-				songs={searchedSongs}
-				onToggle={setIsSidebarOpen}
+				songs={songs}
+				onToggle={setIsSidebarOpen} //setIsSidebarOpen
 				isOpen={isSidebarOpen}
 			/>
 			<section className={`homeComponents ${isSidebarOpen ? "shifted" : ""}`}>
 				<section className="searchBarContainer">
-					<SearchBar songs={songs} setSearchedSongs={setSearchedSongs} />
+					<SearchBar setSearchTerm={handleSearchSubmit} />
 				</section>
 				<section className="filterButtonContainer">
 					<FilterButton onClick={toggleSidebar} />
 				</section>
-				<section className="allSongsContainer">
-					<AllSongsList songs={searchedSongs} genres={selectedGenres} isInPlaylist={false}/>
-				</section>
+				{showLoading ? (
+					<p>Loading songs...</p>
+				) : (
+					<section className="allSongsContainer">
+						<AllSongsList songs={songs} genres={selectedGenres == null ? [] : selectedGenres} />
+					</section>
+				)}
+				{!isLoading && songs.length >= 30 && (
+					<button className="loadMoreButton" onClick={loadMoreSongs}>
+						Load More Songs
+					</button>
+				)}
 			</section>
 		</>
 	);
