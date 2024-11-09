@@ -43,7 +43,7 @@ const DisplayPlaylist: React.FC<DisplayPlaylistProps> = ({ playlist, onDelete })
 	return (
 		<section className="playlist-details">
 			<div className="playlist-details-container">
-				<button className="backButton" onClick={() => navigate(-1)}>&#10094; Go back</button>
+				<button className="back-button" onClick={() => navigate(-1)}>&#10094; Go back</button>
 				<button onClick={() => setShowConfirmDelete(true)} className="delete-button">
 					Delete Playlist
 				</button>

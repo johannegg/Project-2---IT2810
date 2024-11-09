@@ -40,7 +40,7 @@
 	align-self: flex-end;
 }
 
-.backButton{
+.back-button{
 	padding: 8px;
 	color: #d9829f;
 	background-color: transparent;
@@ -129,10 +129,15 @@
 	.delete-button {
 		padding: 8px;
 		width: 115px;
-		font-size: 0.8rem;
+		font-size: 0.9rem;
+		margin-bottom: 10px;
 	}
 	.playlist-details {
 		top: 80px;
+	}
+
+	.backButton{
+		font-size: 15px;
 	}
 }
 

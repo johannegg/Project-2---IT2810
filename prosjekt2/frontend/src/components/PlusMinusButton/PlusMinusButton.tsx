@@ -82,9 +82,9 @@ const PlusMinusButton: React.FC<PlusMinusButtonProps> = ({
 				}}
 			>
 				{isInPlaylist ? (
-					<FiMinusCircle color="#afc188" fontSize="28px" />
+					<FiMinusCircle color="#afc188" />
 				) : (
-					<FiPlusCircle color="#afc188" fontSize="28px" />
+					<FiPlusCircle color="#afc188" />
 				)}
 			</button>
 
