@@ -40,6 +40,14 @@
 	align-self: flex-end;
 }
 
+.backButton{
+	padding: 8px;
+	color: #d9829f;
+	background-color: transparent;
+	font-size: 18px;
+	border: none;
+	align-self: flex-start;
+}
 .modal-overlay {
 	position: fixed;
 	top: 0;
@@ -98,6 +106,7 @@
 .cancel-button:hover {
 	background-color: #aaa;
 }
+
 
 @media (max-width: 850px) {
 	.playlist-details h1 {

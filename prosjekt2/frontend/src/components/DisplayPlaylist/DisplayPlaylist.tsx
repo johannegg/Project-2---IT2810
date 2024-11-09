@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { PlaylistData } from "../../pages/Playlists/Playlists";
 import "./DisplayPlaylist.css";
 import { AllSongsList } from "../AllSongsComponents/AllSongsList";
+import { useNavigate } from 'react-router-dom';
 
 interface DisplayPlaylistProps {
 	playlist: PlaylistData;
@@ -11,6 +12,7 @@ interface DisplayPlaylistProps {
 const DisplayPlaylist: React.FC<DisplayPlaylistProps> = ({ playlist, onDelete }) => {
 	const [showConfirmDelete, setShowConfirmDelete] = useState(false);
 	const [currentPlaylist, setCurrentPlaylist] = useState<PlaylistData>(playlist);
+	const navigate = useNavigate();
 
 	const updatePlaylistFromStorage = () => {
 		const storedPlaylists = JSON.parse(localStorage.getItem("playlists") || "[]");
@@ -41,6 +43,7 @@ const DisplayPlaylist: React.FC<DisplayPlaylistProps> = ({ playlist, onDelete })
 	return (
 		<section className="playlist-details">
 			<div className="playlist-details-container">
+				<button className="backButton" onClick={() => navigate(-1)}>&#10094; Go back</button>
 				<button onClick={() => setShowConfirmDelete(true)} className="delete-button">
 					Delete Playlist
 				</button>
