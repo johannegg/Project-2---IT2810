@@ -362,6 +362,7 @@ export const resolvers = {
           })),
         };
       }
+      throw new Error("Failed to add song to playlist");
     },
 
     removeSongFromPlaylist: async (
