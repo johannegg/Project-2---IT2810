@@ -16,7 +16,7 @@ const Lyric = ({ songData, isInPlaylist, playlistId, onSongRemoved }: LyricProps
 	return (
 		<div className="lyrics">
 			<div className="button-container">
-				<FavoriteButton song={songData} size="large" />
+				<FavoriteButton song={songData}/>
 				<PlusMinusButton
 					song={songData}
 					isInPlaylist={isInPlaylist}
