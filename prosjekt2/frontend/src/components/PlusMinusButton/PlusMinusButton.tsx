@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useCallback } from "react";
 import { FiPlusCircle, FiMinusCircle } from "react-icons/fi";
 import { SongData } from "../../utils/types/SongTypes";
 import { PlaylistData } from "../../pages/Playlists/Playlists";
@@ -29,6 +29,21 @@ const PlusMinusButton: React.FC<PlusMinusButtonProps> = ({
 		localStorage.setItem("playlists", JSON.stringify(updatedPlaylists));
 	};
 
+	const debounce = (func: () => void, delay: number) => {
+		let timer: NodeJS.Timeout;
+		return () => {
+			clearTimeout(timer);
+			timer = setTimeout(() => {
+				func();
+			}, delay);
+		};
+	};
+
+	const clearFeedbackMessage = useCallback(
+		debounce(() => setFeedbackMessage(""), 3000),
+		[],
+	);
+
 	const handleAddSongToPlaylist = (playlistId: string) => {
 		const currentPlaylists = getPlaylists();
 		let songAdded = false;
@@ -41,6 +56,7 @@ const PlusMinusButton: React.FC<PlusMinusButtonProps> = ({
 					return { ...playlist, songs: [...playlist.songs, song] };
 				} else {
 					setFeedbackMessage("Song is already in playlist.");
+					clearFeedbackMessage();
 					return playlist;
 				}
 			}
@@ -49,11 +65,10 @@ const PlusMinusButton: React.FC<PlusMinusButtonProps> = ({
 
 		if (songAdded) {
 			setFeedbackMessage("Song successfully added!");
+			clearFeedbackMessage();
 		}
 
 		updatePlaylists(updatedPlaylists);
-
-		setTimeout(() => setFeedbackMessage(""), 3000);
 	};
 
 	const handleRemoveSongFromPlaylist = () => {
@@ -89,11 +104,11 @@ const PlusMinusButton: React.FC<PlusMinusButtonProps> = ({
 					<div className="playlist-modal-container">
 						<h3>Select a playlist to add "{song.title}"</h3>
 						{feedbackMessage && (
-							<div
-								className={`feedback-message ${feedbackMessage === "Song successfully added" ? "success" : "error"}`}
+							<label
+								className={`feedback-message ${feedbackMessage === "Song successfully added!" ? "success" : "error"}`}
 							>
 								{feedbackMessage}
-							</div>
+							</label>
 						)}
 						<ul className="playlist-selection">
 							{getPlaylists().map((playlist: PlaylistData) => (
