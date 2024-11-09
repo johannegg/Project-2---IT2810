@@ -6,7 +6,7 @@ import "./PlusMinusButton.css";
 
 type PlusMinusButtonProps = {
 	song: SongData;
-	isInPlaylist: boolean;
+	isInPlaylist?: boolean;
 	playlistId?: string;
 	onSongRemoved?: () => void;
 };

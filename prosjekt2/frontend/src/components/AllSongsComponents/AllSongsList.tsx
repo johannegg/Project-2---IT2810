@@ -10,7 +10,7 @@ import PlusMinusButton from "../PlusMinusButton/PlusMinusButton";
 type AllSongsListProps = {
 	songs: SongData[];
 	genres: string[];
-	isInPlaylist: boolean;
+	isInPlaylist?: boolean;
 	playlistId?: string;
 	onSongRemoved?: () => void;
 };
