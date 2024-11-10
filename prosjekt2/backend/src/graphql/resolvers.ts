@@ -217,8 +217,8 @@ export const resolvers = {
           id: user.id,
           username: user.username,
           isNew,
-          playlists: user.playlist,
-          favoriteSongs: user.favoriteSongs,
+          playlists: user.playlist || [],
+          favoriteSongs: user.favoriteSongs || [],
         };
       }
       throw new Error("Failed to create or retrieve user");
