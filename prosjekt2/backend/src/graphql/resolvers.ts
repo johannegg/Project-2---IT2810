@@ -202,16 +202,21 @@ export const resolvers = {
         driver,
         `
         MERGE (user:User {username: $username})
-        ON CREATE SET user.id = randomUUID()
-        RETURN user { .id, .username } AS user
+        ON CREATE SET
+          user.id = randomUUID(),
+          user.createdAt = timestamp()
+        RETURN user { .id, .username, isNew: (user.createdAt IS NOT NULL) } AS user
         `,
         { username },
       );
       if (records.length > 0) {
         const user = records[0].get("user");
+        const isNew = records[0].get("user").isNew;
+
         return {
           id: user.id,
           username: user.username,
+          isNew,
           playlists: user.playlist,
           favoriteSongs: user.favoriteSongs,
         };

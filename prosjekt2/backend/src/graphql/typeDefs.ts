@@ -30,6 +30,7 @@ export const typeDefs = `#graphql
     username: String!
     favoriteSongs: [Song]
     playlists: [Playlist]
+    isNew: Boolean!
   }
 
   type Playlist {
