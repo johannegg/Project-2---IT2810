@@ -15,7 +15,7 @@ const Lyric = ({ songData }: LyricProps) => {
 		<div className="lyrics">
 			<div className="lyrics-header">
 				<BackButton />
-				<div className="button-container">
+				<div className="buttons-right-container">
 					<FavoriteButton song={songData} />
 					<PlusMinusButton song={songData} />
 				</div>

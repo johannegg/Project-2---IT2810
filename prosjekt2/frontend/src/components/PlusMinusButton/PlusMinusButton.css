@@ -114,6 +114,7 @@
 
 	.playlist-selection button {
 		background-color: var(--theme-even-darker-green);
+		color: #ffffff;
 	}
 
 	.playlist-selection button:hover {

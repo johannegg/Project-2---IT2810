@@ -20,13 +20,13 @@
 	width: 100%;
 }
 
-.button-container {
+.buttons-right-container {
 	display: flex;
 	gap: 10px;
 }
 
 
-.button-container button {
+.buttons-right-container button {
 	border: none;
 	cursor: pointer;
 }

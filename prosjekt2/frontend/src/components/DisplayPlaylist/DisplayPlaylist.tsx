@@ -45,7 +45,7 @@ const DisplayPlaylist: React.FC<DisplayPlaylistProps> = ({ playlist, onDelete })
 				<header className="playlist-header">
 					<BackButton />
 					<button onClick={() => setShowConfirmDelete(true)} className="delete-playlist-button">
-						<AiOutlineDelete color="#ea9ab2" />
+						<AiOutlineDelete/>
 					</button>
 				</header>
 				<h1>{currentPlaylist.name + " " + currentPlaylist.icon}</h1>
