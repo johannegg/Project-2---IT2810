@@ -42,6 +42,24 @@ const executeCypherQuery = async (
   }
 };
 
+export const checkUserExists = async (
+  _: any,
+  { username }: { username: string },
+  { driver }: any
+) => {
+  const records = await executeCypherQuery(
+    driver,
+    `
+    MATCH (user:User {username: $username})
+    RETURN COUNT(user) > 0 AS exists
+    `,
+    { username }
+  );
+
+  return records.length > 0 && records[0].get("exists");
+}
+
+
 // Custom resolvers
 export const resolvers = {
   Query: {
