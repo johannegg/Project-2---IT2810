@@ -7,11 +7,28 @@
 }
 
 .lyrics button {
-    position: absolute;
-    top: 10px; 
-    right: 10px;
-    cursor: pointer;
-    z-index: 5;
+	top: 10px;
+	right: 10px;
+	cursor: pointer;
+	z-index: 5;
+}
+
+.lyrics-header {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	width: 100%;
+}
+
+.buttons-right-container {
+	display: flex;
+	gap: 10px;
+}
+
+
+.buttons-right-container button {
+	border: none;
+	cursor: pointer;
 }
 
 .lyrics h1 {
@@ -45,9 +62,9 @@
 }
 
 .songInfo p {
-    font-weight: bold;
-    margin: 0;
-    text-align: center; 
+	font-weight: bold;
+	margin: 0;
+	text-align: center;
 }
 
 hr {
@@ -68,13 +85,13 @@ hr {
 
 
 @media (prefers-color-scheme: dark) {
-    .lyrics {
-        color: white;
-    }
+	.lyrics {
+		color: white;
+	}
 
-    hr {
-        background-color: var(--theme-even-darker-green);
-    }
+	hr {
+		background-color: var(--theme-even-darker-green);
+	}
 }
 
 
