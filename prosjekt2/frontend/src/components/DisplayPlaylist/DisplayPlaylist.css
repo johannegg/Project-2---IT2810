@@ -17,6 +17,14 @@
 	min-width: 700px;
 }
 
+.playlist-header {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	width: 100%;
+	padding: 0 20px;
+}
+
 .playlist-details h1 {
 	font-size: 2rem;
 	margin-bottom: 25px;
@@ -28,16 +36,16 @@
 	text-align: center;
 }
 
-.delete-button {
-	background-color: #ea9ab2;
-	color: white;
+.delete-playlist-button {
+	background: none;
 	border: none;
-	padding: 10px;
-	border-radius: 15px;
 	cursor: pointer;
-	width: 130px;
-	text-align: center;
+	padding: 0;
+	display: inline-flex;
+	align-items: center;
 	align-self: flex-end;
+	font-size: 35px;
+	color: var(--theme-pink);
 }
 
 .modal-overlay {
@@ -106,24 +114,25 @@
 	.playlist-details-container {
 		min-width: 330px;
 	}
-
-	.playlist-details {
-		top: 90px;
-	}
 }
 
-@media (max-width: 520px) {
+@media (max-width: 650px) {
 	.playlist-details h1 {
 		font-size: 1.5rem;
 	}
 
-	.delete-button {
-		padding: 8px;
-		width: 115px;
-		font-size: 0.8rem;
+	.back-button {
+		font-size: 15px;
 	}
-	.playlist-details {
-		top: 80px;
+
+	.delete-playlist-button {
+		font-size: 30px;
+	}
+}
+
+@media (max-width: 450px) {
+	.delete-playlist-button {
+		font-size: 25px;
 	}
 }
 
@@ -132,6 +141,14 @@
 		background-color: var(--theme-favorite-pink);
 	}
 	.modal {
-		background-color: rgb(54, 51, 51);
+		background-color: #000;
+	}
+
+	.modal-overlay {
+		background-color: rgba(28, 28, 28, 0.8);
+	}
+
+	.delete-playlist-button {
+		color: var(--theme-favorite-pink);
 	}
 }

@@ -1,0 +1,144 @@
+.playlist-modal-overlay {
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background: rgba(0, 0, 0, 0.5);
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	z-index: 1000;
+	cursor: default;
+}
+
+.playlist-modal-container {
+	background: #ffffff;
+	padding: 20px;
+	width: 290px;
+	max-width: 90%;
+	border-radius: 12px;
+	box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+	text-align: center;
+	overflow: hidden;
+	word-wrap: break-word;
+	overflow-y: auto;
+	max-height: 80vh;
+}
+
+.playlist-modal-container h3 {
+	font-size: 1.2em;
+	color: #3d3d3d;
+	margin-bottom: 15px;
+	padding: 0 10px;
+	white-space: normal;
+}
+
+.playlist-selection {
+	list-style: none;
+	padding: 0;
+	margin: 10px;
+	max-height: 300px;
+	overflow-y: auto;
+}
+
+.playlist-selection li {
+	margin-bottom: 10px;
+}
+
+.playlist-selection button {
+	width: 200px;
+	padding: 10px;
+	background-color: var(--theme-darker-green);
+	border: none;
+	color: black;
+	border-radius: 5px;
+	cursor: pointer;
+	font-size: 1rem;
+	transition:
+		background-color 0.3s,
+		transform 0.2s;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}
+
+.playlist-selection button:hover {
+	background-color: var(--theme-even-darker-green);
+	transform: scale(1.02);
+	color: #ffffff;
+}
+
+.closeBtn {
+	background-color: #ccc;
+	color: #000;
+	border: none;
+	border-radius: 5px;
+	cursor: pointer;
+	padding: 8px 16px;
+	font-size: 1rem;
+	margin-top: 15px;
+	transition: background-color 0.3s;
+	display: inline-block;
+}
+
+.plusMinus-button {
+	background: none;
+	border: none;
+	padding: 0;
+	cursor: pointer;
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	outline: none;
+	margin: 5px;
+	font-size: 30px;
+}
+
+.closeBtn:hover {
+	background-color: #aaa;
+}
+
+@media (prefers-color-scheme: dark) {
+	.playlist-modal-container {
+		background-color: #000;
+	}
+
+	.playlist-modal-container h3 {
+		color: #ffffff;
+	}
+
+	.playlist-modal-overlay {
+		background-color: rgba(28, 28, 28, 0.8);
+	}
+
+	.playlist-selection button {
+		background-color: var(--theme-even-darker-green);
+		color: #ffffff;
+	}
+
+	.playlist-selection button:hover {
+		background-color: var(--theme-darker-green);
+		color: #000;
+	}
+
+	.closeBtn {
+		background-color: #aaa;
+	}
+
+	.closeBtn:hover {
+		background-color: #ccc;
+	}
+}
+
+@media (max-width: 650px) {
+	.plusMinus-button {
+		font-size: 25px;
+	}
+}
+
+@media (max-width: 450px) {
+	.plusMinus-button {
+		font-size: 20px;
+	}
+}
