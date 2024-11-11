@@ -20,7 +20,7 @@ export const GET_SONGS = gql`
 `;
 
 export const CREATE_USER = gql`
-	mutation CreateUser($username: String) {
+	mutation CreateUser($username: String!) {
 		createUser(username: $username) {
 			id
 			username
@@ -66,13 +66,13 @@ export const DELETE_USER = gql`
 `;
 
 export const ADD_FAVORITE_SONG = gql`
-  mutations AddFavoriteSong($username: String!, $songId: ID!) {
+  mutation AddFavoriteSong($username: String!, $songId: ID!) {
     addFavoriteSong(username: $username, songId: $songId)
   }
 `;
 
 export const REMOVE_FAVORITE_SONG = gql`
-  mutations RemoveFavoriteSong($username: String!, $songId: ID!) {
+  mutation RemoveFavoriteSong($username: String!, $songId: ID!) {
     removeFavoriteSong(username: $username, songId: $songId)
   }
 `;
