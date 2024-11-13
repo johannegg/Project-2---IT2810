@@ -4,8 +4,8 @@ import { startStandaloneServer } from "@apollo/server/standalone";
 export const typeDefs = `#graphql
 
   type Song {
-    id: ID!
-    title: String!
+    id: ID
+    title: String
     year: Int
     lyrics: String
     views: Int
@@ -30,7 +30,6 @@ export const typeDefs = `#graphql
     username: String!
     favoriteSongs: [Song]
     playlists: [Playlist]
-    isNew: Boolean!
   }
 
   type Playlist {
@@ -62,6 +61,7 @@ export const typeDefs = `#graphql
     artist(id: ID!): Artist
     genres: [Genre]
     genre(id: ID!): Genre
+    fetchPlaylists(username: String!): [Playlist]
   }
   
   type Mutation {
