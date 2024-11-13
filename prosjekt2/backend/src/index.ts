@@ -1,12 +1,11 @@
-import { ApolloServer } from '@apollo/server';
-import { startStandaloneServer } from '@apollo/server/standalone';
+import dotenv from 'dotenv';
+dotenv.config();
+
+import { ApolloServer } from 'apollo-server';
 import { Neo4jGraphQL } from '@neo4j/graphql';
 import { typeDefs } from './graphql/typeDefs';
 import { resolvers } from './graphql/resolvers';
 import driver from './utils/neo4j-driver';
-import dotenv from 'dotenv';
-
-dotenv.config();
 
 // Create Neo4j GraphQL schema
 const neoSchema = new Neo4jGraphQL({ typeDefs, driver, resolvers });
@@ -16,19 +15,19 @@ async function startApolloServer() {
     const schema = await neoSchema.getSchema();
     const server = new ApolloServer({
       schema,
-    });
-
-    const { url } = await startStandaloneServer(server, {
-      context: async ({ req }) => {
-        // Pass Neo4j driver to context
-        return { driver };
+      context: ({ req }) => {
+        // Pass the Neo4j driver into the context
+        return { driver, req };
       },
-      listen: { port: 3001 },
     });
 
-    console.log(`🚀 Server ready at: ${url}`);
+    server.listen().then(({ url }) => {
+      console.log(`🚀 Server ready at: ${url}`);
+    }).catch((error) => {
+      console.error('Error starting the Apollo server:', error);
+    });
   } catch (error) {
-    console.error('Error initializing the Apollo server:', error);
+    console.error('Error initializing the Neo4j GraphQL schema:', error);
   }
 }
 
