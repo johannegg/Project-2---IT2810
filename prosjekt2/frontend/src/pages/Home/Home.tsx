@@ -45,6 +45,14 @@ const Home = () => {
 		}
 	}, []);
 
+	// Load searchTerm from session storage on initial render
+	useEffect(() => {
+		const savedSearchTerm = sessionStorage.getItem("searchTerm");
+		if (savedSearchTerm) {
+			setSearchTerm(savedSearchTerm);
+		}
+	}, []);
+
 	// Loading delay
 	useEffect(() => {
 		let loadingTimeout: NodeJS.Timeout;
@@ -79,6 +87,7 @@ const Home = () => {
 
 	const handleSearchSubmit = (term: string) => {
 		setSearchTerm(term);
+		sessionStorage.setItem("searchTerm", term); // Lagre searchTerm til sessionStorage
 	};
 
 	if (error) return <p>Error loading songs: {error?.message}</p>;
