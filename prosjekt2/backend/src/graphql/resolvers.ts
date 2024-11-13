@@ -1,28 +1,23 @@
 import { Driver } from "neo4j-driver";
 import neo4j from "neo4j-driver";
 
-interface Artist {
-  properties: {
-    name: string;
-  };
-}
-
 interface Song {
-  properties: {
-    id: string;
-    title: string;
-  };
-}
-
-interface FavoriteSong {
-  song: Song;
+  id: string;
+  title: string;
+  views: number;
+  year: number;
+  lyrics: string;
   artist: Artist;
+  genre: Genre;
 }
 
-interface User {
-  properties: {
-    username: string;
-  };
+interface Artist {
+  name: string;
+  id: string;
+}
+
+interface Genre {
+  name: string;
 }
 
 const executeCypherQuery = async (
@@ -45,7 +40,7 @@ const executeCypherQuery = async (
 export const checkUserExists = async (
   _: any,
   { username }: { username: string },
-  { driver }: any
+  { driver }: any,
 ) => {
   const records = await executeCypherQuery(
     driver,
@@ -53,12 +48,11 @@ export const checkUserExists = async (
     MATCH (user:User {username: $username})
     RETURN COUNT(user) > 0 AS exists
     `,
-    { username }
+    { username },
   );
 
   return records.length > 0 && records[0].get("exists");
-}
-
+};
 
 // Custom resolvers
 export const resolvers = {
@@ -88,6 +82,62 @@ export const resolvers = {
         return {
           id: artistNode.elementId,
           name: artistNode.properties.name,
+        };
+      });
+    },
+    fetchPlaylists: async (
+      _: any,
+      { username }: { username: string },
+      { driver }: any,
+    ) => {
+      const records = await executeCypherQuery(
+        driver,
+        `
+        MATCH (user:User {username: $username})-[:OWNS]->(playlist:Playlist)
+        OPTIONAL MATCH (playlist)-[:CONTAINS]->(playlistSong:Song)
+        OPTIONAL MATCH (playlistSong)-[:PERFORMED_BY]->(playlistArtist:Artist)
+        OPTIONAL MATCH (playlistSong)-[:HAS_GENRE]->(playlistGenre:Genre)
+        WITH playlist, collect({
+          id: playlistSong.id,
+          title: playlistSong.title,
+          views: playlistSong.views,
+          year: playlistSong.year,
+          lyrics: playlistSong.lyrics,
+          artist: playlistArtist { id: playlistArtist.id, name: playlistArtist.name },
+          genre: playlistGenre { name: playlistGenre.name }
+        }) AS songs
+        RETURN {
+          id: playlist.id,
+          name: playlist.name,
+          backgroundcolor: playlist.backgroundcolor,
+          icon: playlist.icon,
+          songs: songs
+        } AS playlist
+        `,
+        { username },
+      );
+
+      if (!records || records.length === 0) return null;
+
+      return records.map((record) => {
+        const playlist = record.get("playlist");
+
+        return {
+          id: playlist.id,
+          name: playlist.name,
+          backgroundcolor: playlist.backgroundcolor,
+          icon: playlist.icon,
+          songs: (playlist.songs || []).map((song: Song) => ({
+            id: song.id,
+            title: song.title,
+            views: song.views,
+            year: song.year,
+            lyrics: song.lyrics,
+            artist: song.artist
+              ? { id: song.artist.id, name: song.artist.name }
+              : null,
+            genre: song.genre ? { name: song.genre.name } : null,
+          })),
         };
       });
     },
@@ -220,23 +270,54 @@ export const resolvers = {
         driver,
         `
         MERGE (user:User {username: $username})
-        ON CREATE SET
-          user.id = randomUUID(),
-          user.createdAt = timestamp()
-        RETURN user { .id, .username, isNew: (user.createdAt IS NOT NULL) } AS user
+        ON CREATE SET user.id = randomUUID()
+        WITH user
+        OPTIONAL MATCH (user)-[:HAS_FAVORITES]->(song:Song)-[:PERFORMED_BY]->(artist:Artist)
+        OPTIONAL MATCH (song)-[:HAS_GENRE]->(genre:Genre)
+        OPTIONAL MATCH (user)-[:OWNS_PLAYLIST]->(playlist:Playlist)
+        OPTIONAL MATCH (playlist)-[:CONTAINS]->(playlistSong:Song)-[:PERFORMED_BY]->(playlistArtist:Artist)
+        OPTIONAL MATCH (playlistSong)-[:HAS_GENRE]->(playlistGenre:Genre)
+        RETURN user {
+          id: user.id,
+          username: user.username,
+          favoriteSongs: collect({
+            song: {
+              id: song.id,
+              title: song.title,
+              views: song.views,
+              year: song.year,
+              lyrics: song.lyrics
+            },
+            artist: {
+              id: artist.id,
+              name: artist.name
+            },
+            genre: genre { name: genre.name }
+          })
+        } AS user
         `,
         { username },
       );
       if (records.length > 0) {
-        const user = records[0].get("user");
-        const isNew = records[0].get("user").isNew;
+        const userRecord = records[0].get("user");
 
         return {
-          id: user.id,
-          username: user.username,
-          isNew,
-          playlists: user.playlist || [],
-          favoriteSongs: user.favoriteSongs || [],
+          id: userRecord.id,
+          username: userRecord.username,
+          favoriteSongs: userRecord.favoriteSongs.map(
+            (favorite: { artist: Artist; song: Song; genre: Genre }) => ({
+              id: favorite.song.id,
+              title: favorite.song.title,
+              views: favorite.song.views,
+              year: favorite.song.year,
+              lyrics: favorite.song.lyrics,
+              artist: favorite.artist
+                ? { id: favorite.artist.id, name: favorite.artist.name }
+                : null,
+              genre: favorite.genre ? { name: favorite.genre.name } : null,
+            }),
+          ),
+          playlists: [],
         };
       }
       throw new Error("Failed to create or retrieve user");
