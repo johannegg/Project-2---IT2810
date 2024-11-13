@@ -53,7 +53,9 @@ export function ViewsFilter({ onViewsChange }: ViewsFilterProps) {
 					renderThumb={({ key, ...rest }) => <div {...rest} key={key} />}
 				/>
 				<div className="viewValues">
-					<span>{formatViews(minViews)} - {formatViews(maxViews)}</span>
+					<span>
+						{formatViews(minViews)} - {formatViews(maxViews)}
+					</span>
 				</div>
 			</div>
 		</section>

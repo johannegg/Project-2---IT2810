@@ -27,8 +27,6 @@ export function Sidebar({
 		onToggle(!isOpen);
 	};
 
-
-
 	return (
 		<div className={`sidebar ${isOpen ? "open" : ""}`}>
 			<button className="close-button" onClick={toggleMenu} type="button">
@@ -37,7 +35,7 @@ export function Sidebar({
 			<div className="filteringContainer">
 				<Filter onGenreChange={onGenreChange} songs={songs} />
 				<br />
-				<ViewsFilter onViewsChange={onViewsChange}/>
+				<ViewsFilter onViewsChange={onViewsChange} />
 				<br />
 				<Sort songs={songs} sortOption={sortOption} onSortChange={onSortChange} />
 			</div>
