@@ -4,13 +4,18 @@ import { faHeart as heartSolid } from "@fortawesome/free-solid-svg-icons";
 import "./FavoriteButton.css";
 import { useEffect, useState } from "react";
 import { SongData } from "../../utils/types/SongTypes";
+import { useMutation } from "@apollo/client";
+import { ADD_FAVORITE_SONG, REMOVE_FAVORITE_SONG } from "../../utils/Queries";
 
 type FavoriteProps = {
 	song: SongData;
+	username: string;
 };
 
 const FavoriteButton = ({ song }: FavoriteProps) => {
 	const [hearted, setHearted] = useState<boolean>(false);
+	const [addFavorite] = useMutation(ADD_FAVORITE_SONG);
+	const [removeFavorite] = useMutation(REMOVE_FAVORITE_SONG);
 
 	useEffect(() => {
 		// Check if the song is already favorited (saved in localstorage)
@@ -20,18 +25,25 @@ const FavoriteButton = ({ song }: FavoriteProps) => {
 		}
 	}, [song]);
 
-	const handleFavorite = (e: React.MouseEvent<HTMLButtonElement>) => {
+	const handleFavorite = async (e: React.MouseEvent<HTMLButtonElement>) => {
 		e.stopPropagation();
 
 		const favoriteSongs: SongData[] = JSON.parse(localStorage.getItem("favoriteSongs") || "[]");
-		// Remove song from favorites when toggling a already hearted the favorite button
 		if (hearted) {
+			// Remove song from favorites when toggling a already hearted the favorite button
 			const updatedFavorites = favoriteSongs.filter((favoriteSong) => favoriteSong.id !== song.id);
 			localStorage.setItem("favoriteSongs", JSON.stringify(updatedFavorites));
-			// Add entire song object to favorites
+			await removeFavorite({
+				variables: { username: "user1", songId: song.id },
+			});
+
 		} else {
+			// Add entire song object to favorites
 			favoriteSongs.push(song);
 			localStorage.setItem("favoriteSongs", JSON.stringify(favoriteSongs));
+			await addFavorite({
+				variables: { username: "user1", songId: song.id },
+			});
 		}
 		setHearted(!hearted);
 	};

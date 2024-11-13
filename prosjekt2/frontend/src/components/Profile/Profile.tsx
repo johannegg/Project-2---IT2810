@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { useMutation } from "@apollo/client";
 import { CREATE_USER } from "../../utils/Queries";
 import "./Profile.css";
+import { useNavigate } from "react-router-dom";
 
 const Profile: React.FC = () => {
 	const [profileName, setProfile] = useState<string>("");
@@ -15,9 +16,10 @@ const Profile: React.FC = () => {
 
 	// Initialize the createUser mutation
 	const [createUser, { loading: creatingUser, error: userError }] = useMutation(CREATE_USER);
+	const navigate = useNavigate()
 
 	useEffect(() => {
-		const storedProfileName = localStorage.getItem("profileName") || "";
+		const storedProfileName = localStorage.getItem("profileName");
 		if (storedProfileName) {
 			setProfile(storedProfileName);
 			setLogin(true);
@@ -27,13 +29,16 @@ const Profile: React.FC = () => {
 	const logOut = () => {
 		setLogin(false);
 		localStorage.removeItem("profileName");
+		localStorage.removeItem("favoriteSongs")
 		setShowLogin(false);
+		navigate("/");
 	};
 
 	const logIn = async () => {
 		if (inputValue.trim() !== "") {
 			try {
 				const { data } = await createUser({ variables: { username: inputValue } });
+				console.log(data)
 				if (data && data.createUser) {
 					// If user creation is successful
 					setProfile(data.createUser.username);
