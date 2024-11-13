@@ -5,10 +5,11 @@ import { SongData } from "../../utils/types/SongTypes";
 
 interface FilterProps {
 	songs: SongData[];
+	clearFilters: boolean;
 	onGenreChange: (selectedGenres: string[]) => void;
 }
 
-export function Filter({ songs, onGenreChange }: FilterProps) {
+export function Filter({ songs, onGenreChange, clearFilters }: FilterProps) {
 	const [selectedGenres, setSelectedGenres] = useState<string[]>([]);
 
 	const handleGenreChange = (genre: string) => {
@@ -19,19 +20,26 @@ export function Filter({ songs, onGenreChange }: FilterProps) {
 				: [...prevSelected, genre];
 
 			onGenreChange(newSelectedGenres.length > 0 ? newSelectedGenres : []);
+			sessionStorage.setItem("selectedGenres", JSON.stringify(newSelectedGenres));
 			return newSelectedGenres;
 		});
 	};
 
+	// Load genres from sessionStorage on initial mount
 	useEffect(() => {
 		const savedGenres = JSON.parse(sessionStorage.getItem("selectedGenres") || "[]");
 		setSelectedGenres(savedGenres.length > 0 ? savedGenres : []);
 	}, []);
 
-	// Initial genres array
-	const predefinedGenres = ["pop", "rb", "rap", "rock", "country"];
+	// Reset genres when clearFilters is true
+	useEffect(() => {
+		if (clearFilters) {
+			setSelectedGenres([]);
+			onGenreChange([]);
+		}
+	}, [clearFilters, onGenreChange]);
 
-	// Find unique genres, starting with predefined ones
+	const predefinedGenres = ["pop", "rb", "rap", "rock", "country"];
 	const uniqueGenres = [...new Set([...predefinedGenres, ...songs.map((song) => song.genre.name)])];
 
 	return (

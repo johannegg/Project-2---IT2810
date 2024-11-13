@@ -43,6 +43,16 @@
 	width: 90%;
 }
 
+.clearFiltersButton {
+    padding: 7px;
+    border: none;
+    border-radius: 8px; 
+    cursor: pointer;
+    font-size: 16px; 
+	background-color: white;
+}
+
+
 @media (max-width: 1050px) {
 	.sidebar {
 		width: 200px;
@@ -65,5 +75,9 @@
 @media (prefers-color-scheme: dark) {
 	.sidebar {
 		background-color: var(--theme-even-darker-pink);
+	}
+
+	.clearFiltersButton  {
+		background-color: var(--theme-almost-black);
 	}
 }

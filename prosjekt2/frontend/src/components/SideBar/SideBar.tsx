@@ -12,6 +12,8 @@ type SidebarProps = {
 	songs: SongData[];
 	onToggle: (isOpen: boolean) => void;
 	isOpen: boolean;
+	clearFilters: boolean; // Ny prop som indikerer om filtrene skal nullstilles
+	onClearAllFilters: () => void;
 };
 
 export function Sidebar({
@@ -22,6 +24,8 @@ export function Sidebar({
 	songs,
 	onToggle,
 	isOpen,
+	clearFilters,
+	onClearAllFilters,
 }: SidebarProps) {
 	const toggleMenu = () => {
 		onToggle(!isOpen);
@@ -33,11 +37,16 @@ export function Sidebar({
 				✕
 			</button>
 			<div className="filteringContainer">
-				<Filter onGenreChange={onGenreChange} songs={songs} />
+				{/* Passer clearFilters som en prop til Filter og ViewsFilter */}
+				<Filter onGenreChange={onGenreChange} songs={songs} clearFilters={clearFilters} />
 				<br />
-				<ViewsFilter onViewsChange={onViewsChange} />
+				<ViewsFilter onViewsChange={onViewsChange} clearFilters={clearFilters} />
 				<br />
 				<Sort songs={songs} sortOption={sortOption} onSortChange={onSortChange} />
+				<br />
+				<button onClick={onClearAllFilters} className="clearFiltersButton">
+					Clear Filters
+				</button>
 			</div>
 		</div>
 	);

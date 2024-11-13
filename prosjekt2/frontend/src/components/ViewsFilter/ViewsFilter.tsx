@@ -5,28 +5,37 @@ import { formatViews } from "../../utils/FormatViews";
 import { FaFilter } from "react-icons/fa";
 
 interface ViewsFilterProps {
+	clearFilters: boolean;
 	onViewsChange: (minViews: number, maxViews: number) => void;
 }
 
-export function ViewsFilter({ onViewsChange }: ViewsFilterProps) {
+export function ViewsFilter({ onViewsChange, clearFilters }: ViewsFilterProps) {
 	const [minViews, setMinViews] = useState(0);
 	const [maxViews, setMaxViews] = useState(3000000);
 
+	// Load values from sessionStorage on initial mount
 	useEffect(() => {
-		const savedMinViews = JSON.parse(sessionStorage.getItem("minViews") || "0"); // 0 og 3000000 er hardkodet
+		const savedMinViews = JSON.parse(sessionStorage.getItem("minViews") || "0");
 		const savedMaxViews = JSON.parse(sessionStorage.getItem("maxViews") || "3000000");
 		setMinViews(savedMinViews);
 		setMaxViews(savedMaxViews);
 	}, []);
 
-	// Updating state while user is dragging the slider
+	// Reset views when clearFilters is true
+	useEffect(() => {
+		if (clearFilters) {
+			setMinViews(0);
+			setMaxViews(3000000);
+			onViewsChange(0, 3000000);
+		}
+	}, [clearFilters, onViewsChange]);
+
 	const handleSliderChange = (values: number[]) => {
 		const [newMinViews, newMaxViews] = values;
 		setMinViews(newMinViews);
 		setMaxViews(newMaxViews);
 	};
 
-	// Called when user releases the slider
 	const handleAfterSliderChange = (values: number[]) => {
 		const [newMinViews, newMaxViews] = values;
 		onViewsChange(newMinViews, newMaxViews);

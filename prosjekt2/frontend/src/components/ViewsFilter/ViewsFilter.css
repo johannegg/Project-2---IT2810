@@ -32,3 +32,9 @@
 	margin-top: 10px;
 	color: #493843;
 }
+
+@media (prefers-color-scheme: dark) {
+	.viewValues {
+		color: white;
+	}
+}

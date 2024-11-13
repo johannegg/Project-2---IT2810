@@ -14,6 +14,7 @@ const Home = () => {
 	const [searchTerm, setSearchTerm] = useState<string>("");
 	const [minViews, setMinViews] = useState<number>(0);
 	const [maxViews, setMaxViews] = useState<number>(3000000);
+	const [clearFilters, setClearFilters] = useState(false);
 
 	const { songs, isLoading, error, loadMoreSongs } = useCachedSongs(
 		selectedGenres,
@@ -23,45 +24,32 @@ const Home = () => {
 		maxViews,
 	);
 
-	// Load selected genres from session storage on initial render
+	// Load initial filter values from session storage
 	useEffect(() => {
 		const savedGenres = JSON.parse(sessionStorage.getItem("selectedGenres") || "[]");
 		setSelectedGenres(savedGenres.length > 0 ? savedGenres : null);
-	}, []);
 
-	// Load minViews and maxViews from session storage on initial render
-	useEffect(() => {
 		const savedMinViews = JSON.parse(sessionStorage.getItem("minViews") || "0");
 		const savedMaxViews = JSON.parse(sessionStorage.getItem("maxViews") || "3000000");
 		setMinViews(savedMinViews);
 		setMaxViews(savedMaxViews);
-	}, []);
 
-	// Load sortOption from session storage on initial render
-	useEffect(() => {
 		const savedSortOption = sessionStorage.getItem("sortOption");
-		if (savedSortOption) {
-			setSortOption(savedSortOption);
-		}
+		if (savedSortOption) setSortOption(savedSortOption);
+
+		const savedSearchTerm = sessionStorage.getItem("searchTerm") || "";
+		setSearchTerm(savedSearchTerm);
 	}, []);
 
-	// Load searchTerm from session storage on initial render
-	useEffect(() => {
-		const savedSearchTerm = sessionStorage.getItem("searchTerm");
-		if (savedSearchTerm) {
-			setSearchTerm(savedSearchTerm);
-		}
-	}, []);
-
-	// Loading delay
+	// Loading delay for songs
 	useEffect(() => {
 		let loadingTimeout: NodeJS.Timeout;
 		if (isLoading) {
-			loadingTimeout = setTimeout(() => setShowLoading(true), 500); // Added delay
+			loadingTimeout = setTimeout(() => setShowLoading(true), 500); 
 		} else {
 			setShowLoading(false);
 		}
-		return () => clearTimeout(loadingTimeout); // Cleanup on unmount or if loading changes
+		return () => clearTimeout(loadingTimeout);
 	}, [isLoading]);
 
 	const handleGenreChange = (genres: string[]) => {
@@ -81,13 +69,33 @@ const Home = () => {
 		sessionStorage.setItem("sortOption", newSortOption);
 	};
 
+	const handleSearchSubmit = (term: string) => {
+		setSearchTerm(term);
+		sessionStorage.setItem("searchTerm", term);
+	};
+
 	const toggleSidebar = () => {
 		setIsSidebarOpen((prev) => !prev);
 	};
 
-	const handleSearchSubmit = (term: string) => {
-		setSearchTerm(term);
-		sessionStorage.setItem("searchTerm", term); // Lagre searchTerm til sessionStorage
+	// Clear all filters function
+	const clearAllFilters = () => {
+		setSelectedGenres(null);
+		setSortOption("views_desc");
+		setMinViews(0);
+		setMaxViews(3000000);
+
+		// Remove filter-related items from sessionStorage, but keep search term
+		sessionStorage.removeItem("selectedGenres");
+		sessionStorage.removeItem("sortOption");
+		sessionStorage.removeItem("minViews");
+		sessionStorage.removeItem("maxViews");
+
+		// Trigger components to reset
+		setClearFilters(true);
+
+		// Reset clearFilters back to false after a delay to allow multiple clears
+		setTimeout(() => setClearFilters(false), 100);
 	};
 
 	if (error) return <p>Error loading songs: {error?.message}</p>;
@@ -102,6 +110,8 @@ const Home = () => {
 				onToggle={setIsSidebarOpen}
 				isOpen={isSidebarOpen}
 				onViewsChange={handleViewsChange}
+				clearFilters={clearFilters}
+				onClearAllFilters={clearAllFilters}
 			/>
 			<section className={`homeComponents ${isSidebarOpen ? "shifted" : ""}`}>
 				<section className="searchBarContainer">
