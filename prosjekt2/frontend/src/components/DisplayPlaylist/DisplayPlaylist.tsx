@@ -1,7 +1,9 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { PlaylistData } from "../../pages/Playlists/Playlists";
 import "./DisplayPlaylist.css";
 import { AllSongsList } from "../AllSongsComponents/AllSongsList";
+import { AiOutlineDelete } from "react-icons/ai";
+import BackButton from "../BackButton/BackButton";
 
 interface DisplayPlaylistProps {
 	playlist: PlaylistData;
@@ -10,30 +12,52 @@ interface DisplayPlaylistProps {
 
 const DisplayPlaylist: React.FC<DisplayPlaylistProps> = ({ playlist, onDelete }) => {
 	const [showConfirmDelete, setShowConfirmDelete] = useState(false);
-
-	const handleDeleteClick = () => {
-		setShowConfirmDelete(true);
+	const [currentPlaylist, setCurrentPlaylist] = useState<PlaylistData>(playlist);
+	const updatePlaylistFromStorage = () => {
+		const storedPlaylists = JSON.parse(localStorage.getItem("playlists") || "[]");
+		const updatedPlaylist = storedPlaylists.find((pl: PlaylistData) => pl.id === playlist.id);
+		if (updatedPlaylist) {
+			setCurrentPlaylist(updatedPlaylist);
+		}
 	};
 
-	const handleConfirmDelete = () => {
-		onDelete();
-		setShowConfirmDelete(false);
-	};
+	useEffect(() => {
+		updatePlaylistFromStorage();
 
-	const handleCancelDelete = () => {
-		setShowConfirmDelete(false);
+		const handleStorageChange = () => {
+			updatePlaylistFromStorage();
+		};
+
+		window.addEventListener("storage", handleStorageChange);
+
+		return () => {
+			window.removeEventListener("storage", handleStorageChange);
+		};
+	}, [playlist.id]);
+
+	const handleSongRemoved = () => {
+		updatePlaylistFromStorage(); // Oppdater currentPlaylist umiddelbart
 	};
 
 	return (
 		<section className="playlist-details">
 			<div className="playlist-details-container">
-				<button onClick={handleDeleteClick} className="delete-button">
-					Delete Playlist
-				</button>
-				<h1>{playlist.name + " " + playlist.icon}</h1>
+				<header className="playlist-header">
+					<BackButton />
+					<button onClick={() => setShowConfirmDelete(true)} className="delete-playlist-button">
+						<AiOutlineDelete/>
+					</button>
+				</header>
+				<h1>{currentPlaylist.name + " " + currentPlaylist.icon}</h1>
 				<div className="songs-container">
-					{playlist.songs.length > 0 ? (
-						<AllSongsList songs={playlist.songs} genres={[]} />
+					{currentPlaylist.songs.length > 0 ? (
+						<AllSongsList
+							songs={currentPlaylist.songs}
+							genres={[]}
+							isInPlaylist
+							playlistId={currentPlaylist.id}
+							onSongRemoved={handleSongRemoved}
+						/>
 					) : (
 						<p>No songs here yet.</p>
 					)}
@@ -44,10 +68,16 @@ const DisplayPlaylist: React.FC<DisplayPlaylistProps> = ({ playlist, onDelete })
 						<div className="modal">
 							<p>Are you sure you want to delete this playlist?</p>
 							<div className="modal-buttons">
-								<button onClick={handleCancelDelete} className="cancel-button">
+								<button onClick={() => setShowConfirmDelete(false)} className="cancel-button">
 									No
 								</button>
-								<button onClick={handleConfirmDelete} className="confirm-button">
+								<button
+									onClick={() => {
+										onDelete();
+										setShowConfirmDelete(false);
+									}}
+									className="confirm-button"
+								>
 									Yes
 								</button>
 							</div>

@@ -41,6 +41,7 @@
 	height: 80%;
 	border-radius: 20px;
 	margin-left: 3px;
+	padding: 6px;
 	background-color: var(--theme-darker-green);
 }
 
