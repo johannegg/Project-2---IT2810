@@ -32,27 +32,10 @@ export const CREATE_USER = gql`
 				lyrics
 				artist {
 					name
+					id
 				}
 				genre {
 					name
-				}
-			}
-			playlists {
-				id
-				name
-				songs {
-					id
-					title
-					views
-					year
-					lyrics
-					artist {
-						name
-						id
-					}
-					genre {
-						name
-					}
 				}
 			}
 		}
@@ -63,6 +46,31 @@ export const DELETE_USER = gql`
 	mutation DeleteUser($username: String!) {
 		deleteUser(username: $username)
 	}
+`;
+
+export const GET_USER_PLAYLISTS = gql`
+  query FetchPlaylists($username: String!) {
+    fetchPlaylists(username: $username) {
+        id
+        name
+        backgroundcolor
+        icon
+        songs {
+          	id
+			title
+			views
+			year
+			lyrics
+          	artist {
+            	name
+            	id
+          	}
+          	genre {
+            	name
+        	}
+        }
+    }
+  }
 `;
 
 export const ADD_FAVORITE_SONG = gql`
