@@ -50,7 +50,7 @@ export function ViewsFilter({ onViewsChange }: ViewsFilterProps) {
 					value={[minViews, maxViews]}
 					onChange={handleSliderChange}
 					onAfterChange={handleAfterSliderChange}
-					renderThumb={(props) => <div {...props} />}
+					renderThumb={({ key, ...rest }) => <div {...rest} key={key} />}
 				/>
 				<div className="viewValues">
 					<span>{formatViews(minViews)} - {formatViews(maxViews)}</span>
