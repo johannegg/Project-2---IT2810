@@ -19,14 +19,30 @@ const Home = () => {
 		selectedGenres,
 		sortOption,
 		searchTerm,
-		minViews, 
-		maxViews, 
+		minViews,
+		maxViews
 	);
 
 	// Load selected genres from session storage on initial render
 	useEffect(() => {
 		const savedGenres = JSON.parse(sessionStorage.getItem("selectedGenres") || "[]");
 		setSelectedGenres(savedGenres.length > 0 ? savedGenres : null);
+	}, []);
+
+	// Load minViews and maxViews from session storage on initial render
+	useEffect(() => {
+		const savedMinViews = JSON.parse(sessionStorage.getItem("minViews") || "0");
+		const savedMaxViews = JSON.parse(sessionStorage.getItem("maxViews") || "3000000");
+		setMinViews(savedMinViews);
+		setMaxViews(savedMaxViews);
+	}, []);
+
+	// Load sortOption from session storage on initial render
+	useEffect(() => {
+		const savedSortOption = sessionStorage.getItem("sortOption");
+		if (savedSortOption) {
+			setSortOption(savedSortOption);
+		}
 	}, []);
 
 	// Loading delay
@@ -45,15 +61,16 @@ const Home = () => {
 		sessionStorage.setItem("selectedGenres", JSON.stringify(genres));
 	};
 
-	const handleViewsChange = (minViews: number, maxViews: number) => {
-		setMinViews(minViews);
-		setMaxViews(maxViews);
-		sessionStorage.setItem("minViews", JSON.stringify(minViews));
-		sessionStorage.setItem("maxViews", JSON.stringify(maxViews));
+	const handleViewsChange = (newMinViews: number, newMaxViews: number) => {
+		setMinViews(newMinViews);
+		setMaxViews(newMaxViews);
+		sessionStorage.setItem("minViews", JSON.stringify(newMinViews));
+		sessionStorage.setItem("maxViews", JSON.stringify(newMaxViews));
 	};
 
 	const handleSortChange = (newSortOption: string) => {
 		setSortOption(newSortOption);
+		sessionStorage.setItem("sortOption", newSortOption);
 	};
 
 	const toggleSidebar = () => {
@@ -73,7 +90,7 @@ const Home = () => {
 				sortOption={sortOption}
 				onSortChange={handleSortChange}
 				songs={songs}
-				onToggle={setIsSidebarOpen} //setIsSidebarOpen
+				onToggle={setIsSidebarOpen}
 				isOpen={isSidebarOpen}
 				onViewsChange={handleViewsChange}
 			/>
