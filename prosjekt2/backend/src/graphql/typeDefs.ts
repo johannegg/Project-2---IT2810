@@ -40,6 +40,9 @@ export const typeDefs = `#graphql
       genres: [String]
       sortBy: SortBy
       searchTerm: String
+      minViews: Int  # Lower bound of views range
+      maxViews: Int  # Upper bound of views range
+
     ): [Song]
     song(id: ID!): Song
     artists: [Artist]

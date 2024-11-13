@@ -19,6 +19,8 @@ const Home = () => {
 		selectedGenres,
 		sortOption,
 		searchTerm,
+		minViews, 
+		maxViews, 
 	);
 
 	// Load selected genres from session storage on initial render
