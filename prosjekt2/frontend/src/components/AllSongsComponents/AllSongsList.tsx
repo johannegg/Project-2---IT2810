@@ -14,7 +14,7 @@ type AllSongsListProps = {
 	playlistId?: string;
 	minViews?: number;
 	maxViews?: number;
-	onSongRemoved?: () => void;
+	onSongRemoved?: (songId: string) => void; // Update to accept songId argument
 };
 
 export function AllSongsList({
@@ -29,13 +29,12 @@ export function AllSongsList({
 	const navigate = useNavigate();
 
 	const filteredSongs = songs
-	.filter((song) => (genres.length > 0 ? genres.includes(song.genre.name) : true)) // Filter by genre if genres are selected
-	.filter((song) => song.views >= (minViews ?? 0) && song.views <= (maxViews ?? Infinity)); // Filter by views within minViews and maxViews
-
+		.filter((song) => (genres.length > 0 ? genres.includes(song.genre.name) : true)) // Filter by genre if genres are selected
+		.filter((song) => song.views >= (minViews ?? 0) && song.views <= (maxViews ?? Infinity)); // Filter by views within minViews and maxViews
 
 	return (
 		<section className="songContainer">
-			{songs.length === 0 ? (
+			{filteredSongs.length === 0 ? (
 				<p>No songs found</p>
 			) : (
 				<table className="songTable">
@@ -56,7 +55,7 @@ export function AllSongsList({
 										song={song}
 										isInPlaylist={isInPlaylist}
 										playlistId={playlistId}
-										onSongRemoved={onSongRemoved}
+										onSongRemoved={() => onSongRemoved && onSongRemoved(song.id)} // Pass song.id to onSongRemoved
 									/>
 								</td>
 								<td>

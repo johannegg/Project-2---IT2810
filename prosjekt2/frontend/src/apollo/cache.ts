@@ -126,6 +126,8 @@ favoriteSongsVar.onNextChange((newFavorites) => {
 playlistsVar.onNextChange((newPlaylists) => {
   console.log("Syncing playlistsVar to localStorage:", newPlaylists);
   localStorage.setItem("playlists", JSON.stringify(newPlaylists));
+  // Manuell utløsing av en "storage"-event for å informere andre faner om endringer
+  window.dispatchEvent(new Event("storage"));
 });
 
 export default cache;

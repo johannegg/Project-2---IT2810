@@ -1,6 +1,7 @@
 import { useLocation, useNavigate } from "react-router-dom";
 import { PlaylistData } from "../../pages/Playlists/Playlists";
 import DisplayPlaylist from "./DisplayPlaylist";
+import { playlistsVar } from "../../apollo/cache";
 
 const DynamicPlaylist = () => {
 	const location = useLocation();
@@ -9,20 +10,25 @@ const DynamicPlaylist = () => {
 
 	if (!playlistData) return <div>Playlist not found</div>;
 
+	const playlistId = playlistData.id;
+
 	const handleDelete = () => {
-		const storedPlaylists = localStorage.getItem("playlists");
-		const playlists = storedPlaylists ? JSON.parse(storedPlaylists) : [];
+		const playlists = playlistsVar();
 
 		const updatedPlaylists = playlists.filter(
-			(playlist: PlaylistData) => playlist.id !== playlistData.id,
+			(playlist: PlaylistData) => playlist.id !== playlistId
 		);
 
+		playlistsVar(updatedPlaylists);
 		localStorage.setItem("playlists", JSON.stringify(updatedPlaylists));
 
 		navigate("/playlists");
 	};
 
-	return <DisplayPlaylist playlist={playlistData} onDelete={handleDelete} />;
+	return (
+		<DisplayPlaylist playlistId={playlistId} onDelete={handleDelete} />
+	);
 };
 
 export default DynamicPlaylist;
+
