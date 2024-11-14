@@ -2,7 +2,7 @@ import "./Sidebar.css";
 import { Filter } from "../GenreFilter/GenreFilter";
 import { ViewsFilter } from "../ViewsFilter/ViewsFilter";
 import Sort from "../Sort/Sort";
-import { SongData } from "../../utils/types/SongTypes";
+import type { SongData } from "../../utils/types/SongTypes";
 
 type SidebarProps = {
 	onGenreChange: (selectedGenres: string[]) => void;
@@ -12,8 +12,12 @@ type SidebarProps = {
 	songs: SongData[];
 	onToggle: (isOpen: boolean) => void;
 	isOpen: boolean;
-	clearFilters: boolean; // Ny prop som indikerer om filtrene skal nullstilles
+	clearFilters: boolean;
 	onClearAllFilters: () => void;
+	searchTerm: string;
+  minViews: number;
+  maxViews: number;
+  selectedGenres: string[] | null;
 };
 
 export function Sidebar({
@@ -26,6 +30,10 @@ export function Sidebar({
 	isOpen,
 	clearFilters,
 	onClearAllFilters,
+	searchTerm,
+  minViews,
+  maxViews,
+  selectedGenres,
 }: SidebarProps) {
 	const toggleMenu = () => {
 		onToggle(!isOpen);
@@ -37,14 +45,19 @@ export function Sidebar({
 				✕
 			</button>
 			<div className="filteringContainer">
-				{/* Passer clearFilters som en prop til Filter og ViewsFilter */}
 				<Sort songs={songs} sortOption={sortOption} onSortChange={onSortChange} />
 				<br />
-				<Filter onGenreChange={onGenreChange} songs={songs} clearFilters={clearFilters} />
+				<Filter onGenreChange={onGenreChange}  
+					clearFilters={clearFilters} 
+					searchTerm={searchTerm}
+          minViews={minViews}
+          maxViews={maxViews}
+          selectedGenres={selectedGenres}
+				/>
 				<br />
 				<ViewsFilter onViewsChange={onViewsChange} clearFilters={clearFilters} />
 				<br />
-				<button onClick={onClearAllFilters} className="clearFiltersButton">
+				<button onClick={onClearAllFilters} className="clearFiltersButton" type="button">
 					Clear filters
 				</button>
 			</div>

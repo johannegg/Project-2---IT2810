@@ -32,6 +32,16 @@ input[type="checkbox"] {
 	align-items: center;
 }
 
+.disabled-filter {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.disabled-filter-label {
+  color: gray;
+  cursor: not-allowed;
+}
+
 @media (max-width: 1050px) {
 	.filterContainer {
 		width: 70%;

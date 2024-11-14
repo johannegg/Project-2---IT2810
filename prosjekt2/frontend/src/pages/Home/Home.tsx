@@ -118,7 +118,11 @@ const Home = () => {
 				onToggle={setIsSidebarOpen}
 				isOpen={isSidebarOpen}
 				onViewsChange={handleViewsChange}
-				clearFilters={clearFilters} // Send clearFilters as boolean
+				clearFilters={clearFilters}
+				selectedGenres={selectedGenres}
+				searchTerm={searchTerm}
+        minViews={minViews}
+        maxViews={maxViews}
 				onClearAllFilters={clearAllFilters}
 			/>
 			<section className={`homeComponents ${isSidebarOpen ? "shifted" : ""}`}>
