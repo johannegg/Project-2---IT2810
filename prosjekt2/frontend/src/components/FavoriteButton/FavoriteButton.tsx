@@ -9,7 +9,6 @@ import { ADD_FAVORITE_SONG, REMOVE_FAVORITE_SONG } from "../../utils/Queries";
 
 type FavoriteProps = {
 	song: SongData;
-	username: string;
 };
 
 const FavoriteButton = ({ song }: FavoriteProps) => {
@@ -29,12 +28,18 @@ const FavoriteButton = ({ song }: FavoriteProps) => {
 		e.stopPropagation();
 
 		const favoriteSongs: SongData[] = JSON.parse(localStorage.getItem("favoriteSongs") || "[]");
-		if (hearted) {
+		const storedUsername = localStorage.getItem("profileName");
+		if (storedUsername == "" || !storedUsername) {
+			alert("You need to log in to favorite songs");
+			localStorage.removeItem("favoriteSongs")
+			return
+		}
+		else if (hearted) {
 			// Remove song from favorites when toggling a already hearted the favorite button
 			const updatedFavorites = favoriteSongs.filter((favoriteSong) => favoriteSong.id !== song.id);
 			localStorage.setItem("favoriteSongs", JSON.stringify(updatedFavorites));
 			await removeFavorite({
-				variables: { username: "user1", songId: song.id },
+				variables: { username: storedUsername, songId: song.id },
 			});
 
 		} else {
@@ -42,7 +47,7 @@ const FavoriteButton = ({ song }: FavoriteProps) => {
 			favoriteSongs.push(song);
 			localStorage.setItem("favoriteSongs", JSON.stringify(favoriteSongs));
 			await addFavorite({
-				variables: { username: "user1", songId: song.id },
+				variables: { username: storedUsername, songId: song.id },
 			});
 		}
 		setHearted(!hearted);

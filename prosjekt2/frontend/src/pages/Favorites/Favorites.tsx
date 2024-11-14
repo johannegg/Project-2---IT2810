@@ -4,7 +4,6 @@ import { AllSongsList } from "../../components/AllSongsComponents/AllSongsList";
 import { SearchBar } from "../../components/SearchBar/SearchBar";
 import { useNavigate } from "react-router-dom";
 import { SongData } from "../../utils/types/SongTypes";
-import { useUserData } from "../../utils/hooks/useUserData";
 
 const Favorites: React.FC = () => {
 	const [favorites, setFavorites] = useState<SongData[]>([]);
@@ -21,17 +20,6 @@ const Favorites: React.FC = () => {
     setFavorites(favoriteSongs);
     setSearchedSongs(favoriteSongs)
   }, []);
-
-  // Use the custom hook to fetch user data, including favorite songs
-	const { user, loading, error } = useUserData("user1"); // Replace with the actual username
-	
-	// Set favorite songs from the user data once it is loaded
-	useEffect(() => {
-		if (user && user.favoriteSongs) {
-			setFavorites(user.favoriteSongs);
-			setSearchedSongs(user.favoriteSongs);
-		}
-	}, []);
 
   // Filter favorite songs based on search term
   useEffect(() => {
