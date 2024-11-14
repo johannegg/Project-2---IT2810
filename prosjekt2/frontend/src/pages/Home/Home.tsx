@@ -12,6 +12,7 @@ const Home = () => {
 	const [isSidebarOpen, setIsSidebarOpen] = useState<boolean>(false);
 	const [showLoading, setShowLoading] = useState(false);
 	const [searchTerm, setSearchTerm] = useState<string>("");
+	const [username, setUsername] = useState<string | null>(null);
 
 	const { songs, isLoading, error, loadMoreSongs } = useCachedSongs(
 		selectedGenres,
@@ -24,6 +25,24 @@ const Home = () => {
 		const savedGenres = JSON.parse(sessionStorage.getItem("selectedGenres") || "[]");
 		setSelectedGenres(savedGenres.length > 0 ? savedGenres : null);
 	}, []);
+
+	useEffect(() => {
+		const storedUsername = localStorage.getItem("profileName");
+		if (storedUsername) {
+			setUsername(storedUsername);
+		}
+
+		const handleStorageChange = () => {
+			const updatedUsername = localStorage.getItem("profileName");
+			if (updatedUsername !== username) {
+				setUsername(updatedUsername);
+			}
+		};
+		window.addEventListener("storage", handleStorageChange);
+		return () => {
+			window.removeEventListener("storage", handleStorageChange);
+		};
+	}, [username]);
 
 	// Loading delay
 	useEffect(() => {
@@ -49,11 +68,10 @@ const Home = () => {
 		setIsSidebarOpen((prev) => !prev);
 	};
 
-	
 	const handleSearchSubmit = (term: string) => {
 		setSearchTerm(term);
 	};
-	
+
 	if (error) return <p>Error loading songs: {error?.message}</p>;
 
 	return (
