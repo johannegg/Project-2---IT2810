@@ -20,14 +20,14 @@ export function Filter({
   maxViews,
   selectedGenres,
 }: FilterProps) {
-  const { genreCounts} = useGenreCounts(
+  const { genreCounts, isLoading} = useGenreCounts(
     searchTerm,
     minViews,
     maxViews,
     selectedGenres
   );
-
   const [localSelectedGenres, setLocalSelectedGenres] = useState<string[]>(selectedGenres || []);
+  const [cachedGenreCounts, setCachedGenreCounts] = useState(genreCounts);
 
   const handleGenreChange = (genre: string) => {
     setLocalSelectedGenres((prevSelected) => {
@@ -41,6 +41,13 @@ export function Filter({
       return newSelectedGenres;
     });
   };
+
+  // Cache genre counts only when loading completes to prevent "flickering"
+  useEffect(() => {
+    if (!isLoading) {
+      setCachedGenreCounts(genreCounts);
+    }
+  }, [isLoading, genreCounts]);
 
 	// Load genres from sessionStorage on initial mount
 	useEffect(() => {
@@ -63,23 +70,26 @@ export function Filter({
         <FaFilter className="filterSortIcon" />
         <h2>Genre</h2>
       </section>
-        <section className="categories">
-          {genreCounts.map((genre: { name: string; count: number }) => (
-            <div className="filterRow" key={genre.name}>
-              <input
-                type="checkbox"
-                id={genre.name}
-                checked={localSelectedGenres.includes(genre.name)}
-                onChange={() => handleGenreChange(genre.name)}
-								disabled={genre.count === 0}
-                className={genre.count === 0 ? "disabled-filter" : ""}
-              />
-              <label htmlFor={genre.name} className={genre.count === 0 ? "disabled-filter-label" : ""}>
-                {genre.name.charAt(0).toUpperCase() + genre.name.slice(1)} ({genre.count})
-              </label>
-            </div>
-          ))}
-        </section>
+      <section className="categories">
+        {cachedGenreCounts.map((genre: { name: string; count: number }) => (
+          <div className="filterRow" key={genre.name}>
+            <input
+              type="checkbox"
+              id={genre.name}
+              checked={localSelectedGenres.includes(genre.name)}
+              onChange={() => handleGenreChange(genre.name)}
+              disabled={isLoading || genre.count === 0}
+              className={isLoading || genre.count === 0 ? "disabled-filter" : ""}
+            />
+            <label
+              htmlFor={genre.name}
+              className={genre.count === 0 ? "disabled-filter-label" : ""}
+            >
+              {genre.name.charAt(0).toUpperCase() + genre.name.slice(1)} ({genre.count})
+            </label>
+          </div>
+        ))}
+      </section>
     </section>
   );
 }
