@@ -4,36 +4,27 @@ import { SearchBar } from "../../components/SearchBar/SearchBar";
 import { Sidebar } from "../../components/SideBar/SideBar";
 import { FilterButton } from "../../components/SideBar/FilterButton/FilterButton";
 import { useCachedSongs } from "../../utils/hooks/useCachedSongs";
+import { genreFilterVar, minViewsVar, maxViewsVar } from "../../apollo/cache";
+import { useReactiveVar } from "@apollo/client";
 import "./Home.css";
 
 const Home = () => {
-	const [selectedGenres, setSelectedGenres] = useState<string[] | null>(null);
+	const selectedGenres = useReactiveVar(genreFilterVar);
+	const minViews = useReactiveVar(minViewsVar);
+	const maxViews = useReactiveVar(maxViewsVar);
 	const [sortOption, setSortOption] = useState<string>("views_desc");
 	const [isSidebarOpen, setIsSidebarOpen] = useState<boolean>(false);
 	const [showLoading, setShowLoading] = useState(false);
 	const [searchTerm, setSearchTerm] = useState<string>("");
-	const [minViews, setMinViews] = useState<number>(0);
-	const [maxViews, setMaxViews] = useState<number>(3000000);
 	const [clearFilters, setClearFilters] = useState(false);
 
 	const { songs, isLoading, error, loadMoreSongs } = useCachedSongs(
-		selectedGenres,
 		sortOption,
 		searchTerm,
-		minViews,
-		maxViews,
 	);
 
-	// Load initial filter values from session storage
+	// Load initial values from session storage
 	useEffect(() => {
-		const savedGenres = JSON.parse(sessionStorage.getItem("selectedGenres") || "[]");
-		setSelectedGenres(savedGenres.length > 0 ? savedGenres : null);
-
-		const savedMinViews = JSON.parse(sessionStorage.getItem("minViews") || "0");
-		const savedMaxViews = JSON.parse(sessionStorage.getItem("maxViews") || "3000000");
-		setMinViews(savedMinViews);
-		setMaxViews(savedMaxViews);
-
 		const savedSortOption = sessionStorage.getItem("sortOption");
 		if (savedSortOption) setSortOption(savedSortOption);
 
@@ -53,15 +44,7 @@ const Home = () => {
 	}, [isLoading]);
 
 	const handleGenreChange = (genres: string[]) => {
-		setSelectedGenres(genres.length > 0 ? genres : null);
-		sessionStorage.setItem("selectedGenres", JSON.stringify(genres));
-	};
-
-	const handleViewsChange = (newMinViews: number, newMaxViews: number) => {
-		setMinViews(newMinViews);
-		setMaxViews(newMaxViews);
-		sessionStorage.setItem("minViews", JSON.stringify(newMinViews));
-		sessionStorage.setItem("maxViews", JSON.stringify(newMaxViews));
+		genreFilterVar(genres);
 	};
 
 	const handleSortChange = (newSortOption: string) => {
@@ -78,23 +61,13 @@ const Home = () => {
 		setIsSidebarOpen((prev) => !prev);
 	};
 
-	// Clear all filters function
 	const clearAllFilters = () => {
-		setSelectedGenres(null);
+		handleGenreChange([]);
 		setSortOption("views_desc");
-		setMinViews(0);
-		setMaxViews(3000000);
-
-		// Remove filter-related items from sessionStorage, but keep search term
-		sessionStorage.removeItem("selectedGenres");
+		minViewsVar(0);
+		maxViewsVar(3000000);
 		sessionStorage.removeItem("sortOption");
-		sessionStorage.removeItem("minViews");
-		sessionStorage.removeItem("maxViews");
-
-		// Toggle clearFilters to trigger reset in child components
 		setClearFilters(true);
-
-		// Reset clearFilters back to false after triggering
 		setTimeout(() => setClearFilters(false), 0);
 	};
 
@@ -109,8 +82,11 @@ const Home = () => {
 				songs={songs}
 				onToggle={setIsSidebarOpen}
 				isOpen={isSidebarOpen}
-				onViewsChange={handleViewsChange}
-				clearFilters={clearFilters} // Send clearFilters as boolean
+				onViewsChange={(min, max) => {
+					minViewsVar(min);
+					maxViewsVar(max);
+				}}
+				clearFilters={clearFilters}
 				onClearAllFilters={clearAllFilters}
 			/>
 			<section className={`homeComponents ${isSidebarOpen ? "shifted" : ""}`}>
@@ -126,7 +102,7 @@ const Home = () => {
 					<section className="allSongsContainer">
 						<AllSongsList
 							songs={songs}
-							genres={selectedGenres == null ? [] : selectedGenres}
+							genres={selectedGenres || []}
 							maxViews={maxViews}
 							minViews={minViews}
 						/>

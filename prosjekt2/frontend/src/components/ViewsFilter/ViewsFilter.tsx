@@ -1,72 +1,76 @@
-import { useEffect, useState } from "react";
 import "./ViewsFilter.css";
 import ReactSlider from "react-slider";
 import { formatViews } from "../../utils/FormatViews";
 import { FaFilter } from "react-icons/fa";
+import { useReactiveVar } from "@apollo/client";
+import { minViewsVar, maxViewsVar } from "../../apollo/cache";
+import { useEffect } from "react";
 
 interface ViewsFilterProps {
-	clearFilters: boolean;
-	onViewsChange: (minViews: number, maxViews: number) => void;
+  clearFilters: boolean;
+  onViewsChange: (minViews: number, maxViews: number) => void;
 }
 
 export function ViewsFilter({ onViewsChange, clearFilters }: ViewsFilterProps) {
-	const [minViews, setMinViews] = useState(0);
-	const [maxViews, setMaxViews] = useState(3000000);
+  const minViews = useReactiveVar(minViewsVar);
+  const maxViews = useReactiveVar(maxViewsVar);
 
-	// Load values from sessionStorage on initial mount
-	useEffect(() => {
-		const savedMinViews = JSON.parse(sessionStorage.getItem("minViews") || "0");
-		const savedMaxViews = JSON.parse(sessionStorage.getItem("maxViews") || "3000000");
-		setMinViews(savedMinViews);
-		setMaxViews(savedMaxViews);
-	}, []);
+  useEffect(() => {
+    const initialMinViews = Number(sessionStorage.getItem("minViews")) || 0;
+    const initialMaxViews = Number(sessionStorage.getItem("maxViews")) || 3000000;
+    
+    minViewsVar(initialMinViews);
+    maxViewsVar(initialMaxViews);
+    
+    onViewsChange(initialMinViews, initialMaxViews);
+  }, [onViewsChange]);
 
-	// Reset views when clearFilters is true
-	useEffect(() => {
-		if (clearFilters) {
-			setMinViews(0);
-			setMaxViews(3000000);
-			onViewsChange(0, 3000000);
-		}
-	}, [clearFilters, onViewsChange]);
+  useEffect(() => {
+    if (clearFilters) {
+      minViewsVar(0);
+      maxViewsVar(3000000);
+      onViewsChange(0, 3000000);
+    }
+  }, [clearFilters, onViewsChange]);
 
-	const handleSliderChange = (values: number[]) => {
-		const [newMinViews, newMaxViews] = values;
-		setMinViews(newMinViews);
-		setMaxViews(newMaxViews);
-	};
+  const handleSliderChange = (values: number[]) => {
+    const [newMinViews, newMaxViews] = values;
+    minViewsVar(newMinViews);
+    maxViewsVar(newMaxViews);
+  };
 
-	const handleAfterSliderChange = (values: number[]) => {
-		const [newMinViews, newMaxViews] = values;
-		onViewsChange(newMinViews, newMaxViews);
-		sessionStorage.setItem("minViews", JSON.stringify(newMinViews));
-		sessionStorage.setItem("maxViews", JSON.stringify(newMaxViews));
-	};
+  const handleAfterSliderChange = (values: number[]) => {
+    const [newMinViews, newMaxViews] = values;
+    onViewsChange(newMinViews, newMaxViews);
+    
+    sessionStorage.setItem("minViews", String(newMinViews));
+    sessionStorage.setItem("maxViews", String(newMaxViews));
+  };
 
-	return (
-		<section className="filterContainer">
-			<section className="filterHeader">
-				<FaFilter className="filterSortIcon" />
-				<h2>Views</h2>
-			</section>
-			<div className="slider">
-				<ReactSlider
-					className="horizontal-slider"
-					thumbClassName="thumb"
-					trackClassName="track"
-					min={0}
-					max={3000000}
-					value={[minViews, maxViews]}
-					onChange={handleSliderChange}
-					onAfterChange={handleAfterSliderChange}
-					renderThumb={({ key, ...rest }) => <div {...rest} key={key} />}
-				/>
-				<div className="viewValues">
-					<span>
-						{formatViews(minViews)} - {formatViews(maxViews)}
-					</span>
-				</div>
-			</div>
-		</section>
-	);
+  return (
+    <section className="filterContainer">
+      <section className="filterHeader">
+        <FaFilter className="filterSortIcon" />
+        <h2>Views</h2>
+      </section>
+      <div className="slider">
+        <ReactSlider
+          className="horizontal-slider"
+          thumbClassName="thumb"
+          trackClassName="track"
+          min={0}
+          max={3000000}
+          value={[minViews, maxViews]}
+          onChange={handleSliderChange}
+          onAfterChange={handleAfterSliderChange}
+          renderThumb={({ key, ...rest }) => <div {...rest} key={key} />}
+        />
+        <div className="viewValues">
+          <span>
+            {formatViews(minViews)} - {formatViews(maxViews)}
+          </span>
+        </div>
+      </div>
+    </section>
+  );
 }

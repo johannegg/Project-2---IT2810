@@ -1,22 +1,24 @@
-import { useState, useEffect } from "react";
-import { useQuery } from "@apollo/client";
+import { useEffect, useState } from "react";
+import { useQuery, useReactiveVar } from "@apollo/client";
 import { GET_SONGS } from "../Queries";
 import { SongData } from "../types/SongTypes";
+import { genreFilterVar, minViewsVar, maxViewsVar } from "../../apollo/cache";
 
 export const useCachedSongs = (
-	selectedGenres: string[] | null,
 	sortOption: string,
 	searchTerm: string,
-	minViews: number,
-	maxViews: number,
 ) => {
 	const [songs, setSongs] = useState<SongData[]>([]);
 	const [isLoading, setIsLoading] = useState<boolean>(false);
+	const selectedGenres = useReactiveVar(genreFilterVar);
+	const minViews = useReactiveVar(minViewsVar);
+	const maxViews = useReactiveVar(maxViewsVar);
+
 	const { loading, error, data, fetchMore, refetch } = useQuery(GET_SONGS, {
 		variables: {
 			skip: 0,
 			limit: 30,
-			genres: selectedGenres,
+			genres: selectedGenres.length > 0 ? selectedGenres : null,
 			sortBy: sortOption,
 			searchTerm,
 			minViews,
@@ -36,13 +38,13 @@ export const useCachedSongs = (
 		refetch({
 			skip: 0,
 			limit: 30,
-			genres: selectedGenres || null,
+			genres: selectedGenres.length > 0 ? selectedGenres : null,
 			sortBy: sortOption,
 			searchTerm,
 			minViews,
 			maxViews,
 		});
-	}, [refetch, searchTerm, selectedGenres, sortOption, minViews, maxViews]);
+	}, [refetch, selectedGenres, sortOption, searchTerm, minViews, maxViews]);
 
 	// Append fetched songs on "Load More"
 	const loadMoreSongs = () => {
@@ -51,7 +53,7 @@ export const useCachedSongs = (
 
 		fetchMore({
 			variables: {
-				skip: songs.length, // Increment skip based on current number of songs fetched
+				skip: songs.length,
 				limit: 30,
 			},
 		})
