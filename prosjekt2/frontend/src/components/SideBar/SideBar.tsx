@@ -38,14 +38,14 @@ export function Sidebar({
 			</button>
 			<div className="filteringContainer">
 				{/* Passer clearFilters som en prop til Filter og ViewsFilter */}
+				<Sort songs={songs} sortOption={sortOption} onSortChange={onSortChange} />
+				<br />
 				<Filter onGenreChange={onGenreChange} songs={songs} clearFilters={clearFilters} />
 				<br />
 				<ViewsFilter onViewsChange={onViewsChange} clearFilters={clearFilters} />
 				<br />
-				<Sort songs={songs} sortOption={sortOption} onSortChange={onSortChange} />
-				<br />
 				<button onClick={onClearAllFilters} className="clearFiltersButton">
-					Clear Filters
+					Clear filters
 				</button>
 			</div>
 		</div>

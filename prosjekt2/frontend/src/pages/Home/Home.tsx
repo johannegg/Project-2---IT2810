@@ -91,11 +91,11 @@ const Home = () => {
 		sessionStorage.removeItem("minViews");
 		sessionStorage.removeItem("maxViews");
 
-		// Trigger components to reset
+		// Toggle clearFilters to trigger reset in child components
 		setClearFilters(true);
 
-		// Reset clearFilters back to false after a delay to allow multiple clears
-		setTimeout(() => setClearFilters(false), 100);
+		// Reset clearFilters back to false after triggering
+		setTimeout(() => setClearFilters(false), 0);
 	};
 
 	if (error) return <p>Error loading songs: {error?.message}</p>;
@@ -110,7 +110,7 @@ const Home = () => {
 				onToggle={setIsSidebarOpen}
 				isOpen={isSidebarOpen}
 				onViewsChange={handleViewsChange}
-				clearFilters={clearFilters}
+				clearFilters={clearFilters} // Send clearFilters as boolean
 				onClearAllFilters={clearAllFilters}
 			/>
 			<section className={`homeComponents ${isSidebarOpen ? "shifted" : ""}`}>
