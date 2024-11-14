@@ -17,9 +17,12 @@ const Header: React.FC = () => {
 			setIsLoggedIn(true);
 		}
 	}, []);
+	
 
 	const handleNavigation = (path: string) => {
-		if (isLoggedIn) {
+		const username = localStorage.getItem("profileName");
+		if (username && username !== "") {
+			setIsLoggedIn(true);
 			navigate(path);
 		} else {
 			alert("You need to log in to access this page.");
@@ -35,7 +38,6 @@ const Header: React.FC = () => {
 				</div>
 			</Link>
 			<nav className="navbar">
-				{isLoggedIn ? (
 					<>
 						<button
 							type="button"
@@ -54,26 +56,6 @@ const Header: React.FC = () => {
 							<span className="navText">Your playlists</span>
 						</button>
 					</>
-				) : (
-					<>
-						<button
-							type="button"
-							onClick={() => alert("You need to log in to view your favorited songs.")}
-							className={`navButton ${location.pathname === "/favorites" ? "active" : ""}`}
-						>
-							<FontAwesomeIcon icon={faHeart} size="2x" className="navIcon" />
-							<span className="navText">Favorited songs</span>
-						</button>
-						<button
-							type="button"
-							onClick={() => alert("You need to log in to view your playlists.")}
-							className={`navButton ${location.pathname === "/playlists" ? "active" : ""}`}
-						>
-							<BsMusicNoteList className="navIcon musicIcon" />
-							<span className="navText">Your playlists</span>
-						</button>
-					</>
-				)}
 				<Profile />
 			</nav>
 		</header>
