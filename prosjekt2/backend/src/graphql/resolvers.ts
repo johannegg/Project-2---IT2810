@@ -1,4 +1,4 @@
-import { Driver } from "neo4j-driver";
+import type { Driver } from "neo4j-driver";
 import neo4j from "neo4j-driver";
 
 interface Artist {
@@ -27,7 +27,7 @@ interface User {
 
 const executeCypherQuery = async (
   driver: Driver,
-  cypherQuery: String,
+  cypherQuery: string,
   params: any = {},
 ) => {
   const session = driver.session();
@@ -59,7 +59,6 @@ export const checkUserExists = async (
   return records.length > 0 && records[0].get("exists");
 }
 
-
 // Custom resolvers
 export const resolvers = {
   Query: {
@@ -77,19 +76,47 @@ export const resolvers = {
         };
       });
     },
-    genreCounts: async (_: any, __: any, { driver }: any) => {
+    genreCounts: async (
+      _: any,
+      {
+        searchTerm,
+        minViews,
+        maxViews,
+        genres,
+      }: {
+        searchTerm?: string;
+        minViews?: number;
+        maxViews?: number;
+        genres?: string[];
+      },
+      { driver }: any
+    ) => {
+      const searchClause = searchTerm
+        ? "AND (toLower(s.title) CONTAINS toLower($searchTerm) OR toLower(a.name) CONTAINS toLower($searchTerm))"
+        : "";
+
       const records = await executeCypherQuery(
         driver,
         `
-        MATCH (g:Genre)<-[:HAS_GENRE]-(s:Song)
-        RETURN g.name as name, COUNT(s) as count
+        MATCH (g:Genre)
+        OPTIONAL MATCH (g)<-[:HAS_GENRE]-(s:Song)-[:PERFORMED_BY]->(a:Artist)
+        WHERE ($searchTerm IS NULL OR toLower(s.title) CONTAINS toLower($searchTerm) OR toLower(a.name) CONTAINS toLower($searchTerm))
+          AND ($minViews IS NULL OR s.views >= $minViews)
+          AND ($maxViews IS NULL OR s.views <= $maxViews)
+        RETURN g.name AS name, COUNT(s) AS count
         ORDER BY g.name
-        `
+        `,
+        {
+          searchTerm: searchTerm || "",
+          minViews: minViews ? neo4j.int(minViews) : null,
+          maxViews: maxViews ? neo4j.int(maxViews) : null,
+          genres: genres || null,
+        }
       );
 
-      return records.map(record => ({
-        name: record.get('name'),
-        count: record.get('count').toInt()
+      return records.map((record) => ({
+        name: record.get("name"),
+        count: record.get("count").toInt(),
       }));
     },
     artists: async (_: any, __: any, { driver }: any) => {
@@ -180,8 +207,6 @@ export const resolvers = {
           maxViews: maxViews ? neo4j.int(maxViews) : null,
         },
       );
-      
-      
 
       // Map the result to fit the GraphQL schema
       return records.map((record) => {

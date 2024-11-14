@@ -71,13 +71,19 @@ export const typeDefs = `#graphql
       minViews: Int
       maxViews: Int
     ): Int
-    
+
+    genreCounts(
+      searchTerm: String
+      minViews: Int
+      maxViews: Int
+      genres: [String]
+    ): [GenreCount]
+
     song(id: ID!): Song
     artists: [Artist]
     artist(id: ID!): Artist
     genres: [Genre]
     genre(id: ID!): Genre
-    genreCounts: [GenreCount]
   }
   
   type Mutation {

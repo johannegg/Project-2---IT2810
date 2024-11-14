@@ -52,8 +52,18 @@ export const GET_SONG_COUNT = gql`
 `;
 
 export const GET_GENRE_COUNTS = gql`
-  query GetGenreCounts($searchTerm: String, $genres: [String]) {
-    genreCounts(searchTerm: $searchTerm, genres: $genres) {
+  query GetGenreCounts(
+    $searchTerm: String
+    $minViews: Int
+    $maxViews: Int
+    $genres: [String]
+  ) {
+    genreCounts(
+      searchTerm: $searchTerm
+      minViews: $minViews
+      maxViews: $maxViews
+      genres: $genres
+    ) {
       name
       count
     }
