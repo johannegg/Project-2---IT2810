@@ -1,28 +1,27 @@
 import { InMemoryCache, makeVar } from "@apollo/client";
 import { SongData } from "../utils/types/SongTypes";
+import { PlaylistData } from "../pages/Playlists/Playlists";
 
-// Initialiser sessionStorage hvis verdier ikke allerede finnes
-if (!sessionStorage.getItem("minViews")) {
-  sessionStorage.setItem("minViews", "0");
-}
-if (!sessionStorage.getItem("maxViews")) {
-  sessionStorage.setItem("maxViews", "1000000");
-}
-if (!sessionStorage.getItem("selectedGenres")) {
-  sessionStorage.setItem("selectedGenres", "[]");
-}
-if (!sessionStorage.getItem("sortOption")) {
-  sessionStorage.setItem("sortOption", "views_desc");
-}
-if (!sessionStorage.getItem("homeSearchTerm")) {
-  sessionStorage.setItem("homeSearchTerm", "");
-}
-if (!sessionStorage.getItem("favoritesSearchTerm")) {
-  sessionStorage.setItem("favoritesSearchTerm", "");
-}
-if (!localStorage.getItem("favoriteSongs")) {
-  localStorage.setItem("favoriteSongs", "[]");
-}
+// Initialiser sessionStorage og localStorage hvis verdier ikke allerede finnes
+const initializeStorage = (key: string, defaultValue: string) => {
+  if (!sessionStorage.getItem(key)) {
+    sessionStorage.setItem(key, defaultValue);
+  }
+};
+const initializeLocalStorage = (key: string, defaultValue: string) => {
+  if (!localStorage.getItem(key)) {
+    localStorage.setItem(key, defaultValue);
+  }
+};
+
+initializeStorage("minViews", "0");
+initializeStorage("maxViews", "1000000");
+initializeStorage("selectedGenres", "[]");
+initializeStorage("sortOption", "views_desc");
+initializeStorage("homeSearchTerm", "");
+initializeStorage("favoritesSearchTerm", "");
+initializeLocalStorage("favoriteSongs", "[]");
+initializeLocalStorage("playlists", "[]");
 
 // Hent lagrede verdier fra sessionStorage og localStorage
 const savedGenres = JSON.parse(sessionStorage.getItem("selectedGenres") || "[]");
@@ -32,6 +31,7 @@ const savedSortOption = sessionStorage.getItem("sortOption") || "views_desc";
 const savedHomeSearchTerm = sessionStorage.getItem("homeSearchTerm") || "";
 const savedFavoritesSearchTerm = sessionStorage.getItem("favoritesSearchTerm") || "";
 const savedFavoriteSongs = JSON.parse(localStorage.getItem("favoriteSongs") || "[]");
+const savedPlaylists = JSON.parse(localStorage.getItem("playlists") || "[]");
 
 // Opprett Apollo reactive variabler
 export const genreFilterVar = makeVar<string[]>(savedGenres);
@@ -40,7 +40,8 @@ export const minViewsVar = makeVar<number>(savedMinViews);
 export const maxViewsVar = makeVar<number>(savedMaxViews);
 export const homeSearchTermVar = makeVar<string>(savedHomeSearchTerm);
 export const favoritesSearchTermVar = makeVar<string>(savedFavoritesSearchTerm);
-export const favoriteSongsVar = makeVar<SongData[]>(savedFavoriteSongs); // Ny variabel for favorittsanger
+export const favoriteSongsVar = makeVar<SongData[]>(savedFavoriteSongs);
+export const playlistsVar = makeVar<PlaylistData[]>(savedPlaylists);
 
 // Konfigurer cache med reactive variabler
 const cache = new InMemoryCache({
@@ -82,6 +83,11 @@ const cache = new InMemoryCache({
             return favoriteSongsVar();
           },
         },
+        playlists: {
+          read() {
+            return playlistsVar();
+          },
+        },
       },
     },
   },
@@ -113,8 +119,13 @@ sortOptionVar.onNextChange((newSortOption) => {
 });
 
 favoriteSongsVar.onNextChange((newFavorites) => {
-    localStorage.setItem("favoriteSongs", JSON.stringify(newFavorites));
+  console.log("Syncing favoriteSongsVar to localStorage:", newFavorites);
+  localStorage.setItem("favoriteSongs", JSON.stringify(newFavorites));
 });
 
-  
+playlistsVar.onNextChange((newPlaylists) => {
+  console.log("Syncing playlistsVar to localStorage:", newPlaylists);
+  localStorage.setItem("playlists", JSON.stringify(newPlaylists));
+});
+
 export default cache;
