@@ -85,7 +85,7 @@ export function Filter({
               htmlFor={genre.name}
               className={genre.count === 0 ? "disabled-filter-label" : ""}
             >
-              {genre.name.charAt(0).toUpperCase() + genre.name.slice(1)} ({genre.count})
+              {genre.name.charAt(0).toUpperCase() + genre.name.slice(1)} <span className="filterCount">({genre.count})</span>
             </label>
           </div>
         ))}

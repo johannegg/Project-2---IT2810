@@ -38,8 +38,16 @@ input[type="checkbox"] {
 }
 
 .disabled-filter-label {
-  color: gray;
+  color: var(--theme-light-grey);
   cursor: not-allowed;
+}
+
+.filterCount {
+  color: var(--theme-grey);
+}
+
+.disabled-filter-label .filterCount {
+  color: var(--theme-light-grey);
 }
 
 @media (max-width: 1050px) {
