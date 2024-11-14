@@ -18,6 +18,19 @@
 	transform: translateX(0);
 }
 
+.sidebar[aria-hidden="true"] {
+	pointer-events: none;
+	visibility: hidden;
+  }
+  
+  .sidebar[aria-hidden="true"] input,
+  .sidebar[aria-hidden="true"] select,
+  .sidebar[aria-hidden="true"] button,
+  .sidebar[aria-hidden="true"] textarea,
+  .sidebar[aria-hidden="true"] a {
+	pointer-events: none;
+  }
+  
 .close-button {
 	position: absolute;
 	top: 5px;
