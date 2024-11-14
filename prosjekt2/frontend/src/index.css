@@ -1,3 +1,12 @@
+:focus {
+	outline: 3px solid #007acc;
+	outline-offset: 2px;
+  }
+
+  .js-focus-visible :focus:not(.focus-visible) {
+	outline: none;
+  }
+
 :root {
 	font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
 	line-height: 1.5;
