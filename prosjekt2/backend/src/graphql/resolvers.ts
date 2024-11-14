@@ -99,12 +99,16 @@ export const resolvers = {
         genres,
         sortBy,
         searchTerm,
+        minViews, 
+        maxViews,
       }: {
         skip: number;
         limit: number;
         genres?: string[];
         sortBy?: string;
         searchTerm?: string;
+        minViews?: number;
+        maxViews?: number;
       },
       { driver }: any,
     ) => {
@@ -145,18 +149,24 @@ export const resolvers = {
         `
         MATCH (s:Song)-[:PERFORMED_BY]->(a:Artist), (s)-[:HAS_GENRE]->(g:Genre)
         WHERE ($genres IS NULL OR g.name IN $genres) ${searchClause}
+          AND ($minViews IS NULL OR s.views >= $minViews)
+          AND ($maxViews IS NULL OR s.views <= $maxViews)
         RETURN s, a, g
-        ${orderByClause}
+        ${orderByClause}  
         SKIP $skip
         LIMIT $limit
         `,
         {
-          skip: neo4j.int(intSkip), // Use neo4j.int() for correct type
+          skip: neo4j.int(intSkip),
           limit: neo4j.int(intLimit),
           genres: genres || null,
           searchTerm: searchTerm || "",
+          minViews: minViews ? neo4j.int(minViews) : null,
+          maxViews: maxViews ? neo4j.int(maxViews) : null,
         },
       );
+      
+      
 
       // Map the result to fit the GraphQL schema
       return records.map((record) => {
