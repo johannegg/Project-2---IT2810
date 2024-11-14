@@ -1,4 +1,5 @@
 import { InMemoryCache, makeVar } from "@apollo/client";
+import { SongData } from "../utils/types/SongTypes";
 
 // Initialiser sessionStorage hvis verdier ikke allerede finnes
 if (!sessionStorage.getItem("minViews")) {
@@ -19,21 +20,29 @@ if (!sessionStorage.getItem("homeSearchTerm")) {
 if (!sessionStorage.getItem("favoritesSearchTerm")) {
   sessionStorage.setItem("favoritesSearchTerm", "");
 }
+if (!localStorage.getItem("favoriteSongs")) {
+  localStorage.setItem("favoriteSongs", "[]");
+}
 
+// Hent lagrede verdier fra sessionStorage og localStorage
 const savedGenres = JSON.parse(sessionStorage.getItem("selectedGenres") || "[]");
 const savedMinViews = Number(sessionStorage.getItem("minViews"));
 const savedMaxViews = Number(sessionStorage.getItem("maxViews"));
 const savedSortOption = sessionStorage.getItem("sortOption") || "views_desc";
 const savedHomeSearchTerm = sessionStorage.getItem("homeSearchTerm") || "";
 const savedFavoritesSearchTerm = sessionStorage.getItem("favoritesSearchTerm") || "";
+const savedFavoriteSongs = JSON.parse(localStorage.getItem("favoriteSongs") || "[]");
 
+// Opprett Apollo reactive variabler
 export const genreFilterVar = makeVar<string[]>(savedGenres);
 export const sortOptionVar = makeVar<string>(savedSortOption);
 export const minViewsVar = makeVar<number>(savedMinViews);
 export const maxViewsVar = makeVar<number>(savedMaxViews);
 export const homeSearchTermVar = makeVar<string>(savedHomeSearchTerm);
-export const favoritesSearchTermVar = makeVar<string>(savedFavoritesSearchTerm); 
+export const favoritesSearchTermVar = makeVar<string>(savedFavoritesSearchTerm);
+export const favoriteSongsVar = makeVar<SongData[]>(savedFavoriteSongs); // Ny variabel for favorittsanger
 
+// Konfigurer cache med reactive variabler
 const cache = new InMemoryCache({
   typePolicies: {
     Query: {
@@ -68,39 +77,44 @@ const cache = new InMemoryCache({
             return favoritesSearchTermVar();
           },
         },
+        favoriteSongs: {
+          read() {
+            return favoriteSongsVar();
+          },
+        },
       },
     },
   },
 });
 
+// Sync reactive variabler med sessionStorage og localStorage
 homeSearchTermVar.onNextChange((newHomeSearchTerm) => {
   sessionStorage.setItem("homeSearchTerm", newHomeSearchTerm);
-  console.log("Updated sessionStorage homeSearchTerm to:", newHomeSearchTerm);
 });
 
 favoritesSearchTermVar.onNextChange((newFavoritesSearchTerm) => {
   sessionStorage.setItem("favoritesSearchTerm", newFavoritesSearchTerm);
-  console.log("Updated sessionStorage favoritesSearchTerm to:", newFavoritesSearchTerm);
 });
 
 genreFilterVar.onNextChange((newGenres) => {
   sessionStorage.setItem("selectedGenres", JSON.stringify(newGenres));
-  console.log("Updated sessionStorage selectedGenres to:", sessionStorage.getItem("selectedGenres"));
 });
 
 minViewsVar.onNextChange((newMinViews) => {
   sessionStorage.setItem("minViews", String(newMinViews));
-  console.log("Updated sessionStorage minViews to:", sessionStorage.getItem("minViews"));
 });
 
 maxViewsVar.onNextChange((newMaxViews) => {
   sessionStorage.setItem("maxViews", String(newMaxViews));
-  console.log("Updated sessionStorage maxViews to:", sessionStorage.getItem("maxViews"));
 });
 
 sortOptionVar.onNextChange((newSortOption) => {
   sessionStorage.setItem("sortOption", newSortOption);
-  console.log("Updated sessionStorage sortOption to:", sessionStorage.getItem("sortOption"));
 });
 
+favoriteSongsVar.onNextChange((newFavorites) => {
+    localStorage.setItem("favoriteSongs", JSON.stringify(newFavorites));
+});
+
+  
 export default cache;
