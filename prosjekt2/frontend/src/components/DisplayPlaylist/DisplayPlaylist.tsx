@@ -12,12 +12,19 @@ interface DisplayPlaylistProps {
 
 const DisplayPlaylist: React.FC<DisplayPlaylistProps> = ({ playlist, onDelete }) => {
 	const [showConfirmDelete, setShowConfirmDelete] = useState(false);
-	const [currentPlaylist, setCurrentPlaylist] = useState<PlaylistData>(playlist);
+	const [currentPlaylist, setCurrentPlaylist] = useState<PlaylistData>({
+		...playlist,
+		songs: playlist.songs || [],
+	});
+
 	const updatePlaylistFromStorage = () => {
 		const storedPlaylists = JSON.parse(localStorage.getItem("playlists") || "[]");
 		const updatedPlaylist = storedPlaylists.find((pl: PlaylistData) => pl.id === playlist.id);
 		if (updatedPlaylist) {
-			setCurrentPlaylist(updatedPlaylist);
+			setCurrentPlaylist({
+				...updatedPlaylist,
+				songs: updatedPlaylist.songs || [],
+			});
 		}
 	};
 
@@ -36,7 +43,7 @@ const DisplayPlaylist: React.FC<DisplayPlaylistProps> = ({ playlist, onDelete })
 	}, [playlist.id]);
 
 	const handleSongRemoved = () => {
-		updatePlaylistFromStorage(); // Oppdater currentPlaylist umiddelbart
+		updatePlaylistFromStorage(); // Update currentPlaylist immediately
 	};
 
 	return (

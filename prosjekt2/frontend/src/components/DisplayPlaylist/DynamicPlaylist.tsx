@@ -1,28 +1,37 @@
 import { useLocation, useNavigate } from "react-router-dom";
 import { PlaylistData } from "../../pages/Playlists/Playlists";
 import DisplayPlaylist from "./DisplayPlaylist";
+import { useEffect, useState } from "react";
 
 const DynamicPlaylist = () => {
-	const location = useLocation();
-	const navigate = useNavigate();
-	const playlistData = location.state?.playlist as PlaylistData | null;
+    const location = useLocation();
+    const navigate = useNavigate();
+    const [playlistData, setPlaylistData] = useState<PlaylistData | null>(null);
 
-	if (!playlistData) return <div>Playlist not found</div>;
+    useEffect(() => {
+        const initialPlaylistData = location.state?.playlist as PlaylistData | null;
+        if (initialPlaylistData) {
+            setPlaylistData(initialPlaylistData);
+        } else {
+            const storedPlaylists = JSON.parse(localStorage.getItem("playlists") || "[]");
+            const playlistId = location.pathname.split("/").pop();
+            const foundPlaylist = storedPlaylists.find((pl: PlaylistData) => pl.id === playlistId);
+            setPlaylistData(foundPlaylist || null);
+        }
+    }, [location.state, location.pathname]);
 
-	const handleDelete = () => {
-		const storedPlaylists = localStorage.getItem("playlists");
-		const playlists = storedPlaylists ? JSON.parse(storedPlaylists) : [];
+    const handleDelete = () => {
+        if (playlistData) {
+            // Navigate back to Playlists page and pass a deletion flag
+            navigate("/playlists", { state: { deletedPlaylistId: playlistData.id } });
+        }
+    };
 
-		const updatedPlaylists = playlists.filter(
-			(playlist: PlaylistData) => playlist.id !== playlistData.id,
-		);
+    if (!playlistData) {
+        return <div>Playlist not found</div>;
+    }
 
-		localStorage.setItem("playlists", JSON.stringify(updatedPlaylists));
-
-		navigate("/playlists");
-	};
-
-	return <DisplayPlaylist playlist={playlistData} onDelete={handleDelete} />;
+    return <DisplayPlaylist playlist={playlistData} onDelete={handleDelete} />;
 };
 
 export default DynamicPlaylist;
