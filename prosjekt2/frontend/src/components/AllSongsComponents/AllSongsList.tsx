@@ -41,7 +41,17 @@ export function AllSongsList({
 				<table className="songTable">
 					<tbody>
 						{filteredSongs.map((song) => (
-							<tr key={song.id} className="tableRow" onClick={() => routeChange(song, navigate)}>
+							<tr key={song.id} 
+								className="tableRow" 
+								onClick={() => routeChange(song, navigate)}
+								tabIndex={0}
+								onKeyDown={(e) => {
+									if (e.key === "Enter" || e.key === " ") {
+									  e.preventDefault();
+									  routeChange(song, navigate);
+									}
+								  }}
+							>
 								<td className="title-artist-cell">
 									<span className="titleCell">{song.title}</span>
 									<span className="artistCell">{song.artist.name}</span>
