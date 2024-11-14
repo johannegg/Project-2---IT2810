@@ -127,17 +127,21 @@ export const resolvers = {
           name: playlist.name,
           backgroundcolor: playlist.backgroundcolor,
           icon: playlist.icon,
-          songs: (playlist.songs || []).map((song: Song) => ({
-            id: song.id,
-            title: song.title,
-            views: song.views,
-            year: song.year,
-            lyrics: song.lyrics,
-            artist: song.artist
-              ? { id: song.artist.id, name: song.artist.name }
-              : null,
-            genre: song.genre ? { name: song.genre.name } : null,
-          })),
+          songs: playlist.songs && playlist.songs.length > 0
+            ? playlist.songs.map((song: Song) => ({
+                id: song.id,
+                title: song.title,
+                views: song.views,
+                year: song.year,
+                lyrics: song.lyrics,
+                artist: song.artist
+                  ? { id: song.artist.id, name: song.artist.name }
+                  : { id: "", name: "Unknown Artist" },
+                genre: song.genre
+                  ? { name: song.genre.name }
+                  : { name: "Unknown Genre" },
+              }))
+            : [], // Return an empty array if no songs are present
         };
       });
     },
@@ -304,20 +308,21 @@ export const resolvers = {
         return {
           id: userRecord.id,
           username: userRecord.username,
-          favoriteSongs: userRecord.favoriteSongs.map(
-            (favorite: { artist: Artist; song: Song; genre: Genre }) => ({
-              id: favorite.song.id,
-              title: favorite.song.title,
-              views: favorite.song.views,
-              year: favorite.song.year,
-              lyrics: favorite.song.lyrics,
-              artist: favorite.artist
-                ? { id: favorite.artist.id, name: favorite.artist.name }
-                : null,
-              genre: favorite.genre ? { name: favorite.genre.name } : null,
-            }),
-          ),
-          playlists: [],
+          favoriteSongs: userRecord.favoriteSongs && userRecord.favoriteSongs.length > 0 
+            ? userRecord.favoriteSongs.map((favorite: { artist: Artist; song: Song; genre: Genre }) => ({
+                id: favorite.song.id,
+                title: favorite.song.title,
+                views: favorite.song.views,
+                year: favorite.song.year,
+                lyrics: favorite.song.lyrics,
+                artist: favorite.artist
+                  ? { id: favorite.artist.id, name: favorite.artist.name }
+                  : { id: "", name: "Unknown Artist" },
+                genre: favorite.genre
+                  ? { name: favorite.genre.name }
+                  : { name: "Unknown Genre" },
+              }))
+            : [],
         };
       }
       throw new Error("Failed to create or retrieve user");

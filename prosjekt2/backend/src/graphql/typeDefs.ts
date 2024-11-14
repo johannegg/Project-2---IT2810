@@ -14,8 +14,8 @@ export const typeDefs = `#graphql
   }
 
   type Artist {
-    id: ID!
-    name: String!
+    id: ID
+    name: String
     songs: [Song]
   }
 
