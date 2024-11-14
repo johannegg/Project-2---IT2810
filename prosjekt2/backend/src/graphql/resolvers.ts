@@ -206,6 +206,45 @@ export const resolvers = {
       });
     },
 
+    songCount: async (
+      _: any,
+      {
+        genres,
+        searchTerm,
+        minViews,
+        maxViews,
+      }: {
+        genres?: string[];
+        searchTerm?: string;
+        minViews?: number;
+        maxViews?: number;
+      },
+      { driver }: any
+    ) => {
+      const searchClause = searchTerm
+        ? "AND (toLower(s.title) CONTAINS toLower($searchTerm) OR toLower(a.name) CONTAINS toLower($searchTerm))"
+        : "";
+
+      const records = await executeCypherQuery(
+        driver,
+        `
+        MATCH (s:Song)-[:PERFORMED_BY]->(a:Artist), (s)-[:HAS_GENRE]->(g:Genre)
+        WHERE ($genres IS NULL OR g.name IN $genres) ${searchClause}
+          AND ($minViews IS NULL OR s.views >= $minViews)
+          AND ($maxViews IS NULL OR s.views <= $maxViews)
+        RETURN COUNT(s) as songCount
+        `,
+        {
+          genres: genres || null,
+          searchTerm: searchTerm || "",
+          minViews: minViews ? neo4j.int(minViews) : null,
+          maxViews: maxViews ? neo4j.int(maxViews) : null,
+        }
+      );
+
+      return records.length > 0 ? records[0].get("songCount").toInt() : 0;
+    },
+
     /* users: async (_: any, __: any, { driver }: any) => {
       const records = await executeCypherQuery(
         driver,
