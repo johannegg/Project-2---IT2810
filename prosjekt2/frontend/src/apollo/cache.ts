@@ -13,27 +13,26 @@ if (!sessionStorage.getItem("selectedGenres")) {
 if (!sessionStorage.getItem("sortOption")) {
   sessionStorage.setItem("sortOption", "views_desc");
 }
+if (!sessionStorage.getItem("searchTerm")) {
+  sessionStorage.setItem("searchTerm", "");
+}
 
 const savedGenres = JSON.parse(sessionStorage.getItem("selectedGenres") || "[]");
 const savedMinViews = Number(sessionStorage.getItem("minViews"));
 const savedMaxViews = Number(sessionStorage.getItem("maxViews"));
 const savedSortOption = sessionStorage.getItem("sortOption") || "views_desc";
+const savedSearchTerm = sessionStorage.getItem("searchTerm") || "";
 
-export const searchTermVar = makeVar<string>("");
 export const genreFilterVar = makeVar<string[]>(savedGenres);
 export const sortOptionVar = makeVar<string>(savedSortOption);
 export const minViewsVar = makeVar<number>(savedMinViews);
 export const maxViewsVar = makeVar<number>(savedMaxViews);
+export const searchTermVar = makeVar<string>(savedSearchTerm); // Ny søketermvariabel
 
 const cache = new InMemoryCache({
   typePolicies: {
     Query: {
       fields: {
-        searchTerm: {
-          read() {
-            return searchTermVar();
-          },
-        },
         genreFilter: {
           read() {
             return genreFilterVar();
@@ -52,6 +51,11 @@ const cache = new InMemoryCache({
         maxViews: {
           read() {
             return maxViewsVar();
+          },
+        },
+        searchTerm: {
+          read() {
+            return searchTermVar();
           },
         },
       },
@@ -78,6 +82,11 @@ maxViewsVar.onNextChange((newMaxViews) => {
 sortOptionVar.onNextChange((newSortOption) => {
   sessionStorage.setItem("sortOption", newSortOption);
   console.log("Updated sessionStorage sortOption to:", sessionStorage.getItem("sortOption"));
+});
+
+searchTermVar.onNextChange((newSearchTerm) => {
+  sessionStorage.setItem("searchTerm", newSearchTerm);
+  console.log("Updated sessionStorage searchTerm to:", sessionStorage.getItem("searchTerm"));
 });
 
 export default cache;

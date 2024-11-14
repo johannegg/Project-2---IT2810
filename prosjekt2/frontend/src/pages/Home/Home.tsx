@@ -1,3 +1,4 @@
+// Home.tsx
 import { useEffect, useState } from "react";
 import { AllSongsList } from "../../components/AllSongsComponents/AllSongsList";
 import { SearchBar } from "../../components/SearchBar/SearchBar";
@@ -12,54 +13,48 @@ const Home = () => {
 	const selectedGenres = useReactiveVar(genreFilterVar);
 	const minViews = useReactiveVar(minViewsVar);
 	const maxViews = useReactiveVar(maxViewsVar);
+	const sortOption = useReactiveVar(sortOptionVar);
 
 	const [isSidebarOpen, setIsSidebarOpen] = useState<boolean>(false);
 	const [showLoading, setShowLoading] = useState(false);
-	const [searchTerm, setSearchTerm] = useState<string>(sessionStorage.getItem("searchTerm") || "");
 	const [clearFilters, setClearFilters] = useState(false);
+	const [searchTerm, setSearchTerm] = useState<string>(sessionStorage.getItem("homeSearchTerm") || "");
 
-	const { songs, isLoading, error, loadMoreSongs } = useCachedSongs(
-		searchTerm,
-	);
+	const { songs, isLoading, error, loadMoreSongs } = useCachedSongs({
+		searchTerm, // Pass searchTerm directly to useCachedSongs
+		selectedGenres,
+		minViews,
+		maxViews,
+		sortOption,
+	});
 
-	// Delay for visning av lasting
 	useEffect(() => {
 		let loadingTimeout: NodeJS.Timeout;
 		if (isLoading) {
-			loadingTimeout = setTimeout(() => setShowLoading(true), 500); 
+			loadingTimeout = setTimeout(() => setShowLoading(true), 500);
 		} else {
 			setShowLoading(false);
 		}
 		return () => clearTimeout(loadingTimeout);
 	}, [isLoading]);
 
-	// Oppdater sortOption ved endring
-	const handleSortChange = (newSortOption: string) => {
-		sortOptionVar(newSortOption); // Oppdater direkte gjennom sortOptionVar
-		console.log("Sort option updated to:", newSortOption);
-	};
-
-	const handleGenreChange = (genres: string[]) => {
-		genreFilterVar(genres);
-	};
-
-	const handleSearchSubmit = (term: string) => {
-		setSearchTerm(term);
-		sessionStorage.setItem("searchTerm", term);
-	};
-
 	const toggleSidebar = () => {
 		setIsSidebarOpen((prev) => !prev);
 	};
 
+	const handleSearchSubmit = (term: string) => {
+		setSearchTerm(term);
+		sessionStorage.setItem("homeSearchTerm", term);
+	};
+
 	const clearAllFilters = () => {
-		handleGenreChange([]);
-		sortOptionVar("views_desc");
-		minViewsVar(0);
-		maxViewsVar(3000000);
-		sessionStorage.removeItem("searchTerm");
+		genreFilterVar([]);  
+		sortOptionVar("views_desc"); 
+		minViewsVar(0);  
+		maxViewsVar(3000000); 
+		
 		setClearFilters(true);
-		setTimeout(() => setClearFilters(false), 0);
+		setTimeout(() => setClearFilters(false), 0);  
 	};
 
 	if (error) return <p>Error loading songs: {error?.message}</p>;
@@ -67,8 +62,8 @@ const Home = () => {
 	return (
 		<>
 			<Sidebar
-				onGenreChange={handleGenreChange}
-				onSortChange={handleSortChange}
+				onGenreChange={(genres) => genreFilterVar(genres)}
+				onSortChange={(sort) => sortOptionVar(sort)}
 				songs={songs}
 				onToggle={setIsSidebarOpen}
 				isOpen={isSidebarOpen}
@@ -81,7 +76,10 @@ const Home = () => {
 			/>
 			<section className={`homeComponents ${isSidebarOpen ? "shifted" : ""}`}>
 				<section className="searchBarContainer">
-					<SearchBar setSearchTerm={handleSearchSubmit} />
+					<SearchBar
+						setSearchTerm={handleSearchSubmit}
+						initialSearchTerm={searchTerm}
+					/>
 				</section>
 				<section className="filterButtonContainer">
 					<FilterButton onClick={toggleSidebar} />
