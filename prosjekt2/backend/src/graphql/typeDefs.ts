@@ -24,6 +24,11 @@ export const typeDefs = `#graphql
     name: String!
     songs: [Song]
   }
+  
+  type GenreCount {
+    name: String!
+    count: Int!
+  }
 
   type User {
     id: ID!
@@ -62,6 +67,7 @@ export const typeDefs = `#graphql
     artist(id: ID!): Artist
     genres: [Genre]
     genre(id: ID!): Genre
+    genreCounts: [GenreCount]
   }
   
   type Mutation {

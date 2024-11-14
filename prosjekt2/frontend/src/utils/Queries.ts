@@ -19,6 +19,15 @@ export const GET_SONGS = gql`
 	}
 `;
 
+export const GET_GENRE_COUNTS = gql`
+  query GetGenreCounts($searchTerm: String, $genres: [String]) {
+    genreCounts(searchTerm: $searchTerm, genres: $genres) {
+      name
+      count
+    }
+  }
+`;
+
 export const CREATE_USER = gql`
 	mutation CreateUser($username: String!) {
 		createUser(username: $username) {
@@ -124,7 +133,7 @@ export const ADD_SONG_TO_PLAYLIST = gql`
 `;
 
 export const REMOVE_SONG_FROM_PLAYLIST = gql`
-	mutation RemoveSongFromoPlaylist($username: String!, $playlistId: ID!, $songId: ID!) {
+	mutation RemoveSongFromPlaylist($username: String!, $playlistId: ID!, $songId: ID!) {
 		RemoveSongFromPlaylist(username: $username, playlistId: $playlistId, songId: $songId) {
 			id
 			name

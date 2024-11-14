@@ -77,6 +77,21 @@ export const resolvers = {
         };
       });
     },
+    genreCounts: async (_: any, __: any, { driver }: any) => {
+      const records = await executeCypherQuery(
+        driver,
+        `
+        MATCH (g:Genre)<-[:HAS_GENRE]-(s:Song)
+        RETURN g.name as name, COUNT(s) as count
+        ORDER BY g.name
+        `
+      );
+
+      return records.map(record => ({
+        name: record.get('name'),
+        count: record.get('count').toInt()
+      }));
+    },
     artists: async (_: any, __: any, { driver }: any) => {
       const records = await executeCypherQuery(
         driver,
