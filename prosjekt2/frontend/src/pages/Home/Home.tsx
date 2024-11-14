@@ -4,7 +4,7 @@ import { SearchBar } from "../../components/SearchBar/SearchBar";
 import { Sidebar } from "../../components/SideBar/SideBar";
 import { FilterButton } from "../../components/SideBar/FilterButton/FilterButton";
 import { useCachedSongs } from "../../utils/hooks/useCachedSongs";
-import { genreFilterVar, minViewsVar, maxViewsVar } from "../../apollo/cache";
+import { genreFilterVar, minViewsVar, maxViewsVar, sortOptionVar } from "../../apollo/cache";
 import { useReactiveVar } from "@apollo/client";
 import "./Home.css";
 
@@ -12,27 +12,17 @@ const Home = () => {
 	const selectedGenres = useReactiveVar(genreFilterVar);
 	const minViews = useReactiveVar(minViewsVar);
 	const maxViews = useReactiveVar(maxViewsVar);
-	const [sortOption, setSortOption] = useState<string>("views_desc");
+
 	const [isSidebarOpen, setIsSidebarOpen] = useState<boolean>(false);
 	const [showLoading, setShowLoading] = useState(false);
-	const [searchTerm, setSearchTerm] = useState<string>("");
+	const [searchTerm, setSearchTerm] = useState<string>(sessionStorage.getItem("searchTerm") || "");
 	const [clearFilters, setClearFilters] = useState(false);
 
 	const { songs, isLoading, error, loadMoreSongs } = useCachedSongs(
-		sortOption,
 		searchTerm,
 	);
 
-	// Load initial values from session storage
-	useEffect(() => {
-		const savedSortOption = sessionStorage.getItem("sortOption");
-		if (savedSortOption) setSortOption(savedSortOption);
-
-		const savedSearchTerm = sessionStorage.getItem("searchTerm") || "";
-		setSearchTerm(savedSearchTerm);
-	}, []);
-
-	// Loading delay for songs
+	// Delay for visning av lasting
 	useEffect(() => {
 		let loadingTimeout: NodeJS.Timeout;
 		if (isLoading) {
@@ -43,13 +33,14 @@ const Home = () => {
 		return () => clearTimeout(loadingTimeout);
 	}, [isLoading]);
 
-	const handleGenreChange = (genres: string[]) => {
-		genreFilterVar(genres);
+	// Oppdater sortOption ved endring
+	const handleSortChange = (newSortOption: string) => {
+		sortOptionVar(newSortOption); // Oppdater direkte gjennom sortOptionVar
+		console.log("Sort option updated to:", newSortOption);
 	};
 
-	const handleSortChange = (newSortOption: string) => {
-		setSortOption(newSortOption);
-		sessionStorage.setItem("sortOption", newSortOption);
+	const handleGenreChange = (genres: string[]) => {
+		genreFilterVar(genres);
 	};
 
 	const handleSearchSubmit = (term: string) => {
@@ -63,10 +54,10 @@ const Home = () => {
 
 	const clearAllFilters = () => {
 		handleGenreChange([]);
-		setSortOption("views_desc");
+		sortOptionVar("views_desc");
 		minViewsVar(0);
 		maxViewsVar(3000000);
-		sessionStorage.removeItem("sortOption");
+		sessionStorage.removeItem("searchTerm");
 		setClearFilters(true);
 		setTimeout(() => setClearFilters(false), 0);
 	};
@@ -77,7 +68,6 @@ const Home = () => {
 		<>
 			<Sidebar
 				onGenreChange={handleGenreChange}
-				sortOption={sortOption}
 				onSortChange={handleSortChange}
 				songs={songs}
 				onToggle={setIsSidebarOpen}
