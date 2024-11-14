@@ -132,8 +132,8 @@ export const ADD_SONG_TO_PLAYLIST = gql`
 `;
 
 export const REMOVE_SONG_FROM_PLAYLIST = gql`
-	mutation RemoveSongFromoPlaylist($username: String!, $playlistId: ID!, $songId: ID!) {
-		RemoveSongFromPlaylist(username: $username, playlistId: $playlistId, songId: $songId) {
+	mutation RemoveSongFromPlaylist($username: String!, $playlistId: ID!, $songId: ID!) {
+		removeSongFromPlaylist(username: $username, playlistId: $playlistId, songId: $songId) {
 			id
 			name
 			backgroundcolor
