@@ -4,11 +4,13 @@ import { AllSongsList } from "../../components/AllSongsComponents/AllSongsList";
 import { SearchBar } from "../../components/SearchBar/SearchBar";
 import { useNavigate } from "react-router-dom";
 import { SongData } from "../../utils/types/SongTypes";
+import { favoritesSearchTermVar } from "../../apollo/cache"; 
+import { useReactiveVar } from "@apollo/client";
 
 const Favorites: React.FC = () => {
 	const [favorites, setFavorites] = useState<SongData[]>([]);
 	const [searchedSongs, setSearchedSongs] = useState<SongData[]>([]);
-	const [searchTerm, setSearchTerm] = useState<string>(sessionStorage.getItem("favoritesSearchTerm") || "");
+	const searchTerm = useReactiveVar(favoritesSearchTermVar); 
 	const genres = ["pop", "rock", "rap", "rb", "country"];
 	const navigate = useNavigate();
 
@@ -18,7 +20,6 @@ const Favorites: React.FC = () => {
 		setSearchedSongs(favoriteSongs);
 	}, []);
 
-	// Filter favorite songs based on search term
 	useEffect(() => {
 		const filterSongs = () => {
 			if (searchTerm === "") return favorites;
@@ -35,11 +36,9 @@ const Favorites: React.FC = () => {
 	}, [searchTerm, favorites]);
 
 	const handleSearchSubmit = (term: string) => {
-		setSearchTerm(term); // Oppdater søketermen lokalt for Favorites
-		sessionStorage.setItem("favoritesSearchTerm", term); // Lagre søketermen i sessionStorage for Favorites
+		favoritesSearchTermVar(term); 
 	};
 
-	// Show message if no favorite songs are found
 	if (favorites.length === 0) {
 		return (
 			<section className="no-favorites-container">
@@ -56,7 +55,7 @@ const Favorites: React.FC = () => {
 			<section className="favorites-searchBarContainer">
 				<SearchBar
 					setSearchTerm={handleSearchSubmit}
-					initialSearchTerm={searchTerm} // Bruker lagret søketerm som initial verdi
+					initialSearchTerm={searchTerm} 
 				/>
 			</section>
 			<section className="favorites-allSongsContainer">

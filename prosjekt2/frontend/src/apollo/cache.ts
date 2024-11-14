@@ -5,7 +5,7 @@ if (!sessionStorage.getItem("minViews")) {
   sessionStorage.setItem("minViews", "0");
 }
 if (!sessionStorage.getItem("maxViews")) {
-  sessionStorage.setItem("maxViews", "3000000");
+  sessionStorage.setItem("maxViews", "1000000");
 }
 if (!sessionStorage.getItem("selectedGenres")) {
   sessionStorage.setItem("selectedGenres", "[]");
@@ -13,21 +13,26 @@ if (!sessionStorage.getItem("selectedGenres")) {
 if (!sessionStorage.getItem("sortOption")) {
   sessionStorage.setItem("sortOption", "views_desc");
 }
-if (!sessionStorage.getItem("searchTerm")) {
-  sessionStorage.setItem("searchTerm", "");
+if (!sessionStorage.getItem("homeSearchTerm")) {
+  sessionStorage.setItem("homeSearchTerm", "");
+}
+if (!sessionStorage.getItem("favoritesSearchTerm")) {
+  sessionStorage.setItem("favoritesSearchTerm", "");
 }
 
 const savedGenres = JSON.parse(sessionStorage.getItem("selectedGenres") || "[]");
 const savedMinViews = Number(sessionStorage.getItem("minViews"));
 const savedMaxViews = Number(sessionStorage.getItem("maxViews"));
 const savedSortOption = sessionStorage.getItem("sortOption") || "views_desc";
-const savedSearchTerm = sessionStorage.getItem("searchTerm") || "";
+const savedHomeSearchTerm = sessionStorage.getItem("homeSearchTerm") || "";
+const savedFavoritesSearchTerm = sessionStorage.getItem("favoritesSearchTerm") || "";
 
 export const genreFilterVar = makeVar<string[]>(savedGenres);
 export const sortOptionVar = makeVar<string>(savedSortOption);
 export const minViewsVar = makeVar<number>(savedMinViews);
 export const maxViewsVar = makeVar<number>(savedMaxViews);
-export const searchTermVar = makeVar<string>(savedSearchTerm); // Ny søketermvariabel
+export const homeSearchTermVar = makeVar<string>(savedHomeSearchTerm);
+export const favoritesSearchTermVar = makeVar<string>(savedFavoritesSearchTerm); 
 
 const cache = new InMemoryCache({
   typePolicies: {
@@ -53,9 +58,14 @@ const cache = new InMemoryCache({
             return maxViewsVar();
           },
         },
-        searchTerm: {
+        homeSearchTerm: {
           read() {
-            return searchTermVar();
+            return homeSearchTermVar();
+          },
+        },
+        favoritesSearchTerm: {
+          read() {
+            return favoritesSearchTermVar();
           },
         },
       },
@@ -63,7 +73,16 @@ const cache = new InMemoryCache({
   },
 });
 
-// Oppdater sessionStorage hver gang variablene endres
+homeSearchTermVar.onNextChange((newHomeSearchTerm) => {
+  sessionStorage.setItem("homeSearchTerm", newHomeSearchTerm);
+  console.log("Updated sessionStorage homeSearchTerm to:", newHomeSearchTerm);
+});
+
+favoritesSearchTermVar.onNextChange((newFavoritesSearchTerm) => {
+  sessionStorage.setItem("favoritesSearchTerm", newFavoritesSearchTerm);
+  console.log("Updated sessionStorage favoritesSearchTerm to:", newFavoritesSearchTerm);
+});
+
 genreFilterVar.onNextChange((newGenres) => {
   sessionStorage.setItem("selectedGenres", JSON.stringify(newGenres));
   console.log("Updated sessionStorage selectedGenres to:", sessionStorage.getItem("selectedGenres"));
@@ -82,11 +101,6 @@ maxViewsVar.onNextChange((newMaxViews) => {
 sortOptionVar.onNextChange((newSortOption) => {
   sessionStorage.setItem("sortOption", newSortOption);
   console.log("Updated sessionStorage sortOption to:", sessionStorage.getItem("sortOption"));
-});
-
-searchTermVar.onNextChange((newSearchTerm) => {
-  sessionStorage.setItem("searchTerm", newSearchTerm);
-  console.log("Updated sessionStorage searchTerm to:", sessionStorage.getItem("searchTerm"));
 });
 
 export default cache;

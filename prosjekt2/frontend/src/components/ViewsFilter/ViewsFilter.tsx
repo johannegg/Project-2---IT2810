@@ -17,7 +17,7 @@ export function ViewsFilter({ onViewsChange, clearFilters }: ViewsFilterProps) {
 
   useEffect(() => {
     const initialMinViews = Number(sessionStorage.getItem("minViews")) || 0;
-    const initialMaxViews = Number(sessionStorage.getItem("maxViews")) || 3000000;
+    const initialMaxViews = Number(sessionStorage.getItem("maxViews")) || 1000000;
     
     minViewsVar(initialMinViews);
     maxViewsVar(initialMaxViews);
@@ -28,8 +28,8 @@ export function ViewsFilter({ onViewsChange, clearFilters }: ViewsFilterProps) {
   useEffect(() => {
     if (clearFilters) {
       minViewsVar(0);
-      maxViewsVar(3000000);
-      onViewsChange(0, 3000000);
+      maxViewsVar(1000000);
+      onViewsChange(0, 1000000);
     }
   }, [clearFilters, onViewsChange]);
 
@@ -59,7 +59,7 @@ export function ViewsFilter({ onViewsChange, clearFilters }: ViewsFilterProps) {
           thumbClassName="thumb"
           trackClassName="track"
           min={0}
-          max={3000000}
+          max={1000000}
           value={[minViews, maxViews]}
           onChange={handleSliderChange}
           onAfterChange={handleAfterSliderChange}

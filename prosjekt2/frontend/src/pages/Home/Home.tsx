@@ -1,11 +1,10 @@
-// Home.tsx
 import { useEffect, useState } from "react";
 import { AllSongsList } from "../../components/AllSongsComponents/AllSongsList";
 import { SearchBar } from "../../components/SearchBar/SearchBar";
 import { Sidebar } from "../../components/SideBar/SideBar";
 import { FilterButton } from "../../components/SideBar/FilterButton/FilterButton";
 import { useCachedSongs } from "../../utils/hooks/useCachedSongs";
-import { genreFilterVar, minViewsVar, maxViewsVar, sortOptionVar } from "../../apollo/cache";
+import { genreFilterVar, minViewsVar, maxViewsVar, sortOptionVar, homeSearchTermVar } from "../../apollo/cache";
 import { useReactiveVar } from "@apollo/client";
 import "./Home.css";
 
@@ -14,14 +13,19 @@ const Home = () => {
 	const minViews = useReactiveVar(minViewsVar);
 	const maxViews = useReactiveVar(maxViewsVar);
 	const sortOption = useReactiveVar(sortOptionVar);
+	const searchTerm = useReactiveVar(homeSearchTermVar); 
 
 	const [isSidebarOpen, setIsSidebarOpen] = useState<boolean>(false);
 	const [showLoading, setShowLoading] = useState(false);
 	const [clearFilters, setClearFilters] = useState(false);
-	const [searchTerm, setSearchTerm] = useState<string>(sessionStorage.getItem("homeSearchTerm") || "");
+
+	// Sync sessionStorage with genreFilterVar on change
+	useEffect(() => {
+		sessionStorage.setItem("selectedGenres", JSON.stringify(selectedGenres));
+	}, [selectedGenres]);
 
 	const { songs, isLoading, error, loadMoreSongs } = useCachedSongs({
-		searchTerm, // Pass searchTerm directly to useCachedSongs
+		searchTerm,
 		selectedGenres,
 		minViews,
 		maxViews,
@@ -43,20 +47,23 @@ const Home = () => {
 	};
 
 	const handleSearchSubmit = (term: string) => {
-		setSearchTerm(term);
-		sessionStorage.setItem("homeSearchTerm", term);
+		homeSearchTermVar(term); 
 	};
 
 	const clearAllFilters = () => {
-		genreFilterVar([]);  
+		genreFilterVar([]); // Clear genre filter var
 		sortOptionVar("views_desc"); 
 		minViewsVar(0);  
-		maxViewsVar(3000000); 
-		
+		maxViewsVar(1000000); 
+		sessionStorage.setItem("selectedGenres", JSON.stringify([])); // Clear genres in sessionStorage
+		sessionStorage.setItem("sortOption", "views_desc"); // Reset sortOption
+		sessionStorage.setItem("minViews", "0"); // Reset minViews
+		sessionStorage.setItem("maxViews", "1000000"); // Reset maxViews
+	
 		setClearFilters(true);
 		setTimeout(() => setClearFilters(false), 0);  
 	};
-
+	
 	if (error) return <p>Error loading songs: {error?.message}</p>;
 
 	return (

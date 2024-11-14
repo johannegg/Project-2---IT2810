@@ -4,7 +4,8 @@ import { ViewsFilter } from "../ViewsFilter/ViewsFilter";
 import Sort from "../Sort/Sort";
 import { SongData } from "../../utils/types/SongTypes";
 import { useReactiveVar } from "@apollo/client"; // Importer useReactiveVar
-import { sortOptionVar } from "../../apollo/cache"; // Importer sortOptionVar
+import { genreFilterVar, sortOptionVar } from "../../apollo/cache"; // Importer sortOptionVar
+import { useEffect } from "react";
 
 type SidebarProps = {
 	onGenreChange: (selectedGenres: string[]) => void;
@@ -32,6 +33,12 @@ export function Sidebar({
 	const toggleMenu = () => {
 		onToggle(!isOpen);
 	};
+
+	useEffect(() => {
+		if (clearFilters) {
+			genreFilterVar([]); // Nullstill Apollo sin reactive var
+		}
+	}, [clearFilters]);
 
 	return (
 		<div className={`sidebar ${isOpen ? "open" : ""}`}>
