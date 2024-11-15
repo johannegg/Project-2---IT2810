@@ -36,7 +36,6 @@
 }
 
 .filterButtonContainer {
-	margin-bottom: 30px;
 	position: relative;
 	left: -270px;
 }
@@ -51,6 +50,15 @@
 
 .loadMoreButton:hover {
 	background-color: var(--theme-light-green);
+}
+
+.numberOfResults {
+	margin-bottom: 40px;
+	font-size: larger;
+}
+
+.resultNumber {
+	font-weight: bold;
 }
 
 @media (max-width: 1190px) {

@@ -4,6 +4,7 @@ import { SearchBar } from "../../components/SearchBar/SearchBar";
 import { Sidebar } from "../../components/SideBar/SideBar";
 import { FilterButton } from "../../components/SideBar/FilterButton/FilterButton";
 import { useCachedSongs } from "../../utils/hooks/useCachedSongs";
+import { useSongCount } from "../../utils/hooks/useSongCount";
 import "./Home.css";
 
 const Home = () => {
@@ -15,6 +16,8 @@ const Home = () => {
 	const [minViews, setMinViews] = useState<number>(0);
 	const [maxViews, setMaxViews] = useState<number>(3000000);
 	const [clearFilters, setClearFilters] = useState(false);
+
+	const { songCount } = useSongCount(selectedGenres, searchTerm, minViews, maxViews);
 
 	const { songs, isLoading, error, loadMoreSongs } = useCachedSongs(
 		selectedGenres,
@@ -45,7 +48,7 @@ const Home = () => {
 	useEffect(() => {
 		let loadingTimeout: NodeJS.Timeout;
 		if (isLoading) {
-			loadingTimeout = setTimeout(() => setShowLoading(true), 500); 
+			loadingTimeout = setTimeout(() => setShowLoading(true), 500);
 		} else {
 			setShowLoading(false);
 		}
@@ -110,7 +113,11 @@ const Home = () => {
 				onToggle={setIsSidebarOpen}
 				isOpen={isSidebarOpen}
 				onViewsChange={handleViewsChange}
-				clearFilters={clearFilters} // Send clearFilters as boolean
+				clearFilters={clearFilters}
+				selectedGenres={selectedGenres}
+				searchTerm={searchTerm}
+				minViews={minViews}
+				maxViews={maxViews}
 				onClearAllFilters={clearAllFilters}
 			/>
 			<section className={`homeComponents ${isSidebarOpen ? "shifted" : ""}`}>
@@ -123,17 +130,23 @@ const Home = () => {
 				{showLoading ? (
 					<p>Loading songs...</p>
 				) : (
-					<section className="allSongsContainer">
-						<AllSongsList
-							songs={songs}
-							genres={selectedGenres == null ? [] : selectedGenres}
-							maxViews={maxViews}
-							minViews={minViews}
-						/>
+					<section className="searchResults">
+						<p className="numberOfResults">
+							{" "}
+							<span className="resultNumber">{songCount}</span> results
+						</p>
+						<section className="allSongsContainer">
+							<AllSongsList
+								songs={songs}
+								genres={selectedGenres == null ? [] : selectedGenres}
+								maxViews={maxViews}
+								minViews={minViews}
+							/>
+						</section>
 					</section>
 				)}
 				{!isLoading && songs.length >= 30 && (
-					<button className="loadMoreButton" onClick={loadMoreSongs}>
+					<button className="loadMoreButton" onClick={loadMoreSongs} type="button">
 						Load More Songs
 					</button>
 				)}
