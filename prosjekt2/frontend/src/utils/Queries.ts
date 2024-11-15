@@ -36,38 +36,23 @@ export const GET_SONGS = gql`
 `;
 
 export const GET_SONG_COUNT = gql`
-  query GetSongCount(
-    $genres: [String]
-    $searchTerm: String
-    $minViews: Int
-    $maxViews: Int
-  ) {
-    songCount(
-      genres: $genres
-      searchTerm: $searchTerm
-      minViews: $minViews
-      maxViews: $maxViews
-    )
-  }
+	query GetSongCount($genres: [String], $searchTerm: String, $minViews: Int, $maxViews: Int) {
+		songCount(genres: $genres, searchTerm: $searchTerm, minViews: $minViews, maxViews: $maxViews)
+	}
 `;
 
 export const GET_GENRE_COUNTS = gql`
-  query GetGenreCounts(
-    $searchTerm: String
-    $minViews: Int
-    $maxViews: Int
-    $genres: [String]
-  ) {
-    genreCounts(
-      searchTerm: $searchTerm
-      minViews: $minViews
-      maxViews: $maxViews
-      genres: $genres
-    ) {
-      name
-      count
-    }
-  }
+	query GetGenreCounts($searchTerm: String, $minViews: Int, $maxViews: Int, $genres: [String]) {
+		genreCounts(
+			searchTerm: $searchTerm
+			minViews: $minViews
+			maxViews: $maxViews
+			genres: $genres
+		) {
+			name
+			count
+		}
+	}
 `;
 
 export const CREATE_USER = gql`

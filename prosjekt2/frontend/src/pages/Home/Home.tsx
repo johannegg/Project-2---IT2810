@@ -17,12 +17,7 @@ const Home = () => {
 	const [maxViews, setMaxViews] = useState<number>(3000000);
 	const [clearFilters, setClearFilters] = useState(false);
 
-	const { songCount } = useSongCount(
-    selectedGenres,
-    searchTerm,
-    minViews,
-    maxViews
-  );
+	const { songCount } = useSongCount(selectedGenres, searchTerm, minViews, maxViews);
 
 	const { songs, isLoading, error, loadMoreSongs } = useCachedSongs(
 		selectedGenres,
@@ -53,7 +48,7 @@ const Home = () => {
 	useEffect(() => {
 		let loadingTimeout: NodeJS.Timeout;
 		if (isLoading) {
-			loadingTimeout = setTimeout(() => setShowLoading(true), 500); 
+			loadingTimeout = setTimeout(() => setShowLoading(true), 500);
 		} else {
 			setShowLoading(false);
 		}
@@ -121,8 +116,8 @@ const Home = () => {
 				clearFilters={clearFilters}
 				selectedGenres={selectedGenres}
 				searchTerm={searchTerm}
-        minViews={minViews}
-        maxViews={maxViews}
+				minViews={minViews}
+				maxViews={maxViews}
 				onClearAllFilters={clearAllFilters}
 			/>
 			<section className={`homeComponents ${isSidebarOpen ? "shifted" : ""}`}>
@@ -136,7 +131,10 @@ const Home = () => {
 					<p>Loading songs...</p>
 				) : (
 					<section className="searchResults">
-						<p className="numberOfResults"> <span className="resultNumber">{songCount}</span> results</p>
+						<p className="numberOfResults">
+							{" "}
+							<span className="resultNumber">{songCount}</span> results
+						</p>
 						<section className="allSongsContainer">
 							<AllSongsList
 								songs={songs}

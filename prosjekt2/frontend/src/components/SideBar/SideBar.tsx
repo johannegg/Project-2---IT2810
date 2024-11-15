@@ -15,9 +15,9 @@ type SidebarProps = {
 	clearFilters: boolean;
 	onClearAllFilters: () => void;
 	searchTerm: string;
-  minViews: number;
-  maxViews: number;
-  selectedGenres: string[] | null;
+	minViews: number;
+	maxViews: number;
+	selectedGenres: string[] | null;
 };
 
 export function Sidebar({
@@ -31,9 +31,9 @@ export function Sidebar({
 	clearFilters,
 	onClearAllFilters,
 	searchTerm,
-  minViews,
-  maxViews,
-  selectedGenres,
+	minViews,
+	maxViews,
+	selectedGenres,
 }: SidebarProps) {
 	const toggleMenu = () => {
 		onToggle(!isOpen);
@@ -47,12 +47,13 @@ export function Sidebar({
 			<div className="filteringContainer">
 				<Sort songs={songs} sortOption={sortOption} onSortChange={onSortChange} />
 				<br />
-				<Filter onGenreChange={onGenreChange}  
-					clearFilters={clearFilters} 
+				<Filter
+					onGenreChange={onGenreChange}
+					clearFilters={clearFilters}
 					searchTerm={searchTerm}
-          minViews={minViews}
-          maxViews={maxViews}
-          selectedGenres={selectedGenres}
+					minViews={minViews}
+					maxViews={maxViews}
+					selectedGenres={selectedGenres}
 				/>
 				<br />
 				<ViewsFilter onViewsChange={onViewsChange} clearFilters={clearFilters} />
