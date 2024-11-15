@@ -20,7 +20,7 @@ function App() {
 					<Route path="/playlists" element={<Playlists />} />
 					{/* Dynamic route with artistName and songTitle */}
 					<Route path="/:artistName/:songTitle" element={<DynamicLyric />} />
-					<Route path="/playlist/:playlistName" element={<DynamicPlaylist />} />
+					<Route path="/playlist/:playlistId" element={<DynamicPlaylist />} />
 				</Routes>
 			</Router>
 		</>
