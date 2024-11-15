@@ -12,6 +12,22 @@ interface PlaylistProps {
 	onClick: () => void;
 }
 
+// Color mapping moved outside component for better performance
+const colorMapping: Record<string, string> = {
+	"#ffffff": "#8a8587",
+	"#e8dff5": "#866f95",
+	"#fce1e4": "#9e3369",
+	"#fcf4dd": "#d7ba28",
+	"#ddedea": "#35693f",
+	"#daeaf6": "#445988",
+	"#8a8587": "#ffffff",
+	"#866f95": "#e8dff5",
+	"#9e3369": "#fce1e4",
+	"#d7ba28": "#fcf4dd",
+	"#35693f": "#ddedea",
+	"#445988": "#daeaf6",
+};
+
 const Playlist: React.FC<PlaylistProps> = ({ id, name, backgroundColor, icon, songs }) => {
 	const navigate = useNavigate();
 	const [currentBackgroundColor, setCurrentBackgroundColor] = useState(backgroundColor);
@@ -19,21 +35,6 @@ const Playlist: React.FC<PlaylistProps> = ({ id, name, backgroundColor, icon, so
 	useEffect(() => {
 		const updateBackgroundColor = () => {
 			const isDarkModeActive = window.matchMedia("(prefers-color-scheme: dark)").matches;
-			const colorMapping: Record<string, string> = {
-				"#ffffff": "#8a8587",
-				"#e8dff5": "#866f95",
-				"#fce1e4": "#9e3369",
-				"#fcf4dd": "#d7ba28",
-				"#ddedea": "#35693f",
-				"#daeaf6": "#445988",
-				"#8a8587": "#ffffff",
-				"#866f95": "#e8dff5",
-				"#9e3369": "#fce1e4",
-				"#d7ba28": "#fcf4dd",
-				"#35693f": "#ddedea",
-				"#445988": "#daeaf6",
-			};
-
 			const targetColor =
 				isDarkModeActive && backgroundColor in colorMapping
 					? colorMapping[backgroundColor]

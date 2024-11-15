@@ -8,6 +8,7 @@ const initializeStorage = (key: string, defaultValue: string) => {
     sessionStorage.setItem(key, defaultValue);
   }
 };
+
 const initializeLocalStorage = (key: string, defaultValue: string) => {
   if (!localStorage.getItem(key)) {
     localStorage.setItem(key, defaultValue);
@@ -42,6 +43,7 @@ export const homeSearchTermVar = makeVar<string>(savedHomeSearchTerm);
 export const favoritesSearchTermVar = makeVar<string>(savedFavoritesSearchTerm);
 export const favoriteSongsVar = makeVar<SongData[]>(savedFavoriteSongs);
 export const playlistsVar = makeVar<PlaylistData[]>(savedPlaylists);
+export const songDataVar = makeVar<SongData[]>([]);
 
 // Konfigurer cache med reactive variabler
 const cache = new InMemoryCache({
@@ -86,6 +88,11 @@ const cache = new InMemoryCache({
         playlists: {
           read() {
             return playlistsVar();
+          },
+        },
+        songData: {
+          read() {
+            return songDataVar();
           },
         },
       },

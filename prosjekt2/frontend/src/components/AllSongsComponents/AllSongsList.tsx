@@ -8,64 +8,68 @@ import { SongData } from "../../utils/types/SongTypes";
 import PlusMinusButton from "../PlusMinusButton/PlusMinusButton";
 
 type AllSongsListProps = {
-	songs: SongData[];
-	genres: string[];
-	isInPlaylist?: boolean;
-	playlistId?: string;
-	minViews?: number;
-	maxViews?: number;
-	onSongRemoved?: (songId: string) => void; // Update to accept songId argument
+  songs: SongData[];
+  genres: string[];
+  isInPlaylist?: boolean;
+  playlistId?: string;
+  minViews?: number;
+  maxViews?: number;
+  onSongRemoved?: (songId: string) => void;
 };
 
 export function AllSongsList({
-	songs,
-	genres, 
-	maxViews, 
-	minViews,
-	isInPlaylist,
-	playlistId,
-	onSongRemoved,
+  songs,
+  genres,
+  maxViews,
+  minViews,
+  isInPlaylist,
+  playlistId,
+  onSongRemoved,
 }: AllSongsListProps) {
-	const navigate = useNavigate();
+  const navigate = useNavigate();
 
-	const filteredSongs = songs
-		.filter((song) => (genres.length > 0 ? genres.includes(song.genre.name) : true)) // Filter by genre if genres are selected
-		.filter((song) => song.views >= (minViews ?? 0) && song.views <= (maxViews ?? Infinity)); // Filter by views within minViews and maxViews
+  const filteredSongs = songs
+    .filter((song) => (genres.length > 0 ? genres.includes(song.genre.name) : true))
+    .filter((song) => song.views >= (minViews ?? 0) && song.views <= (maxViews ?? Infinity));
 
-	return (
-		<section className="songContainer">
-			{filteredSongs.length === 0 ? (
-				<p>No songs found</p>
-			) : (
-				<table className="songTable">
-					<tbody>
-						{filteredSongs.map((song) => (
-							<tr key={song.id} className="tableRow" onClick={() => routeChange(song, navigate)}>
-								<td className="title-artist-cell">
-									<span className="titleCell">{song.title}</span>
-									<span className="artistCell">{song.artist.name}</span>
-								</td>
-								<td>{song.year}</td>
-								<td className="viewsCell">
-									<FaEye style={{ marginRight: "5px" }} />
-									{formatViews(song.views)}
-								</td>
-								<td className="plusMinusCell">
-									<PlusMinusButton
-										song={song}
-										isInPlaylist={isInPlaylist}
-										playlistId={playlistId}
-										onSongRemoved={() => onSongRemoved && onSongRemoved(song.id)} // Pass song.id to onSongRemoved
-									/>
-								</td>
-								<td>
-									<FavoriteButton song={song} />
-								</td>
-							</tr>
-						))}
-					</tbody>
-				</table>
-			)}
-		</section>
-	);
+  return (
+    <section className="songContainer">
+      {filteredSongs.length === 0 ? (
+        <p>No songs found</p>
+      ) : (
+        <table className="songTable">
+          <tbody>
+            {filteredSongs.map((song) => (
+              <tr
+                key={song.id}
+                className="tableRow"
+                onClick={() => routeChange(song, navigate)} 
+              >
+                <td className="title-artist-cell">
+                  <span className="titleCell">{song.title}</span>
+                  <span className="artistCell">{song.artist.name}</span>
+                </td>
+                <td>{song.year}</td>
+                <td className="viewsCell">
+                  <FaEye style={{ marginRight: "5px" }} />
+                  {formatViews(song.views)}
+                </td>
+                <td className="plusMinusCell">
+                  <PlusMinusButton
+                    song={song}
+                    isInPlaylist={isInPlaylist}
+                    playlistId={playlistId}
+                    onSongRemoved={() => onSongRemoved && onSongRemoved(song.id)}
+                  />
+                </td>
+                <td>
+                  <FavoriteButton song={song} />
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      )}
+    </section>
+  );
 }
