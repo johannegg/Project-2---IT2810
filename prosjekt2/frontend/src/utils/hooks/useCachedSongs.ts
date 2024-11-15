@@ -28,11 +28,19 @@ export const useCachedSongs = ({ searchTerm, selectedGenres, minViews, maxViews,
 	// Funksjon for å laste inn flere sanger ved "Load More"-klikk
 	const loadMoreSongs = () => {
 		if (!data?.songs) return;
-
+	
 		fetchMore({
 			variables: {
 				skip: data.songs.length,
 				limit: 30,
+			},
+			updateQuery: (previousResult, { fetchMoreResult }) => {
+				if (!fetchMoreResult) return previousResult;
+	
+				return {
+					...previousResult,
+					songs: [...previousResult.songs, ...fetchMoreResult.songs],
+				};
 			},
 		})
 			.then((response) => {
@@ -42,6 +50,7 @@ export const useCachedSongs = ({ searchTerm, selectedGenres, minViews, maxViews,
 				console.error("Error fetching more songs:", error);
 			});
 	};
+	
 
 	// Oppdaterer sanger når filterinnstillingene endres
 	useEffect(() => {
