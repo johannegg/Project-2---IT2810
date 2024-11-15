@@ -17,7 +17,7 @@ async function startApolloServer() {
       schema,
       context: ({ req }) => {
         // Pass the Neo4j driver into the context
-        return { driver, req };
+        return { driver };
       },
     });
 
