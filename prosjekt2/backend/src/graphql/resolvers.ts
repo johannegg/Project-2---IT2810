@@ -128,18 +128,21 @@ export const resolvers = {
           backgroundcolor: playlist.backgroundcolor,
           icon: playlist.icon,
           songs: playlist.songs && playlist.songs.length > 0
-            ? playlist.songs.map((song: Song) => ({
+            ? playlist.songs
+            .filter((song: { artist: Artist | null }) => song.artist && song.artist.name)
+            .map((song: Song) => ({
                 id: song.id,
                 title: song.title,
                 views: song.views,
                 year: song.year,
                 lyrics: song.lyrics,
-                artist: song.artist
-                  ? { id: song.artist.id, name: song.artist.name }
-                  : { id: "", name: "Unknown Artist" },
-                genre: song.genre
-                  ? { name: song.genre.name }
-                  : { name: "Unknown Genre" },
+                artist: {
+                  id: song.artist.id,
+                  name: song.artist.name
+                },
+                genre: {
+                  name: song.genre.name
+                }
               }))
             : [], // Return an empty array if no songs are present
         };
@@ -309,18 +312,21 @@ export const resolvers = {
           id: userRecord.id,
           username: userRecord.username,
           favoriteSongs: userRecord.favoriteSongs && userRecord.favoriteSongs.length > 0 
-            ? userRecord.favoriteSongs.map((favorite: { artist: Artist; song: Song; genre: Genre }) => ({
+            ? userRecord.favoriteSongs
+            .filter((favorite: { artist: Artist | null }) => favorite.artist && favorite.artist.name)
+            .map((favorite: { artist: Artist; song: Song; genre: Genre }) => ({
                 id: favorite.song.id,
                 title: favorite.song.title,
                 views: favorite.song.views,
                 year: favorite.song.year,
                 lyrics: favorite.song.lyrics,
-                artist: favorite.artist
-                  ? { id: favorite.artist.id, name: favorite.artist.name }
-                  : { id: "", name: "Unknown Artist" },
-                genre: favorite.genre
-                  ? { name: favorite.genre.name }
-                  : { name: "Unknown Genre" },
+                artist: {
+                  id: favorite.artist.id,
+                  name: favorite.artist.name
+                },
+                genre: {
+                  name: favorite.genre.name
+                }
               }))
             : [],
         };
@@ -337,12 +343,13 @@ export const resolvers = {
         driver,
         `
         MATCH (user:User {username: $username})
-        DETACH DELETE user
-        RETURN COUNT(user) AS count
+        OPTIONAL MATCH (user)-[:OWNS]->(playlist:Playlist) 
+        DETACH DELETE user, playlist
+        RETURN COUNT(user) > 0 AS userDeleted
         `,
         { username },
       );
-      const isDeleted = records[0].get("count").toInt();
+      const isDeleted = records[0].get("userDeleted");
       return isDeleted > 0;
     },
 
