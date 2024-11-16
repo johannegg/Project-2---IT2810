@@ -17,72 +17,15 @@ export interface PlaylistData {
 const Playlists = () => {
 	const navigate = useNavigate();
 
-	const defaultPlaylists: PlaylistData[] = [
-		{
-			id: uuidv4(),
-			name: "My playlist 1",
-			backgroundColor: "#ffffff",
-			icon: "🎵",
-			songs: [
-				{
-					id: "0",
-					title: "Song A",
-					artist: { id: "id1", name: "Artist 1" },
-					year: 2015,
-					views: 500,
-					lyrics: "...",
-					genre: { name: "pop" },
-				},
-				{
-					id: "1",
-					title: "Song B",
-					artist: { id: "id2", name: "Artist 2" },
-					year: 2016,
-					views: 500,
-					lyrics: "...",
-					genre: { name: "pop" },
-				},
-			],
-		},
-		{
-			id: uuidv4(),
-			name: "My playlist 2",
-			backgroundColor: "#ffffff",
-			icon: "🎧",
-			songs: [
-				{
-					id: "2",
-					title: "Song C",
-					artist: { id: "id3", name: "Artist 3" },
-					year: 2015,
-					views: 300,
-					lyrics: "...",
-					genre: { name: "pop" },
-				},
-				{
-					id: "3",
-					title: "Song D",
-					artist: { id: "id4", name: "Artist 4" },
-					year: 2015,
-					views: 500,
-					lyrics: "...",
-					genre: { name: "pop" },
-				},
-			],
-		},
-	];
-
 	const [playlists, setPlaylists] = useState<PlaylistData[]>(() => {
 		const storedPlaylists = localStorage.getItem("playlists");
-		const userPlaylists = storedPlaylists ? JSON.parse(storedPlaylists) : [];
-		return [...defaultPlaylists, ...userPlaylists];
+		return storedPlaylists ? JSON.parse(storedPlaylists) : [];
 	});
 
 	const [showForm, setShowForm] = useState(false);
 
 	useEffect(() => {
-		const userPlaylists = playlists.slice(defaultPlaylists.length);
-		localStorage.setItem("playlists", JSON.stringify(userPlaylists));
+		localStorage.setItem("playlists", JSON.stringify(playlists));
 	}, [playlists]);
 
 	const addNewPlaylist = (newPlaylistName: string, backgroundColor: string, icon: string) => {
@@ -93,8 +36,7 @@ const Playlists = () => {
 			icon,
 			songs: [],
 		};
-
-		setPlaylists([...defaultPlaylists, ...playlists.slice(defaultPlaylists.length), newPlaylist]);
+		setPlaylists([...playlists, newPlaylist]);
 	};
 
 	const deletePlaylist = (playlistId: string) => {
@@ -116,17 +58,21 @@ const Playlists = () => {
 					New Playlist
 				</button>
 				<div className="playlists-container">
-					{playlists.map((playlist) => (
-						<Playlist
-							id={playlist.id}
-							key={playlist.id}
-							name={playlist.name}
-							backgroundColor={playlist.backgroundColor}
-							icon={playlist.icon}
-							songs={playlist.songs}
-							onClick={() => handlePlaylistClick(playlist)}
-						/>
-					))}
+					{playlists.length === 0 ? (
+						<p>You have no playlists yet.</p>
+					) : (
+						playlists.map((playlist) => (
+							<Playlist
+								id={playlist.id}
+								key={playlist.id}
+								name={playlist.name}
+								backgroundColor={playlist.backgroundColor}
+								icon={playlist.icon}
+								songs={playlist.songs}
+								onClick={() => handlePlaylistClick(playlist)}
+							/>
+						))
+					)}
 				</div>
 			</div>
 		</section>

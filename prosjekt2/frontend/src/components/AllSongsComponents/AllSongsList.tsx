@@ -12,20 +12,26 @@ type AllSongsListProps = {
 	genres: string[];
 	isInPlaylist?: boolean;
 	playlistId?: string;
+	minViews?: number;
+	maxViews?: number;
 	onSongRemoved?: () => void;
 };
 
 export function AllSongsList({
 	songs,
-	genres,
+	genres, 
+	maxViews, 
+	minViews,
 	isInPlaylist,
 	playlistId,
 	onSongRemoved,
 }: AllSongsListProps) {
 	const navigate = useNavigate();
 
-	const filteredSongs =
-		genres.length > 0 ? songs.filter((song) => genres.includes(song.genre.name)) : songs;
+	const filteredSongs = songs
+	.filter((song) => (genres.length > 0 ? genres.includes(song.genre.name) : true)) // Filter by genre if genres are selected
+	.filter((song) => song.views >= (minViews ?? 0) && song.views <= (maxViews ?? Infinity)); // Filter by views within minViews and maxViews
+
 
 	return (
 		<section className="songContainer">

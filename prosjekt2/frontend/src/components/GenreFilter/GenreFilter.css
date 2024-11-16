@@ -32,6 +32,24 @@ input[type="checkbox"] {
 	align-items: center;
 }
 
+.disabled-filter {
+	opacity: 0.5;
+	cursor: not-allowed;
+}
+
+.disabled-filter-label {
+	color: var(--theme-light-grey);
+	cursor: not-allowed;
+}
+
+.filterCount {
+	color: var(--theme-grey);
+}
+
+.disabled-filter-label .filterCount {
+	color: var(--theme-light-grey);
+}
+
 @media (max-width: 1050px) {
 	.filterContainer {
 		width: 70%;

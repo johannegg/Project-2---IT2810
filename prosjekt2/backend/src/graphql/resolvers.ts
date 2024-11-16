@@ -1,4 +1,4 @@
-import { Driver } from "neo4j-driver";
+import type { Driver } from "neo4j-driver";
 import neo4j from "neo4j-driver";
 
 interface Artist {
@@ -27,7 +27,7 @@ interface User {
 
 const executeCypherQuery = async (
   driver: Driver,
-  cypherQuery: String,
+  cypherQuery: string,
   params: any = {},
 ) => {
   const session = driver.session();
@@ -41,6 +41,23 @@ const executeCypherQuery = async (
     session.close();
   }
 };
+
+export const checkUserExists = async (
+  _: any,
+  { username }: { username: string },
+  { driver }: any
+) => {
+  const records = await executeCypherQuery(
+    driver,
+    `
+    MATCH (user:User {username: $username})
+    RETURN COUNT(user) > 0 AS exists
+    `,
+    { username }
+  );
+
+  return records.length > 0 && records[0].get("exists");
+}
 
 // Custom resolvers
 export const resolvers = {
@@ -58,6 +75,49 @@ export const resolvers = {
           name: genreNode.properties.name,
         };
       });
+    },
+    genreCounts: async (
+      _: any,
+      {
+        searchTerm,
+        minViews,
+        maxViews,
+        genres,
+      }: {
+        searchTerm?: string;
+        minViews?: number;
+        maxViews?: number;
+        genres?: string[];
+      },
+      { driver }: any
+    ) => {
+      const searchClause = searchTerm
+        ? "AND (toLower(s.title) CONTAINS toLower($searchTerm) OR toLower(a.name) CONTAINS toLower($searchTerm))"
+        : "";
+
+      const records = await executeCypherQuery(
+        driver,
+        `
+        MATCH (g:Genre)
+        OPTIONAL MATCH (g)<-[:HAS_GENRE]-(s:Song)-[:PERFORMED_BY]->(a:Artist)
+        WHERE ($searchTerm IS NULL OR toLower(s.title) CONTAINS toLower($searchTerm) OR toLower(a.name) CONTAINS toLower($searchTerm))
+          AND ($minViews IS NULL OR s.views >= $minViews)
+          AND ($maxViews IS NULL OR s.views <= $maxViews)
+        RETURN g.name AS name, COUNT(s) AS count
+        ORDER BY g.name
+        `,
+        {
+          searchTerm: searchTerm || "",
+          minViews: minViews ? neo4j.int(minViews) : null,
+          maxViews: maxViews ? neo4j.int(maxViews) : null,
+          genres: genres || null,
+        }
+      );
+
+      return records.map((record) => ({
+        name: record.get("name"),
+        count: record.get("count").toInt(),
+      }));
     },
     artists: async (_: any, __: any, { driver }: any) => {
       const records = await executeCypherQuery(
@@ -81,12 +141,16 @@ export const resolvers = {
         genres,
         sortBy,
         searchTerm,
+        minViews, 
+        maxViews,
       }: {
         skip: number;
         limit: number;
         genres?: string[];
         sortBy?: string;
         searchTerm?: string;
+        minViews?: number;
+        maxViews?: number;
       },
       { driver }: any,
     ) => {
@@ -127,16 +191,20 @@ export const resolvers = {
         `
         MATCH (s:Song)-[:PERFORMED_BY]->(a:Artist), (s)-[:HAS_GENRE]->(g:Genre)
         WHERE ($genres IS NULL OR g.name IN $genres) ${searchClause}
+          AND ($minViews IS NULL OR s.views >= $minViews)
+          AND ($maxViews IS NULL OR s.views <= $maxViews)
         RETURN s, a, g
-        ${orderByClause}
+        ${orderByClause}  
         SKIP $skip
         LIMIT $limit
         `,
         {
-          skip: neo4j.int(intSkip), // Use neo4j.int() for correct type
+          skip: neo4j.int(intSkip),
           limit: neo4j.int(intLimit),
           genres: genres || null,
           searchTerm: searchTerm || "",
+          minViews: minViews ? neo4j.int(minViews) : null,
+          maxViews: maxViews ? neo4j.int(maxViews) : null,
         },
       );
 
@@ -161,6 +229,45 @@ export const resolvers = {
           },
         };
       });
+    },
+
+    songCount: async (
+      _: any,
+      {
+        genres,
+        searchTerm,
+        minViews,
+        maxViews,
+      }: {
+        genres?: string[];
+        searchTerm?: string;
+        minViews?: number;
+        maxViews?: number;
+      },
+      { driver }: any
+    ) => {
+      const searchClause = searchTerm
+        ? "AND (toLower(s.title) CONTAINS toLower($searchTerm) OR toLower(a.name) CONTAINS toLower($searchTerm))"
+        : "";
+
+      const records = await executeCypherQuery(
+        driver,
+        `
+        MATCH (s:Song)-[:PERFORMED_BY]->(a:Artist), (s)-[:HAS_GENRE]->(g:Genre)
+        WHERE ($genres IS NULL OR g.name IN $genres) ${searchClause}
+          AND ($minViews IS NULL OR s.views >= $minViews)
+          AND ($maxViews IS NULL OR s.views <= $maxViews)
+        RETURN COUNT(s) as songCount
+        `,
+        {
+          genres: genres || null,
+          searchTerm: searchTerm || "",
+          minViews: minViews ? neo4j.int(minViews) : null,
+          maxViews: maxViews ? neo4j.int(maxViews) : null,
+        }
+      );
+
+      return records.length > 0 ? records[0].get("songCount").toInt() : 0;
     },
 
     /* users: async (_: any, __: any, { driver }: any) => {
@@ -202,18 +309,23 @@ export const resolvers = {
         driver,
         `
         MERGE (user:User {username: $username})
-        ON CREATE SET user.id = randomUUID()
-        RETURN user { .id, .username } AS user
+        ON CREATE SET
+          user.id = randomUUID(),
+          user.createdAt = timestamp()
+        RETURN user { .id, .username, isNew: (user.createdAt IS NOT NULL) } AS user
         `,
         { username },
       );
       if (records.length > 0) {
         const user = records[0].get("user");
+        const isNew = records[0].get("user").isNew;
+
         return {
           id: user.id,
           username: user.username,
-          playlists: user.playlist,
-          favoriteSongs: user.favoriteSongs,
+          isNew,
+          playlists: user.playlist || [],
+          favoriteSongs: user.favoriteSongs || [],
         };
       }
       throw new Error("Failed to create or retrieve user");

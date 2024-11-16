@@ -24,12 +24,18 @@ export const typeDefs = `#graphql
     name: String!
     songs: [Song]
   }
+  
+  type GenreCount {
+    name: String!
+    count: Int!
+  }
 
   type User {
     id: ID!
     username: String!
     favoriteSongs: [Song]
     playlists: [Playlist]
+    isNew: Boolean!
   }
 
   type Playlist {
@@ -55,7 +61,24 @@ export const typeDefs = `#graphql
       genres: [String]
       sortBy: SortBy
       searchTerm: String
+      minViews: Int
+      maxViews: Int
     ): [Song]
+
+    songCount(
+      genres: [String]
+      searchTerm: String
+      minViews: Int
+      maxViews: Int
+    ): Int
+
+    genreCounts(
+      searchTerm: String
+      minViews: Int
+      maxViews: Int
+      genres: [String]
+    ): [GenreCount]
+
     song(id: ID!): Song
     artists: [Artist]
     artist(id: ID!): Artist

@@ -3,38 +3,35 @@ import { useQuery } from "@apollo/client";
 import { GET_SONGS } from "../Queries";
 import { SongData } from "../types/SongTypes";
 
-// Create key to save data batches based on search, sort option and genres
-const generateCacheKey = (genres: string[] | null, sortOption: string, searchTerm: string) => {
-	const genreKey = genres ? genres.join(",") : "allGenres";
-	const searchKey = searchTerm.trim().toLowerCase() || "noSearch";
-	return `songs_${genreKey}_${sortOption}_${searchKey}`;
-};
-
 export const useCachedSongs = (
 	selectedGenres: string[] | null,
 	sortOption: string,
 	searchTerm: string,
+	minViews: number,
+	maxViews: number,
 ) => {
 	const [songs, setSongs] = useState<SongData[]>([]);
 	const [isLoading, setIsLoading] = useState<boolean>(false);
 	const { loading, error, data, fetchMore, refetch } = useQuery(GET_SONGS, {
-		variables: { skip: 0, limit: 30, genres: selectedGenres, sortBy: sortOption, searchTerm },
+		variables: {
+			skip: 0,
+			limit: 30,
+			genres: selectedGenres,
+			sortBy: sortOption,
+			searchTerm,
+			minViews,
+			maxViews,
+		},
 		fetchPolicy: "cache-first",
 	});
 
-	const cacheKey = generateCacheKey(selectedGenres, sortOption, searchTerm);
-
 	useEffect(() => {
-		const cachedData = localStorage.getItem(cacheKey);
-		if (cachedData) {
-			setSongs(JSON.parse(cachedData));
-		} else if (data && !loading) {
+		if (data && !loading) {
 			setSongs(data.songs);
-			localStorage.setItem(cacheKey, JSON.stringify(data.songs));
 		}
-	}, [cacheKey, data, loading]);
+	}, [data, loading]);
 
-  // Trigger refetch on search, genre, or sort changes
+	// Trigger refetch on search, genre, sort, or views filter changes
 	useEffect(() => {
 		refetch({
 			skip: 0,
@@ -42,10 +39,12 @@ export const useCachedSongs = (
 			genres: selectedGenres || null,
 			sortBy: sortOption,
 			searchTerm,
+			minViews,
+			maxViews,
 		});
-	}, [refetch, searchTerm, selectedGenres, sortOption]);
+	}, [refetch, searchTerm, selectedGenres, sortOption, minViews, maxViews]);
 
-  // Append fetched songs on "Load More"
+	// Append fetched songs on "Load More"
 	const loadMoreSongs = () => {
 		if (!data?.songs) return;
 		setIsLoading(true);
@@ -58,18 +57,13 @@ export const useCachedSongs = (
 		})
 			.then((response) => {
 				const newSongs = response.data.songs;
-				// Update the state by adding the new songs to the existing ones
-				// and save batch to localstorage
-				setSongs((prevSongs) => {
-					const updatedSongs = [...prevSongs, ...newSongs];
-					localStorage.setItem(cacheKey, JSON.stringify(updatedSongs));
-					return updatedSongs;
-				});
+				setSongs((prevSongs) => [...prevSongs, ...newSongs]);
 			})
 			.catch((error) => {
 				console.error("Error fetching more songs: ", error);
 			})
 			.finally(() => setIsLoading(false));
 	};
+
 	return { songs, isLoading: isLoading || loading, error, loadMoreSongs };
 };

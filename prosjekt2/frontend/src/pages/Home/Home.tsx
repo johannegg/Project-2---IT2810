@@ -4,6 +4,7 @@ import { SearchBar } from "../../components/SearchBar/SearchBar";
 import { Sidebar } from "../../components/SideBar/SideBar";
 import { FilterButton } from "../../components/SideBar/FilterButton/FilterButton";
 import { useCachedSongs } from "../../utils/hooks/useCachedSongs";
+import { useSongCount } from "../../utils/hooks/useSongCount";
 import "./Home.css";
 
 const Home = () => {
@@ -12,28 +13,46 @@ const Home = () => {
 	const [isSidebarOpen, setIsSidebarOpen] = useState<boolean>(false);
 	const [showLoading, setShowLoading] = useState(false);
 	const [searchTerm, setSearchTerm] = useState<string>("");
+	const [minViews, setMinViews] = useState<number>(0);
+	const [maxViews, setMaxViews] = useState<number>(3000000);
+	const [clearFilters, setClearFilters] = useState(false);
+
+	const { songCount } = useSongCount(selectedGenres, searchTerm, minViews, maxViews);
 
 	const { songs, isLoading, error, loadMoreSongs } = useCachedSongs(
 		selectedGenres,
 		sortOption,
 		searchTerm,
+		minViews,
+		maxViews,
 	);
 
-	// Load selected genres from session storage on initial render
+	// Load initial filter values from session storage
 	useEffect(() => {
 		const savedGenres = JSON.parse(sessionStorage.getItem("selectedGenres") || "[]");
 		setSelectedGenres(savedGenres.length > 0 ? savedGenres : null);
+
+		const savedMinViews = JSON.parse(sessionStorage.getItem("minViews") || "0");
+		const savedMaxViews = JSON.parse(sessionStorage.getItem("maxViews") || "3000000");
+		setMinViews(savedMinViews);
+		setMaxViews(savedMaxViews);
+
+		const savedSortOption = sessionStorage.getItem("sortOption");
+		if (savedSortOption) setSortOption(savedSortOption);
+
+		const savedSearchTerm = sessionStorage.getItem("searchTerm") || "";
+		setSearchTerm(savedSearchTerm);
 	}, []);
 
-	// Loading delay
+	// Loading delay for songs
 	useEffect(() => {
 		let loadingTimeout: NodeJS.Timeout;
 		if (isLoading) {
-			loadingTimeout = setTimeout(() => setShowLoading(true), 500); // Added delay
+			loadingTimeout = setTimeout(() => setShowLoading(true), 500);
 		} else {
 			setShowLoading(false);
 		}
-		return () => clearTimeout(loadingTimeout); // Cleanup on unmount or if loading changes
+		return () => clearTimeout(loadingTimeout);
 	}, [isLoading]);
 
 	const handleGenreChange = (genres: string[]) => {
@@ -41,19 +60,47 @@ const Home = () => {
 		sessionStorage.setItem("selectedGenres", JSON.stringify(genres));
 	};
 
+	const handleViewsChange = (newMinViews: number, newMaxViews: number) => {
+		setMinViews(newMinViews);
+		setMaxViews(newMaxViews);
+		sessionStorage.setItem("minViews", JSON.stringify(newMinViews));
+		sessionStorage.setItem("maxViews", JSON.stringify(newMaxViews));
+	};
+
 	const handleSortChange = (newSortOption: string) => {
 		setSortOption(newSortOption);
+		sessionStorage.setItem("sortOption", newSortOption);
+	};
+
+	const handleSearchSubmit = (term: string) => {
+		setSearchTerm(term);
+		sessionStorage.setItem("searchTerm", term);
 	};
 
 	const toggleSidebar = () => {
 		setIsSidebarOpen((prev) => !prev);
 	};
 
-	
-	const handleSearchSubmit = (term: string) => {
-		setSearchTerm(term);
+	// Clear all filters function
+	const clearAllFilters = () => {
+		setSelectedGenres(null);
+		setSortOption("views_desc");
+		setMinViews(0);
+		setMaxViews(3000000);
+
+		// Remove filter-related items from sessionStorage, but keep search term
+		sessionStorage.removeItem("selectedGenres");
+		sessionStorage.removeItem("sortOption");
+		sessionStorage.removeItem("minViews");
+		sessionStorage.removeItem("maxViews");
+
+		// Toggle clearFilters to trigger reset in child components
+		setClearFilters(true);
+
+		// Reset clearFilters back to false after triggering
+		setTimeout(() => setClearFilters(false), 0);
 	};
-	
+
 	if (error) return <p>Error loading songs: {error?.message}</p>;
 
 	return (
@@ -63,8 +110,15 @@ const Home = () => {
 				sortOption={sortOption}
 				onSortChange={handleSortChange}
 				songs={songs}
-				onToggle={setIsSidebarOpen} //setIsSidebarOpen
+				onToggle={setIsSidebarOpen}
 				isOpen={isSidebarOpen}
+				onViewsChange={handleViewsChange}
+				clearFilters={clearFilters}
+				selectedGenres={selectedGenres}
+				searchTerm={searchTerm}
+				minViews={minViews}
+				maxViews={maxViews}
+				onClearAllFilters={clearAllFilters}
 			/>
 			<section className={`homeComponents ${isSidebarOpen ? "shifted" : ""}`}>
 				<section className="searchBarContainer">
@@ -76,12 +130,23 @@ const Home = () => {
 				{showLoading ? (
 					<p>Loading songs...</p>
 				) : (
-					<section className="allSongsContainer">
-						<AllSongsList songs={songs} genres={selectedGenres == null ? [] : selectedGenres} />
+					<section className="searchResults">
+						<p className="numberOfResults">
+							{" "}
+							<span className="resultNumber">{songCount}</span> results
+						</p>
+						<section className="allSongsContainer">
+							<AllSongsList
+								songs={songs}
+								genres={selectedGenres == null ? [] : selectedGenres}
+								maxViews={maxViews}
+								minViews={minViews}
+							/>
+						</section>
 					</section>
 				)}
 				{!isLoading && songs.length >= 30 && (
-					<button className="loadMoreButton" onClick={loadMoreSongs}>
+					<button className="loadMoreButton" onClick={loadMoreSongs} type="button">
 						Load More Songs
 					</button>
 				)}
