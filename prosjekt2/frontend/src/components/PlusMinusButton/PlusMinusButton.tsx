@@ -91,6 +91,7 @@ const PlusMinusButton: React.FC<PlusMinusButtonProps> = ({
 		<>
 			<button
 				className="plusMinus-button"
+				data-label={isInPlaylist ? "Remove song" : "Add song"}
 				onClick={(e) => {
 					e.stopPropagation();
 					if (isInPlaylist) {
