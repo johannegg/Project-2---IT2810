@@ -61,14 +61,12 @@ export function Sidebar({
 					songs={songs}
 					sortOption={sortOption}
 					onSortChange={onSortChange}
-					tabIndex={isOpen ? 0 : -1}
 				/>
 				<br />
 				<Filter
 					onGenreChange={onGenreChange}
 					songs={songs}
 					clearFilters={clearFilters}
-					tabIndex={isOpen ? 0 : -1}
 				/>
 				<br />
 				<ViewsFilter

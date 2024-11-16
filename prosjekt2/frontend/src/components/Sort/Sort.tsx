@@ -7,7 +7,6 @@ type SortProps = {
     songs: SongData[];
     sortOption: string;
     onSortChange: (newSort: string) => void;
-    tabIndex?: number;
 };
 
 const Sort: React.FC<SortProps> = ({ sortOption, onSortChange }) => {
@@ -23,7 +22,10 @@ const Sort: React.FC<SortProps> = ({ sortOption, onSortChange }) => {
 				<FaSort className="filterSortIcon" />
                 <h2 className="sort-heading">Sort by</h2>
 			</section>
-            <select className="sort-options" value={sortOption} onChange={handleSortChange}>
+            <select className="sort-options" 
+                    value={sortOption} 
+                    onChange={handleSortChange} 
+                    tabIndex={0}>
                 <option value="title_asc">Title A-Z</option>
                 <option value="title_desc">Title Z-A</option>
                 <option value="artist_asc">Artist A-Z</option>
