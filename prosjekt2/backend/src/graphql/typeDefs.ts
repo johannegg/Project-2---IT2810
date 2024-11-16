@@ -4,8 +4,8 @@ import { startStandaloneServer } from "@apollo/server/standalone";
 export const typeDefs = `#graphql
 
   type Song {
-    id: ID
-    title: String
+    id: ID!
+    title: String!
     year: Int
     lyrics: String
     views: Int
@@ -15,7 +15,7 @@ export const typeDefs = `#graphql
 
   type Artist {
     id: ID
-    name: String
+    name: String!
     songs: [Song]
   }
 
