@@ -1,19 +1,31 @@
 import { useEffect, useState } from "react";
 import "./GenreFilter.css";
 import { FaFilter } from "react-icons/fa";
-import { SongData } from "../../utils/types/SongTypes";
+import { useGenreCounts } from "../../utils/hooks/useGenreCounts";
 
 interface FilterProps {
-	songs: SongData[];
-	clearFilters: boolean;
 	onGenreChange: (selectedGenres: string[]) => void;
+	clearFilters: boolean;
+	searchTerm: string;
+	minViews: number;
+	maxViews: number;
+	selectedGenres: string[] | null;
 }
 
-export function Filter({ songs, onGenreChange, clearFilters }: FilterProps) {
-	const [selectedGenres, setSelectedGenres] = useState<string[]>([]);
+export function Filter({
+	onGenreChange,
+	clearFilters,
+	searchTerm,
+	minViews,
+	maxViews,
+	selectedGenres,
+}: FilterProps) {
+	const { genreCounts, isLoading } = useGenreCounts(searchTerm, minViews, maxViews, selectedGenres);
+	const [localSelectedGenres, setLocalSelectedGenres] = useState<string[]>(selectedGenres || []);
+	const [cachedGenreCounts, setCachedGenreCounts] = useState(genreCounts);
 
 	const handleGenreChange = (genre: string) => {
-		setSelectedGenres((prevSelected) => {
+		setLocalSelectedGenres((prevSelected) => {
 			const isSelected = prevSelected.includes(genre);
 			const newSelectedGenres = isSelected
 				? prevSelected.filter((g) => g !== genre)
@@ -25,23 +37,29 @@ export function Filter({ songs, onGenreChange, clearFilters }: FilterProps) {
 		});
 	};
 
+	// Cache genre counts only when loading completes to prevent "flickering"
+	useEffect(() => {
+		if (!isLoading) {
+			setCachedGenreCounts(genreCounts);
+		}
+	}, [isLoading, genreCounts]);
+
 	// Load genres from sessionStorage on initial mount
 	useEffect(() => {
 		const savedGenres = JSON.parse(sessionStorage.getItem("selectedGenres") || "[]");
-		setSelectedGenres(savedGenres.length > 0 ? savedGenres : []);
+		setLocalSelectedGenres(savedGenres.length > 0 ? savedGenres : []);
 	}, []);
 
 	// Reset genres when clearFilters is true
 	useEffect(() => {
 		if (clearFilters) {
-			setSelectedGenres([]);
+			setLocalSelectedGenres([]);
 			onGenreChange([]);
+			sessionStorage.removeItem("selectedGenres");
 		}
 	}, [clearFilters, onGenreChange]);
 
-	const predefinedGenres = ["pop", "rb", "rap", "rock", "country"];
-	const uniqueGenres = [...new Set([...predefinedGenres, ...songs.map((song) => song.genre.name)])];
-
+	// Handle keyboard input for accessibility
 	const handleKeyDown = (event: React.KeyboardEvent<HTMLDivElement>, genre: string) => {
 		if (event.key === "Enter" || event.key === " ") {
 			event.preventDefault();
@@ -50,34 +68,41 @@ export function Filter({ songs, onGenreChange, clearFilters }: FilterProps) {
 	};
 
 	return (
-		<section className="filterContainer">
-			<section className="filterHeader">
-				<FaFilter className="filterSortIcon" />
-				<h2>Genre</h2>
-			</section>
-			<section className="categories">
-				{uniqueGenres.map((genre, index) => (
-					<div
-						className="filterRow"
-						key={index}
-						tabIndex={-1}
-						onKeyDown={(event) => handleKeyDown(event, genre)}
-						role="checkbox"
-						aria-checked={selectedGenres.includes(genre)}
-					>
-						<input
-							type="checkbox"
-							id={genre}
-							checked={selectedGenres.includes(genre)}
-							onChange={() => handleGenreChange(genre)}
-							tabIndex={0}
-						/>
-						<label htmlFor={genre} onClick={() => handleGenreChange(genre)}>
-							{genre.charAt(0).toUpperCase() + genre.slice(1)}
+		<>
+			<section className="filterContainer">
+				<section className="filterHeader">
+					<FaFilter className="filterSortIcon" />
+					<h2>Genre</h2>
+				</section>
+				<section className="categories">
+				{cachedGenreCounts.map((genre: { name: string; count: number }) => (
+						<div className="filterRow" 
+							key={genre.name}
+							tabIndex={-1}
+							onKeyDown={(event) => handleKeyDown(event, genre.name)}
+							role="checkbox"
+							aria-checked={localSelectedGenres.includes(genre.name)}
+							>
+							<input
+								type="checkbox"
+								id={genre.name}
+								checked={localSelectedGenres.includes(genre.name)}
+								onChange={() => handleGenreChange(genre.name)}
+								disabled={isLoading || genre.count === 0}
+								className={isLoading || genre.count === 0 ? "disabled-filter" : ""}
+								tabIndex={0}
+							/>
+							<label
+							htmlFor={genre.name}
+							className={genre.count === 0 ? "disabled-filter-label" : ""}
+						>
+							{genre.name.charAt(0).toUpperCase() + genre.name.slice(1)}{" "}
+							<span className="filterCount">({genre.count})</span>
 						</label>
-					</div>
-				))}
+						</div>
+					))}
+				</section>
 			</section>
-		</section>
+		</>
 	);
 }

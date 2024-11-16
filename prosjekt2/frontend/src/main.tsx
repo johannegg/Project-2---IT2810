@@ -6,7 +6,7 @@ import { ApolloClient, InMemoryCache, ApolloProvider } from "@apollo/client";
 import 'focus-visible';
 
 const client = new ApolloClient({
-	uri: "http://localhost:4000",
+	uri: "http://localhost:4000/",
 	cache: new InMemoryCache(),
 });
 

@@ -15,6 +15,10 @@ type SidebarProps = {
 	isOpen: boolean;
 	clearFilters: boolean;
 	onClearAllFilters: () => void;
+	searchTerm: string;
+	minViews: number;
+	maxViews: number;
+	selectedGenres: string[] | null;
 };
 
 export function Sidebar({
@@ -27,6 +31,10 @@ export function Sidebar({
 	isOpen,
 	clearFilters,
 	onClearAllFilters,
+	searchTerm,
+	minViews,
+	maxViews,
+	selectedGenres,
 }: SidebarProps) {
 	const sidebarRef = useRef<HTMLDivElement>(null);
 
@@ -65,8 +73,11 @@ export function Sidebar({
 				<br />
 				<Filter
 					onGenreChange={onGenreChange}
-					songs={songs}
 					clearFilters={clearFilters}
+					searchTerm={searchTerm}
+					minViews={minViews}
+					maxViews={maxViews}
+					selectedGenres={selectedGenres}
 				/>
 				<br />
 				<ViewsFilter
