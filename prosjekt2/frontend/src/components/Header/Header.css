@@ -20,7 +20,7 @@
 	max-width: 1200px;
 	margin: 0 auto;
 	position: relative;
-	left: 10 px;
+	left: 10px;
 }
 
 .sofa-icon {
@@ -89,7 +89,7 @@
 		font-size: 24px;
 	}
 	.navButton {
-		margin-left: 15px;
+		margin-left: 10px;
 		margin-right: 5px;
 	}
 
@@ -116,7 +116,7 @@
 	}
 
 	.navButton {
-		margin: 3px;
+		margin: 2px;
 	}
 
 	.navIcon {

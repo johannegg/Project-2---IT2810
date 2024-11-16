@@ -48,6 +48,7 @@
 .profile-icon {
     background-color: transparent;
     z-index: 1006;
+    margin: 20px;
 }
 
 .login-button {
@@ -113,6 +114,42 @@
 .close-login-button:hover {
 	color: #454444d8;
 }
+
+@media (max-width: 900px) {
+	.profile-icon {
+		font-size: medium;
+		margin: 5px;
+	}
+}
+
+@media (max-width: 750px) {
+	.profile-icon {
+		margin-left: 10px;
+		margin-right: 5px;
+	}
+}
+
+
+@media (max-width: 420px) {
+	.profile-icon {
+		margin: 2px;
+	}
+}
+
+@media (prefers-color-scheme: dark) {
+	.header {
+		background-color: var(--theme-even-darker-green);
+	}
+
+	.header-title {
+		color: white;
+	}
+
+	.navButton:hover {
+		border-color: var(--theme-dark-pink);
+	}
+}
+
 
 
 @media (prefers-color-scheme: dark) {
