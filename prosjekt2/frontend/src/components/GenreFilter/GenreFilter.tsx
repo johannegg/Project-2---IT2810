@@ -42,27 +42,42 @@ export function Filter({ songs, onGenreChange, clearFilters }: FilterProps) {
 	const predefinedGenres = ["pop", "rb", "rap", "rock", "country"];
 	const uniqueGenres = [...new Set([...predefinedGenres, ...songs.map((song) => song.genre.name)])];
 
+	const handleKeyDown = (event: React.KeyboardEvent<HTMLDivElement>, genre: string) => {
+		if (event.key === "Enter" || event.key === " ") {
+			event.preventDefault();
+			handleGenreChange(genre);
+		}
+	};
+
 	return (
-		<>
-			<section className="filterContainer">
-				<section className="filterHeader">
-					<FaFilter className="filterSortIcon" />
-					<h2>Genre</h2>
-				</section>
-				<section className="categories">
-					{uniqueGenres.map((genre, index) => (
-						<div className="filterRow" key={index}>
-							<input
-								type="checkbox"
-								id={genre}
-								checked={selectedGenres.includes(genre)}
-								onChange={() => handleGenreChange(genre)}
-							/>
-							<label htmlFor={genre}>{genre.charAt(0).toUpperCase() + genre.slice(1)}</label>
-						</div>
-					))}
-				</section>
+		<section className="filterContainer">
+			<section className="filterHeader">
+				<FaFilter className="filterSortIcon" />
+				<h2>Genre</h2>
 			</section>
-		</>
+			<section className="categories">
+				{uniqueGenres.map((genre, index) => (
+					<div
+						className="filterRow"
+						key={index}
+						tabIndex={-1}
+						onKeyDown={(event) => handleKeyDown(event, genre)}
+						role="checkbox"
+						aria-checked={selectedGenres.includes(genre)}
+					>
+						<input
+							type="checkbox"
+							id={genre}
+							checked={selectedGenres.includes(genre)}
+							onChange={() => handleGenreChange(genre)}
+							tabIndex={0}
+						/>
+						<label htmlFor={genre} onClick={() => handleGenreChange(genre)}>
+							{genre.charAt(0).toUpperCase() + genre.slice(1)}
+						</label>
+					</div>
+				))}
+			</section>
+		</section>
 	);
 }
