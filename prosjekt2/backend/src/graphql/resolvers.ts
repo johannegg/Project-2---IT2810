@@ -237,35 +237,6 @@ export const resolvers = {
         };
       });
     },
-
-    /* users: async (_: any, __: any, { driver }: any) => {
-      const records = await executeCypherQuery(
-        driver,
-        `
-        MATCH (user:User)-[:HAS_FAVORITES]->(song:Song)-[:PERFORMED_BY]->(artist:Artist)
-        RETURN user, collect( { song: song, artist: artist}) AS favoriteSongs
-        `
-      );
-  
-      // Map the result to the desired format
-      return records.map((record) => {
-        const userNode = record.get("user") as User;
-        const favoriteSongs = record.get("favoriteSongs") as FavoriteSong[];
-  
-        return {
-          username: userNode.properties.username,
-          favoriteSongs: favoriteSongs.map(({song, artist}) => {
-            return {
-              id: song.properties.id,
-              title: song.properties.title,
-              artist: {
-                name: artist.properties.name,
-              },
-            };
-          }),
-        };
-      });
-    }, */
   },
   Mutation: {
     createUser: async (
