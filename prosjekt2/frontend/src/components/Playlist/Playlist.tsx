@@ -11,7 +11,7 @@ interface PlaylistProps {
 	songs: SongData[];
 	onClick: () => void;
 	tabIndex?: number;
-  	onKeyDown?: (event: React.KeyboardEvent) => void;
+	onKeyDown?: (event: React.KeyboardEvent) => void;
 }
 
 const Playlist: React.FC<PlaylistProps> = ({
@@ -21,7 +21,7 @@ const Playlist: React.FC<PlaylistProps> = ({
 	icon,
 	songs,
 	tabIndex,
-  }) => {
+}) => {
 	const navigate = useNavigate();
 	const [currentBackgroundColor, setCurrentBackgroundColor] = useState(backgroundColor);
 
@@ -70,14 +70,14 @@ const Playlist: React.FC<PlaylistProps> = ({
 			onClick={handleClick}
 			tabIndex={tabIndex}
 			onKeyDown={(e) => {
-				if (e.key === 'Enter' || e.key === ' ') handleClick();
-			  }}
+				if (e.key === "Enter" || e.key === " ") handleClick();
+			}}
 			style={{ backgroundColor: currentBackgroundColor }}
 			role="button"
-			>
+		>
 			<div className="playlist-icon">{icon}</div>
 			<h3>{name}</h3>
-			</article>
+		</article>
 	);
 };
 

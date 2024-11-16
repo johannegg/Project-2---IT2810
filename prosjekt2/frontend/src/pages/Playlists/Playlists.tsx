@@ -72,10 +72,10 @@ const Playlists = () => {
 								onClick={() => handlePlaylistClick(playlist)}
 								tabIndex={0}
 								onKeyDown={(e) => {
-									if (e.key === 'Enter' || e.key === ' ') {
-									  handlePlaylistClick(playlist);
+									if (e.key === "Enter" || e.key === " ") {
+										handlePlaylistClick(playlist);
 									}
-								  }}
+								}}
 							/>
 						))
 					)}

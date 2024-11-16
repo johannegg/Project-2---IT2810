@@ -19,8 +19,8 @@ type AllSongsListProps = {
 
 export function AllSongsList({
 	songs,
-	genres, 
-	maxViews, 
+	genres,
+	maxViews,
 	minViews,
 	isInPlaylist,
 	playlistId,
@@ -29,9 +29,8 @@ export function AllSongsList({
 	const navigate = useNavigate();
 
 	const filteredSongs = songs
-	.filter((song) => (genres.length > 0 ? genres.includes(song.genre.name) : true)) // Filter by genre if genres are selected
-	.filter((song) => song.views >= (minViews ?? 0) && song.views <= (maxViews ?? Infinity)); // Filter by views within minViews and maxViews
-
+		.filter((song) => (genres.length > 0 ? genres.includes(song.genre.name) : true)) // Filter by genre if genres are selected
+		.filter((song) => song.views >= (minViews ?? 0) && song.views <= (maxViews ?? Infinity)); // Filter by views within minViews and maxViews
 
 	return (
 		<section className="songContainer">
@@ -41,20 +40,23 @@ export function AllSongsList({
 				<table className="songTable">
 					<tbody>
 						{filteredSongs.map((song) => (
-							<tr 
-								key={song.id} 
-								className="tableRow" 
+							<tr
+								key={song.id}
+								className="tableRow"
 								onClick={(e) => {
-								if (!(e.target instanceof HTMLButtonElement)) {
-									routeChange(song, navigate);
-								}
+									if (!(e.target instanceof HTMLButtonElement)) {
+										routeChange(song, navigate);
+									}
 								}}
 								tabIndex={0}
 								onKeyDown={(e) => {
-								if (!(e.target instanceof HTMLButtonElement) && (e.key === "Enter" || e.key === " ")) {
-									e.preventDefault();
-									routeChange(song, navigate);
-								}
+									if (
+										!(e.target instanceof HTMLButtonElement) &&
+										(e.key === "Enter" || e.key === " ")
+									) {
+										e.preventDefault();
+										routeChange(song, navigate);
+									}
 								}}
 							>
 								<td className="title-artist-cell">

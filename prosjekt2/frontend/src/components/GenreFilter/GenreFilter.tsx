@@ -75,14 +75,15 @@ export function Filter({
 					<h2>Genre</h2>
 				</section>
 				<section className="categories">
-				{cachedGenreCounts.map((genre: { name: string; count: number }) => (
-						<div className="filterRow" 
+					{cachedGenreCounts.map((genre: { name: string; count: number }) => (
+						<div
+							className="filterRow"
 							key={genre.name}
 							tabIndex={-1}
 							onKeyDown={(event) => handleKeyDown(event, genre.name)}
 							role="checkbox"
 							aria-checked={localSelectedGenres.includes(genre.name)}
-							>
+						>
 							<input
 								type="checkbox"
 								id={genre.name}
@@ -93,12 +94,12 @@ export function Filter({
 								tabIndex={0}
 							/>
 							<label
-							htmlFor={genre.name}
-							className={genre.count === 0 ? "disabled-filter-label" : ""}
-						>
-							{genre.name.charAt(0).toUpperCase() + genre.name.slice(1)}{" "}
-							<span className="filterCount">({genre.count})</span>
-						</label>
+								htmlFor={genre.name}
+								className={genre.count === 0 ? "disabled-filter-label" : ""}
+							>
+								{genre.name.charAt(0).toUpperCase() + genre.name.slice(1)}{" "}
+								<span className="filterCount">({genre.count})</span>
+							</label>
 						</div>
 					))}
 				</section>

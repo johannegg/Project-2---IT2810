@@ -21,16 +21,16 @@
 .sidebar[aria-hidden="true"] {
 	pointer-events: none;
 	visibility: hidden;
-  }
-  
-  .sidebar[aria-hidden="true"] input,
-  .sidebar[aria-hidden="true"] select,
-  .sidebar[aria-hidden="true"] button,
-  .sidebar[aria-hidden="true"] textarea,
-  .sidebar[aria-hidden="true"] a {
+}
+
+.sidebar[aria-hidden="true"] input,
+.sidebar[aria-hidden="true"] select,
+.sidebar[aria-hidden="true"] button,
+.sidebar[aria-hidden="true"] textarea,
+.sidebar[aria-hidden="true"] a {
 	pointer-events: none;
-  }
-  
+}
+
 .close-button {
 	position: absolute;
 	top: 5px;
@@ -81,14 +81,13 @@
 }
 
 .clearFiltersButton {
-    padding: 7px;
-    border: none;
-    border-radius: 8px; 
-    cursor: pointer;
-    font-size: 16px; 
+	padding: 7px;
+	border: none;
+	border-radius: 8px;
+	cursor: pointer;
+	font-size: 16px;
 	background-color: white;
 }
-
 
 @media (max-width: 1050px) {
 	.sidebar {
@@ -114,7 +113,7 @@
 		background-color: var(--theme-even-darker-pink);
 	}
 
-	.clearFiltersButton  {
+	.clearFiltersButton {
 		background-color: var(--theme-almost-black);
 	}
 }

@@ -1,9 +1,9 @@
 .lyrics {
-    position: relative;
-    min-height: 100vh;
-    margin-top: 50px;
-    color: #493843;
-    width: 700px;
+	position: relative;
+	min-height: 100vh;
+	margin-top: 50px;
+	color: #493843;
+	width: 700px;
 }
 
 .lyrics button {
@@ -25,40 +25,39 @@
 	gap: 10px;
 }
 
-
 .buttons-right-container button {
 	border: none;
 	cursor: pointer;
 }
 
 .lyrics h1 {
-    text-align: center;
-    font-size: xx-large;
-    margin-bottom: 0px;
+	text-align: center;
+	font-size: xx-large;
+	margin-bottom: 0px;
 }
 
 .lyrics p {
-    text-align: left;
-    font-size: 18px;
+	text-align: left;
+	font-size: 18px;
 }
 
 .songInfo {
-    display: grid;
-    grid-template-columns: 1fr auto 1fr;
-    justify-content: space-between;
-    align-items: center;
-    padding: 8px;
-    border-radius: 8px;
-    margin-top: 20px;
-    height: auto;
+	display: grid;
+	grid-template-columns: 1fr auto 1fr;
+	justify-content: space-between;
+	align-items: center;
+	padding: 8px;
+	border-radius: 8px;
+	margin-top: 20px;
+	height: auto;
 }
 
 .songInfo > :first-child {
-    justify-self: start;
+	justify-self: start;
 }
 
 .songInfo > :last-child {
-    justify-self: end; 
+	justify-self: end;
 }
 
 .songInfo p {
@@ -68,21 +67,20 @@
 }
 
 hr {
-    display: block; 
-    border: none;
-    height: 2px;
-    background-color: #D5E1BA;
-    margin-bottom: 30px;
-    overflow: hidden;
+	display: block;
+	border: none;
+	height: 2px;
+	background-color: #d5e1ba;
+	margin-bottom: 30px;
+	overflow: hidden;
 }
 
 .viewsInfo {
-    display: flex;
-    flex-direction: row;
-    justify-content: flex-end;
-    align-items: center;
+	display: flex;
+	flex-direction: row;
+	justify-content: flex-end;
+	align-items: center;
 }
-
 
 @media (prefers-color-scheme: dark) {
 	.lyrics {
@@ -94,45 +92,42 @@ hr {
 	}
 }
 
-
 @media (max-width: 760px) {
-    .lyrics {
-        width: 550px;
-    }
+	.lyrics {
+		width: 550px;
+	}
 
-    .lyrics h1 {
-        font-size: 20px;
-        padding-left: 40px;
-        padding-right: 40px;
-    }
+	.lyrics h1 {
+		font-size: 20px;
+		padding-left: 40px;
+		padding-right: 40px;
+	}
 
-    .lyrics h2 {
-        font-size: 18px;
-    }
+	.lyrics h2 {
+		font-size: 18px;
+	}
 
-
-    .lyrics p {
-        font-size: 16px;
-    }
+	.lyrics p {
+		font-size: 16px;
+	}
 }
 
 @media (max-width: 650px) {
-    .lyrics {
-        width: 450px;
-    }
+	.lyrics {
+		width: 450px;
+	}
 }
 
 @media (max-width: 560px) {
-    .lyrics {
-        width: 350px;
-    }
+	.lyrics {
+		width: 350px;
+	}
 
-    .lyrics p {
-        font-size: 14px;
-    }
+	.lyrics p {
+		font-size: 14px;
+	}
 
-    .songInfo p {
-        font-size: 12px;
-    }
+	.songInfo p {
+		font-size: 12px;
+	}
 }
-

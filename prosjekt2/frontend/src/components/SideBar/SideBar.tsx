@@ -65,11 +65,7 @@ export function Sidebar({
 				✕
 			</button>
 			<div className="filteringContainer">
-				<Sort
-					songs={songs}
-					sortOption={sortOption}
-					onSortChange={onSortChange}
-				/>
+				<Sort songs={songs} sortOption={sortOption} onSortChange={onSortChange} />
 				<br />
 				<Filter
 					onGenreChange={onGenreChange}
@@ -80,10 +76,7 @@ export function Sidebar({
 					selectedGenres={selectedGenres}
 				/>
 				<br />
-				<ViewsFilter
-					onViewsChange={onViewsChange}
-					clearFilters={clearFilters}
-				/>
+				<ViewsFilter onViewsChange={onViewsChange} clearFilters={clearFilters} />
 				<br />
 				<button
 					onClick={onClearAllFilters}
