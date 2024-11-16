@@ -5,37 +5,26 @@ import { useMutation } from "@apollo/client";
 import { CREATE_USER } from "../../utils/Queries";
 import "./Profile.css";
 import { useNavigate } from "react-router-dom";
-import { useUserPlaylist } from "../../utils/hooks/useUserPlaylists";
 
 const Profile: React.FC = () => {
 	const [profileName, setProfile] = useState<string>("");
 	const [isLoggedIn, setLogin] = useState<boolean>(false);
 	const [inputValue, setInputValue] = useState<string>("");
 	const [showLogin, setShowLogin] = useState<boolean>(false);
-	// TO-DO: Use query to check if an username is taken
 	const [usernameTaken, setUsernameTaken] = useState<boolean>(false);
 	
 	// Initialize the createUser mutation
 	const [createUser, { loading: creatingUser, error: userError }] = useMutation(CREATE_USER);
-	const { playlists, loading: playlistsLoading, error: playlistsError } = useUserPlaylist(
-		isLoggedIn ? profileName : "" // Only fetch if logged in
-	);
+	
 	const navigate = useNavigate()
 
 	useEffect(() => {
 		const storedProfileName = localStorage.getItem("profileName");
-		console.log(playlists)
 		if (storedProfileName) {
 			setProfile(storedProfileName);
 			setLogin(true);
 		}
 	}, []);
-
-	useEffect(() => {
-		if (playlists && playlists.length > 0) {
-			localStorage.setItem("playlists", JSON.stringify(playlists));
-		}
-	}, [playlists]);
 
 	const logOut = () => {
 		setLogin(false);
@@ -43,6 +32,7 @@ const Profile: React.FC = () => {
 		localStorage.removeItem("favoriteSongs")
 		localStorage.removeItem("playlists");
 		setShowLogin(false);
+		window.dispatchEvent(new Event("authChange"));
 		navigate("/");
 	};
 
@@ -56,11 +46,12 @@ const Profile: React.FC = () => {
 					setProfile(data.createUser.username);
 					setUsernameTaken(false);
 					setLogin(true);
+					window.dispatchEvent(new Event("authChange"));
 					localStorage.setItem("profileName", data.createUser.username);
 					localStorage.setItem("favoriteSongs", JSON.stringify(data.createUser.favoriteSongs));
 				}
 			} catch (error) {
-				console.error("Error creating/accessing user:", error);
+				console.error("Error creating or retriving user:", error);
 			}
 		}
 	};

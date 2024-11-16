@@ -16,17 +16,24 @@ const FavoriteButton = ({ song }: FavoriteProps) => {
 	const [addFavorite] = useMutation(ADD_FAVORITE_SONG);
 	const [removeFavorite] = useMutation(REMOVE_FAVORITE_SONG);
 
+	const checkIfHearted = () => {
+        const favoriteSongs = JSON.parse(localStorage.getItem("favoriteSongs") || "[]");
+        setHearted(favoriteSongs.some((favSong: SongData) => favSong.id === song.id));
+    };
+
 	useEffect(() => {
-		// Check if the song is already favorited (saved in localstorage)
-		const favoriteSongs = JSON.parse(localStorage.getItem("favoriteSongs") || "[]");
-		if (favoriteSongs.some((favSong: SongData) => favSong.id === song.id)) {
-			setHearted(true);
-		}
+		checkIfHearted();
+		const handleAuthChange = () => checkIfHearted();
+        window.addEventListener("authChange", handleAuthChange);
+
+        return () => {
+            window.removeEventListener("authChange", handleAuthChange);
+        };
 	}, [song]);
 
 	const handleFavorite = async (e: React.MouseEvent<HTMLButtonElement>) => {
 		e.stopPropagation();
-
+		
 		const favoriteSongs: SongData[] = JSON.parse(localStorage.getItem("favoriteSongs") || "[]");
 		const storedUsername = localStorage.getItem("profileName");
 		if (storedUsername == "" || !storedUsername) {
@@ -34,7 +41,7 @@ const FavoriteButton = ({ song }: FavoriteProps) => {
 			localStorage.removeItem("favoriteSongs")
 			return
 		}
-		else if (hearted) {
+		if (hearted) {
 			// Remove song from favorites when toggling a already hearted the favorite button
 			const updatedFavorites = favoriteSongs.filter((favoriteSong) => favoriteSong.id !== song.id);
 			localStorage.setItem("favoriteSongs", JSON.stringify(updatedFavorites));
