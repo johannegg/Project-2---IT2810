@@ -49,7 +49,6 @@
 	background-color: var(--theme-green);
 }
 
-/* Tooltip-stil */
 .iconContainer::after {
 	content: "Search";
 	position: absolute;
