@@ -49,6 +49,34 @@
 	background-color: var(--theme-green);
 }
 
+/* Tooltip-stil */
+.iconContainer::after {
+	content: "Search";
+	position: absolute;
+	top: 100%;
+	left: 50%;
+	transform: translateX(-50%);
+	background-color: #fff;
+	color: #555;
+	padding: 3px 8px;
+	border-radius: 4px;
+	border: 1px solid #d4d4d4;
+	white-space: nowrap;
+	font-size: 12px;
+	font-weight: bold;
+	opacity: 0;
+	pointer-events: none;
+	transition: opacity 0.3s ease, transform 0.3s ease;
+	z-index: 10;
+	box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.iconContainer:hover::after,
+.iconContainer:focus::after {
+	opacity: 1;
+	transform: translateX(-50%) translateY(5px);
+}
+
 .clearButton {
 	position: absolute;
 	left: 20px;
