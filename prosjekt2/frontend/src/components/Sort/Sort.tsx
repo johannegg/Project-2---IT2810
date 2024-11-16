@@ -7,6 +7,7 @@ type SortProps = {
     songs: SongData[];
     sortOption: string;
     onSortChange: (newSort: string) => void;
+    tabIndex?: number;
 };
 
 const Sort: React.FC<SortProps> = ({ sortOption, onSortChange }) => {

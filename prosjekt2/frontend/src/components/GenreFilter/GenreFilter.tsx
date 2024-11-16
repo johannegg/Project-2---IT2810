@@ -7,6 +7,7 @@ interface FilterProps {
 	songs: SongData[];
 	clearFilters: boolean;
 	onGenreChange: (selectedGenres: string[]) => void;
+	tabIndex?: number;
 }
 
 export function Filter({ songs, onGenreChange, clearFilters }: FilterProps) {
