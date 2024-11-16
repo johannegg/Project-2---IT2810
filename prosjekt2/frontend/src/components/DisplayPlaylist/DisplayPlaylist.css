@@ -46,12 +46,14 @@
 	align-self: flex-end;
 	font-size: 35px;
 	color: var(--theme-pink);
+	position: relative;
 }
 
 .delete-playlist-button::after {
 	content: "Delete playlist";
-	position: relative;
-	bottom: -35px;
+	position: absolute;
+	top: 100%;
+	left: 50%;
 	transform: translateX(-50%);
 	background-color: #fff;
 	padding: 3px 8px;
@@ -63,8 +65,9 @@
 	font-weight: bold;
 	color: #555;
 	pointer-events: none;
-	transition: opacity 0.3s ease;
-	z-index: 1;
+	transition: opacity 0.3s ease, transform 0.3s ease;
+	z-index: 10;
+	box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 .delete-playlist-button:hover::after,
