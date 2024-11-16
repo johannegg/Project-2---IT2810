@@ -5,24 +5,13 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faHeart } from "@fortawesome/free-regular-svg-icons";
 import { BsMusicNoteList } from "react-icons/bs";
 import Profile from "../Profile/Profile";
-import { useState, useEffect } from "react";
 
 const Header: React.FC = () => {
-	const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
 	const navigate = useNavigate();
-
-	useEffect(() => {
-		const username = localStorage.getItem("profileName");
-		if (username && username !== "") {
-			setIsLoggedIn(true);
-		}
-	}, []);
-	
-
 	const handleNavigation = (path: string) => {
 		const username = localStorage.getItem("profileName");
 		if (username && username !== "") {
-			setIsLoggedIn(true);
+			
 			navigate(path);
 		} else {
 			alert("You need to log in to access this page.");
