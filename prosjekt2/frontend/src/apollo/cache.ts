@@ -43,7 +43,7 @@ export const maxViewsVar = makeVar<number>(savedMaxViews);
 export const homeSearchTermVar = makeVar<string>(savedHomeSearchTerm);
 export const favoritesSearchTermVar = makeVar<string>(savedFavoritesSearchTerm);
 export const favoriteSongsVar = makeVar<SongData[]>(savedFavoriteSongs);
-export const playlistsVar = makeVar<PlaylistData[]>(savedPlaylists);  
+export const playlistsVar = makeVar<PlaylistData[]>(savedPlaylists);
 export const songDataVar = makeVar<SongData[]>([]);
 
 // Configure cache with reactive variables
@@ -132,7 +132,7 @@ favoriteSongsVar.onNextChange((newFavorites) => {
 
 playlistsVar.onNextChange((newPlaylists) => {
   localStorage.setItem("playlists", JSON.stringify(newPlaylists));
-  window.dispatchEvent(new Event("storage")); 
+  window.dispatchEvent(new Event("storage"));
 });
 
 export default cache;

@@ -11,11 +11,11 @@ type UseCachedSongsProps = {
 };
 
 export const useCachedSongs = ({
-  searchTerm,
   selectedGenres,
+  sortOption,
+  searchTerm,
   minViews,
   maxViews,
-  sortOption,
 }: UseCachedSongsProps) => {
   const [hasMoreSongs, setHasMoreSongs] = useState(true);
 
@@ -36,7 +36,7 @@ export const useCachedSongs = ({
   });
 
   const loadMoreSongs = () => {
-    if (!data?.songs || !hasMoreSongs) return; 
+    if (!data?.songs || !hasMoreSongs) return;
 
     fetchMore({
       variables: {
@@ -47,7 +47,7 @@ export const useCachedSongs = ({
         if (!fetchMoreResult) return previousResult;
 
         if (fetchMoreResult.songs.length < 30) {
-          setHasMoreSongs(false); 
+          setHasMoreSongs(false);
         }
 
         return {
@@ -61,7 +61,7 @@ export const useCachedSongs = ({
   };
 
   useEffect(() => {
-    setHasMoreSongs(true); 
+    setHasMoreSongs(true);
     refetch({
       skip: 0,
       limit: 30,
@@ -80,6 +80,6 @@ export const useCachedSongs = ({
     isLoading: loading,
     error,
     loadMoreSongs,
-    hasMoreSongs, 
+    hasMoreSongs,
   };
 };

@@ -3,8 +3,8 @@ import { Filter } from "../GenreFilter/GenreFilter";
 import { ViewsFilter } from "../ViewsFilter/ViewsFilter";
 import Sort from "../Sort/Sort";
 import { SongData } from "../../utils/types/SongTypes";
-import { useReactiveVar } from "@apollo/client"; // Importer useReactiveVar
-import { genreFilterVar, sortOptionVar } from "../../apollo/cache"; // Importer sortOptionVar
+import { useReactiveVar } from "@apollo/client"; 
+import { genreFilterVar, sortOptionVar } from "../../apollo/cache"; 
 import { useEffect } from "react";
 
 type SidebarProps = {
@@ -16,6 +16,11 @@ type SidebarProps = {
 	isOpen: boolean;
 	clearFilters: boolean;
 	onClearAllFilters: () => void;
+	searchTerm: string;
+	minViews: number;
+	maxViews: number;
+	selectedGenres: string[] | null;
+	sortOption: string;
 };
 
 export function Sidebar({
@@ -27,8 +32,12 @@ export function Sidebar({
 	isOpen,
 	clearFilters,
 	onClearAllFilters,
+	searchTerm,
+	minViews,
+	maxViews,
+	selectedGenres,
 }: SidebarProps) {
-	const sortOption = useReactiveVar(sortOptionVar); // Hent sortOption direkte
+	const sortOption = useReactiveVar(sortOptionVar); 
 
 	const toggleMenu = () => {
 		onToggle(!isOpen);
@@ -36,7 +45,7 @@ export function Sidebar({
 
 	useEffect(() => {
 		if (clearFilters) {
-			genreFilterVar([]); // Nullstill Apollo sin reactive var
+			genreFilterVar([]); 
 		}
 	}, [clearFilters]);
 
@@ -48,11 +57,18 @@ export function Sidebar({
 			<div className="filteringContainer">
 				<Sort songs={songs} sortOption={sortOption} onSortChange={onSortChange} />
 				<br />
-				<Filter onGenreChange={onGenreChange} songs={songs} />
+				<Filter
+					onGenreChange={onGenreChange}
+					clearFilters={clearFilters}
+					searchTerm={searchTerm}
+					minViews={minViews}
+					maxViews={maxViews}
+					selectedGenres={selectedGenres}
+				/>
 				<br />
 				<ViewsFilter onViewsChange={onViewsChange} clearFilters={clearFilters} />
 				<br />
-				<button onClick={onClearAllFilters} className="clearFiltersButton">
+				<button onClick={onClearAllFilters} className="clearFiltersButton" type="button">
 					Clear filters
 				</button>
 			</div>

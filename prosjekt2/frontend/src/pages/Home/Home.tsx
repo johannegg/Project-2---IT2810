@@ -6,6 +6,7 @@ import { FilterButton } from "../../components/SideBar/FilterButton/FilterButton
 import { useCachedSongs } from "../../utils/hooks/useCachedSongs";
 import { genreFilterVar, minViewsVar, maxViewsVar, sortOptionVar, homeSearchTermVar } from "../../apollo/cache";
 import { useReactiveVar } from "@apollo/client";
+import { useSongCount } from "../../utils/hooks/useSongCount";
 import "./Home.css";
 
 const Home = () => {
@@ -19,34 +20,58 @@ const Home = () => {
   const [showLoading, setShowLoading] = useState(false);
   const [clearFilters, setClearFilters] = useState(false);
 
-  useEffect(() => {
-    sessionStorage.setItem("selectedGenres", JSON.stringify(selectedGenres));
-  }, [selectedGenres]);
+  const { songCount, isLoading: isSongCountLoading, refetch: refetchSongCount } = useSongCount(
+    selectedGenres,
+    searchTerm,
+    minViews,
+    maxViews
+  );
 
   const { songs, isLoading, error, loadMoreSongs, hasMoreSongs } = useCachedSongs({
     searchTerm,
-    selectedGenres,
+    selectedGenres: selectedGenres || [],
     minViews,
     maxViews,
     sortOption,
   });
 
   useEffect(() => {
+    refetchSongCount();
+  }, []); 
+
+  // Loading delay for songs
+  useEffect(() => {
     let loadingTimeout: NodeJS.Timeout;
-    if (isLoading) {
+    if (isLoading || isSongCountLoading) {
       loadingTimeout = setTimeout(() => setShowLoading(true), 500);
     } else {
       setShowLoading(false);
     }
     return () => clearTimeout(loadingTimeout);
-  }, [isLoading]);
+  }, [isLoading, isSongCountLoading]);
 
-  const toggleSidebar = () => {
-    setIsSidebarOpen((prev) => !prev);
+  const handleGenreChange = (genres: string[]) => {
+    genreFilterVar(genres.length > 0 ? genres : []);
+    refetchSongCount(); 
+  };
+
+  const handleViewsChange = (newMinViews: number, newMaxViews: number) => {
+    minViewsVar(newMinViews);
+    maxViewsVar(newMaxViews);
+    refetchSongCount(); 
+  };
+
+  const handleSortChange = (newSortOption: string) => {
+    sortOptionVar(newSortOption);
   };
 
   const handleSearchSubmit = (term: string) => {
     homeSearchTermVar(term);
+    refetchSongCount();
+  };
+
+  const toggleSidebar = () => {
+    setIsSidebarOpen((prev) => !prev);
   };
 
   const clearAllFilters = () => {
@@ -54,13 +79,11 @@ const Home = () => {
     sortOptionVar("views_desc");
     minViewsVar(0);
     maxViewsVar(1000000);
-    sessionStorage.setItem("selectedGenres", JSON.stringify([]));
-    sessionStorage.setItem("sortOption", "views_desc");
-    sessionStorage.setItem("minViews", "0");
-    sessionStorage.setItem("maxViews", "1000000");
 
     setClearFilters(true);
     setTimeout(() => setClearFilters(false), 0);
+
+    refetchSongCount();
   };
 
   if (error) return <p>Error loading songs: {error?.message}</p>;
@@ -68,16 +91,18 @@ const Home = () => {
   return (
     <>
       <Sidebar
-        onGenreChange={(genres) => genreFilterVar(genres)}
-        onSortChange={(sort) => sortOptionVar(sort)}
+        onGenreChange={handleGenreChange}
+        sortOption={sortOption}
+        onSortChange={handleSortChange}
         songs={songs}
         onToggle={setIsSidebarOpen}
         isOpen={isSidebarOpen}
-        onViewsChange={(min, max) => {
-          minViewsVar(min);
-          maxViewsVar(max);
-        }}
+        onViewsChange={handleViewsChange}
         clearFilters={clearFilters}
+        selectedGenres={selectedGenres}
+        searchTerm={searchTerm}
+        minViews={minViews}
+        maxViews={maxViews}
         onClearAllFilters={clearAllFilters}
       />
       <section className={`homeComponents ${isSidebarOpen ? "shifted" : ""}`}>
@@ -90,12 +115,22 @@ const Home = () => {
         {showLoading ? (
           <p>Loading songs...</p>
         ) : (
-          <section className="allSongsContainer">
-            <AllSongsList songs={songs} genres={selectedGenres || []} maxViews={maxViews} minViews={minViews} />
+          <section className="searchResults">
+            <p className="numberOfResults">
+              <span className="resultNumber">{songCount}</span> results
+            </p>
+            <section className="allSongsContainer">
+              <AllSongsList
+                songs={songs}
+                genres={selectedGenres || []}
+                maxViews={maxViews}
+                minViews={minViews}
+              />
+            </section>
           </section>
         )}
-        {(!isLoading && hasMoreSongs) && (
-          <button className="loadMoreButton" onClick={loadMoreSongs}>
+        {!isLoading && hasMoreSongs && (
+          <button className="loadMoreButton" onClick={loadMoreSongs} type="button">
             Load More Songs
           </button>
         )}
