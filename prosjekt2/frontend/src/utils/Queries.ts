@@ -18,3 +18,26 @@ export const GET_SONGS = gql`
         }
     }
 `;
+
+export const CREATE_USER = gql`
+	mutation CreateUser($username: String!) {
+		createUser(username: $username) {
+			id
+			username
+			favoriteSongs {
+				id
+				title
+				views
+				year
+				lyrics
+				artist {
+					name
+					id
+				}
+				genre {
+					name
+				}
+			}
+		}
+	}
+`;
