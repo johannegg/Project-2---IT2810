@@ -4,9 +4,9 @@ import Playlist from "../../components/Playlist/Playlist";
 import PlaylistForm from "../../components/PlaylistForm/PlaylistForm";
 import { SongData } from "../../utils/types/SongTypes";
 import { useLocation, useNavigate } from "react-router-dom";
-import { v4 as uuidv4 } from "uuid";
 import { useMutation } from "@apollo/client";
 import { CREATE_PLAYLIST, DELETE_PLAYLIST } from "../../utils/Queries";
+import { useUserPlaylist } from "../../utils/hooks/useUserPlaylists";
 
 export interface PlaylistData {
 	id: string;
@@ -19,93 +19,69 @@ export interface PlaylistData {
 const Playlists = () => {
 	const navigate = useNavigate();
 	const location = useLocation();
+	const [showForm, setShowForm] = useState(false);
+	const [showLoading, setShowLoading] = useState(false);
+	const profileName = localStorage.getItem("profileName");
 
-	const defaultPlaylists: PlaylistData[] = [
-		{
-			id: uuidv4(),
-			name: "My playlist 1",
-			backgroundcolor: "#ffffff",
-			icon: "🎵",
-			songs: [
-				{
-					id: "0",
-					title: "Song A",
-					artist: { id: "id1", name: "Artist 1" },
-					year: 2015,
-					views: 500,
-					lyrics: "...",
-					genre: { name: "pop" },
-				},
-				{
-					id: "1",
-					title: "Song B",
-					artist: { id: "id2", name: "Artist 2" },
-					year: 2016,
-					views: 500,
-					lyrics: "...",
-					genre: { name: "pop" },
-				},
-			],
-		},
-		{
-			id: uuidv4(),
-			name: "My playlist 2",
-			backgroundcolor: "#ffffff",
-			icon: "🎧",
-			songs: [
-				{
-					id: "2",
-					title: "Song C",
-					artist: { id: "id3", name: "Artist 3" },
-					year: 2015,
-					views: 300,
-					lyrics: "...",
-					genre: { name: "pop" },
-				},
-				{
-					id: "3",
-					title: "Song D",
-					artist: { id: "id4", name: "Artist 4" },
-					year: 2015,
-					views: 500,
-					lyrics: "...",
-					genre: { name: "pop" },
-				},
-			],
-		},
-	];
+	const [createPlaylist] = useMutation(CREATE_PLAYLIST);
+	const [deletePlaylistMutation] = useMutation(DELETE_PLAYLIST);
+
+	const defaultPlaylists: PlaylistData[] = [];
+
+	const {
+		playlists: fetchedPlaylists,
+		loading: playlistsLoading,
+		error: playlistsError,
+		refetch,
+	} = useUserPlaylist(profileName ? profileName : "");
 
 	const [playlists, setPlaylists] = useState<PlaylistData[]>(() => {
+		refetch();
 		const storedPlaylists = localStorage.getItem("playlists");
 		const userPlaylists = storedPlaylists ? JSON.parse(storedPlaylists) : [];
 		return [...defaultPlaylists, ...userPlaylists];
 	});
-
-	const [showForm, setShowForm] = useState(false);
-	// Mutations for creating and deleting playlists
-	const [createPlaylist] = useMutation(CREATE_PLAYLIST);
-	const [deletePlaylistMutation] = useMutation(DELETE_PLAYLIST);
+	useEffect(() => {
+		if (fetchedPlaylists && fetchedPlaylists.length > 0) {
+			localStorage.setItem("playlists", JSON.stringify(fetchedPlaylists));
+			setPlaylists(fetchedPlaylists);
+		}
+	}, [fetchedPlaylists]);
 
 	useEffect(() => {
 		const userPlaylists = playlists.slice(defaultPlaylists.length);
 		localStorage.setItem("playlists", JSON.stringify(userPlaylists));
 	}, [defaultPlaylists.length, playlists]);
 
+	useEffect(() => {
+		let loadingTimeout: NodeJS.Timeout;
+		if (playlistsLoading) {
+			loadingTimeout = setTimeout(() => setShowLoading(true), 500); // Added delay
+		} else {
+			setShowLoading(false);
+		}
+		return () => clearTimeout(loadingTimeout); // Cleanup on unmount or if loading changes
+	}, [playlistsLoading]);
+
 	const addNewPlaylist = async (newPlaylistName: string, backgroundColor: string, icon: string) => {
 		try {
 			// Call the createPlaylist mutation
 			const { data } = await createPlaylist({
 				variables: {
-					username: localStorage.getItem("profileName"),
+					username: profileName,
 					name: newPlaylistName,
 					backgroundcolor: backgroundColor,
 					icon: icon,
 				},
 			});
-
+			refetch();
 			// Update the state with the response from the server
 			const createdPlaylist = data.createPlaylist;
-			setPlaylists([...defaultPlaylists, ...playlists.slice(defaultPlaylists.length), createdPlaylist]);
+			setPlaylists([
+				...defaultPlaylists,
+				...playlists.slice(defaultPlaylists.length),
+				createdPlaylist,
+			]);
 		} catch (error) {
 			console.error("Error creating playlist:", error);
 		}
@@ -119,7 +95,6 @@ const Playlists = () => {
 					playlistId,
 				},
 			});
-			console.log(playlistId)
 			// Remove the playlist locally
 			const updatedPlaylists = playlists.filter((playlist) => playlist.id !== playlistId);
 			setPlaylists(updatedPlaylists);
@@ -129,14 +104,14 @@ const Playlists = () => {
 	};
 
 	useEffect(() => {
-        // Check if a playlist deletion is requested in location.state
-        const deletedPlaylistId = location.state?.deletedPlaylistId;
-        if (deletedPlaylistId) {
-            deletePlaylist(deletedPlaylistId);
-            // Clear the deletion flag from location.state to avoid repeating the deletion
-            navigate("/playlists", { replace: true });
-        }
-    }, [location.state]);
+		// Check if a playlist deletion is requested in location.state
+		const deletedPlaylistId = location.state?.deletedPlaylistId;
+		if (deletedPlaylistId) {
+			deletePlaylist(deletedPlaylistId);
+			// Clear the deletion flag from location.state to avoid repeating the deletion
+			navigate("/playlists", { replace: true });
+		}
+	}, [location.state]);
 
 	const handlePlaylistClick = (playlist: PlaylistData) => {
 		navigate(`/playlist/${playlist.id}`, { state: { playlist } });
@@ -145,12 +120,13 @@ const Playlists = () => {
 	return (
 		<section className="playlists-page">
 			<h1>Your Playlists</h1>
-
 			<PlaylistForm show={showForm} onClose={() => setShowForm(false)} onSubmit={addNewPlaylist} />
 			<div className="outer-playlist-container">
-				<button onClick={() => setShowForm(true)} className="new-playlist-button">
-					New Playlist
-				</button>
+				{!showLoading && (
+					<button onClick={() => setShowForm(true)} className="new-playlist-button">
+						New Playlist
+					</button>
+				)}
 				<div className="playlists-container">
 					{playlists.map((playlist) => (
 						<Playlist
@@ -164,6 +140,8 @@ const Playlists = () => {
 						/>
 					))}
 				</div>
+				{showLoading && <p>Loading playlists</p>}
+				{playlistsError && <p>Error loading playlists</p>}
 			</div>
 		</section>
 	);

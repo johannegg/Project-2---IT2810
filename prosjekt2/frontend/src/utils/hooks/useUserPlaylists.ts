@@ -2,11 +2,11 @@ import { useQuery } from "@apollo/client";
 import { GET_USER_PLAYLISTS } from "../Queries";
 
 export const useUserPlaylist = (username: string) => {
-  const { data, error, loading } = useQuery(GET_USER_PLAYLISTS, {
+  const { data, error, loading, refetch } = useQuery(GET_USER_PLAYLISTS, {
     variables: { username },
     fetchPolicy: "cache-first",
   });
 
   // Safely access the playlists data or return an empty array if undefined
-  return { playlists: data?.fetchPlaylists || [], error, loading };
+  return { playlists: data?.fetchPlaylists || [], error, loading, refetch };
 };
