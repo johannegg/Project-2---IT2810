@@ -95,7 +95,6 @@
 }
 
 .dropdown-content a:hover {
-    background-color: #f1f1f1;
     color: var(--theme-dark-pink);
 }
 
@@ -145,22 +144,6 @@
 }
 
 @media (prefers-color-scheme: dark) {
-	.header {
-		background-color: var(--theme-even-darker-green);
-	}
-
-	.header-title {
-		color: white;
-	}
-
-	.navButton:hover {
-		border-color: var(--theme-dark-pink);
-	}
-}
-
-
-
-@media (prefers-color-scheme: dark) {
 	.login-form {
         background-color: black;
     }
@@ -184,5 +167,9 @@
 
     .login-overlay {
         background-color: rgba(28, 28, 28, 0.8);;
+    }
+
+    .profileName {
+        color: black;
     }
 }
