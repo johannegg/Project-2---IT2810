@@ -119,7 +119,7 @@ const Profile: React.FC = () => {
 											className="profile-login-icon"
 											icon={faCircleUser}
 											size="lg"
-											style={{ color: "#E27396" }}
+											style={{ color: "#ea9ab2" }}
 										/>
 										<input
 											className="login-input"

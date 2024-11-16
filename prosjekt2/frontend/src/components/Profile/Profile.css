@@ -52,10 +52,18 @@
 }
 
 .login-button {
-    background-color: #E27396;
     border-top-right-radius: inherit;
     border-bottom-right-radius: inherit;
     padding: 5px 10px;
+    background-color: #ea9ab2;
+	color: #000;
+	border: none;
+	border-radius: 5px;
+	cursor: pointer;
+}
+
+.login-button:hover {
+	background-color: #d9829f;
 }
 
 .dropdown {
