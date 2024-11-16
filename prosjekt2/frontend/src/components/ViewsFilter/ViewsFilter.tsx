@@ -18,10 +18,10 @@ export function ViewsFilter({ onViewsChange, clearFilters }: ViewsFilterProps) {
   useEffect(() => {
     const initialMinViews = Number(sessionStorage.getItem("minViews")) || 0;
     const initialMaxViews = Number(sessionStorage.getItem("maxViews")) || 1000000;
-    
+
     minViewsVar(initialMinViews);
     maxViewsVar(initialMaxViews);
-    
+
     onViewsChange(initialMinViews, initialMaxViews);
   }, [onViewsChange]);
 
@@ -29,6 +29,10 @@ export function ViewsFilter({ onViewsChange, clearFilters }: ViewsFilterProps) {
     if (clearFilters) {
       minViewsVar(0);
       maxViewsVar(1000000);
+
+      sessionStorage.setItem("minViews", "0");
+      sessionStorage.setItem("maxViews", "1000000");
+
       onViewsChange(0, 1000000);
     }
   }, [clearFilters, onViewsChange]);
@@ -41,8 +45,9 @@ export function ViewsFilter({ onViewsChange, clearFilters }: ViewsFilterProps) {
 
   const handleAfterSliderChange = (values: number[]) => {
     const [newMinViews, newMaxViews] = values;
+
     onViewsChange(newMinViews, newMaxViews);
-    
+
     sessionStorage.setItem("minViews", String(newMinViews));
     sessionStorage.setItem("maxViews", String(newMaxViews));
   };
