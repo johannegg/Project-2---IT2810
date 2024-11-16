@@ -41,16 +41,21 @@ export function AllSongsList({
 				<table className="songTable">
 					<tbody>
 						{filteredSongs.map((song) => (
-							<tr key={song.id} 
+							<tr 
+								key={song.id} 
 								className="tableRow" 
-								onClick={() => routeChange(song, navigate)}
+								onClick={(e) => {
+								if (!(e.target instanceof HTMLButtonElement)) {
+									routeChange(song, navigate);
+								}
+								}}
 								tabIndex={0}
 								onKeyDown={(e) => {
-									if (e.key === "Enter" || e.key === " ") {
-									  e.preventDefault();
-									  routeChange(song, navigate);
-									}
-								  }}
+								if (!(e.target instanceof HTMLButtonElement) && (e.key === "Enter" || e.key === " ")) {
+									e.preventDefault();
+									routeChange(song, navigate);
+								}
+								}}
 							>
 								<td className="title-artist-cell">
 									<span className="titleCell">{song.title}</span>
