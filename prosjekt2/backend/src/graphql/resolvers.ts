@@ -144,7 +144,7 @@ export const resolvers = {
                   name: song.genre.name
                 }
               }))
-            : [], // Return an empty array if no songs are present
+            : [],
         };
       });
     },
@@ -350,7 +350,7 @@ export const resolvers = {
         { username },
       );
       const isDeleted = records[0].get("userDeleted");
-      return isDeleted > 0;
+      return isDeleted;
     },
 
     addFavoriteSong: async (
@@ -363,12 +363,12 @@ export const resolvers = {
         `
         MATCH (user:User {username: $username}), (song:Song {id: $songId})
         MERGE (user)-[:HAS_FAVORITES]->(song)
-        RETURN COUNT(song) > 0 AS count
+        RETURN COUNT(song) > 0 AS songAdded
         `,
         { username, songId },
       );
-      const isAdded = records[0].get("count");
-      return isAdded > 0;
+      const isAdded = records[0].get("songAdded");
+      return isAdded;
     },
 
     removeFavoriteSong: async (
@@ -381,12 +381,12 @@ export const resolvers = {
         `
         MATCH (user:User {username: $username})-[f:HAS_FAVORITES]->(song:Song {id: $songId})
         DELETE f
-        RETURN COUNT(f) > 0 AS count
+        RETURN COUNT(f) > 0 AS songRemoved
         `,
         { username, songId },
       );
-      const isRemoved = records[0].get("count");
-      return isRemoved > 0;
+      const isRemoved = records[0].get("songRemoved");
+      return isRemoved;
     },
 
     createPlaylist: async (
@@ -434,13 +434,13 @@ export const resolvers = {
         driver,
         `
         MATCH (user:User {username: $username})-[o:OWNS]->(playlist:Playlist {id: $playlistId})
-        DELETE o
-        RETURN COUNT(o) > 0 AS count
+        DELETE o, playlist
+        RETURN COUNT(o) > 0 AS playlistDeleted
         `,
         { username, playlistId },
       );
-      const isRemoved = records[0].get("count");
-      return isRemoved > 0;
+      const isRemoved = records[0].get("playlistDeleted");
+      return isRemoved;
     },
 
     addSongToPlaylist: async (
