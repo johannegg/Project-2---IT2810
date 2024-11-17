@@ -16,7 +16,7 @@
 .header-content {
 	display: flex;
 	align-items: center;
-	width: 100%;
+	width: auto;
 	max-width: 1200px;
 	margin: 0 auto;
 	position: relative;
@@ -126,6 +126,12 @@
 
 	.navIcon {
 		font-size: 24px;
+	}
+
+	.sofa-icon {
+		height: 45px;
+		width: 45px;
+		margin-right: 10px;
 	}
 }
 

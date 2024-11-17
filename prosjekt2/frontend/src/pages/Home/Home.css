@@ -127,7 +127,7 @@
 
 @media (max-width: 450px) {
 	.allSongsContainer {
-		width: 95%;
+		width: 100%;
 	}
 
 	.filterButtonContainer {
@@ -137,7 +137,7 @@
 
 @media (max-width: 400px) {
 	.allSongsContainer {
-		width: 90%;
+		width: 100%;
 	}
 
 	.filterButtonContainer {
