@@ -2,26 +2,23 @@ import "./GenreFilter.css";
 import { FaFilter } from "react-icons/fa";
 import { useGenreCounts } from "../../utils/hooks/useGenreCounts";
 import { useReactiveVar } from "@apollo/client";
-import { genreFilterVar } from "../../apollo/cache";
+import { genreFilterVar, maxViewsVar, minViewsVar } from "../../apollo/cache";
 import { useEffect, useState } from "react";
 
 interface FilterProps {
 	onGenreChange: (selectedGenres: string[]) => void;
 	clearFilters: boolean;
 	searchTerm: string;
-	minViews: number;
-	maxViews: number;
-	selectedGenres: string[] | null;
 }
 
 export function Filter({
 	onGenreChange,
 	clearFilters,
 	searchTerm,
-	minViews,
-	maxViews,
-	selectedGenres,
 }: FilterProps) {
+	const minViews = useReactiveVar(minViewsVar);
+	const maxViews = useReactiveVar(maxViewsVar);
+	const selectedGenres = useReactiveVar(genreFilterVar);
 	const selectedGenresFromApollo = useReactiveVar(genreFilterVar);
 	const { genreCounts, isLoading } = useGenreCounts(searchTerm, minViews, maxViews, selectedGenres);
 	const [localSelectedGenres, setLocalSelectedGenres] = useState<string[]>(

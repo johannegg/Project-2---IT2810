@@ -4,13 +4,7 @@ import { ViewsFilter } from "../ViewsFilter/ViewsFilter";
 import Sort from "../Sort/Sort";
 import { SongData } from "../../utils/types/SongTypes";
 import { useReactiveVar } from "@apollo/client";
-import {
-	isSidebarOpenVar,
-	genreFilterVar,
-	sortOptionVar,
-	minViewsVar,
-	maxViewsVar,
-} from "../../apollo/cache";
+import { isSidebarOpenVar, genreFilterVar, sortOptionVar } from "../../apollo/cache";
 import { useEffect, useRef } from "react";
 
 type SidebarProps = {
@@ -36,9 +30,6 @@ export function Sidebar({
 }: SidebarProps) {
 	const isSidebarOpen = useReactiveVar(isSidebarOpenVar);
 	const sortOption = useReactiveVar(sortOptionVar);
-	const selectedGenres = useReactiveVar(genreFilterVar);
-	const minViews = useReactiveVar(minViewsVar);
-	const maxViews = useReactiveVar(maxViewsVar);
 
 	const sidebarRef = useRef<HTMLDivElement>(null);
 
@@ -77,14 +68,7 @@ export function Sidebar({
 			<div className="filteringContainer">
 				<Sort songs={songs} sortOption={sortOption} onSortChange={onSortChange} />
 				<br />
-				<Filter
-					onGenreChange={onGenreChange}
-					clearFilters={clearFilters}
-					searchTerm={searchTerm}
-					minViews={minViews}
-					maxViews={maxViews}
-					selectedGenres={selectedGenres}
-				/>
+				<Filter onGenreChange={onGenreChange} clearFilters={clearFilters} searchTerm={searchTerm} />
 				<br />
 				<ViewsFilter onViewsChange={onViewsChange} clearFilters={clearFilters} />
 				<br />
