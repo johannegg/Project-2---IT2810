@@ -6,14 +6,11 @@ import { faHeart } from "@fortawesome/free-regular-svg-icons";
 import { BsMusicNoteList } from "react-icons/bs";
 
 const Header: React.FC = () => {
-
 	return (
 		<header className="header">
-			<Link to="/">
-				<a className="header-content">	
-					<img src={couchIcon} alt="Sofa Icon" className="sofa-icon" />
-					<h1 className="header-title">Lyrical Lounge</h1>
-				</a>
+			<Link to="/" className="header-content">
+				<img src={couchIcon} alt="Sofa Icon" className="sofa-icon" />
+				<h1 className="header-title">Lyrical Lounge</h1>
 			</Link>
 			<nav className="navbar">
 				<Link
