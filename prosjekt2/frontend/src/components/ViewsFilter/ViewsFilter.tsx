@@ -52,30 +52,32 @@ export function ViewsFilter({ onViewsChange, clearFilters }: ViewsFilterProps) {
     sessionStorage.setItem("maxViews", String(newMaxViews));
   };
 
-  return (
-    <section className="filterContainer">
-      <section className="filterHeader">
-        <FaFilter className="filterSortIcon" />
-        <h2>Views</h2>
-      </section>
-      <div className="slider">
-        <ReactSlider
-          className="horizontal-slider"
-          thumbClassName="thumb"
-          trackClassName="track"
-          min={0}
-          max={1000000}
-          value={[minViews, maxViews]}
-          onChange={handleSliderChange}
-          onAfterChange={handleAfterSliderChange}
-          renderThumb={({ key, ...rest }) => <div {...rest} key={key} />}
-        />
-        <div className="viewValues">
-          <span>
-            {formatViews(minViews)} - {formatViews(maxViews)}
-          </span>
-        </div>
-      </div>
-    </section>
-  );
+	return (
+		<section className="filterContainer">
+			<section className="filterHeader">
+				<FaFilter className="filterSortIcon" />
+				<h2>Views</h2>
+			</section>
+			<div className="slider" tabIndex={-1}>
+				<ReactSlider
+					className="horizontal-slider"
+					thumbClassName="thumb"
+					trackClassName="track"
+					min={0}
+					max={3000000}
+					value={[minViews, maxViews]}
+					onChange={handleSliderChange}
+					onAfterChange={handleAfterSliderChange}
+					renderThumb={({ key, ...rest }) => (
+						<div {...rest} key={key} tabIndex={-1} className="thumb" />
+					)}
+				/>
+				<div className="viewValues">
+					<span>
+						{formatViews(minViews)} - {formatViews(maxViews)}
+					</span>
+				</div>
+			</div>
+		</section>
+	);
 }

@@ -77,7 +77,8 @@
 	transition: opacity 0.3s ease;
 }
 
-.color-button:hover::after {
+.color-button:hover::after,
+.color-button:focus::after {
 	opacity: 1;
 }
 
@@ -125,7 +126,8 @@
 	z-index: 1;
 }
 
-.icon-button:hover::after {
+.icon-button:hover::after,
+.icon-button:focus::after {
 	opacity: 1;
 }
 

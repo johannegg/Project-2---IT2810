@@ -58,31 +58,37 @@ const Playlists = () => {
     <section className="playlists-page">
       <h1>Your Playlists</h1>
 
-      <PlaylistForm show={showForm} onClose={() => setShowForm(false)} onSubmit={addNewPlaylist} />
-      <div className="outer-playlist-container">
-        <button onClick={() => setShowForm(true)} className="new-playlist-button">
-          New Playlist
-        </button>
-        <div className="playlists-container">
-          {playlists.length === 0 ? (
-            <p>You have no playlists yet.</p>
-          ) : (
-            playlists.map((playlist) => (
-              <Playlist
-                id={playlist.id}
-                key={playlist.id}
-                name={playlist.name}
-                backgroundColor={playlist.backgroundColor}
-                icon={playlist.icon}
-                songs={playlist.songs}
-                onClick={() => handlePlaylistClick(playlist)}
-              />
-            ))
-          )}
-        </div>
-      </div>
-    </section>
-  );
+			<PlaylistForm show={showForm} onClose={() => setShowForm(false)} onSubmit={addNewPlaylist} />
+			<div className="outer-playlist-container">
+				<button onClick={() => setShowForm(true)} className="new-playlist-button">
+					New Playlist
+				</button>
+				<div className="playlists-container">
+					{playlists.length === 0 ? (
+						<p>You have no playlists yet.</p>
+					) : (
+						playlists.map((playlist) => (
+							<Playlist
+								id={playlist.id}
+								key={playlist.id}
+								name={playlist.name}
+								backgroundColor={playlist.backgroundColor}
+								icon={playlist.icon}
+								songs={playlist.songs}
+								onClick={() => handlePlaylistClick(playlist)}
+								tabIndex={0}
+								onKeyDown={(e) => {
+									if (e.key === "Enter" || e.key === " ") {
+										handlePlaylistClick(playlist);
+									}
+								}}
+							/>
+						))
+					)}
+				</div>
+			</div>
+		</section>
+	);
 };
 
 export default Playlists;

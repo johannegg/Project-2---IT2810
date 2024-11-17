@@ -55,42 +55,60 @@ export function Filter({
     genreFilterVar(savedGenres); // Synkroniser Apollo Reactive Vars med sessionStorage
   }, []);
 
-  // Reset genres when clearFilters is true
-  useEffect(() => {
-    if (clearFilters) {
-      setLocalSelectedGenres([]);
-      genreFilterVar([]);
-      sessionStorage.removeItem("selectedGenres");
-    }
-  }, [clearFilters]);
+	// Reset genres when clearFilters is true
+	useEffect(() => {
+		if (clearFilters) {
+			setLocalSelectedGenres([]);
+			onGenreChange([]);
+			sessionStorage.removeItem("selectedGenres");
+		}
+	}, [clearFilters, onGenreChange]);
 
-  return (
-    <section className="filterContainer">
-      <section className="filterHeader">
-        <FaFilter className="filterSortIcon" />
-        <h2>Genre</h2>
-      </section>
-      <section className="categories">
-        {cachedGenreCounts.map((genre: { name: string; count: number }) => (
-          <div className="filterRow" key={genre.name}>
-            <input
-              type="checkbox"
-              id={genre.name}
-              checked={localSelectedGenres.includes(genre.name)}
-              onChange={() => handleGenreChange(genre.name)}
-              disabled={isLoading || genre.count === 0}
-              className={isLoading || genre.count === 0 ? "disabled-filter" : ""}
-            />
-            <label
-              htmlFor={genre.name}
-              className={genre.count === 0 ? "disabled-filter-label" : ""}
-            >
-              {genre.name.charAt(0).toUpperCase() + genre.name.slice(1)}{" "}
-              <span className="filterCount">({genre.count})</span>
-            </label>
-          </div>
-        ))}
-      </section>
-    </section>
-  );
+	// Handle keyboard input for accessibility
+	const handleKeyDown = (event: React.KeyboardEvent<HTMLDivElement>, genre: string) => {
+		if (event.key === "Enter" || event.key === " ") {
+			event.preventDefault();
+			handleGenreChange(genre);
+		}
+	};
+
+	return (
+		<>
+			<section className="filterContainer">
+				<section className="filterHeader">
+					<FaFilter className="filterSortIcon" />
+					<h2>Genre</h2>
+				</section>
+				<section className="categories">
+					{cachedGenreCounts.map((genre: { name: string; count: number }) => (
+						<div
+							className="filterRow"
+							key={genre.name}
+							tabIndex={-1}
+							onKeyDown={(event) => handleKeyDown(event, genre.name)}
+							role="checkbox"
+							aria-checked={localSelectedGenres.includes(genre.name)}
+						>
+							<input
+								type="checkbox"
+								id={genre.name}
+								checked={localSelectedGenres.includes(genre.name)}
+								onChange={() => handleGenreChange(genre.name)}
+								disabled={isLoading || genre.count === 0}
+								className={isLoading || genre.count === 0 ? "disabled-filter" : ""}
+								tabIndex={0}
+							/>
+							<label
+								htmlFor={genre.name}
+								className={genre.count === 0 ? "disabled-filter-label" : ""}
+							>
+								{genre.name.charAt(0).toUpperCase() + genre.name.slice(1)}{" "}
+								<span className="filterCount">({genre.count})</span>
+							</label>
+						</div>
+					))}
+				</section>
+			</section>
+		</>
+	);
 }
