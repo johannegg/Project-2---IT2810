@@ -10,7 +10,7 @@ type PlusMinusButtonProps = {
 	song: SongData;
 	isInPlaylist?: boolean;
 	playlistId?: string;
-	onSongRemoved?: () => void;
+	onSongRemoved?: (songId: string) => void;
 };
 
 const PlusMinusButton: React.FC<PlusMinusButtonProps> = ({
@@ -73,7 +73,7 @@ const PlusMinusButton: React.FC<PlusMinusButtonProps> = ({
 				return playlist;
 			});
 			playlistsVar(updatedPlaylists);
-			if (onSongRemoved) onSongRemoved();
+			if (onSongRemoved) onSongRemoved(song.id);
 		}
 	};
 

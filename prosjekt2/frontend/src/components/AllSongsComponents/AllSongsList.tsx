@@ -13,7 +13,7 @@ type AllSongsListProps = {
 	songs: SongData[];
 	isInPlaylist?: boolean;
 	playlistId?: string;
-	onSongRemoved?: () => void;
+	onSongRemoved?: (songId: string) => void;
 };
 
 export function AllSongsList({
