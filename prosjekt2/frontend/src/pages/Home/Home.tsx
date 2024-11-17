@@ -107,17 +107,12 @@ const Home = () => {
 		<>
 			<Sidebar
 				onGenreChange={handleGenreChange}
-				sortOption={sortOption}
 				onSortChange={handleSortChange}
 				songs={songs}
 				onToggle={toggleSidebar}
-				isOpen={isSidebarOpen}
 				onViewsChange={(newMin, newMax) => handleViewsChange(newMin, newMax)}
 				clearFilters={clearFilters}
-				selectedGenres={selectedGenres}
 				searchTerm={searchTerm}
-				minViews={minViews}
-				maxViews={maxViews}
 				onClearAllFilters={clearAllFilters}
 			/>
 

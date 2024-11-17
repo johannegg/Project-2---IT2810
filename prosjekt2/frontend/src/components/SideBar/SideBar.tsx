@@ -4,7 +4,13 @@ import { ViewsFilter } from "../ViewsFilter/ViewsFilter";
 import Sort from "../Sort/Sort";
 import { SongData } from "../../utils/types/SongTypes";
 import { useReactiveVar } from "@apollo/client";
-import { genreFilterVar, sortOptionVar } from "../../apollo/cache";
+import {
+	isSidebarOpenVar,
+	genreFilterVar,
+	sortOptionVar,
+	minViewsVar,
+	maxViewsVar,
+} from "../../apollo/cache";
 import { useEffect, useRef } from "react";
 
 type SidebarProps = {
@@ -12,15 +18,10 @@ type SidebarProps = {
 	onViewsChange: (minViews: number, maxViews: number) => void;
 	onSortChange: (newSort: string) => void;
 	songs: SongData[];
-	onToggle: (isOpen: boolean) => void;
-	isOpen: boolean;
+	onToggle: (isSidebarOpen: boolean) => void;
 	clearFilters: boolean;
 	onClearAllFilters: () => void;
 	searchTerm: string;
-	minViews: number;
-	maxViews: number;
-	selectedGenres: string[] | null;
-	sortOption: string;
 };
 
 export function Sidebar({
@@ -29,26 +30,26 @@ export function Sidebar({
 	onSortChange,
 	songs,
 	onToggle,
-	isOpen,
 	clearFilters,
 	onClearAllFilters,
 	searchTerm,
-	minViews,
-	maxViews,
-	selectedGenres,
 }: SidebarProps) {
+	const isSidebarOpen = useReactiveVar(isSidebarOpenVar);
 	const sortOption = useReactiveVar(sortOptionVar);
+	const selectedGenres = useReactiveVar(genreFilterVar);
+	const minViews = useReactiveVar(minViewsVar);
+	const maxViews = useReactiveVar(maxViewsVar);
 
 	const sidebarRef = useRef<HTMLDivElement>(null);
 
 	useEffect(() => {
-		if (isOpen && sidebarRef.current) {
+		if (isSidebarOpen && sidebarRef.current) {
 			sidebarRef.current.focus();
 		}
-	}, [isOpen]);
+	}, [isSidebarOpen]);
 
 	const toggleMenu = () => {
-		onToggle(!isOpen);
+		onToggle(!isSidebarOpen);
 	};
 
 	useEffect(() => {
@@ -59,9 +60,9 @@ export function Sidebar({
 
 	return (
 		<div
-			className={`sidebar ${isOpen ? "open" : ""}`}
-			aria-hidden={!isOpen}
-			tabIndex={isOpen ? 0 : -1}
+			className={`sidebar ${isSidebarOpen ? "open" : ""}`}
+			aria-hidden={!isSidebarOpen}
+			tabIndex={isSidebarOpen ? 0 : -1}
 			ref={sidebarRef}
 		>
 			<button
@@ -69,7 +70,7 @@ export function Sidebar({
 				onClick={toggleMenu}
 				type="button"
 				aria-label="Close"
-				tabIndex={isOpen ? 0 : -1}
+				tabIndex={isSidebarOpen ? 0 : -1}
 			>
 				✕
 			</button>
@@ -90,7 +91,7 @@ export function Sidebar({
 				<button
 					onClick={onClearAllFilters}
 					className="clearFiltersButton"
-					tabIndex={isOpen ? 0 : -1}
+					tabIndex={isSidebarOpen ? 0 : -1}
 				>
 					Clear filters
 				</button>
