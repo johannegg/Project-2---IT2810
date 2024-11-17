@@ -6,33 +6,30 @@ import FavoriteButton from "../FavoriteButton/FavoriteButton";
 import { routeChange } from "../../utils/SongRouteChange";
 import { SongData } from "../../utils/types/SongTypes";
 import PlusMinusButton from "../PlusMinusButton/PlusMinusButton";
+import { useReactiveVar } from "@apollo/client";
+import { genreFilterVar, maxViewsVar, minViewsVar } from "../../apollo/cache";
 
 type AllSongsListProps = {
 	songs: SongData[];
-	genres: string[];
 	isInPlaylist?: boolean;
 	playlistId?: string;
-	minViews?: number;
-	maxViews?: number;
 	onSongRemoved?: () => void;
-	isSideBarOpen?: boolean;
 };
 
 export function AllSongsList({
 	songs,
-	genres,
-	maxViews,
-	minViews,
 	isInPlaylist,
 	playlistId,
 	onSongRemoved,
-	isSideBarOpen,
 }: AllSongsListProps) {
 	const navigate = useNavigate();
+	const selectedGenres = useReactiveVar(genreFilterVar);
+	const minViews = useReactiveVar(minViewsVar);
+	const maxViews = useReactiveVar(maxViewsVar);
 
 	const filteredSongs = songs
-		.filter((song) => (genres.length > 0 ? genres.includes(song.genre.name) : true)) // Filter by genre if genres are selected
-		.filter((song) => song.views >= (minViews ?? 0) && song.views <= (maxViews ?? Infinity)); // Filter by views within minViews and maxViews
+		.filter((song) => (selectedGenres.length > 0 ? selectedGenres.includes(song.genre.name) : true))
+		.filter((song) => song.views >= minViews && song.views <= maxViews);
 
 	return (
 		<section className="songContainer">
@@ -76,7 +73,6 @@ export function AllSongsList({
 										isInPlaylist={isInPlaylist}
 										playlistId={playlistId}
 										onSongRemoved={onSongRemoved}
-										isSideBarOpen={isSideBarOpen ?? false}
 									/>
 								</td>
 								<td>

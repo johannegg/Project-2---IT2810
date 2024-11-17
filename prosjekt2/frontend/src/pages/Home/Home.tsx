@@ -10,6 +10,7 @@ import {
 	maxViewsVar,
 	sortOptionVar,
 	homeSearchTermVar,
+	isSidebarOpenVar,
 } from "../../apollo/cache";
 import { useReactiveVar } from "@apollo/client";
 import { useSongCount } from "../../utils/hooks/useSongCount";
@@ -21,8 +22,8 @@ const Home = () => {
 	const maxViews = useReactiveVar(maxViewsVar);
 	const sortOption = useReactiveVar(sortOptionVar);
 	const searchTerm = useReactiveVar(homeSearchTermVar);
+	const isSidebarOpen = useReactiveVar(isSidebarOpenVar);
 
-	const [isSidebarOpen, setIsSidebarOpen] = useState<boolean>(false);
 	const [clearFilters, setClearFilters] = useState(false);
 	const [localSongCount, setLocalSongCount] = useState<number>(0);
 	const debounceTimer = useRef<NodeJS.Timeout | null>(null);
@@ -49,7 +50,7 @@ const Home = () => {
 
 	useEffect(() => {
 		refetchSongCount();
-	}, []);
+	}, [refetchSongCount]);
 
 	const handleGenreChange = (genres: string[]) => {
 		genreFilterVar(genres.length > 0 ? genres : []);
@@ -79,7 +80,7 @@ const Home = () => {
 	};
 
 	const toggleSidebar = () => {
-		setIsSidebarOpen((prev) => !prev);
+		isSidebarOpenVar(!isSidebarOpen);
 	};
 
 	const clearAllFilters = () => {
@@ -109,7 +110,7 @@ const Home = () => {
 				sortOption={sortOption}
 				onSortChange={handleSortChange}
 				songs={songs}
-				onToggle={setIsSidebarOpen}
+				onToggle={toggleSidebar}
 				isOpen={isSidebarOpen}
 				onViewsChange={(newMin, newMax) => handleViewsChange(newMin, newMax)}
 				clearFilters={clearFilters}
