@@ -48,7 +48,6 @@
 .navButton {
 	text-decoration: none;
 	color: inherit;
-	color: var(--theme-dark-grey);
 	display: flex;
 	align-items: center;
 	white-space: nowrap;
