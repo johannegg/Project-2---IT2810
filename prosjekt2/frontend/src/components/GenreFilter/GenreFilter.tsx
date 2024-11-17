@@ -6,69 +6,69 @@ import { genreFilterVar } from "../../apollo/cache";
 import { useEffect, useState } from "react";
 
 interface FilterProps {
-  onGenreChange: (selectedGenres: string[]) => void;
-  clearFilters: boolean;
-  searchTerm: string;
-  minViews: number;
-  maxViews: number;
-  selectedGenres: string[] | null;
+	onGenreChange: (selectedGenres: string[]) => void;
+	clearFilters: boolean;
+	searchTerm: string;
+	minViews: number;
+	maxViews: number;
+	selectedGenres: string[] | null;
 }
 
 export function Filter({
-  onGenreChange,
-  clearFilters,
-  searchTerm,
-  minViews,
-  maxViews,
-  selectedGenres,
+	onGenreChange,
+	clearFilters,
+	searchTerm,
+	minViews,
+	maxViews,
+	selectedGenres,
 }: FilterProps) {
-  const selectedGenresFromApollo = useReactiveVar(genreFilterVar);
-  const { genreCounts, isLoading } = useGenreCounts(searchTerm, minViews, maxViews, selectedGenres);
-  const [localSelectedGenres, setLocalSelectedGenres] = useState<string[]>(selectedGenresFromApollo || []);
-  const [cachedGenreCounts, setCachedGenreCounts] = useState(genreCounts);
+	const selectedGenresFromApollo = useReactiveVar(genreFilterVar);
+	const { genreCounts, isLoading } = useGenreCounts(searchTerm, minViews, maxViews, selectedGenres);
+	const [localSelectedGenres, setLocalSelectedGenres] = useState<string[]>(
+		selectedGenresFromApollo || [],
+	);
+	const [cachedGenreCounts, setCachedGenreCounts] = useState(genreCounts);
 
-  const handleGenreChange = (genre: string) => {
-    setLocalSelectedGenres((prevSelected) => {
-      const isSelected = prevSelected.includes(genre);
-      const newSelectedGenres = isSelected
-        ? prevSelected.filter((g) => g !== genre)
-        : [...prevSelected, genre];
+	const handleGenreChange = (genre: string) => {
+		setLocalSelectedGenres((prevSelected) => {
+			const isSelected = prevSelected.includes(genre);
+			const newSelectedGenres = isSelected
+				? prevSelected.filter((g) => g !== genre)
+				: [...prevSelected, genre];
 
-      genreFilterVar(newSelectedGenres); 
-      sessionStorage.setItem("selectedGenres", JSON.stringify(newSelectedGenres));
-      onGenreChange(newSelectedGenres); 
-      return newSelectedGenres;
-    });
-  };
+			genreFilterVar(newSelectedGenres);
+			sessionStorage.setItem("selectedGenres", JSON.stringify(newSelectedGenres));
+			onGenreChange(newSelectedGenres);
+			return newSelectedGenres;
+		});
+	};
 
-  // Cache genre counts only when loading completes to prevent "flickering"
-  useEffect(() => {
-    if (!isLoading) {
-      setCachedGenreCounts(genreCounts);
-    }
-  }, [isLoading, genreCounts]);
+	// Cache genre counts only when loading completes to prevent "flickering"
+	useEffect(() => {
+		if (!isLoading) {
+			setCachedGenreCounts(genreCounts);
+		}
+	}, [isLoading, genreCounts]);
 
-  // Load genres from sessionStorage on initial mount
-  useEffect(() => {
-    const savedGenres = JSON.parse(sessionStorage.getItem("selectedGenres") || "[]");
-    setLocalSelectedGenres(savedGenres.length > 0 ? savedGenres : []);
-    genreFilterVar(savedGenres); 
-  }, []);
+	// Load genres from sessionStorage on initial mount
+	useEffect(() => {
+		const savedGenres = JSON.parse(sessionStorage.getItem("selectedGenres") || "[]");
+		setLocalSelectedGenres(savedGenres.length > 0 ? savedGenres : []);
+		genreFilterVar(savedGenres);
+	}, []);
 
 	// Reset genres when clearFilters is true
 	useEffect(() => {
 		if (clearFilters) {
-		  if (localSelectedGenres.length > 0) {
-			setLocalSelectedGenres([]); 
-			genreFilterVar([]); 
-			sessionStorage.removeItem("selectedGenres"); 
-			onGenreChange([]); 
-		  }
+			if (localSelectedGenres.length > 0) {
+				setLocalSelectedGenres([]);
+				genreFilterVar([]);
+				sessionStorage.removeItem("selectedGenres");
+				onGenreChange([]);
+			}
 		}
-	  }, [clearFilters]); 
-	  
-	  
-	  
+	}, [clearFilters]);
+
 	// Handle keyboard input for accessibility
 	const handleKeyDown = (event: React.KeyboardEvent<HTMLDivElement>, genre: string) => {
 		if (event.key === "Enter" || event.key === " ") {

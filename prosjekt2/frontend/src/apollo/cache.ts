@@ -4,15 +4,15 @@ import { PlaylistData } from "../pages/Playlists/Playlists";
 
 // Initialize sessionStorage and localStorage if values are not already set
 const initializeStorage = (key: string, defaultValue: string) => {
-  if (!sessionStorage.getItem(key)) {
-    sessionStorage.setItem(key, defaultValue);
-  }
+	if (!sessionStorage.getItem(key)) {
+		sessionStorage.setItem(key, defaultValue);
+	}
 };
 
 const initializeLocalStorage = (key: string, defaultValue: string) => {
-  if (!localStorage.getItem(key)) {
-    localStorage.setItem(key, defaultValue);
-  }
+	if (!localStorage.getItem(key)) {
+		localStorage.setItem(key, defaultValue);
+	}
 };
 
 // Initialize values in storage
@@ -48,91 +48,91 @@ export const songDataVar = makeVar<SongData[]>([]);
 
 // Configure cache with reactive variables
 const cache = new InMemoryCache({
-  typePolicies: {
-    Query: {
-      fields: {
-        genreFilter: {
-          read() {
-            return genreFilterVar();
-          },
-        },
-        sortOption: {
-          read() {
-            return sortOptionVar();
-          },
-        },
-        minViews: {
-          read() {
-            return minViewsVar();
-          },
-        },
-        maxViews: {
-          read() {
-            return maxViewsVar();
-          },
-        },
-        homeSearchTerm: {
-          read() {
-            return homeSearchTermVar();
-          },
-        },
-        favoritesSearchTerm: {
-          read() {
-            return favoritesSearchTermVar();
-          },
-        },
-        favoriteSongs: {
-          read() {
-            return favoriteSongsVar();
-          },
-        },
-        playlists: {
-          read() {
-            return playlistsVar();
-          },
-        },
-        songData: {
-          read() {
-            return songDataVar();
-          },
-        },
-      },
-    },
-  },
+	typePolicies: {
+		Query: {
+			fields: {
+				genreFilter: {
+					read() {
+						return genreFilterVar();
+					},
+				},
+				sortOption: {
+					read() {
+						return sortOptionVar();
+					},
+				},
+				minViews: {
+					read() {
+						return minViewsVar();
+					},
+				},
+				maxViews: {
+					read() {
+						return maxViewsVar();
+					},
+				},
+				homeSearchTerm: {
+					read() {
+						return homeSearchTermVar();
+					},
+				},
+				favoritesSearchTerm: {
+					read() {
+						return favoritesSearchTermVar();
+					},
+				},
+				favoriteSongs: {
+					read() {
+						return favoriteSongsVar();
+					},
+				},
+				playlists: {
+					read() {
+						return playlistsVar();
+					},
+				},
+				songData: {
+					read() {
+						return songDataVar();
+					},
+				},
+			},
+		},
+	},
 });
 
 // Sync reactive variables with sessionStorage and localStorage
 homeSearchTermVar.onNextChange((newHomeSearchTerm) => {
-  sessionStorage.setItem("homeSearchTerm", newHomeSearchTerm);
+	sessionStorage.setItem("homeSearchTerm", newHomeSearchTerm);
 });
 
 favoritesSearchTermVar.onNextChange((newFavoritesSearchTerm) => {
-  sessionStorage.setItem("favoritesSearchTerm", newFavoritesSearchTerm);
+	sessionStorage.setItem("favoritesSearchTerm", newFavoritesSearchTerm);
 });
 
 genreFilterVar.onNextChange((newGenres) => {
-  sessionStorage.setItem("selectedGenres", JSON.stringify(newGenres));
+	sessionStorage.setItem("selectedGenres", JSON.stringify(newGenres));
 });
 
 minViewsVar.onNextChange((newMinViews) => {
-  sessionStorage.setItem("minViews", String(newMinViews));
+	sessionStorage.setItem("minViews", String(newMinViews));
 });
 
 maxViewsVar.onNextChange((newMaxViews) => {
-  sessionStorage.setItem("maxViews", String(newMaxViews));
+	sessionStorage.setItem("maxViews", String(newMaxViews));
 });
 
 sortOptionVar.onNextChange((newSortOption) => {
-  sessionStorage.setItem("sortOption", newSortOption);
+	sessionStorage.setItem("sortOption", newSortOption);
 });
 
 favoriteSongsVar.onNextChange((newFavorites) => {
-  localStorage.setItem("favoriteSongs", JSON.stringify(newFavorites));
+	localStorage.setItem("favoriteSongs", JSON.stringify(newFavorites));
 });
 
 playlistsVar.onNextChange((newPlaylists) => {
-  localStorage.setItem("playlists", JSON.stringify(newPlaylists));
-  window.dispatchEvent(new Event("storage"));
+	localStorage.setItem("playlists", JSON.stringify(newPlaylists));
+	window.dispatchEvent(new Event("storage"));
 });
 
 export default cache;

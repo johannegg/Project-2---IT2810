@@ -8,13 +8,13 @@ import { SongData } from "../../utils/types/SongTypes";
 import PlusMinusButton from "../PlusMinusButton/PlusMinusButton";
 
 type AllSongsListProps = {
-  songs: SongData[];
-  genres: string[];
-  isInPlaylist?: boolean;
-  playlistId?: string;
-  minViews?: number;
-  maxViews?: number;
-  onSongRemoved?: (songId: string) => void;
+	songs: SongData[];
+	genres: string[];
+	isInPlaylist?: boolean;
+	playlistId?: string;
+	minViews?: number;
+	maxViews?: number;
+	onSongRemoved?: (songId: string) => void;
 };
 
 export function AllSongsList({
@@ -26,7 +26,7 @@ export function AllSongsList({
 	playlistId,
 	onSongRemoved,
 }: AllSongsListProps) {
-  const navigate = useNavigate();
+	const navigate = useNavigate();
 
 	const filteredSongs = songs
 		.filter((song) => (genres.length > 0 ? genres.includes(song.genre.name) : true)) // Filter by genre if genres are selected

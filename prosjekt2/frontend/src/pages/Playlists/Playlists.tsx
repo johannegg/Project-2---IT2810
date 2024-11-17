@@ -9,54 +9,54 @@ import { playlistsVar } from "../../apollo/cache";
 import { useReactiveVar } from "@apollo/client";
 
 export interface PlaylistData {
-  id: string;
-  name: string;
-  backgroundColor: string;
-  icon: string;
-  songs: SongData[];
+	id: string;
+	name: string;
+	backgroundColor: string;
+	icon: string;
+	songs: SongData[];
 }
 
 const Playlists = () => {
-  const navigate = useNavigate();
-  const playlists = useReactiveVar(playlistsVar);
-  const [showForm, setShowForm] = useState(false);
+	const navigate = useNavigate();
+	const playlists = useReactiveVar(playlistsVar);
+	const [showForm, setShowForm] = useState(false);
 
-  // Synkroniser `playlistsVar` med `localStorage` hver gang `playlists` endres
-  useEffect(() => {
-    localStorage.setItem("playlists", JSON.stringify(playlists));
-  }, [playlists]);
+	// Synkroniser `playlistsVar` med `localStorage` hver gang `playlists` endres
+	useEffect(() => {
+		localStorage.setItem("playlists", JSON.stringify(playlists));
+	}, [playlists]);
 
-  // Last inn spillelister fra `localStorage` til `playlistsVar` ved første render
-  useEffect(() => {
-    const storedPlaylists = localStorage.getItem("playlists");
-    if (storedPlaylists) {
-      playlistsVar(JSON.parse(storedPlaylists));
-    }
-  }, []); // Denne effekten kjører kun én gang ved første render
+	// Last inn spillelister fra `localStorage` til `playlistsVar` ved første render
+	useEffect(() => {
+		const storedPlaylists = localStorage.getItem("playlists");
+		if (storedPlaylists) {
+			playlistsVar(JSON.parse(storedPlaylists));
+		}
+	}, []); // Denne effekten kjører kun én gang ved første render
 
-  const addNewPlaylist = (newPlaylistName: string, backgroundColor: string, icon: string) => {
-    const newPlaylist = {
-      id: uuidv4(),
-      name: newPlaylistName,
-      backgroundColor,
-      icon,
-      songs: [],
-    };
-    playlistsVar([...playlists, newPlaylist]);
-  };
+	const addNewPlaylist = (newPlaylistName: string, backgroundColor: string, icon: string) => {
+		const newPlaylist = {
+			id: uuidv4(),
+			name: newPlaylistName,
+			backgroundColor,
+			icon,
+			songs: [],
+		};
+		playlistsVar([...playlists, newPlaylist]);
+	};
 
-  const deletePlaylist = (playlistId: string) => {
-    const updatedPlaylists = playlists.filter((playlist) => playlist.id !== playlistId);
-    playlistsVar(updatedPlaylists);
-  };
+	const deletePlaylist = (playlistId: string) => {
+		const updatedPlaylists = playlists.filter((playlist) => playlist.id !== playlistId);
+		playlistsVar(updatedPlaylists);
+	};
 
-  const handlePlaylistClick = (playlist: PlaylistData) => {
-    navigate(`/playlist/${playlist.id}`, { state: { playlist, deletePlaylist } });
-  };
+	const handlePlaylistClick = (playlist: PlaylistData) => {
+		navigate(`/playlist/${playlist.id}`, { state: { playlist, deletePlaylist } });
+	};
 
-  return (
-    <section className="playlists-page">
-      <h1>Your Playlists</h1>
+	return (
+		<section className="playlists-page">
+			<h1>Your Playlists</h1>
 
 			<PlaylistForm show={showForm} onClose={() => setShowForm(false)} onSubmit={addNewPlaylist} />
 			<div className="outer-playlist-container">

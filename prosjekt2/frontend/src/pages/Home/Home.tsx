@@ -24,7 +24,7 @@ const Home = () => {
 
 	const [isSidebarOpen, setIsSidebarOpen] = useState<boolean>(false);
 	const [clearFilters, setClearFilters] = useState(false);
-	const [localSongCount, setLocalSongCount] = useState<number>(0); 
+	const [localSongCount, setLocalSongCount] = useState<number>(0);
 	const debounceTimer = useRef<NodeJS.Timeout | null>(null);
 
 	const {
@@ -43,7 +43,7 @@ const Home = () => {
 
 	useEffect(() => {
 		if (!isSongCountLoading) {
-			setLocalSongCount(songCount); 
+			setLocalSongCount(songCount);
 		}
 	}, [songCount, isSongCountLoading]);
 
@@ -65,7 +65,7 @@ const Home = () => {
 		}
 
 		debounceTimer.current = setTimeout(() => {
-			refetchSongCount(); 
+			refetchSongCount();
 		}, 300);
 	};
 
@@ -91,18 +91,14 @@ const Home = () => {
 		sessionStorage.setItem("minViews", "0");
 		sessionStorage.setItem("maxViews", "1000000");
 		sessionStorage.removeItem("selectedGenres");
-	  
+
 		if (!clearFilters) {
-		  setClearFilters(true);
-		  setTimeout(() => setClearFilters(false), 100); 
+			setClearFilters(true);
+			setTimeout(() => setClearFilters(false), 100);
 		}
-	  
+
 		refetchSongCount();
-	  };
-	  
-	  
-	
-	  
+	};
 
 	if (error) return <p>Error loading songs: {error?.message}</p>;
 
@@ -119,7 +115,7 @@ const Home = () => {
 				clearFilters={clearFilters}
 				selectedGenres={selectedGenres}
 				searchTerm={searchTerm}
-				minViews={minViews} 
+				minViews={minViews}
 				maxViews={maxViews}
 				onClearAllFilters={clearAllFilters}
 			/>

@@ -35,7 +35,7 @@ const PlusMinusButton: React.FC<PlusMinusButtonProps> = ({
 
 	const clearFeedbackMessage = useCallback(
 		debounce(() => setFeedbackMessage(""), 3000),
-		[]
+		[],
 	);
 
 	const handleAddSongToPlaylist = (playlistId: string) => {

@@ -3,8 +3,8 @@ import { Filter } from "../GenreFilter/GenreFilter";
 import { ViewsFilter } from "../ViewsFilter/ViewsFilter";
 import Sort from "../Sort/Sort";
 import { SongData } from "../../utils/types/SongTypes";
-import { useReactiveVar } from "@apollo/client"; 
-import { genreFilterVar, sortOptionVar } from "../../apollo/cache"; 
+import { useReactiveVar } from "@apollo/client";
+import { genreFilterVar, sortOptionVar } from "../../apollo/cache";
 import { useEffect, useRef } from "react";
 
 type SidebarProps = {
@@ -37,7 +37,7 @@ export function Sidebar({
 	maxViews,
 	selectedGenres,
 }: SidebarProps) {
-	const sortOption = useReactiveVar(sortOptionVar); 
+	const sortOption = useReactiveVar(sortOptionVar);
 
 	const sidebarRef = useRef<HTMLDivElement>(null);
 
@@ -53,7 +53,7 @@ export function Sidebar({
 
 	useEffect(() => {
 		if (clearFilters) {
-			genreFilterVar([]); 
+			genreFilterVar([]);
 		}
 	}, [clearFilters]);
 

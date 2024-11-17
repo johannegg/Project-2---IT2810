@@ -30,7 +30,14 @@ const colorMapping: Record<string, string> = {
 	"#445988": "#daeaf6",
 };
 
-const Playlist: React.FC<PlaylistProps> = ({ id, name, backgroundColor, icon, songs, tabIndex }) => {
+const Playlist: React.FC<PlaylistProps> = ({
+	id,
+	name,
+	backgroundColor,
+	icon,
+	songs,
+	tabIndex,
+}) => {
 	const navigate = useNavigate();
 	const [currentBackgroundColor, setCurrentBackgroundColor] = useState(backgroundColor);
 
