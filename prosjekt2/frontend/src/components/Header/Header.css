@@ -20,7 +20,7 @@
 	max-width: 1200px;
 	margin: 0 auto;
 	position: relative;
-	left: 10 px;
+	left: 10px;
 }
 
 .sofa-icon {
@@ -48,7 +48,6 @@
 .navButton {
 	text-decoration: none;
 	color: inherit;
-	color: var(--theme-dark-grey);
 	display: flex;
 	align-items: center;
 	white-space: nowrap;
@@ -95,7 +94,7 @@
 		font-size: 24px;
 	}
 	.navButton {
-		margin-left: 15px;
+		margin-left: 10px;
 		margin-right: 5px;
 	}
 
@@ -122,7 +121,7 @@
 	}
 
 	.navButton {
-		margin: 3px;
+		margin: 2px;
 	}
 
 	.navIcon {

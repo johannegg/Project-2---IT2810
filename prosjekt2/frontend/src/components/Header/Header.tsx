@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faHeart } from "@fortawesome/free-regular-svg-icons";
 import { BsMusicNoteList } from "react-icons/bs";
+import Profile from "../Profile/Profile";
 
 const Header: React.FC = () => {
 
@@ -30,6 +31,7 @@ const Header: React.FC = () => {
 					<BsMusicNoteList className="navIcon musicIcon" />
 					<span className="navText">Your playlists</span>
 				</Link>
+				<Profile />
 			</nav>
 		</header>
 	);
