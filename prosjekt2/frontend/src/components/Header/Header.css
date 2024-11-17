@@ -46,14 +46,20 @@
 }
 
 .navButton {
+	text-decoration: none;
+	color: inherit;
+	color: var(--theme-dark-grey);
 	display: flex;
 	align-items: center;
+	white-space: nowrap;
 	margin: 20px;
 	background-color: transparent;
 	border-bottom: solid 2px transparent;
 }
 
 .navButton:hover {
+	text-decoration: none;
+	color: inherit;
 	border-bottom: solid 3px var(--theme-pink);
 	padding-bottom: 7px;
 	transition: all 0.3s ease;

@@ -49,7 +49,7 @@ export function ViewsFilter({ onViewsChange, clearFilters }: ViewsFilterProps) {
 				<FaFilter className="filterSortIcon" />
 				<h2>Views</h2>
 			</section>
-			<div className="slider">
+			<div className="slider" tabIndex={-1}>
 				<ReactSlider
 					className="horizontal-slider"
 					thumbClassName="thumb"
@@ -59,7 +59,9 @@ export function ViewsFilter({ onViewsChange, clearFilters }: ViewsFilterProps) {
 					value={[minViews, maxViews]}
 					onChange={handleSliderChange}
 					onAfterChange={handleAfterSliderChange}
-					renderThumb={({ key, ...rest }) => <div {...rest} key={key} />}
+					renderThumb={({ key, ...rest }) => (
+						<div {...rest} key={key} tabIndex={-1} className="thumb" />
+					)}
 				/>
 				<div className="viewValues">
 					<span>
