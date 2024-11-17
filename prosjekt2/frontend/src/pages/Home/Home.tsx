@@ -24,17 +24,15 @@ const Home = () => {
 
 	const [isSidebarOpen, setIsSidebarOpen] = useState<boolean>(false);
 	const [clearFilters, setClearFilters] = useState(false);
-	const [localSongCount, setLocalSongCount] = useState<number>(0); // Lokalt songCount
+	const [localSongCount, setLocalSongCount] = useState<number>(0); 
 	const debounceTimer = useRef<NodeJS.Timeout | null>(null);
 
-	// Hent data for antall resultater
 	const {
 		songCount,
 		isLoading: isSongCountLoading,
 		refetch: refetchSongCount,
 	} = useSongCount(selectedGenres, searchTerm, minViews, maxViews);
 
-	// Hent sangdata
 	const { songs, isLoading, error, loadMoreSongs, hasMoreSongs } = useCachedSongs({
 		searchTerm,
 		selectedGenres: selectedGenres || [],
@@ -43,10 +41,9 @@ const Home = () => {
 		sortOption,
 	});
 
-	// Oppdater lokalt songCount kun når lasting er ferdig
 	useEffect(() => {
 		if (!isSongCountLoading) {
-			setLocalSongCount(songCount); // Oppdater lokal state etter lasting
+			setLocalSongCount(songCount); 
 		}
 	}, [songCount, isSongCountLoading]);
 
@@ -68,7 +65,7 @@ const Home = () => {
 		}
 
 		debounceTimer.current = setTimeout(() => {
-			refetchSongCount(); // Oppdater resultater etter debounce
+			refetchSongCount(); 
 		}, 300);
 	};
 
@@ -86,21 +83,25 @@ const Home = () => {
 	};
 
 	const clearAllFilters = () => {
-		// Sett Reactive Vars til standardverdier
 		genreFilterVar([]);
 		sortOptionVar("views_desc");
 		minViewsVar(0);
 		maxViewsVar(1000000);
-	  
-		// Tilbakestill sessionStorage
+
 		sessionStorage.setItem("minViews", "0");
 		sessionStorage.setItem("maxViews", "1000000");
+		sessionStorage.removeItem("selectedGenres");
 	  
-		setClearFilters(true); // Oppdater lokalt filterstatus
-		setTimeout(() => setClearFilters(false), 0); // Tilbakestill filterstatus raskt
+		if (!clearFilters) {
+		  setClearFilters(true);
+		  setTimeout(() => setClearFilters(false), 100); 
+		}
 	  
-		refetchSongCount(); // Oppdater antall resultater
+		refetchSongCount();
 	  };
+	  
+	  
+	
 	  
 
 	if (error) return <p>Error loading songs: {error?.message}</p>;
@@ -115,10 +116,10 @@ const Home = () => {
 				onToggle={setIsSidebarOpen}
 				isOpen={isSidebarOpen}
 				onViewsChange={(newMin, newMax) => handleViewsChange(newMin, newMax)}
-				clearFilters={clearFilters} // Sørg for at denne blir håndtert
+				clearFilters={clearFilters}
 				selectedGenres={selectedGenres}
 				searchTerm={searchTerm}
-				minViews={minViews} // Pass alltid oppdaterte verdier
+				minViews={minViews} 
 				maxViews={maxViews}
 				onClearAllFilters={clearAllFilters}
 			/>
@@ -146,7 +147,6 @@ const Home = () => {
 						</section>
 					) : null}
 				</section>
-				{/* Vis "Load More Songs"-knappen kun når det er flere sanger */}
 				{!isLoading && hasMoreSongs && songs.length > 0 && (
 					<button className="loadMoreButton" onClick={loadMoreSongs} type="button">
 						Load More Songs

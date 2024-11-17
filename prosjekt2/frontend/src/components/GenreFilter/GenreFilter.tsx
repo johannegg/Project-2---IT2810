@@ -52,18 +52,23 @@ export function Filter({
   useEffect(() => {
     const savedGenres = JSON.parse(sessionStorage.getItem("selectedGenres") || "[]");
     setLocalSelectedGenres(savedGenres.length > 0 ? savedGenres : []);
-    genreFilterVar(savedGenres); // Synkroniser Apollo Reactive Vars med sessionStorage
+    genreFilterVar(savedGenres); 
   }, []);
 
 	// Reset genres when clearFilters is true
 	useEffect(() => {
 		if (clearFilters) {
-			setLocalSelectedGenres([]);
-			onGenreChange([]);
-			sessionStorage.removeItem("selectedGenres");
+		  if (localSelectedGenres.length > 0) {
+			setLocalSelectedGenres([]); 
+			genreFilterVar([]); 
+			sessionStorage.removeItem("selectedGenres"); 
+			onGenreChange([]); 
+		  }
 		}
-	}, [clearFilters, onGenreChange]);
-
+	  }, [clearFilters]); 
+	  
+	  
+	  
 	// Handle keyboard input for accessibility
 	const handleKeyDown = (event: React.KeyboardEvent<HTMLDivElement>, genre: string) => {
 		if (event.key === "Enter" || event.key === " ") {
