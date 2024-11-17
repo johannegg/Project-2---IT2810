@@ -82,6 +82,10 @@
 	display: inline-block;
 }
 
+.closeBtn:hover {
+	background-color: #aaa;
+}
+
 .plusMinus-button {
 	background: none;
 	border: none;
@@ -93,10 +97,32 @@
 	outline: none;
 	margin: 5px;
 	font-size: 30px;
+	position: relative;
 }
 
-.closeBtn:hover {
-	background-color: #aaa;
+.plusMinus-button::after {
+	content: attr(data-label);
+	position: absolute;
+	top: 100%;
+	left: 50%;
+	transform: translateX(-50%);
+	background-color: #fff;
+	color: #555;
+	padding: 4px 8px;
+	border-radius: 4px;
+	border: 1px solid #d4d4d4;
+	white-space: nowrap;
+	font-size: 12px;
+	font-weight: bold;
+	opacity: 0;
+	pointer-events: none;
+	transition: opacity 0.3s ease;
+	z-index: 10;
+}
+
+.plusMinus-button:hover::after,
+.plusMinus-button:focus::after {
+	opacity: 1;
 }
 
 @media (prefers-color-scheme: dark) {

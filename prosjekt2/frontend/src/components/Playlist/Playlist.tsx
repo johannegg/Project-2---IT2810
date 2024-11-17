@@ -10,9 +10,18 @@ interface PlaylistProps {
 	icon: string;
 	songs: SongData[];
 	onClick: () => void;
+	tabIndex?: number;
+	onKeyDown?: (event: React.KeyboardEvent) => void;
 }
 
-const Playlist: React.FC<PlaylistProps> = ({ id, name, backgroundColor, icon, songs }) => {
+const Playlist: React.FC<PlaylistProps> = ({
+	id,
+	name,
+	backgroundColor,
+	icon,
+	songs,
+	tabIndex,
+}) => {
 	const navigate = useNavigate();
 	const [currentBackgroundColor, setCurrentBackgroundColor] = useState(backgroundColor);
 
@@ -59,7 +68,12 @@ const Playlist: React.FC<PlaylistProps> = ({ id, name, backgroundColor, icon, so
 		<article
 			className="playlist-card"
 			onClick={handleClick}
+			tabIndex={tabIndex}
+			onKeyDown={(e) => {
+				if (e.key === "Enter" || e.key === " ") handleClick();
+			}}
 			style={{ backgroundColor: currentBackgroundColor }}
+			role="button"
 		>
 			<div className="playlist-icon">{icon}</div>
 			<h3>{name}</h3>

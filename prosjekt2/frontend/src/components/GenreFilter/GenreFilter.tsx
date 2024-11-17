@@ -59,33 +59,51 @@ export function Filter({
 		}
 	}, [clearFilters, onGenreChange]);
 
+	// Handle keyboard input for accessibility
+	const handleKeyDown = (event: React.KeyboardEvent<HTMLDivElement>, genre: string) => {
+		if (event.key === "Enter" || event.key === " ") {
+			event.preventDefault();
+			handleGenreChange(genre);
+		}
+	};
+
 	return (
-		<section className="filterContainer">
-			<section className="filterHeader">
-				<FaFilter className="filterSortIcon" />
-				<h2>Genre</h2>
-			</section>
-			<section className="categories">
-				{cachedGenreCounts.map((genre: { name: string; count: number }) => (
-					<div className="filterRow" key={genre.name}>
-						<input
-							type="checkbox"
-							id={genre.name}
-							checked={localSelectedGenres.includes(genre.name)}
-							onChange={() => handleGenreChange(genre.name)}
-							disabled={isLoading || genre.count === 0}
-							className={isLoading || genre.count === 0 ? "disabled-filter" : ""}
-						/>
-						<label
-							htmlFor={genre.name}
-							className={genre.count === 0 ? "disabled-filter-label" : ""}
+		<>
+			<section className="filterContainer">
+				<section className="filterHeader">
+					<FaFilter className="filterSortIcon" />
+					<h2>Genre</h2>
+				</section>
+				<section className="categories">
+					{cachedGenreCounts.map((genre: { name: string; count: number }) => (
+						<div
+							className="filterRow"
+							key={genre.name}
+							tabIndex={-1}
+							onKeyDown={(event) => handleKeyDown(event, genre.name)}
+							role="checkbox"
+							aria-checked={localSelectedGenres.includes(genre.name)}
 						>
-							{genre.name.charAt(0).toUpperCase() + genre.name.slice(1)}{" "}
-							<span className="filterCount">({genre.count})</span>
-						</label>
-					</div>
-				))}
+							<input
+								type="checkbox"
+								id={genre.name}
+								checked={localSelectedGenres.includes(genre.name)}
+								onChange={() => handleGenreChange(genre.name)}
+								disabled={isLoading || genre.count === 0}
+								className={isLoading || genre.count === 0 ? "disabled-filter" : ""}
+								tabIndex={0}
+							/>
+							<label
+								htmlFor={genre.name}
+								className={genre.count === 0 ? "disabled-filter-label" : ""}
+							>
+								{genre.name.charAt(0).toUpperCase() + genre.name.slice(1)}{" "}
+								<span className="filterCount">({genre.count})</span>
+							</label>
+						</div>
+					))}
+				</section>
 			</section>
-		</section>
+		</>
 	);
 }
