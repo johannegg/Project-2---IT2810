@@ -46,6 +46,35 @@
 	align-self: flex-end;
 	font-size: 35px;
 	color: var(--theme-pink);
+	position: relative;
+}
+
+.delete-playlist-button::after {
+	content: "Delete playlist";
+	position: absolute;
+	top: 100%;
+	left: 50%;
+	transform: translateX(-50%);
+	background-color: #fff;
+	padding: 3px 8px;
+	border-radius: 4px;
+	border: 1px solid #d4d4d4;
+	opacity: 0;
+	white-space: nowrap;
+	font-size: 12px;
+	font-weight: bold;
+	color: #555;
+	pointer-events: none;
+	transition:
+		opacity 0.3s ease,
+		transform 0.3s ease;
+	z-index: 10;
+	box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.delete-playlist-button:hover::after,
+.delete-playlist-button:focus::after {
+	opacity: 1;
 }
 
 .modal-overlay {
