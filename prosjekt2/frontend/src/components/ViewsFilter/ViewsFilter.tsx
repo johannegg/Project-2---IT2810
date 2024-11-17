@@ -1,8 +1,10 @@
-import { useEffect, useState } from "react";
 import "./ViewsFilter.css";
 import ReactSlider from "react-slider";
 import { formatViews } from "../../utils/FormatViews";
 import { FaFilter } from "react-icons/fa";
+import { useReactiveVar } from "@apollo/client";
+import { minViewsVar, maxViewsVar } from "../../apollo/cache";
+import { useEffect } from "react";
 
 interface ViewsFilterProps {
 	clearFilters: boolean;
@@ -10,37 +12,45 @@ interface ViewsFilterProps {
 }
 
 export function ViewsFilter({ onViewsChange, clearFilters }: ViewsFilterProps) {
-	const [minViews, setMinViews] = useState(0);
-	const [maxViews, setMaxViews] = useState(3000000);
+	const minViews = useReactiveVar(minViewsVar);
+	const maxViews = useReactiveVar(maxViewsVar);
 
-	// Load values from sessionStorage on initial mount
 	useEffect(() => {
-		const savedMinViews = JSON.parse(sessionStorage.getItem("minViews") || "0");
-		const savedMaxViews = JSON.parse(sessionStorage.getItem("maxViews") || "3000000");
-		setMinViews(savedMinViews);
-		setMaxViews(savedMaxViews);
-	}, []);
+		const initialMinViews = Number(sessionStorage.getItem("minViews")) || 0;
+		const initialMaxViews = Number(sessionStorage.getItem("maxViews")) || 1000000;
 
-	// Reset views when clearFilters is true
+		minViewsVar(initialMinViews);
+		maxViewsVar(initialMaxViews);
+
+		onViewsChange(initialMinViews, initialMaxViews);
+	}, [onViewsChange]);
+
 	useEffect(() => {
 		if (clearFilters) {
-			setMinViews(0);
-			setMaxViews(3000000);
-			onViewsChange(0, 3000000);
+			if (minViews !== 0 || maxViews !== 1000000) {
+				minViewsVar(0);
+				maxViewsVar(1000000);
+
+				sessionStorage.setItem("minViews", "0");
+				sessionStorage.setItem("maxViews", "1000000");
+
+				onViewsChange(0, 1000000);
+			}
 		}
-	}, [clearFilters, onViewsChange]);
+	}, [clearFilters, minViews, maxViews, onViewsChange]);
 
 	const handleSliderChange = (values: number[]) => {
 		const [newMinViews, newMaxViews] = values;
-		setMinViews(newMinViews);
-		setMaxViews(newMaxViews);
+		minViewsVar(newMinViews);
+		maxViewsVar(newMaxViews);
 	};
 
 	const handleAfterSliderChange = (values: number[]) => {
 		const [newMinViews, newMaxViews] = values;
 		onViewsChange(newMinViews, newMaxViews);
-		sessionStorage.setItem("minViews", JSON.stringify(newMinViews));
-		sessionStorage.setItem("maxViews", JSON.stringify(newMaxViews));
+
+		sessionStorage.setItem("minViews", String(newMinViews));
+		sessionStorage.setItem("maxViews", String(newMaxViews));
 	};
 
 	return (
@@ -55,7 +65,7 @@ export function ViewsFilter({ onViewsChange, clearFilters }: ViewsFilterProps) {
 					thumbClassName="thumb"
 					trackClassName="track"
 					min={0}
-					max={3000000}
+					max={1000000}
 					value={[minViews, maxViews]}
 					onChange={handleSliderChange}
 					onAfterChange={handleAfterSliderChange}

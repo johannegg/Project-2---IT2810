@@ -3,12 +3,13 @@ import { Filter } from "../GenreFilter/GenreFilter";
 import { ViewsFilter } from "../ViewsFilter/ViewsFilter";
 import Sort from "../Sort/Sort";
 import { SongData } from "../../utils/types/SongTypes";
+import { useReactiveVar } from "@apollo/client";
+import { genreFilterVar, sortOptionVar } from "../../apollo/cache";
 import { useEffect, useRef } from "react";
 
 type SidebarProps = {
 	onGenreChange: (selectedGenres: string[]) => void;
 	onViewsChange: (minViews: number, maxViews: number) => void;
-	sortOption: string;
 	onSortChange: (newSort: string) => void;
 	songs: SongData[];
 	onToggle: (isOpen: boolean) => void;
@@ -19,12 +20,12 @@ type SidebarProps = {
 	minViews: number;
 	maxViews: number;
 	selectedGenres: string[] | null;
+	sortOption: string;
 };
 
 export function Sidebar({
 	onGenreChange,
 	onViewsChange,
-	sortOption,
 	onSortChange,
 	songs,
 	onToggle,
@@ -36,6 +37,8 @@ export function Sidebar({
 	maxViews,
 	selectedGenres,
 }: SidebarProps) {
+	const sortOption = useReactiveVar(sortOptionVar);
+
 	const sidebarRef = useRef<HTMLDivElement>(null);
 
 	useEffect(() => {
@@ -47,6 +50,12 @@ export function Sidebar({
 	const toggleMenu = () => {
 		onToggle(!isOpen);
 	};
+
+	useEffect(() => {
+		if (clearFilters) {
+			genreFilterVar([]);
+		}
+	}, [clearFilters]);
 
 	return (
 		<div

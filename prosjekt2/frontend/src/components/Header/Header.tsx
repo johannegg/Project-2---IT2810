@@ -7,14 +7,11 @@ import { BsMusicNoteList } from "react-icons/bs";
 import Profile from "../Profile/Profile";
 
 const Header: React.FC = () => {
-
 	return (
 		<header className="header">
-			<Link to="/">
-				<a className="header-content">	
-					<img src={couchIcon} alt="Sofa Icon" className="sofa-icon" />
-					<h1 className="header-title">Lyrical Lounge</h1>
-				</a>
+			<Link to="/" className="header-content">
+				<img src={couchIcon} alt="Sofa Icon" className="sofa-icon" />
+				<h1 className="header-title">Lyrical Lounge</h1>
 			</Link>
 			<nav className="navbar">
 				<Link

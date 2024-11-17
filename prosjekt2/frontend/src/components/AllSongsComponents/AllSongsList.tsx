@@ -14,7 +14,7 @@ type AllSongsListProps = {
 	playlistId?: string;
 	minViews?: number;
 	maxViews?: number;
-	onSongRemoved?: () => void;
+	onSongRemoved?: (songId: string) => void;
 };
 
 export function AllSongsList({
@@ -34,7 +34,7 @@ export function AllSongsList({
 
 	return (
 		<section className="songContainer">
-			{songs.length === 0 ? (
+			{filteredSongs.length === 0 ? (
 				<p>No songs found</p>
 			) : (
 				<table className="songTable">
@@ -73,7 +73,7 @@ export function AllSongsList({
 										song={song}
 										isInPlaylist={isInPlaylist}
 										playlistId={playlistId}
-										onSongRemoved={onSongRemoved}
+										onSongRemoved={() => onSongRemoved && onSongRemoved(song.id)}
 									/>
 								</td>
 								<td>

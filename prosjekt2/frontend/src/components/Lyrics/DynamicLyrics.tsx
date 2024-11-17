@@ -1,24 +1,22 @@
-import { useLocation } from "react-router-dom";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import Lyric from "./Lyrics";
-import { SongData } from "../../utils/types/SongTypes";
+import { songDataVar } from "../../apollo/cache";
+import { useReactiveVar } from "@apollo/client";
 
 const DynamicLyric = () => {
-	const [songData, setSongData] = useState<SongData | null>(null);
-	const location = useLocation();
+	const navigate = useNavigate();
+	const songData = useReactiveVar(songDataVar);
 
 	useEffect(() => {
-		if (location.state) {
-			const song = location.state as SongData;
-			setSongData(song);
-		} else {
-			setSongData(null);
+		if (!songData || songData.length === 0) {
+			navigate("/not-found", { replace: true });
 		}
-	}, [location.state]);
+	}, [songData, navigate]);
 
-	if (!songData) return <div>Song not found</div>;
+	if (!songData || songData.length === 0) return <div>Song not found</div>;
 
-	return songData ? <Lyric songData={songData} /> : <div>Song not found</div>;
+	return <Lyric songData={songData[0]} />;
 };
 
 export default DynamicLyric;

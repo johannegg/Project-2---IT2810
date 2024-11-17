@@ -7,18 +7,19 @@ export const useSongCount = (
 	minViews: number,
 	maxViews: number,
 ) => {
-	const { data, error, refetch } = useQuery(GET_SONG_COUNT, {
+	const { data, loading, error, refetch } = useQuery(GET_SONG_COUNT, {
 		variables: {
-			genres: selectedGenres,
-			searchTerm,
+			genres: selectedGenres && selectedGenres.length > 0 ? selectedGenres : null,
+			searchTerm: searchTerm || "",
 			minViews,
 			maxViews,
 		},
-		fetchPolicy: "cache-first",
+		fetchPolicy: "network-only",
 	});
 
 	return {
 		songCount: data ? data.songCount : 0,
+		isLoading: loading,
 		error,
 		refetch,
 	};

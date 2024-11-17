@@ -5,6 +5,8 @@ import PlaylistForm from "../../components/PlaylistForm/PlaylistForm";
 import { SongData } from "../../utils/types/SongTypes";
 import { useNavigate } from "react-router-dom";
 import { v4 as uuidv4 } from "uuid";
+import { playlistsVar } from "../../apollo/cache";
+import { useReactiveVar } from "@apollo/client";
 
 export interface PlaylistData {
 	id: string;
@@ -16,17 +18,21 @@ export interface PlaylistData {
 
 const Playlists = () => {
 	const navigate = useNavigate();
-
-	const [playlists, setPlaylists] = useState<PlaylistData[]>(() => {
-		const storedPlaylists = localStorage.getItem("playlists");
-		return storedPlaylists ? JSON.parse(storedPlaylists) : [];
-	});
-
+	const playlists = useReactiveVar(playlistsVar);
 	const [showForm, setShowForm] = useState(false);
 
+	// Synkroniser `playlistsVar` med `localStorage` hver gang `playlists` endres
 	useEffect(() => {
 		localStorage.setItem("playlists", JSON.stringify(playlists));
 	}, [playlists]);
+
+	// Last inn spillelister fra `localStorage` til `playlistsVar` ved første render
+	useEffect(() => {
+		const storedPlaylists = localStorage.getItem("playlists");
+		if (storedPlaylists) {
+			playlistsVar(JSON.parse(storedPlaylists));
+		}
+	}, []); // Denne effekten kjører kun én gang ved første render
 
 	const addNewPlaylist = (newPlaylistName: string, backgroundColor: string, icon: string) => {
 		const newPlaylist = {
@@ -36,12 +42,12 @@ const Playlists = () => {
 			icon,
 			songs: [],
 		};
-		setPlaylists([...playlists, newPlaylist]);
+		playlistsVar([...playlists, newPlaylist]);
 	};
 
 	const deletePlaylist = (playlistId: string) => {
 		const updatedPlaylists = playlists.filter((playlist) => playlist.id !== playlistId);
-		setPlaylists(updatedPlaylists);
+		playlistsVar(updatedPlaylists);
 	};
 
 	const handlePlaylistClick = (playlist: PlaylistData) => {
