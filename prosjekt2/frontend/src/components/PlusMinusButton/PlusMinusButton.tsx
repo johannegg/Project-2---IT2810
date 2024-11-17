@@ -9,6 +9,7 @@ type PlusMinusButtonProps = {
 	isInPlaylist?: boolean;
 	playlistId?: string;
 	onSongRemoved?: () => void;
+	isSideBarOpen: boolean;
 };
 
 const PlusMinusButton: React.FC<PlusMinusButtonProps> = ({
@@ -16,6 +17,7 @@ const PlusMinusButton: React.FC<PlusMinusButtonProps> = ({
 	isInPlaylist,
 	playlistId,
 	onSongRemoved,
+	isSideBarOpen,
 }) => {
 	const [showModal, setShowModal] = useState(false);
 	const [feedbackMessage, setFeedbackMessage] = useState("");
@@ -100,7 +102,7 @@ const PlusMinusButton: React.FC<PlusMinusButtonProps> = ({
 			</button>
 
 			{showModal && (
-				<div className="playlist-modal-overlay" onClick={(e) => e.stopPropagation()}>
+				<div className={`playlist-modal-overlay ${isSideBarOpen ? 'sidebar-open' : ''}`}  onClick={(e) => e.stopPropagation()}>
 					<div className="playlist-modal-container">
 						<h3>Select a playlist to add "{song.title}"</h3>
 						{feedbackMessage && (

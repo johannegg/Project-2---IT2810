@@ -141,6 +141,7 @@ const Home = () => {
 								genres={selectedGenres == null ? [] : selectedGenres}
 								maxViews={maxViews}
 								minViews={minViews}
+								isSideBarOpen={isSidebarOpen}
 							/>
 						</section>
 					</section>

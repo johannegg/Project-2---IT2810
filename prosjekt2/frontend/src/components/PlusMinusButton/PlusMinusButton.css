@@ -12,7 +12,15 @@
 	cursor: default;
 }
 
+.playlist-modal-overlay.sidebar-open {
+	top: -20px;
+}
+
 .playlist-modal-container {
+	position: fixed;
+	top: 70%;
+	left: 50%;
+	transform: translate(-50%, -50%);
 	background: #ffffff;
 	padding: 20px;
 	width: 290px;
@@ -24,6 +32,12 @@
 	word-wrap: break-word;
 	overflow-y: auto;
 	max-height: 80vh;
+	margin-top: -200px;
+}
+
+.playlist-modal-overlay.sidebar-open .playlist-modal-container {
+	margin-top: -500px;
+	top: 45%;
 }
 
 .playlist-modal-container h3 {

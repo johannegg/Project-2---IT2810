@@ -15,6 +15,7 @@ type AllSongsListProps = {
 	minViews?: number;
 	maxViews?: number;
 	onSongRemoved?: () => void;
+	isSideBarOpen?: boolean;
 };
 
 export function AllSongsList({
@@ -25,6 +26,7 @@ export function AllSongsList({
 	isInPlaylist,
 	playlistId,
 	onSongRemoved,
+	isSideBarOpen,
 }: AllSongsListProps) {
 	const navigate = useNavigate();
 
@@ -57,6 +59,7 @@ export function AllSongsList({
 										isInPlaylist={isInPlaylist}
 										playlistId={playlistId}
 										onSongRemoved={onSongRemoved}
+										isSideBarOpen={isSideBarOpen ?? false}
 									/>
 								</td>
 								<td>
