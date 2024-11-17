@@ -11,6 +11,7 @@ import {
 	sortOptionVar,
 	homeSearchTermVar,
 	isSidebarOpenVar,
+	clearFiltersVar,
 } from "../../apollo/cache";
 import { useReactiveVar } from "@apollo/client";
 import { useSongCount } from "../../utils/hooks/useSongCount";
@@ -24,7 +25,6 @@ const Home = () => {
 	const searchTerm = useReactiveVar(homeSearchTermVar);
 	const isSidebarOpen = useReactiveVar(isSidebarOpenVar);
 
-	const [clearFilters, setClearFilters] = useState(false);
 	const [localSongCount, setLocalSongCount] = useState<number>(0);
 	const debounceTimer = useRef<NodeJS.Timeout | null>(null);
 
@@ -93,12 +93,12 @@ const Home = () => {
 		sessionStorage.setItem("maxViews", "1000000");
 		sessionStorage.removeItem("selectedGenres");
 
-		if (!clearFilters) {
-			setClearFilters(true);
-			setTimeout(() => setClearFilters(false), 100);
-		}
+		clearFiltersVar(true);
+    refetchSongCount();
 
-		refetchSongCount();
+    setTimeout(() => {
+        clearFiltersVar(false);
+    }, 100);
 	};
 
 	if (error) return <p>Error loading songs: {error?.message}</p>;
@@ -111,7 +111,6 @@ const Home = () => {
 				songs={songs}
 				onToggle={toggleSidebar}
 				onViewsChange={(newMin, newMax) => handleViewsChange(newMin, newMax)}
-				clearFilters={clearFilters}
 				searchTerm={searchTerm}
 				onClearAllFilters={clearAllFilters}
 			/>

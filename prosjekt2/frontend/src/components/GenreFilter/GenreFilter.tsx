@@ -2,24 +2,23 @@ import "./GenreFilter.css";
 import { FaFilter } from "react-icons/fa";
 import { useGenreCounts } from "../../utils/hooks/useGenreCounts";
 import { useReactiveVar } from "@apollo/client";
-import { genreFilterVar, maxViewsVar, minViewsVar } from "../../apollo/cache";
+import { clearFiltersVar, genreFilterVar, maxViewsVar, minViewsVar } from "../../apollo/cache";
 import { useEffect, useState } from "react";
 
 interface FilterProps {
 	onGenreChange: (selectedGenres: string[]) => void;
-	clearFilters: boolean;
 	searchTerm: string;
 }
 
 export function Filter({
 	onGenreChange,
-	clearFilters,
 	searchTerm,
 }: FilterProps) {
 	const minViews = useReactiveVar(minViewsVar);
 	const maxViews = useReactiveVar(maxViewsVar);
 	const selectedGenres = useReactiveVar(genreFilterVar);
 	const selectedGenresFromApollo = useReactiveVar(genreFilterVar);
+	const clearFilters = useReactiveVar(clearFiltersVar);
 	const { genreCounts, isLoading } = useGenreCounts(searchTerm, minViews, maxViews, selectedGenres);
 	const [localSelectedGenres, setLocalSelectedGenres] = useState<string[]>(
 		selectedGenresFromApollo || [],
@@ -63,8 +62,9 @@ export function Filter({
 				sessionStorage.removeItem("selectedGenres");
 				onGenreChange([]);
 			}
+			clearFiltersVar(false);
 		}
-	}, [clearFilters]);
+	}, [clearFilters, localSelectedGenres, onGenreChange]);
 
 	// Handle keyboard input for accessibility
 	const handleKeyDown = (event: React.KeyboardEvent<HTMLDivElement>, genre: string) => {
