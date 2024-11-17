@@ -3,7 +3,7 @@
 ## Link to Project on VM
 
 http://it2810-12.idi.ntnu.no/project2/  
-Our project is available on the link above, as long as you are connected to the NTNU Wi-Fi or VPN from NTNU. As the backend is running with PM2 on the virtual machine, there is no need to restart the backend each time. 
+Our project is available on the link above, as long as you are connected to the NTNU Wi-Fi or VPN from NTNU. As the backend is running with PM2 on the virtual machine, there is no need to restart the backend each time.
 
 ## Table of Contents
 
@@ -23,12 +23,13 @@ Our project is available on the link above, as long as you are connected to the 
 
 Lyrical Lounge is an application where you can discover new songs and read their lyrics. The songs are displayed in a list, and you can click each song to read the lyrics and find more information about it.
 
-The main functionality of the application is viewing individual songs witht their lyrics, saving your favorites, and creating playlists. On the homepage, users can search for songs, filter by genre and number of views, and sort by title, artist, or views.
+The main functionality of the application is creating a user, viewing individual songs witht their lyrics, saving your favorites, and creating playlists. On the homepage, users can search for songs, filter by genre and number of views, and sort by title, artist, or views.
 
 We’ve focused on sustainability with features like dark mode, efficient data fetching, and caching to save energy. Also, we’ve made the app more accessible with features such as labels and keyboard navigation.
 
 ### Features
 
+- **Create User**: You can create a user with a unique username to automatically sync your playlists and favorites to it.
 - **View Songs**: Clicking on a song from the list takes you to a detailed page with lyrics and more information.
 - **Filter, Sort, and Search**: Use the filter menu on the homepage to filter songs by genre or views. You can also sort the list by title, artist, or views. The search field allows you to find songs by typing the song's title or artist name.
 - **Navigation**: You can navigate between the pages: "Home", "Favorited Songs", and "Your Playlists" to see different features.
@@ -38,6 +39,8 @@ We’ve focused on sustainability with features like dark mode, efficient data f
 ### Technology
 
 We have used the GRAND stack, with the technology GraphQL, React with TypeScript, Apollo and Neo4j Database. CSS and HTML is also used in frontend. Prettier and ESLint is used to maintain code quality.
+
+For state management we have chosen to use Apollo Local State Management, as this integrated well with our tech-stack. We used Apollo's reactive variables to handle states in for example filters, sorting, search terms, favorite songs, and playlists directly on the client side. By syncing these variables with sessionStorage and localStorage, we made sure user settings are saved even when you refresh the page.
 
 ## Running the Project
 
@@ -49,11 +52,13 @@ If you want to install the project from your computer, clone the project using g
 `npm install`  
 `npm run dev`
 
-The backend is running on the virtual machine, so you need to be connected to NTNU network or VPN. If you want to run the backend on your computer, you have to replace line 8 in project2/frontend/src/main.tsx from ?? to `uri: "http://localhost:4000/",`.
+The backend is running on the virtual machine, so you need to be connected to NTNU network or VPN.
+
+If you want to run the backend on your computer, you have to replace line 8 in `prosjekt2/frontend/src/main.tsx` from `uri: "http://it2810-12.idi.ntnu.no:3001",` to `uri: "http://localhost:4000/",`.
 
 ### Run ESLint and Prettier
 
-??
+ESLint and Prettier is used to ensure good quality of the code. Prettier is used in the whole application. From the root of the project you can run `npx prettier --check .` to ensure everything is up to standards. ESLint can be ran in the frontend of the project. Navigate into the folder using `cd prosjekt2/frontend` and run the command `npm run lint`.
 
 ### Run Tests
 
@@ -62,13 +67,15 @@ The backend is running on the virtual machine, so you need to be connected to NT
 ## Database
 
 As we have chosen the GRAND stack, we are using the Neo4j as database. From the beginning, as we imported our dataset, we had the following labels and relations
+
 - **Artist**
 - **Song**
 - **Genre**
 - **PERFORMED_BY** (connects a Song to an Artist)
 - **HAS_GENRE** (connects a Song to a Genre)
-  
+
 As we have implemented users, favorites and playlists in our application, the database was expanded with the new labels and relations
+
 - **User**
 - **Playlist**
 - **CONTAINS** (connects a Playlist to a Song)
@@ -87,4 +94,4 @@ We've put a lot of effort into making the site accessible for everyone. All icon
 
 ## Sustainable Web Development
 
-We've tried to make our project more sustainable by keeping things simple and efficient. To avoid making unecessary calls to the backend, the search field only works when you press Enter, and the views-filter fetches songs when you let go of the “thumbs” (instead of continously fetching). Caching is also used to speed things up and reduce server load. We’ve added dark mode and light mode that follow your system settings automatically to help save energy, and we’ve kept the design minimal by not using many images or animations and sticking mostly to neutral colors with lots of white space. This helps keep the site fast and light while being easier on energy use.
+We've tried to make our project more sustainable by keeping things simple and efficient. To avoid making unecessary calls to the backend, the search field only works when you press Enter, and the views-filter fetches songs when you let go of the “thumbs” (instead of continously fetching). Caching is also used to speed things up and reduce server load. We’ve added dark mode and light mode that follow your system settings automatically to help save energy, and we’ve kept the design minimal by not using many images or animations and sticking mostly to neutral colors with lots of white space. This helps keep the site fast and light while being easier on energy use. For the loading of songs, we have chosen to load 30 at a time and have implemented dynamic loading with a "Load more songs" button at the bottom of the list. This approach is more sustainable than loading everything at once, as it saves bandwidth and reduces energy consumption by only loading data when needed. It also improves performance by speeding up initial load times and reducing memory usage, which ensures a smoother user experience.
