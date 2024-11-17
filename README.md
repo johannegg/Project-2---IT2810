@@ -7,7 +7,17 @@ Our project is available on the link above, as long as you are connected to the 
 
 ## Table of Contents
 
-_Her kommer TOC_
+- [About the project](#about-the-project)
+  - [Features](#features)
+  - [Technology](#technology)
+- [Running the Project](#running-the-project)
+  - [Run Project](#run-project)
+  - [Run ESLint and Prettier](#run-eslint-and-prettier)
+  - [Run Tests](#run-tests)
+- [Database](#database)
+  - [The dataset](#the-dataset)
+- [Web Accessibility](#web-accessibility)
+- [Sustainable Web Development](#sustainable-web-development)
 
 ## About the project
 
