@@ -3,11 +3,11 @@
 ## Link to Project on VM
 
 http://it2810-12.idi.ntnu.no/project2/  
-Our project is available on the link above, as long as you are connected to the NTNU Wifi or VPN from NTNU.
+Our project is available on the link above, as long as you are connected to the NTNU Wi-Fi or VPN from NTNU. As the backend is running with PM2 on the virtual machine, there is no need to restart the backend each time. 
 
 ## Table of Contents
 
-- [About the project](#about-the-project)
+- [About the Project](#about-the-project)
   - [Features](#features)
   - [Technology](#technology)
 - [Running the Project](#running-the-project)
@@ -15,11 +15,11 @@ Our project is available on the link above, as long as you are connected to the 
   - [Run ESLint and Prettier](#run-eslint-and-prettier)
   - [Run Tests](#run-tests)
 - [Database](#database)
-  - [The dataset](#the-dataset)
+  - [The Dataset](#the-dataset)
 - [Web Accessibility](#web-accessibility)
 - [Sustainable Web Development](#sustainable-web-development)
 
-## About the project
+## About the Project
 
 Lyrical Lounge is an application where you can discover new songs and read their lyrics. The songs are displayed in a list, and you can click each song to read the lyrics and find more information about it.
 
@@ -33,7 +33,7 @@ We’ve focused on sustainability with features like dark mode, efficient data f
 - **Filter, Sort, and Search**: Use the filter menu on the homepage to filter songs by genre or views. You can also sort the list by title, artist, or views. The search field allows you to find songs by typing the song's title or artist name.
 - **Navigation**: You can navigate between the pages: "Home", "Favorited Songs", and "Your Playlists" to see different features.
 - **Create Playlists**: Create your own playlists on the "Your Playlists" page using the "New Playlist" button. Songs can be added to playlists from either the homepage or favorite song-page, and they can also be removed from the playlist. Playlists can also be deleted.
-- **Favorite Songs**: Mark your favorite songs by clicking the heart icon next to them. These favorited tracks appear on the "Favorited Songs" page.
+- **Favorite Songs**: Mark your favorite songs by clicking the heart icon next to them. These favorited songs appear on the "Favorited Songs" page.
 
 ### Technology
 
@@ -61,9 +61,23 @@ The backend is running on the virtual machine, so you need to be connected to NT
 
 ## Database
 
-As we have chosen the GRAND stack, we are using the Neo4j as database. From the beginning, as we imported our dataset, we had the labels **Artist**, **Song** and **Genre**, with the relations **PERFORMED_BY** (connects a Song to an Artist) and **HAS_GENRE** (connects a Song to a Genre). As we have implemented users, favorites and playlists in our application, the database was expanded with the new labels **User** and **Playlist**, as well as the relations **CONTAINS** (connects a Playlist to a Song), **OWNS** (connects a User to a Playlist) and **HAS_FAVORITES** (connects a User to a Song). Altogether our database contains 5 656 nodes and (at the moment) 5 955 relationships.
+As we have chosen the GRAND stack, we are using the Neo4j as database. From the beginning, as we imported our dataset, we had the following labels and relations
+- **Artist**
+- **Song**
+- **Genre**
+- **PERFORMED_BY** (connects a Song to an Artist)
+- **HAS_GENRE** (connects a Song to a Genre)
+  
+As we have implemented users, favorites and playlists in our application, the database was expanded with the new labels and relations
+- **User**
+- **Playlist**
+- **CONTAINS** (connects a Playlist to a Song)
+- **OWNS** (connects a User to a Playlist)
+- **HAS_FAVORITES** (connects a User to a Song)
 
-### The dataset
+Altogether our database contains 5 656 nodes and (at the moment) 5 955 relationships.
+
+### The Dataset
 
 The dataset we have chosen is from Genius via Kaggle ([Kaggle: Genius Song Lyrics](https://www.kaggle.com/datasets/carlosgdcj/genius-song-lyrics-with-language-information/data?fbclid=IwY2xjawGmhStleHRuA2FlbQIxMAABHUqHd8QJKNwFXvGOQBCHINMiJyj2AavdahQAgUNSbD4UYXtmF86PlzyjSg_aem_J3KYHhgyLC8fxWh4w4b1XA)), and after some manipulation it includes 24 753 songs. The information on each song is title, artist, genre, year, views (how many times someone have looked it up on genius) and songlyrics. We have also added an id for each song. As the database on the virtual machine had limited space, it is 2 947 songs in the application right now. If we could start over with choosing the songs, we would have made sure to pick songs with an even distribution of views and genres, and maybe filter out songs from artists like “Genius English Translations” and such.
 
