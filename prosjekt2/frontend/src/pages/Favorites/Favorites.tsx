@@ -54,7 +54,7 @@ const Favorites: React.FC = () => {
 				<SearchBar setSearchTerm={handleSearchSubmit} initialSearchTerm={searchTerm} />
 			</section>
 			<section className="favorites-allSongsContainer">
-				<AllSongsList songs={searchedSongs} genres={genres} />
+				<AllSongsList songs={searchedSongs}/>
 			</section>
 		</section>
 	);

@@ -137,10 +137,6 @@ const Home = () => {
 						<section className="allSongsContainer">
 							<AllSongsList
 								songs={songs}
-								genres={selectedGenres || []}
-								maxViews={maxViews}
-								minViews={minViews}
-								isSideBarOpen={isSidebarOpen}
 							/>
 						</section>
 					) : null}
