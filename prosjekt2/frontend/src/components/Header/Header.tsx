@@ -8,11 +8,12 @@ import Profile from "../Profile/Profile";
 
 const Header: React.FC = () => {
 	const navigate = useNavigate();
-	const handleNavigation = (path: string) => {
+	const handleNavigation = (path: string, event: React.MouseEvent<HTMLAnchorElement, MouseEvent>) => {
 		const username = localStorage.getItem("profileName");
 		if (username && username !== "") {
 			navigate(path);
 		} else {
+			event.preventDefault();
 			alert("You need to log in to access this page.");
 		}
 	};
@@ -26,7 +27,7 @@ const Header: React.FC = () => {
 			<nav className="navbar">
 				<Link
 					to="/favorites"
-					onClick={() => handleNavigation("/favorites")}
+					onClick={(e) => handleNavigation("/favorites", e)}
 					className={`navButton ${location.pathname === "/favorites" ? "active" : ""}`}
 				>
 					<FontAwesomeIcon icon={faHeart} size="2x" className="navIcon" />
@@ -34,7 +35,7 @@ const Header: React.FC = () => {
 				</Link>
 				<Link
 					to="/playlists"
-					onClick={() => handleNavigation("/playlists")}
+					onClick={(e) => handleNavigation("/playlists", e)}
 					className={`navButton ${location.pathname === "/playlists" ? "active" : ""}`}
 				>
 					<BsMusicNoteList className="navIcon musicIcon" />
