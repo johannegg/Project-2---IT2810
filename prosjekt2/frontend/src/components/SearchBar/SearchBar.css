@@ -100,7 +100,6 @@
 }
 
 @media (max-width: 500px) {
-
 	.iconContainer {
 		right: 13px;
 	}
@@ -121,7 +120,6 @@
 }
 
 @media (max-width: 400px) {
-
 	.searchInput {
 		width: 250px;
 		margin: auto;
@@ -139,7 +137,6 @@
 }
 
 @media (max-width: 380px) {
-
 	.searchInput {
 		margin-right: 50px;
 		width: 220px;
