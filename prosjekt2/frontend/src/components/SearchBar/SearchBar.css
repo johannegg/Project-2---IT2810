@@ -100,10 +100,6 @@
 }
 
 @media (max-width: 500px) {
-	.iconContainer {
-		right: 13px;
-	}
-
 	.searchInput {
 		width: 250px;
 		margin: auto;
