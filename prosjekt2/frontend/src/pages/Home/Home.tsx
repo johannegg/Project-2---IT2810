@@ -33,7 +33,6 @@ const Home = () => {
 		isLoading: isSongCountLoading,
 		refetch: refetchSongCount,
 	} = useSongCount(selectedGenres, searchTerm, minViews, maxViews);
-	const [username, setUsername] = useState<string | null>(null);
 
 	const { songs, isLoading, error, loadMoreSongs, hasMoreSongs } = useCachedSongs({
 		searchTerm,
@@ -52,24 +51,6 @@ const Home = () => {
 	useEffect(() => {
 		refetchSongCount();
 	}, [refetchSongCount]);
-
-	useEffect(() => {
-		const storedUsername = localStorage.getItem("profileName");
-		if (storedUsername) {
-			setUsername(storedUsername);
-		}
-
-		const handleStorageChange = () => {
-			const updatedUsername = localStorage.getItem("profileName");
-			if (updatedUsername !== username) {
-				setUsername(updatedUsername);
-			}
-		};
-		window.addEventListener("storage", handleStorageChange);
-		return () => {
-			window.removeEventListener("storage", handleStorageChange);
-		};
-	}, [username]);
 
 	const handleGenreChange = (genres: string[]) => {
 		genreFilterVar(genres.length > 0 ? genres : []);
