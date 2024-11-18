@@ -69,21 +69,27 @@ td {
 
 @media (max-width: 520px) {
 	.songContainer {
-		width: 400px;
-	}
-}
-
-@media (max-width: 450px) {
-	.songContainer {
-		width: 350px;
+		width: 410px;
 	}
 
 	.tableRow {
 		font-size: medium;
 	}
+
+	.title-artist-cell {
+		display: flex;
+		flex-direction: column;
+		align-items: flex-start;
+		row-gap: 5px;
+		word-break: break-word;
+	}
+
+	.titleCell {
+		font-weight: 700;
+	}
 }
 
-@media (max-width: 400px) {
+@media (max-width: 500px) {
 	.songContainer {
 		width: 330px;
 	}

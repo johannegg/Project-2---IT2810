@@ -39,12 +39,15 @@
 }
 
 .no-favorites-container button {
-	width: 100px;
+	width: 115px;
 	height: 40px;
-	border-radius: 6px;
+	border-radius: 15px;
 	background-color: var(--theme-pink);
+	color: white;
 }
 
-.no-favorites-container button:hover {
-	background-color: var(--theme-light-pink);
+@media (prefers-color-scheme: dark) {
+	.no-favorites-container button {
+		background-color: var(--theme-favorite-pink);
+	}
 }
