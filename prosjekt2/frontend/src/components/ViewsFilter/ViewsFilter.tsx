@@ -3,17 +3,17 @@ import ReactSlider from "react-slider";
 import { formatViews } from "../../utils/FormatViews";
 import { FaFilter } from "react-icons/fa";
 import { useReactiveVar } from "@apollo/client";
-import { minViewsVar, maxViewsVar } from "../../apollo/cache";
+import { minViewsVar, maxViewsVar, clearFiltersVar } from "../../apollo/cache";
 import { useEffect } from "react";
 
 interface ViewsFilterProps {
-	clearFilters: boolean;
 	onViewsChange: (minViews: number, maxViews: number) => void;
 }
 
-export function ViewsFilter({ onViewsChange, clearFilters }: ViewsFilterProps) {
+export function ViewsFilter({ onViewsChange }: ViewsFilterProps) {
 	const minViews = useReactiveVar(minViewsVar);
 	const maxViews = useReactiveVar(maxViewsVar);
+	const clearFilters = useReactiveVar(clearFiltersVar);
 
 	useEffect(() => {
 		const initialMinViews = Number(sessionStorage.getItem("minViews")) || 0;
@@ -36,6 +36,7 @@ export function ViewsFilter({ onViewsChange, clearFilters }: ViewsFilterProps) {
 
 				onViewsChange(0, 1000000);
 			}
+			clearFiltersVar(false);
 		}
 	}, [clearFilters, minViews, maxViews, onViewsChange]);
 

@@ -10,6 +10,8 @@ import {
 	maxViewsVar,
 	sortOptionVar,
 	homeSearchTermVar,
+	isSidebarOpenVar,
+	clearFiltersVar,
 } from "../../apollo/cache";
 import { useReactiveVar } from "@apollo/client";
 import { useSongCount } from "../../utils/hooks/useSongCount";
@@ -21,9 +23,8 @@ const Home = () => {
 	const maxViews = useReactiveVar(maxViewsVar);
 	const sortOption = useReactiveVar(sortOptionVar);
 	const searchTerm = useReactiveVar(homeSearchTermVar);
+	const isSidebarOpen = useReactiveVar(isSidebarOpenVar);
 
-	const [isSidebarOpen, setIsSidebarOpen] = useState<boolean>(false);
-	const [clearFilters, setClearFilters] = useState(false);
 	const [localSongCount, setLocalSongCount] = useState<number>(0);
 	const debounceTimer = useRef<NodeJS.Timeout | null>(null);
 
@@ -49,7 +50,7 @@ const Home = () => {
 
 	useEffect(() => {
 		refetchSongCount();
-	}, []);
+	}, [refetchSongCount]);
 
 	const handleGenreChange = (genres: string[]) => {
 		genreFilterVar(genres.length > 0 ? genres : []);
@@ -79,7 +80,7 @@ const Home = () => {
 	};
 
 	const toggleSidebar = () => {
-		setIsSidebarOpen((prev) => !prev);
+		isSidebarOpenVar(!isSidebarOpen);
 	};
 
 	const clearAllFilters = () => {
@@ -92,12 +93,12 @@ const Home = () => {
 		sessionStorage.setItem("maxViews", "1000000");
 		sessionStorage.removeItem("selectedGenres");
 
-		if (!clearFilters) {
-			setClearFilters(true);
-			setTimeout(() => setClearFilters(false), 100);
-		}
+		clearFiltersVar(true);
+    refetchSongCount();
 
-		refetchSongCount();
+    setTimeout(() => {
+        clearFiltersVar(false);
+    }, 100);
 	};
 
 	if (error) return <p>Error loading songs: {error?.message}</p>;
@@ -106,17 +107,11 @@ const Home = () => {
 		<>
 			<Sidebar
 				onGenreChange={handleGenreChange}
-				sortOption={sortOption}
 				onSortChange={handleSortChange}
 				songs={songs}
-				onToggle={setIsSidebarOpen}
-				isOpen={isSidebarOpen}
+				onToggle={toggleSidebar}
 				onViewsChange={(newMin, newMax) => handleViewsChange(newMin, newMax)}
-				clearFilters={clearFilters}
-				selectedGenres={selectedGenres}
 				searchTerm={searchTerm}
-				minViews={minViews}
-				maxViews={maxViews}
 				onClearAllFilters={clearAllFilters}
 			/>
 
@@ -136,9 +131,6 @@ const Home = () => {
 						<section className="allSongsContainer">
 							<AllSongsList
 								songs={songs}
-								genres={selectedGenres || []}
-								maxViews={maxViews}
-								minViews={minViews}
 							/>
 						</section>
 					) : null}

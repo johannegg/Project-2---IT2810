@@ -2,15 +2,15 @@ import React, { useState, useCallback } from "react";
 import { FiPlusCircle, FiMinusCircle } from "react-icons/fi";
 import { SongData } from "../../utils/types/SongTypes";
 import { PlaylistData } from "../../pages/Playlists/Playlists";
-import { useReactiveVar } from "@apollo/client";
-import { playlistsVar } from "../../apollo/cache";
+import { useReactiveVar} from "@apollo/client";
+import { playlistsVar, isSidebarOpenVar } from "../../apollo/cache";
 import "./PlusMinusButton.css";
 
 type PlusMinusButtonProps = {
 	song: SongData;
 	isInPlaylist?: boolean;
 	playlistId?: string;
-	onSongRemoved?: () => void;
+	onSongRemoved?: (songId: string) => void;
 };
 
 const PlusMinusButton: React.FC<PlusMinusButtonProps> = ({
@@ -19,7 +19,8 @@ const PlusMinusButton: React.FC<PlusMinusButtonProps> = ({
 	playlistId,
 	onSongRemoved,
 }) => {
-	const playlists = useReactiveVar(playlistsVar); // Access playlists reactively
+	const playlists = useReactiveVar(playlistsVar);
+	const isSidebarOpen = useReactiveVar(isSidebarOpenVar);
 	const [showModal, setShowModal] = useState(false);
 	const [feedbackMessage, setFeedbackMessage] = useState("");
 
@@ -59,7 +60,7 @@ const PlusMinusButton: React.FC<PlusMinusButtonProps> = ({
 		if (songAdded) {
 			setFeedbackMessage("Song successfully added!");
 			clearFeedbackMessage();
-			playlistsVar(updatedPlaylists); // Update the reactive variable
+			playlistsVar(updatedPlaylists);
 		}
 	};
 
@@ -71,8 +72,8 @@ const PlusMinusButton: React.FC<PlusMinusButtonProps> = ({
 				}
 				return playlist;
 			});
-			playlistsVar(updatedPlaylists); // Update the reactive variable
-			if (onSongRemoved) onSongRemoved();
+			playlistsVar(updatedPlaylists);
+			if (onSongRemoved) onSongRemoved(song.id);
 		}
 	};
 
@@ -96,7 +97,7 @@ const PlusMinusButton: React.FC<PlusMinusButtonProps> = ({
 			</button>
 
 			{showModal && (
-				<div className="playlist-modal-overlay" onClick={(e) => e.stopPropagation()}>
+				<div className={`playlist-modal-overlay ${isSidebarOpen ? 'sidebar-open' : ''}`}  onClick={(e) => e.stopPropagation()}>
 					<div className="playlist-modal-container">
 						<h3>Select a playlist to add "{song.title}"</h3>
 						{feedbackMessage && (
