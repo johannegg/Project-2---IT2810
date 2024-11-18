@@ -57,20 +57,6 @@ export const checkUserExists = async (
 // Custom resolvers
 export const resolvers = {
   Query: {
-    genres: async (_: any, __: any, { driver }: any) => {
-      const records = await executeCypherQuery(
-        driver,
-        "MATCH (g:Genre) RETURN g LIMIT 5",
-      );
-      // Map the result to fit the GraphQL schema
-      return records.map((record) => {
-        const genreNode = record.get("g");
-        return {
-          id: genreNode.elementId,
-          name: genreNode.properties.name,
-        };
-      });
-    },
     genreCounts: async (
       _: any,
       {
@@ -113,20 +99,6 @@ export const resolvers = {
         name: record.get("name"),
         count: record.get("count").toInt(),
       }));
-    },
-    artists: async (_: any, __: any, { driver }: any) => {
-      const records = await executeCypherQuery(
-        driver,
-        "MATCH (a:Artist) RETURN a LIMIT 10",
-      );
-      // Map the result to fit the GraphQL schema
-      return records.map((record) => {
-        const artistNode = record.get("a");
-        return {
-          id: artistNode.elementId,
-          name: artistNode.properties.name,
-        };
-      });
     },
     fetchPlaylists: async (
       _: any,
@@ -327,35 +299,6 @@ export const resolvers = {
 
       return records.length > 0 ? records[0].get("songCount").toInt() : 0;
     },
-
-    /* users: async (_: any, __: any, { driver }: any) => {
-      const records = await executeCypherQuery(
-        driver,
-        `
-        MATCH (user:User)-[:HAS_FAVORITES]->(song:Song)-[:PERFORMED_BY]->(artist:Artist)
-        RETURN user, collect( { song: song, artist: artist}) AS favoriteSongs
-        `
-      );
-  
-      // Map the result to the desired format
-      return records.map((record) => {
-        const userNode = record.get("user") as User;
-        const favoriteSongs = record.get("favoriteSongs") as FavoriteSong[];
-  
-        return {
-          username: userNode.properties.username,
-          favoriteSongs: favoriteSongs.map(({song, artist}) => {
-            return {
-              id: song.properties.id,
-              title: song.properties.title,
-              artist: {
-                name: artist.properties.name,
-              },
-            };
-          }),
-        };
-      });
-    }, */
   },
   Mutation: {
     createUser: async (
