@@ -35,8 +35,7 @@
 }
 
 .playlist-modal-overlay.sidebar-open .playlist-modal-container {
-	margin-top: -500px;
-	top: 45%;
+	top: 15%;
 }
 
 .playlist-modal-container h3 {
