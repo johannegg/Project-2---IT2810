@@ -4,7 +4,7 @@ import { GET_USER_PLAYLISTS } from "../Queries";
 export const useUserPlaylist = (username: string) => {
   const { data, error, loading, refetch } = useQuery(GET_USER_PLAYLISTS, {
     variables: { username },
-    fetchPolicy: "cache-first",
+    fetchPolicy: "network-only",
   });
 
   // Safely access the playlists data or return an empty array if undefined
