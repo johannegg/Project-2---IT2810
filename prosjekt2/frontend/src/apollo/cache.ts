@@ -45,6 +45,8 @@ export const favoritesSearchTermVar = makeVar<string>(savedFavoritesSearchTerm);
 export const favoriteSongsVar = makeVar<SongData[]>(savedFavoriteSongs);
 export const playlistsVar = makeVar<PlaylistData[]>(savedPlaylists);
 export const songDataVar = makeVar<SongData[]>([]);
+export const isSidebarOpenVar = makeVar<boolean>(false);
+export const clearFiltersVar = makeVar<boolean>(false);
 
 // Configure cache with reactive variables
 const cache = new InMemoryCache({

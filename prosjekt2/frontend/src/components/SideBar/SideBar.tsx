@@ -4,7 +4,12 @@ import { ViewsFilter } from "../ViewsFilter/ViewsFilter";
 import Sort from "../Sort/Sort";
 import { SongData } from "../../utils/types/SongTypes";
 import { useReactiveVar } from "@apollo/client";
-import { genreFilterVar, sortOptionVar } from "../../apollo/cache";
+import {
+	isSidebarOpenVar,
+	genreFilterVar,
+	sortOptionVar,
+	clearFiltersVar,
+} from "../../apollo/cache";
 import { useEffect, useRef } from "react";
 
 type SidebarProps = {
@@ -12,15 +17,9 @@ type SidebarProps = {
 	onViewsChange: (minViews: number, maxViews: number) => void;
 	onSortChange: (newSort: string) => void;
 	songs: SongData[];
-	onToggle: (isOpen: boolean) => void;
-	isOpen: boolean;
-	clearFilters: boolean;
+	onToggle: (isSidebarOpen: boolean) => void;
 	onClearAllFilters: () => void;
 	searchTerm: string;
-	minViews: number;
-	maxViews: number;
-	selectedGenres: string[] | null;
-	sortOption: string;
 };
 
 export function Sidebar({
@@ -29,26 +28,23 @@ export function Sidebar({
 	onSortChange,
 	songs,
 	onToggle,
-	isOpen,
-	clearFilters,
 	onClearAllFilters,
 	searchTerm,
-	minViews,
-	maxViews,
-	selectedGenres,
 }: SidebarProps) {
+	const isSidebarOpen = useReactiveVar(isSidebarOpenVar);
 	const sortOption = useReactiveVar(sortOptionVar);
+	const clearFilters = useReactiveVar(clearFiltersVar);
 
 	const sidebarRef = useRef<HTMLDivElement>(null);
 
 	useEffect(() => {
-		if (isOpen && sidebarRef.current) {
+		if (isSidebarOpen && sidebarRef.current) {
 			sidebarRef.current.focus();
 		}
-	}, [isOpen]);
+	}, [isSidebarOpen]);
 
 	const toggleMenu = () => {
-		onToggle(!isOpen);
+		onToggle(!isSidebarOpen);
 	};
 
 	useEffect(() => {
@@ -59,9 +55,9 @@ export function Sidebar({
 
 	return (
 		<div
-			className={`sidebar ${isOpen ? "open" : ""}`}
-			aria-hidden={!isOpen}
-			tabIndex={isOpen ? 0 : -1}
+			className={`sidebar ${isSidebarOpen ? "open" : ""}`}
+			aria-hidden={!isSidebarOpen}
+			tabIndex={isSidebarOpen ? 0 : -1}
 			ref={sidebarRef}
 		>
 			<button
@@ -69,28 +65,21 @@ export function Sidebar({
 				onClick={toggleMenu}
 				type="button"
 				aria-label="Close"
-				tabIndex={isOpen ? 0 : -1}
+				tabIndex={isSidebarOpen ? 0 : -1}
 			>
 				✕
 			</button>
 			<div className="filteringContainer">
 				<Sort songs={songs} sortOption={sortOption} onSortChange={onSortChange} />
 				<br />
-				<Filter
-					onGenreChange={onGenreChange}
-					clearFilters={clearFilters}
-					searchTerm={searchTerm}
-					minViews={minViews}
-					maxViews={maxViews}
-					selectedGenres={selectedGenres}
-				/>
+				<Filter onGenreChange={onGenreChange} searchTerm={searchTerm} />
 				<br />
-				<ViewsFilter onViewsChange={onViewsChange} clearFilters={clearFilters} />
+				<ViewsFilter onViewsChange={onViewsChange} />
 				<br />
 				<button
 					onClick={onClearAllFilters}
 					className="clearFiltersButton"
-					tabIndex={isOpen ? 0 : -1}
+					tabIndex={isSidebarOpen ? 0 : -1}
 				>
 					Clear filters
 				</button>

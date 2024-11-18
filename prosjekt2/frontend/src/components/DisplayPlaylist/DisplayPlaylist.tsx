@@ -45,7 +45,6 @@ const DisplayPlaylist: React.FC<DisplayPlaylistProps> = ({ playlistId, onDelete 
 					{currentPlaylist.songs.length > 0 ? (
 						<AllSongsList
 							songs={currentPlaylist.songs}
-							genres={[]}
 							isInPlaylist
 							playlistId={currentPlaylist.id}
 							onSongRemoved={(songId: string) => handleSongRemoved(songId)}
