@@ -38,13 +38,26 @@ export function Sidebar({
 	const sidebarRef = useRef<HTMLDivElement>(null);
 
 	useEffect(() => {
+		const savedState = sessionStorage.getItem("isSidebarOpen");
+		if (savedState !== null) {
+			isSidebarOpenVar(savedState === "true");
+		}
+	}, []);
+
+	useEffect(() => {
+		sessionStorage.setItem("isSidebarOpen", isSidebarOpen.toString());
+	}, [isSidebarOpen]);
+
+	useEffect(() => {
 		if (isSidebarOpen && sidebarRef.current) {
 			sidebarRef.current.focus();
 		}
 	}, [isSidebarOpen]);
-
+	
 	const toggleMenu = () => {
-		onToggle(!isSidebarOpen);
+		const newState = !isSidebarOpen;
+		isSidebarOpenVar(newState);
+		onToggle(newState);
 	};
 
 	useEffect(() => {

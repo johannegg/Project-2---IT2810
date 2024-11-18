@@ -34,6 +34,7 @@ const savedHomeSearchTerm = sessionStorage.getItem("homeSearchTerm") || "";
 const savedFavoritesSearchTerm = sessionStorage.getItem("favoritesSearchTerm") || "";
 const savedFavoriteSongs = JSON.parse(localStorage.getItem("favoriteSongs") || "[]");
 const savedPlaylists = JSON.parse(localStorage.getItem("playlists") || "[]");
+const savedSidebarState = sessionStorage.getItem("isSidebarOpen") === "true";
 
 // Create reactive variables
 export const genreFilterVar = makeVar<string[]>(savedGenres);
@@ -45,7 +46,7 @@ export const favoritesSearchTermVar = makeVar<string>(savedFavoritesSearchTerm);
 export const favoriteSongsVar = makeVar<SongData[]>(savedFavoriteSongs);
 export const playlistsVar = makeVar<PlaylistData[]>(savedPlaylists);
 export const songDataVar = makeVar<SongData[]>([]);
-export const isSidebarOpenVar = makeVar<boolean>(false);
+export const isSidebarOpenVar = makeVar<boolean>(savedSidebarState);
 export const clearFiltersVar = makeVar<boolean>(false);
 
 // Configure cache with reactive variables
