@@ -100,16 +100,11 @@
 }
 
 @media (max-width: 500px) {
-	.searchInput {
-		width: 320px;
-	}
 
 	.iconContainer {
 		right: 13px;
 	}
-}
 
-@media (max-width: 450px) {
 	.searchInput {
 		width: 250px;
 		margin: auto;
@@ -121,7 +116,41 @@
 	}
 
 	.clearButton {
-		left: 48px;
+		left: 50px;
+	}
+}
+
+@media (max-width: 400px) {
+
+	.searchInput {
+		width: 250px;
+		margin: auto;
+		font-size: medium;
+		margin-right: 30px;
+	}
+
+	.iconContainer {
+		right: 63px;
+	}
+
+	.clearButton {
+		left: 38px;
+	}
+}
+
+@media (max-width: 380px) {
+
+	.searchInput {
+		margin-right: 50px;
+		width: 220px;
+	}
+
+	.iconContainer {
+		right: 88px;
+	}
+
+	.clearButton {
+		left: 38px;
 	}
 }
 
