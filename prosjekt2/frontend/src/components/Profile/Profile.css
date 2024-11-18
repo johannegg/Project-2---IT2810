@@ -107,6 +107,7 @@
 
 .profile-login-icon {
     margin: 5px;
+    font-size: 25px;
 }
 
 .profileName {
@@ -119,6 +120,7 @@
     left: 18px;
     bottom: 66px;
     color: var(--theme-dark-grey);
+    cursor: pointer;
 }
 
 .close-login-button:hover {
@@ -134,16 +136,21 @@
 
 @media (max-width: 750px) {
 	.profile-icon {
-		margin-left: 5px;
+		margin-left: 10px;
 		margin-right: 5px;
 	}
 }
 
 
-@media (max-width: 420px) {
+@media (max-width: 650px) {
 	.profile-icon {
-		font-size: 14px;
+		font-size: 13px;
 	}
+
+    .close-login-button {
+        font-size: 25px;
+        left: 20px;
+    }
 }
 
 @media (prefers-color-scheme: dark) {

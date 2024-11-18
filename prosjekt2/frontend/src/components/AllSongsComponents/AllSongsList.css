@@ -70,13 +70,7 @@ td {
 
 @media (max-width: 520px) {
 	.songContainer {
-		width: 400px;
-	}
-}
-
-@media (max-width: 450px) {
-	.songContainer {
-		width: 350px;
+		width: 410px;
 	}
 
 	.tableRow {
@@ -96,7 +90,7 @@ td {
 	}
 }
 
-@media (max-width: 400px) {
+@media (max-width: 500px) {
 	.songContainer {
 		width: 330px;
 	}

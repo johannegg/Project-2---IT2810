@@ -87,6 +87,7 @@
 	cursor: pointer;
 	font-size: 16px;
 	background-color: white;
+	color: black;
 }
 
 @media (max-width: 1050px) {
@@ -95,9 +96,18 @@
 	}
 }
 
-@media (max-width: 600px) {
+@media (max-width: 950px) {
 	.sidebar {
 		width: 85%;
+	}
+
+	.filteringContainer {
+		width: 450px;
+		justify-self: center;
+	}
+
+	.clearFiltersButton {
+		margin-bottom: 100px;
 	}
 }
 
@@ -115,5 +125,6 @@
 
 	.clearFiltersButton {
 		background-color: var(--theme-almost-black);
+		color: white;
 	}
 }
