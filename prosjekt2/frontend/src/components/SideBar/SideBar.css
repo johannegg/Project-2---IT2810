@@ -94,6 +94,9 @@
 	.sidebar {
 		width: 200px;
 	}
+	.clearFiltersButton {
+		margin-bottom: 100px;
+	}
 }
 
 @media (max-width: 950px) {
@@ -103,10 +106,6 @@
 
 	.filteringContainer {
 		justify-self: center;
-	}
-
-	.clearFiltersButton {
-		margin-bottom: 100px;
 	}
 }
 

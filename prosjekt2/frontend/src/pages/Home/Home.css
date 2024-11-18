@@ -72,9 +72,6 @@
 	.homeComponents.homeComponents.shifted {
 		transform: translateX(10%);
 	}
-}
-
-@media (max-width: 950px) {
 	.loadMoreButton {
 		margin-bottom: 100px;
 	}
