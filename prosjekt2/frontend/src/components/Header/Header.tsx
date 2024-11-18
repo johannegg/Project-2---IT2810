@@ -11,7 +11,6 @@ const Header: React.FC = () => {
 	const handleNavigation = (path: string) => {
 		const username = localStorage.getItem("profileName");
 		if (username && username !== "") {
-			
 			navigate(path);
 		} else {
 			alert("You need to log in to access this page.");
@@ -20,31 +19,27 @@ const Header: React.FC = () => {
 
 	return (
 		<header className="header">
-			<Link to="/">
-				<div className="header-content">
-					<img src={couchIcon} alt="Sofa Icon" className="sofa-icon" />
-					<h1 className="header-title">Lyrical Lounge</h1>
-				</div>
+			<Link to="/" className="header-content">
+				<img src={couchIcon} alt="Sofa Icon" className="sofa-icon" />
+				<h1 className="header-title">Lyrical Lounge</h1>
 			</Link>
 			<nav className="navbar">
-					<>
-						<button
-							type="button"
-							onClick={() => handleNavigation("/favorites")}
-							className={`navButton ${location.pathname === "/favorites" ? "active" : ""}`}
-						>
-							<FontAwesomeIcon icon={faHeart} size="2x" className="navIcon" />
-							<span className="navText">Favorited songs</span>
-						</button>
-						<button
-							type="button"
-							onClick={() => handleNavigation("/playlists")}
-							className={`navButton ${location.pathname === "/playlists" ? "active" : ""}`}
-						>
-							<BsMusicNoteList className="navIcon musicIcon" />
-							<span className="navText">Your playlists</span>
-						</button>
-					</>
+				<Link
+					to="/favorites"
+					onClick={() => handleNavigation("/favorites")}
+					className={`navButton ${location.pathname === "/favorites" ? "active" : ""}`}
+				>
+					<FontAwesomeIcon icon={faHeart} size="2x" className="navIcon" />
+					<span className="navText">Favorited songs</span>
+				</Link>
+				<Link
+					to="/playlists"
+					onClick={() => handleNavigation("/playlists")}
+					className={`navButton ${location.pathname === "/playlists" ? "active" : ""}`}
+				>
+					<BsMusicNoteList className="navIcon musicIcon" />
+					<span className="navText">Your playlists</span>
+				</Link>
 				<Profile />
 			</nav>
 		</header>

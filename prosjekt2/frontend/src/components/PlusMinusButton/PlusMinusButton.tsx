@@ -2,6 +2,8 @@ import React, { useState, useCallback } from "react";
 import { FiPlusCircle, FiMinusCircle } from "react-icons/fi";
 import { SongData } from "../../utils/types/SongTypes";
 import { PlaylistData } from "../../pages/Playlists/Playlists";
+import { useReactiveVar } from "@apollo/client";
+import { playlistsVar } from "../../apollo/cache";
 import { ADD_SONG_TO_PLAYLIST, REMOVE_SONG_FROM_PLAYLIST } from "../../utils/Queries";
 import { useMutation } from "@apollo/client";
 import "./PlusMinusButton.css";
@@ -19,6 +21,7 @@ const PlusMinusButton: React.FC<PlusMinusButtonProps> = ({
 	playlistId,
 	onSongRemoved,
 }) => {
+	const playlists = useReactiveVar(playlistsVar); // Access playlists reactively
 	const [showModal, setShowModal] = useState(false);
 	const [feedbackMessage, setFeedbackMessage] = useState("");
 
@@ -86,7 +89,7 @@ const PlusMinusButton: React.FC<PlusMinusButtonProps> = ({
 			variables: { username: localStorage.getItem("profileName"), playlistId, songId: song.id },
 		});
 
-		const updatedPlaylists = currentPlaylists.map((playlist: PlaylistData) => {
+		const updatedPlaylists = playlists.map((playlist: PlaylistData) => {
 			if (playlist.id === playlistId) {
 				const isSongAlreadyInPlaylist = playlist.songs.some((s) => s.id === song.id);
 				if (!isSongAlreadyInPlaylist) {
@@ -104,9 +107,8 @@ const PlusMinusButton: React.FC<PlusMinusButtonProps> = ({
 		if (songAdded) {
 			setFeedbackMessage("Song successfully added!");
 			clearFeedbackMessage();
+			playlistsVar(updatedPlaylists); // Update the reactive variable
 		}
-
-		updatePlaylists(updatedPlaylists);
 	};
 
 	const handleRemoveSongFromPlaylist = async () => {
@@ -118,14 +120,13 @@ const PlusMinusButton: React.FC<PlusMinusButtonProps> = ({
 			await removeSongFromPlaylist({
 				variables: { username: localStorage.getItem("profileName"), playlistId, songId: song.id },
 			});
-			const currentPlaylists = getPlaylists();
-			const updatedPlaylists = currentPlaylists.map((playlist: PlaylistData) => {
+			const updatedPlaylists = playlists.map((playlist: PlaylistData) => {
 				if (playlist.id === playlistId) {
 					return { ...playlist, songs: playlist.songs.filter((s) => s.id !== song.id) };
 				}
 				return playlist;
 			});
-			updatePlaylists(updatedPlaylists);
+			playlistsVar(updatedPlaylists); // Update the reactive variable
 			if (onSongRemoved) onSongRemoved();
 		}
 	};
@@ -142,6 +143,7 @@ const PlusMinusButton: React.FC<PlusMinusButtonProps> = ({
 		<>
 			<button
 				className="plusMinus-button"
+				data-label={isInPlaylist ? "Remove song" : "Add song"}
 				onClick={(e) => {
 					e.stopPropagation();
 					if (isInPlaylist) {
@@ -166,7 +168,7 @@ const PlusMinusButton: React.FC<PlusMinusButtonProps> = ({
 							</label>
 						)}
 						<ul className="playlist-selection">
-							{getPlaylists().map((playlist: PlaylistData) => (
+							{playlists.map((playlist: PlaylistData) => (
 								<li key={playlist.id}>
 									<button
 										onClick={(e) => {

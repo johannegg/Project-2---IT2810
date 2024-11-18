@@ -7,6 +7,8 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { useMutation } from "@apollo/client";
 import { CREATE_PLAYLIST, DELETE_PLAYLIST } from "../../utils/Queries";
 import { useUserPlaylist } from "../../utils/hooks/useUserPlaylists";
+import { playlistsVar } from "../../apollo/cache";
+import { useReactiveVar } from "@apollo/client";
 
 export interface PlaylistData {
 	id: string;
@@ -21,12 +23,11 @@ const Playlists = () => {
 	const location = useLocation();
 	const [showForm, setShowForm] = useState(false);
 	const [showLoading, setShowLoading] = useState(false);
+	const playlists = useReactiveVar(playlistsVar);
 	const profileName = localStorage.getItem("profileName");
 
 	const [createPlaylist] = useMutation(CREATE_PLAYLIST);
 	const [deletePlaylistMutation] = useMutation(DELETE_PLAYLIST);
-
-	const defaultPlaylists: PlaylistData[] = [];
 
 	const {
 		playlists: fetchedPlaylists,
@@ -35,32 +36,33 @@ const Playlists = () => {
 		refetch,
 	} = useUserPlaylist(profileName ? profileName : "");
 
-	const [playlists, setPlaylists] = useState<PlaylistData[]>(() => {
-		refetch();
-		const storedPlaylists = localStorage.getItem("playlists");
-		const userPlaylists = storedPlaylists ? JSON.parse(storedPlaylists) : [];
-		return [...defaultPlaylists, ...userPlaylists];
-	});
 	useEffect(() => {
-		if (fetchedPlaylists && fetchedPlaylists.length > 0) {
-			localStorage.setItem("playlists", JSON.stringify(fetchedPlaylists));
-			setPlaylists(fetchedPlaylists);
+		if (fetchedPlaylists?.length) {
+			playlistsVar(fetchedPlaylists);
 		}
 	}, [fetchedPlaylists]);
 
+	// Sync playlists with localStorage and reactive variable
 	useEffect(() => {
-		const userPlaylists = playlists.slice(defaultPlaylists.length);
-		localStorage.setItem("playlists", JSON.stringify(userPlaylists));
-	}, [defaultPlaylists.length, playlists]);
+		localStorage.setItem("playlists", JSON.stringify(playlists));
+	}, [playlists]);
+
+	// Fetch playlists from `localStorage` to `playlistsVar`
+	useEffect(() => {
+		const storedPlaylists = localStorage.getItem("playlists");
+		if (storedPlaylists) {
+			playlistsVar(JSON.parse(storedPlaylists));
+		}
+	}, []);
 
 	useEffect(() => {
 		let loadingTimeout: NodeJS.Timeout;
 		if (playlistsLoading) {
-			loadingTimeout = setTimeout(() => setShowLoading(true), 500); // Added delay
+			loadingTimeout = setTimeout(() => setShowLoading(true), 500);
 		} else {
 			setShowLoading(false);
 		}
-		return () => clearTimeout(loadingTimeout); // Cleanup on unmount or if loading changes
+		return () => clearTimeout(loadingTimeout);
 	}, [playlistsLoading]);
 
 	const addNewPlaylist = async (newPlaylistName: string, backgroundColor: string, icon: string) => {
@@ -77,11 +79,7 @@ const Playlists = () => {
 			refetch();
 			// Update the state with the response from the server
 			const createdPlaylist = data.createPlaylist;
-			setPlaylists([
-				...defaultPlaylists,
-				...playlists.slice(defaultPlaylists.length),
-				createdPlaylist,
-			]);
+			playlistsVar([...playlists, createdPlaylist]);
 		} catch (error) {
 			console.error("Error creating playlist:", error);
 		}
@@ -97,7 +95,7 @@ const Playlists = () => {
 			});
 			// Remove the playlist locally
 			const updatedPlaylists = playlists.filter((playlist) => playlist.id !== playlistId);
-			setPlaylists(updatedPlaylists);
+			playlistsVar(updatedPlaylists);
 		} catch (error) {
 			console.error("Error deleting playlist:", error);
 		}
@@ -128,17 +126,27 @@ const Playlists = () => {
 					</button>
 				)}
 				<div className="playlists-container">
-					{playlists.map((playlist) => (
-						<Playlist
-							id={playlist.id}
-							key={playlist.id}
-							name={playlist.name}
-							backgroundColor={playlist.backgroundcolor}
-							icon={playlist.icon}
-							songs={playlist.songs}
-							onClick={() => handlePlaylistClick(playlist)}
-						/>
-					))}
+					{playlists.length === 0 ? (
+						<p>You have no playlists yet.</p>
+					) : (
+						playlists.map((playlist) => (
+							<Playlist
+								id={playlist.id}
+								key={playlist.id}
+								name={playlist.name}
+								backgroundColor={playlist.backgroundcolor}
+								icon={playlist.icon}
+								songs={playlist.songs}
+								onClick={() => handlePlaylistClick(playlist)}
+								tabIndex={0}
+								onKeyDown={(e) => {
+									if (e.key === "Enter" || e.key === " ") {
+										handlePlaylistClick(playlist);
+									}
+								}}
+							/>
+						))
+					)}
 				</div>
 				{showLoading && <p>Loading playlists</p>}
 				{playlistsError && <p>Error loading playlists</p>}

@@ -1,3 +1,12 @@
+:focus {
+	outline: 3px solid #007acc;
+	outline-offset: 2px;
+}
+
+.js-focus-visible :focus:not(.focus-visible) {
+	outline: none;
+}
+
 :root {
 	font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
 	line-height: 1.5;
@@ -21,6 +30,7 @@
 	--theme-favorite-pink: #e27396;
 
 	--theme-light-grey: #d1cfcb;
+	--theme-grey: grey;
 	--theme-dark-grey: #333;
 	--theme-dark-pink: #dd5b82;
 	--theme-even-darker-pink: #871c3c;

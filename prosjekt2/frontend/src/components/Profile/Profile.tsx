@@ -3,8 +3,9 @@ import { faArrowRight, faCircleUser, faXmark } from "@fortawesome/free-solid-svg
 import { useEffect, useState } from "react";
 import { useMutation } from "@apollo/client";
 import { CREATE_USER } from "../../utils/Queries";
-import "./Profile.css";
 import { useNavigate } from "react-router-dom";
+import { favoriteSongsVar, playlistsVar } from "../../apollo/cache";
+import "./Profile.css";
 
 const Profile: React.FC = () => {
 	const [profileName, setProfile] = useState<string>("");
@@ -31,8 +32,9 @@ const Profile: React.FC = () => {
 		localStorage.removeItem("profileName");
 		localStorage.removeItem("favoriteSongs")
 		localStorage.removeItem("playlists");
+		playlistsVar([]);
+		favoriteSongsVar([]);
 		setShowLogin(false);
-		window.dispatchEvent(new Event("authChange"));
 		navigate("/");
 	};
 
@@ -40,13 +42,12 @@ const Profile: React.FC = () => {
 		if (inputValue.trim() !== "") {
 			try {
 				const { data } = await createUser({ variables: { username: inputValue } });
-				console.log(data)
 				if (data && data.createUser) {
 					// If user creation is successful
 					setProfile(data.createUser.username);
 					setUsernameTaken(false);
 					setLogin(true);
-					window.dispatchEvent(new Event("authChange"));
+					favoriteSongsVar(data.createUser.favoriteSongs);
 					localStorage.setItem("profileName", data.createUser.username);
 					localStorage.setItem("favoriteSongs", JSON.stringify(data.createUser.favoriteSongs));
 				}
@@ -128,7 +129,7 @@ const Profile: React.FC = () => {
 											className="profile-login-icon"
 											icon={faCircleUser}
 											size="lg"
-											style={{ color: "#E27396" }}
+											style={{ color: "#ea9ab2" }}
 										/>
 										<input
 											className="login-input"

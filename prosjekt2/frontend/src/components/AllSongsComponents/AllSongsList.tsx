@@ -12,30 +12,53 @@ type AllSongsListProps = {
 	genres: string[];
 	isInPlaylist?: boolean;
 	playlistId?: string;
-	onSongRemoved?: () => void;
+	minViews?: number;
+	maxViews?: number;
+	onSongRemoved?: (songId: string) => void;
 };
 
 export function AllSongsList({
 	songs,
 	genres,
+	maxViews,
+	minViews,
 	isInPlaylist,
 	playlistId,
 	onSongRemoved,
 }: AllSongsListProps) {
 	const navigate = useNavigate();
 
-	const filteredSongs =
-		genres.length > 0 ? songs.filter((song) => genres.includes(song.genre.name)) : songs;
+	const filteredSongs = songs
+		.filter((song) => (genres.length > 0 ? genres.includes(song.genre.name) : true)) // Filter by genre if genres are selected
+		.filter((song) => song.views >= (minViews ?? 0) && song.views <= (maxViews ?? Infinity)); // Filter by views within minViews and maxViews
 
 	return (
 		<section className="songContainer">
-			{songs.length === 0 ? (
+			{filteredSongs.length === 0 ? (
 				<p>No songs found</p>
 			) : (
 				<table className="songTable">
 					<tbody>
 						{filteredSongs.map((song) => (
-							<tr key={song.id} className="tableRow" onClick={() => routeChange(song, navigate)}>
+							<tr
+								key={song.id}
+								className="tableRow"
+								onClick={(e) => {
+									if (!(e.target instanceof HTMLButtonElement)) {
+										routeChange(song, navigate);
+									}
+								}}
+								tabIndex={0}
+								onKeyDown={(e) => {
+									if (
+										!(e.target instanceof HTMLButtonElement) &&
+										(e.key === "Enter" || e.key === " ")
+									) {
+										e.preventDefault();
+										routeChange(song, navigate);
+									}
+								}}
+							>
 								<td className="title-artist-cell">
 									<span className="titleCell">{song.title}</span>
 									<span className="artistCell">{song.artist.name}</span>
@@ -50,7 +73,7 @@ export function AllSongsList({
 										song={song}
 										isInPlaylist={isInPlaylist}
 										playlistId={playlistId}
-										onSongRemoved={onSongRemoved}
+										onSongRemoved={() => onSongRemoved && onSongRemoved(song.id)}
 									/>
 								</td>
 								<td>

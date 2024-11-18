@@ -1,37 +1,37 @@
-import { useLocation, useNavigate } from "react-router-dom";
-import { PlaylistData } from "../../pages/Playlists/Playlists";
+import { useParams, useNavigate } from "react-router-dom";
+import { useReactiveVar } from "@apollo/client";
+import { playlistsVar } from "../../apollo/cache";
 import DisplayPlaylist from "./DisplayPlaylist";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 
 const DynamicPlaylist = () => {
-    const location = useLocation();
-    const navigate = useNavigate();
-    const [playlistData, setPlaylistData] = useState<PlaylistData | null>(null);
+	const { playlistId } = useParams<{ playlistId: string }>();
+	const navigate = useNavigate();
+	const playlists = useReactiveVar(playlistsVar);
+	const playlistData = playlists.find((playlist) => playlist.id === playlistId);
 
-    useEffect(() => {
-        const initialPlaylistData = location.state?.playlist as PlaylistData | null;
-        if (initialPlaylistData) {
-            setPlaylistData(initialPlaylistData);
-        } else {
-            const storedPlaylists = JSON.parse(localStorage.getItem("playlists") || "[]");
-            const playlistId = location.pathname.split("/").pop();
-            const foundPlaylist = storedPlaylists.find((pl: PlaylistData) => pl.id === playlistId);
-            setPlaylistData(foundPlaylist || null);
-        }
-    }, [location.state, location.pathname]);
+	useEffect(() => {
+		const storedPlaylists = JSON.parse(localStorage.getItem("playlists") || "[]");
+		playlistsVar(storedPlaylists);
+	}, []);
+	
 
-    const handleDelete = () => {
+	if (!playlistData) {
+		navigate("/not-found", { replace: true });
+		return null;
+	}
+
+	const handleDelete = () => {
+		const updatedPlaylists = playlists.filter((playlist) => playlist.id !== playlistId);
+		playlistsVar(updatedPlaylists);
+		localStorage.setItem("playlists", JSON.stringify(updatedPlaylists));
+		navigate("/playlists", { state: { deletedPlaylistId: playlistData.id } });
         if (playlistData) {
             // Navigate back to Playlists page and pass a deletion flag
-            navigate("/playlists", { state: { deletedPlaylistId: playlistData.id } });
         }
-    };
+	};
 
-    if (!playlistData) {
-        return <div>Playlist not found</div>;
-    }
-
-    return <DisplayPlaylist playlist={playlistData} onDelete={handleDelete} />;
+	return <DisplayPlaylist playlistId={playlistData.id} onDelete={handleDelete} />;
 };
 
 export default DynamicPlaylist;

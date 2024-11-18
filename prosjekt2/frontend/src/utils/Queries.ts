@@ -1,8 +1,24 @@
 import { gql } from "@apollo/client";
 
 export const GET_SONGS = gql`
-	query GetSongs($skip: Int, $limit: Int, $genres: [String], $sortBy: SortBy, $searchTerm: String) {
-		songs(skip: $skip, limit: $limit, genres: $genres, sortBy: $sortBy, searchTerm: $searchTerm) {
+	query GetSongs(
+		$skip: Int
+		$limit: Int
+		$genres: [String]
+		$sortBy: SortBy
+		$searchTerm: String
+		$minViews: Int
+		$maxViews: Int
+	) {
+		songs(
+			skip: $skip
+			limit: $limit
+			genres: $genres
+			sortBy: $sortBy
+			searchTerm: $searchTerm
+			minViews: $minViews
+			maxViews: $maxViews
+		) {
 			id
 			title
 			views
@@ -15,6 +31,26 @@ export const GET_SONGS = gql`
 			genre {
 				name
 			}
+		}
+	}
+`;
+
+export const GET_SONG_COUNT = gql`
+	query GetSongCount($genres: [String], $searchTerm: String, $minViews: Int, $maxViews: Int) {
+		songCount(genres: $genres, searchTerm: $searchTerm, minViews: $minViews, maxViews: $maxViews)
+	}
+`;
+
+export const GET_GENRE_COUNTS = gql`
+	query GetGenreCounts($searchTerm: String, $minViews: Int, $maxViews: Int, $genres: [String]) {
+		genreCounts(
+			searchTerm: $searchTerm
+			minViews: $minViews
+			maxViews: $maxViews
+			genres: $genres
+		) {
+			name
+			count
 		}
 	}
 `;
@@ -74,15 +110,15 @@ export const GET_USER_PLAYLISTS = gql`
 `;
 
 export const ADD_FAVORITE_SONG = gql`
-  mutation AddFavoriteSong($username: String!, $songId: ID!) {
-    addFavoriteSong(username: $username, songId: $songId)
-  }
+	mutation AddFavoriteSong($username: String!, $songId: ID!) {
+		addFavoriteSong(username: $username, songId: $songId)
+	}
 `;
 
 export const REMOVE_FAVORITE_SONG = gql`
-  mutation RemoveFavoriteSong($username: String!, $songId: ID!) {
-    removeFavoriteSong(username: $username, songId: $songId)
-  }
+	mutation RemoveFavoriteSong($username: String!, $songId: ID!) {
+		removeFavoriteSong(username: $username, songId: $songId)
+	}
 `;
 
 export const CREATE_PLAYLIST = gql`

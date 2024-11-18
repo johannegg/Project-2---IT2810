@@ -1,56 +1,55 @@
 .sort-container {
-    display: inline-block;
-    padding: 10px;
-    margin: 10px 0;
-    border-radius: 10px;
-    box-shadow: 0 4px 8px 0 #00000033;
-    width: 200px;
-    background-color: white;
+	display: inline-block;
+	padding: 10px;
+	border-radius: 10px;
+	box-shadow: 0 4px 8px 0 #00000033;
+	width: 200px;
+	background-color: white;
 }
 
 select {
-    padding: 8px 12px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    background-color: #fff; 
-    font-size: 16px;
-    color: var(--theme-dark-grey);
-    cursor: pointer;
-    outline: none;
-    transition: border-color 0.3s;
+	padding: 8px 12px;
+	border: 1px solid #ccc;
+	border-radius: 5px;
+	background-color: #fff;
+	font-size: 16px;
+	color: var(--theme-dark-grey);
+	cursor: pointer;
+	outline: none;
+	transition: border-color 0.3s;
 }
 
 select:hover,
 select:focus {
-    border-color: #888;
+	border-color: #888;
 }
 
 option {
-    font-size: 16px;
-    color: var(--theme-dark-grey);
+	font-size: 16px;
+	color: var(--theme-dark-grey);
 }
 
-.sort-heading{
-    margin-top: 0px;
-    margin-bottom: 0px;
-    text-align: left; 
-    font-size: 1.5em;
+.sort-heading {
+	margin-top: 0px;
+	margin-bottom: 0px;
+	text-align: left;
+	font-size: 1.5em;
 	font-weight: 500;
 }
 
 .sort-options {
-    margin: 10px;
-    border: none;
-    box-shadow: 0 4px 8px 0 #00000033;
+	margin: 10px;
+	border: none;
+	box-shadow: 0 4px 8px 0 #00000033;
 }
 
 .sortHeader {
-    display: flex;
-    align-items: center;
+	display: flex;
+	align-items: center;
 }
 
 .sortIcon {
-    font-size: 20px;
+	font-size: 20px;
 }
 
 @media (max-width: 1050px) {
@@ -60,21 +59,19 @@ option {
 }
 
 @media (max-width: 600px) {
-    .sort-container {
-        width: 300px;
-    }
+	.sort-container {
+		width: 300px;
+	}
 }
 
-
 @media (max-width: 400px) {
-    .sort-container {
-        width: 190px;
-    }
-
+	.sort-container {
+		width: 190px;
+	}
 }
 
 @media (prefers-color-scheme: dark) {
-    .sort-container {
-        background-color: var(--theme-almost-black);
-    }
+	.sort-container {
+		background-color: var(--theme-almost-black);
+	}
 }

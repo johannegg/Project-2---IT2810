@@ -1,49 +1,34 @@
-import React, { useState, useEffect } from "react";
-import { PlaylistData } from "../../pages/Playlists/Playlists";
+import React, { useState } from "react";
 import "./DisplayPlaylist.css";
 import { AllSongsList } from "../AllSongsComponents/AllSongsList";
 import { AiOutlineDelete } from "react-icons/ai";
 import BackButton from "../BackButton/BackButton";
+import { useReactiveVar } from "@apollo/client";
+import { playlistsVar } from "../../apollo/cache";
+import { PlaylistData } from "../../pages/Playlists/Playlists";
 
 interface DisplayPlaylistProps {
-	playlist: PlaylistData;
+	playlistId: string;
 	onDelete: () => void;
 }
 
-const DisplayPlaylist: React.FC<DisplayPlaylistProps> = ({ playlist, onDelete }) => {
+const DisplayPlaylist: React.FC<DisplayPlaylistProps> = ({ playlistId, onDelete }) => {
+	const playlists = useReactiveVar(playlistsVar);
 	const [showConfirmDelete, setShowConfirmDelete] = useState(false);
-	const [currentPlaylist, setCurrentPlaylist] = useState<PlaylistData>({
-		...playlist,
-		songs: playlist.songs || [],
-	});
+	const currentPlaylist = playlists.find((pl) => pl.id === playlistId);
 
-	const updatePlaylistFromStorage = () => {
-		const storedPlaylists = JSON.parse(localStorage.getItem("playlists") || "[]");
-		const updatedPlaylist = storedPlaylists.find((pl: PlaylistData) => pl.id === playlist.id);
-		if (updatedPlaylist) {
-			setCurrentPlaylist({
-				...updatedPlaylist,
-				songs: updatedPlaylist.songs || [],
-			});
-		}
-	};
+	if (!currentPlaylist) return <div>Playlist not found</div>;
 
-	useEffect(() => {
-		updatePlaylistFromStorage();
-
-		const handleStorageChange = () => {
-			updatePlaylistFromStorage();
+	const handleSongRemoved = (songId: string) => {
+		const updatedPlaylist: PlaylistData = {
+			...currentPlaylist,
+			songs: currentPlaylist.songs.filter((song) => song.id !== songId),
 		};
 
-		window.addEventListener("storage", handleStorageChange);
+		const updatedPlaylists = playlists.map((pl) => (pl.id === playlistId ? updatedPlaylist : pl));
 
-		return () => {
-			window.removeEventListener("storage", handleStorageChange);
-		};
-	}, [playlist.id]);
-
-	const handleSongRemoved = () => {
-		updatePlaylistFromStorage(); // Update currentPlaylist immediately
+		playlistsVar(updatedPlaylists);
+		localStorage.setItem("playlists", JSON.stringify(updatedPlaylists));
 	};
 
 	return (
@@ -52,7 +37,7 @@ const DisplayPlaylist: React.FC<DisplayPlaylistProps> = ({ playlist, onDelete })
 				<header className="playlist-header">
 					<BackButton />
 					<button onClick={() => setShowConfirmDelete(true)} className="delete-playlist-button">
-						<AiOutlineDelete/>
+						<AiOutlineDelete />
 					</button>
 				</header>
 				<h1>{currentPlaylist.name + " " + currentPlaylist.icon}</h1>
@@ -63,7 +48,7 @@ const DisplayPlaylist: React.FC<DisplayPlaylistProps> = ({ playlist, onDelete })
 							genres={[]}
 							isInPlaylist
 							playlistId={currentPlaylist.id}
-							onSongRemoved={handleSongRemoved}
+							onSongRemoved={(songId: string) => handleSongRemoved(songId)}
 						/>
 					) : (
 						<p>No songs here yet.</p>
