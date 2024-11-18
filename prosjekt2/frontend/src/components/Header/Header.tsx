@@ -8,7 +8,10 @@ import Profile from "../Profile/Profile";
 
 const Header: React.FC = () => {
 	const navigate = useNavigate();
-	const handleNavigation = (path: string, event: React.MouseEvent<HTMLAnchorElement, MouseEvent>) => {
+	const handleNavigation = (
+		path: string,
+		event: React.MouseEvent<HTMLAnchorElement, MouseEvent>,
+	) => {
 		const username = localStorage.getItem("profileName");
 		if (username && username !== "") {
 			navigate(path);

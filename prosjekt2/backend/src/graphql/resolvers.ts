@@ -70,7 +70,7 @@ export const resolvers = {
         maxViews?: number;
         genres?: string[];
       },
-      { driver }: any
+      { driver }: any,
     ) => {
       const searchClause = searchTerm
         ? "AND (toLower(s.title) CONTAINS toLower($searchTerm) OR toLower(a.name) CONTAINS toLower($searchTerm))"
@@ -92,7 +92,7 @@ export const resolvers = {
           minViews: minViews ? neo4j.int(minViews) : null,
           maxViews: maxViews ? neo4j.int(maxViews) : null,
           genres: genres || null,
-        }
+        },
       );
 
       return records.map((record) => ({
@@ -142,24 +142,28 @@ export const resolvers = {
           name: playlist.name,
           backgroundcolor: playlist.backgroundcolor,
           icon: playlist.icon,
-          songs: playlist.songs && playlist.songs.length > 0
-            ? playlist.songs
-            .filter((song: { artist: Artist | null }) => song.artist && song.artist.name)
-            .map((song: Song) => ({
-                id: song.id,
-                title: song.title,
-                views: song.views,
-                year: song.year,
-                lyrics: song.lyrics,
-                artist: {
-                  id: song.artist.id,
-                  name: song.artist.name
-                },
-                genre: {
-                  name: song.genre.name
-                }
-              }))
-            : [],
+          songs:
+            playlist.songs && playlist.songs.length > 0
+              ? playlist.songs
+                  .filter(
+                    (song: { artist: Artist | null }) =>
+                      song.artist && song.artist.name,
+                  )
+                  .map((song: Song) => ({
+                    id: song.id,
+                    title: song.title,
+                    views: song.views,
+                    year: song.year,
+                    lyrics: song.lyrics,
+                    artist: {
+                      id: song.artist.id,
+                      name: song.artist.name,
+                    },
+                    genre: {
+                      name: song.genre.name,
+                    },
+                  }))
+              : [],
         };
       });
     },
@@ -171,7 +175,7 @@ export const resolvers = {
         genres,
         sortBy,
         searchTerm,
-        minViews, 
+        minViews,
         maxViews,
       }: {
         skip: number;
@@ -274,7 +278,7 @@ export const resolvers = {
         minViews?: number;
         maxViews?: number;
       },
-      { driver }: any
+      { driver }: any,
     ) => {
       const searchClause = searchTerm
         ? "AND (toLower(s.title) CONTAINS toLower($searchTerm) OR toLower(a.name) CONTAINS toLower($searchTerm))"
@@ -294,7 +298,7 @@ export const resolvers = {
           searchTerm: searchTerm || "",
           minViews: minViews ? neo4j.int(minViews) : null,
           maxViews: maxViews ? neo4j.int(maxViews) : null,
-        }
+        },
       );
 
       return records.length > 0 ? records[0].get("songCount").toInt() : 0;
@@ -344,24 +348,34 @@ export const resolvers = {
         return {
           id: userRecord.id,
           username: userRecord.username,
-          favoriteSongs: userRecord.favoriteSongs && userRecord.favoriteSongs.length > 0 
-            ? userRecord.favoriteSongs
-            .filter((favorite: { artist: Artist | null }) => favorite.artist && favorite.artist.name)
-            .map((favorite: { artist: Artist; song: Song; genre: Genre }) => ({
-                id: favorite.song.id,
-                title: favorite.song.title,
-                views: favorite.song.views,
-                year: favorite.song.year,
-                lyrics: favorite.song.lyrics,
-                artist: {
-                  id: favorite.artist.id,
-                  name: favorite.artist.name
-                },
-                genre: {
-                  name: favorite.genre.name
-                }
-              }))
-            : [],
+          favoriteSongs:
+            userRecord.favoriteSongs && userRecord.favoriteSongs.length > 0
+              ? userRecord.favoriteSongs
+                  .filter(
+                    (favorite: { artist: Artist | null }) =>
+                      favorite.artist && favorite.artist.name,
+                  )
+                  .map(
+                    (favorite: {
+                      artist: Artist;
+                      song: Song;
+                      genre: Genre;
+                    }) => ({
+                      id: favorite.song.id,
+                      title: favorite.song.title,
+                      views: favorite.song.views,
+                      year: favorite.song.year,
+                      lyrics: favorite.song.lyrics,
+                      artist: {
+                        id: favorite.artist.id,
+                        name: favorite.artist.name,
+                      },
+                      genre: {
+                        name: favorite.genre.name,
+                      },
+                    }),
+                  )
+              : [],
         };
       }
       throw new Error("Failed to create or retrieve user");

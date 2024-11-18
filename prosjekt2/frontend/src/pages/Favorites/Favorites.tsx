@@ -14,8 +14,8 @@ const Favorites: React.FC = () => {
 	const [searchedSongs, setSearchedSongs] = useState<SongData[]>(favorites);
 	const navigate = useNavigate();
 
-  	// Filter favorite songs based on search term
-  	useEffect(() => {
+	// Filter favorite songs based on search term
+	useEffect(() => {
 		const filterSongs = () => {
 			if (searchTerm === "") return favorites;
 			const keywords = searchTerm.toLowerCase().split(" ");
@@ -54,7 +54,7 @@ const Favorites: React.FC = () => {
 				<SearchBar setSearchTerm={handleSearchSubmit} initialSearchTerm={searchTerm} />
 			</section>
 			<section className="favorites-allSongsContainer">
-				<AllSongsList songs={searchedSongs}/>
+				<AllSongsList songs={searchedSongs} />
 			</section>
 		</section>
 	);

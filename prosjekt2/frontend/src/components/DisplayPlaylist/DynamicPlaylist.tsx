@@ -14,7 +14,6 @@ const DynamicPlaylist = () => {
 		const storedPlaylists = JSON.parse(localStorage.getItem("playlists") || "[]");
 		playlistsVar(storedPlaylists);
 	}, []);
-	
 
 	if (!playlistData) {
 		navigate("/not-found", { replace: true });
@@ -25,10 +24,10 @@ const DynamicPlaylist = () => {
 		const updatedPlaylists = playlists.filter((playlist) => playlist.id !== playlistId);
 		playlistsVar(updatedPlaylists);
 		localStorage.setItem("playlists", JSON.stringify(updatedPlaylists));
-        if (playlistData) {
+		if (playlistData) {
 			// Navigate back to Playlists page and pass a deletion flag
 			navigate("/playlists", { state: { deletedPlaylistId: playlistData.id } });
-        }
+		}
 	};
 
 	return <DisplayPlaylist playlistId={playlistData.id} onDelete={handleDelete} />;

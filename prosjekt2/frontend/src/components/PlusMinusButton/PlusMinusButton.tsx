@@ -2,7 +2,7 @@ import React, { useState, useCallback } from "react";
 import { FiPlusCircle, FiMinusCircle } from "react-icons/fi";
 import { SongData } from "../../utils/types/SongTypes";
 import { PlaylistData } from "../../pages/Playlists/Playlists";
-import { useReactiveVar} from "@apollo/client";
+import { useReactiveVar } from "@apollo/client";
 import { playlistsVar, isSidebarOpenVar } from "../../apollo/cache";
 import { ADD_SONG_TO_PLAYLIST, REMOVE_SONG_FROM_PLAYLIST } from "../../utils/Queries";
 import { useMutation } from "@apollo/client";
@@ -148,7 +148,10 @@ const PlusMinusButton: React.FC<PlusMinusButtonProps> = ({
 			</button>
 
 			{showModal && (
-				<div className={`playlist-modal-overlay ${isSidebarOpen ? 'sidebar-open' : ''}`}  onClick={(e) => e.stopPropagation()}>
+				<div
+					className={`playlist-modal-overlay ${isSidebarOpen ? "sidebar-open" : ""}`}
+					onClick={(e) => e.stopPropagation()}
+				>
 					<div className="playlist-modal-container">
 						<h3>Select a playlist to add "{song.title}"</h3>
 						{feedbackMessage && (

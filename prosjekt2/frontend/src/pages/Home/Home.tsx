@@ -94,13 +94,12 @@ const Home = () => {
 		sessionStorage.removeItem("selectedGenres");
 
 		clearFiltersVar(true);
-    refetchSongCount();
+		refetchSongCount();
 
-    setTimeout(() => {
-        clearFiltersVar(false);
-    }, 100);
+		setTimeout(() => {
+			clearFiltersVar(false);
+		}, 100);
 	};
-
 
 	if (error) return <p>Error loading songs: {error?.message}</p>;
 
@@ -130,9 +129,7 @@ const Home = () => {
 					</p>
 					{!isLoading ? (
 						<section className="allSongsContainer">
-							<AllSongsList
-								songs={songs}
-							/>
+							<AllSongsList songs={songs} />
 						</section>
 					) : null}
 				</section>
