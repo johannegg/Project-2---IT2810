@@ -25,9 +25,9 @@ const DynamicPlaylist = () => {
 		const updatedPlaylists = playlists.filter((playlist) => playlist.id !== playlistId);
 		playlistsVar(updatedPlaylists);
 		localStorage.setItem("playlists", JSON.stringify(updatedPlaylists));
-		navigate("/playlists", { state: { deletedPlaylistId: playlistData.id } });
         if (playlistData) {
-            // Navigate back to Playlists page and pass a deletion flag
+			// Navigate back to Playlists page and pass a deletion flag
+			navigate("/playlists", { state: { deletedPlaylistId: playlistData.id } });
         }
 	};
 
