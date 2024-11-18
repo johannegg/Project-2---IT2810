@@ -12,7 +12,6 @@ const Favorites: React.FC = () => {
 	const favorites = useReactiveVar(favoriteSongsVar);
 	const searchTerm = useReactiveVar(favoritesSearchTermVar);
 	const [searchedSongs, setSearchedSongs] = useState<SongData[]>(favorites);
-	const genres = ["pop", "rock", "rap", "rb", "country"];
 	const navigate = useNavigate();
 
 	useEffect(() => {
