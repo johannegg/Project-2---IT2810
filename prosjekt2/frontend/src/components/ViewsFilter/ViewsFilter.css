@@ -33,6 +33,18 @@
 	color: #493843;
 }
 
+@media (max-width: 950px) {
+	.horizontal-slider {
+		height: 18px;
+	}
+	
+	.thumb {
+		height: 18px;
+		width: 18px;
+	}
+	
+}
+
 @media (prefers-color-scheme: dark) {
 	.viewValues {
 		color: white;
