@@ -30,7 +30,7 @@ We’ve focused on sustainability with features like dark mode, efficient data f
 ### Features
 
 - **Create User**: You can create a user with a unique username to automatically sync your playlists and favorites to it. 
-  - You are required to create a user to use the functionality such as favoriting and making playlists, but you can explore most of the mainpage without creating a user. 
+  - **NOTE**: You are required to create a user to use the functionality such as favoriting and making playlists, but you can explore most of the mainpage without creating a user. 
 - **View Songs**: Clicking on a song from the list takes you to a detailed page with lyrics and more information.
 - **Filter, Sort, and Search**: Use the filter menu on the homepage to filter songs by genre or views. You can also sort the list by title, artist, or views. The search field allows you to find songs by typing the song's title or artist name.
 - **Navigation**: You can navigate between the pages: "Home", "Favorited Songs", and "Your Playlists" to see different features.
@@ -43,7 +43,7 @@ We have used the GRAND stack, with the technology GraphQL, React with TypeScript
 
 For state management we have chosen to use Apollo Local State Management, as this integrated well with our tech-stack. We used Apollo's reactive variables to handle states in for example filters, sorting, search terms, favorite songs, and playlists directly on the client side. By syncing these variables with sessionStorage and localStorage, we made sure user settings are saved even when you refresh the page.
 
-We have written component-tests, E2E-tests and API-tests. We have used the testing tools Vitest and Cypress. Further information about the tests can be found [here](prosjekt2/backend/e2e/README.md). 
+We have written component-tests, E2E-tests and API-tests. To do this, we have used the testing tools Vitest and Cypress. Further information about the tests can be found [here](prosjekt2/backend/e2e/README.md). 
 
 ## Running the Project
 
@@ -88,7 +88,7 @@ As we have implemented users, favorites and playlists in our application, the da
 - **OWNS** (connects a User to a Playlist)
 - **HAS_FAVORITES** (connects a User to a Song)
 
-Altogether our database contains 5 656 nodes and (at the moment) 5 955 relationships.
+Altogether our database contains 5 656 nodes and 5 955 relationships (at the moment).
 
 ### The Dataset
 
