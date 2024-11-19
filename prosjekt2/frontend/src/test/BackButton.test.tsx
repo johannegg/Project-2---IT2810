@@ -1,4 +1,3 @@
-import React from "react";
 import { describe, test, vi, beforeEach, afterEach, expect } from "vitest";
 import { render, screen, fireEvent, cleanup } from "@testing-library/react";
 import BackButton from "../components/BackButton/BackButton";

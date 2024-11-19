@@ -2,7 +2,6 @@ import React from "react";
 import { describe, test, vi, beforeEach, afterEach, expect } from "vitest";
 import { render, screen, fireEvent, cleanup } from "@testing-library/react";
 import FavoriteButton from "../components/FavoriteButton/FavoriteButton";
-import { favoriteSongsVar } from "../apollo/cache";
 import { useReactiveVar, useMutation, ApolloClient, InMemoryCache } from "@apollo/client";
 import { ADD_FAVORITE_SONG, REMOVE_FAVORITE_SONG } from "../utils/Queries";
 import { faHeart as heartRegular } from "@fortawesome/free-regular-svg-icons";

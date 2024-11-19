@@ -1,11 +1,10 @@
-import React from "react";
 import { render, screen, fireEvent } from "@testing-library/react";
 import PlusMinusButton from "../components/PlusMinusButton/PlusMinusButton";
-import { playlistsVar, isSidebarOpenVar } from "../apollo/cache";
+import { playlistsVar } from "../apollo/cache";
 import { ADD_SONG_TO_PLAYLIST, REMOVE_SONG_FROM_PLAYLIST } from "../utils/Queries";
 import { MockedProvider } from "@apollo/client/testing";
 import "@testing-library/jest-dom";
-import { vi } from "vitest";
+import { describe, test, vi, beforeEach, beforeAll, expect } from "vitest";
 import { waitFor } from "@testing-library/react";
 
 // Mocking Apollo cache
@@ -19,8 +18,22 @@ vi.mock("../apollo/cache", () => {
 
 describe("PlusMinusButton Component", () => {
 	// Mock data for a song and playlist
-	const mockSong = { id: "1", title: "Test Song", artist: "Test Artist" };
-	const mockPlaylist = { id: "playlist1", name: "Test Playlist", songs: [mockSong] };
+	const mockSong = {
+		id: "1",
+		title: "Test Song",
+		artist:{ id: "1", name: "Test Artist" }, // Example value
+		views: 1000,          // Example value
+		year: 2023,           // Example value
+		genre: {name: "Test Genre"},         // Example value
+		lyrics: "La la la...", // Example value
+	};
+	const mockPlaylist = {
+		id: "playlist1",
+		name: "Test Playlist",
+		songs: [mockSong],
+		backgroundcolor: "#ffffff",
+		icon: "🎵",
+	};
 
 	// Mock GraphQL responses
 	const mocks = [
@@ -113,7 +126,7 @@ describe("PlusMinusButton Component", () => {
 		fireEvent.click(screen.getByRole("button", { name: "Add song" }));
 
 		// Simulate a click on a playlist button in the modal
-		fireEvent.click(screen.getByRole("button", { name: "Test Playlist" }));
+		fireEvent.click(screen.getByRole("button", { name: "Test Playlist 🎵" }));
 
 		// Assert that the success feedback is displayed
 		expect(await screen.findByText("Song successfully added!")).toBeInTheDocument();

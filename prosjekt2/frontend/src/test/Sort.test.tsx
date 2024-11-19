@@ -1,4 +1,3 @@
-import React from "react";
 import { describe, test, vi, afterEach, expect } from "vitest";
 import { render, screen, fireEvent, cleanup } from "@testing-library/react";
 import Sort from "../components/Sort/Sort";

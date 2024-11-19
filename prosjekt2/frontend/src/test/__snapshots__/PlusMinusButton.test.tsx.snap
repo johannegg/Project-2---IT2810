@@ -57,7 +57,7 @@ exports[`PlusMinusButton Component > adds song to a playlist when a playlist but
       >
         <li>
           <button>
-            Test Playlist 
+            Test Playlist 🎵
           </button>
         </li>
       </ul>
@@ -164,7 +164,7 @@ exports[`PlusMinusButton Component > displays modal when add button is clicked 1
       >
         <li>
           <button>
-            Test Playlist 
+            Test Playlist 🎵
           </button>
         </li>
       </ul>

@@ -17,35 +17,44 @@ vi.mock("react-router-dom", async () => {
 	};
 });
 
-// Mock implementation of the `matchMedia` function for dark mode testing
 beforeAll(() => {
-	const listeners = [];
-	vi.spyOn(window, "matchMedia").mockImplementation((query) => ({
-		matches: query === "(prefers-color-scheme: dark)",
-		media: query,
-		onchange: null,
-		addEventListener: (event, listener) => {
-			if (event === "change") {
-				listeners.push(listener);
-			}
-		},
-		removeEventListener: (event, listener) => {
-			if (event === "change") {
-				const index = listeners.indexOf(listener);
-				if (index > -1) listeners.splice(index, 1);
-			}
-		},
-		dispatchEvent: (event) => {
-			listeners.forEach((listener) => listener(event));
-		},
-	}));
+    const listeners: Array<(ev: MediaQueryListEvent) => any> = []; 
+
+    vi.spyOn(window, "matchMedia").mockImplementation((query) => ({
+        matches: query === "(prefers-color-scheme: dark)",
+        media: query,
+        onchange: null,
+        addEventListener: (event: string, listener: EventListenerOrEventListenerObject) => {
+            if (event === "change" && typeof listener === "function") {
+                listeners.push(listener);
+            }
+        },
+        removeEventListener: (event: string, listener: EventListenerOrEventListenerObject) => {
+            if (event === "change" && typeof listener === "function") {
+                const index = listeners.indexOf(listener);
+                if (index > -1) listeners.splice(index, 1);
+            }
+        },
+        dispatchEvent: (event: Event): boolean => {
+            listeners.forEach((listener) => listener(event as MediaQueryListEvent));
+            return true;
+        },
+        addListener: (callback: (this: MediaQueryList, ev: MediaQueryListEvent) => any) => {
+            listeners.push(callback);
+        },
+        removeListener: (callback: (this: MediaQueryList, ev: MediaQueryListEvent) => any) => {
+            const index = listeners.indexOf(callback);
+            if (index > -1) listeners.splice(index, 1);
+        },
+    }));
 });
+
 
 describe("Playlist Component", () => {
 	// Mock song data used in tests
 	const mockSongs: SongData[] = [
-		{ id: "1", title: "Song 1", artist: "Artist 1", duration: 200 },
-		{ id: "2", title: "Song 2", artist: "Artist 2", duration: 180 },
+		{ id: "1", title: "Song 1", artist: {id: "1", name: "Artist 1"}, views: 1000, year: 2023, genre: {name: "Test Genre 1"}, lyrics: "La la la la..."},
+		{ id: "2", title: "Song 2", artist: {id: "2", name: "Artist 2"}, views: 2000, year: 2024, genre: {name: "Test Genre 2"}, lyrics: "La la la..."},
 	];
 
 	// Default props for the Playlist component
@@ -56,6 +65,7 @@ describe("Playlist Component", () => {
 		icon: "🎵",
 		songs: mockSongs,
 		tabIndex: 0,
+		onClick: () => {},
 	};
 
 	// Test: Validate the rendering of name and icon
