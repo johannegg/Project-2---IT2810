@@ -1,7 +1,7 @@
+import { describe, test, vi, beforeEach, beforeAll, expect } from "vitest";
 import { render, act } from "@testing-library/react";
 import { ViewsFilter } from "../components/ViewsFilter/ViewsFilter";
 import { minViewsVar, maxViewsVar, clearFiltersVar } from "../apollo/cache";
-import { vi } from "vitest";
 import "@testing-library/jest-dom";
 
 // Mock ResizeObserver to prevent errors during testing
