@@ -1,9 +1,9 @@
-describe("sorting", () => {
+describe("Sorting", () => {
   beforeEach(() => {
     cy.visit("http://localhost:5173/project2/");
   });
 
-  it("should show the sidebar", () => {
+  it("should sort the songs based on sortoption", () => {
     // Open sidebar
     cy.get(".filterButtonContainer").click();
 
