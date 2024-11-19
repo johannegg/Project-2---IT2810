@@ -1,0 +1,23 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`BackButton > matches snapshot with custom text 1`] = `
+<div>
+  <button
+    class="back-button"
+  >
+    ❮ 
+    Custom Text
+  </button>
+</div>
+`;
+
+exports[`BackButton > matches snapshot with default props 1`] = `
+<div>
+  <button
+    class="back-button"
+  >
+    ❮ 
+    Go back
+  </button>
+</div>
+`;
