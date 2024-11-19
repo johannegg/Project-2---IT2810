@@ -18,7 +18,7 @@ vi.mock("react-router-dom", async () => {
 });
 
 beforeAll(() => {
-    const listeners: Array<(ev: MediaQueryListEvent) => unknown> = []; 
+    const listeners: Array<(ev: MediaQueryListEvent) => any> = []; 
 
     vi.spyOn(window, "matchMedia").mockImplementation((query) => ({
         matches: query === "(prefers-color-scheme: dark)",
@@ -39,10 +39,10 @@ beforeAll(() => {
             listeners.forEach((listener) => listener(event as MediaQueryListEvent));
             return true;
         },
-        addListener: (callback: (this: MediaQueryList, ev: MediaQueryListEvent) => unknown) => {
+        addListener: (callback: (this: MediaQueryList, ev: MediaQueryListEvent) => any) => {
             listeners.push(callback);
         },
-        removeListener: (callback: (this: MediaQueryList, ev: MediaQueryListEvent) => unknown) => {
+        removeListener: (callback: (this: MediaQueryList, ev: MediaQueryListEvent) => any) => {
             const index = listeners.indexOf(callback);
             if (index > -1) listeners.splice(index, 1);
         },

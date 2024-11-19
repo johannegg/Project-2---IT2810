@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect } from "react";
 import "./Playlists.css";
 import Playlist from "../../components/Playlist/Playlist";
 import PlaylistForm from "../../components/PlaylistForm/PlaylistForm";
@@ -85,7 +85,7 @@ const Playlists = () => {
 		}
 	};
 
-	const deletePlaylist = useCallback(async (playlistId: string) => {
+	const deletePlaylist = async (playlistId: string) => {
 		try {
 			await deletePlaylistMutation({
 				variables: {
@@ -99,7 +99,7 @@ const Playlists = () => {
 		} catch (error) {
 			console.error("Error deleting playlist:", error);
 		}
-	}, [deletePlaylistMutation, playlists]);
+	};
 
 	useEffect(() => {
 		// Check if a playlist deletion is requested in location.state
@@ -109,7 +109,7 @@ const Playlists = () => {
 			// Clear the deletion flag from location.state to avoid repeating the deletion
 			navigate("/playlists", { replace: true });
 		}
-	}, [deletePlaylist, location.state, navigate]);
+	}, [location.state]);
 
 	const handlePlaylistClick = (playlist: PlaylistData) => {
 		navigate(`/playlist/${playlist.id}`, { state: { playlist } });
