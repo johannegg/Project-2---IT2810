@@ -1,0 +1,101 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`Playlist Component > handles tabIndex correctly 1`] = `
+<DocumentFragment>
+  <article
+    class="playlist-card"
+    role="button"
+    style="background-color: rgb(138, 133, 135);"
+    tabindex="0"
+  >
+    <div
+      class="playlist-icon"
+    >
+      🎵
+    </div>
+    <h3>
+      My Playlist
+    </h3>
+  </article>
+</DocumentFragment>
+`;
+
+exports[`Playlist Component > navigates with correct state including updated background color 1`] = `
+<DocumentFragment>
+  <article
+    class="playlist-card"
+    role="button"
+    style="background-color: rgb(138, 133, 135);"
+    tabindex="0"
+  >
+    <div
+      class="playlist-icon"
+    >
+      🎵
+    </div>
+    <h3>
+      My Playlist
+    </h3>
+  </article>
+</DocumentFragment>
+`;
+
+exports[`Playlist Component > renders name and icon 1`] = `
+<DocumentFragment>
+  <article
+    class="playlist-card"
+    role="button"
+    style="background-color: rgb(138, 133, 135);"
+    tabindex="0"
+  >
+    <div
+      class="playlist-icon"
+    >
+      🎵
+    </div>
+    <h3>
+      My Playlist
+    </h3>
+  </article>
+</DocumentFragment>
+`;
+
+exports[`Playlist Component > renders the correct number of songs in the playlist 1`] = `
+<DocumentFragment>
+  <article
+    class="playlist-card"
+    role="button"
+    style="background-color: rgb(138, 133, 135);"
+    tabindex="0"
+  >
+    <div
+      class="playlist-icon"
+    >
+      🎵
+    </div>
+    <h3>
+      My Playlist
+    </h3>
+  </article>
+</DocumentFragment>
+`;
+
+exports[`Playlist Component > triggers navigation with dynamically updated background color 1`] = `
+<DocumentFragment>
+  <article
+    class="playlist-card"
+    role="button"
+    style="background-color: rgb(138, 133, 135);"
+    tabindex="0"
+  >
+    <div
+      class="playlist-icon"
+    >
+      🎵
+    </div>
+    <h3>
+      My Playlist
+    </h3>
+  </article>
+</DocumentFragment>
+`;

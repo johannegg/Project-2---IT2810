@@ -1,0 +1,261 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`SearchBar Component > accepts an initial search term 1`] = `
+<DocumentFragment>
+  <div
+    class="searchContainer"
+  >
+    <form
+      aria-label="Search Form"
+      class="searchForm"
+    >
+      <input
+        aria-label="Search Input Field"
+        class="searchInput"
+        placeholder="Search for a song or an artist"
+        value="Initial Value"
+      />
+      <button
+        aria-label="Submit Search"
+        class="iconContainer"
+        type="submit"
+      >
+        <svg
+          class="searchIcon"
+          fill="currentColor"
+          height="1em"
+          stroke="currentColor"
+          stroke-width="0"
+          viewBox="0 0 512 512"
+          width="1em"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M505 442.7L405.3 343c-4.5-4.5-10.6-7-17-7H372c27.6-35.3 44-79.7 44-128C416 93.1 322.9 0 208 0S0 93.1 0 208s93.1 208 208 208c48.3 0 92.7-16.4 128-44v16.3c0 6.4 2.5 12.5 7 17l99.7 99.7c9.4 9.4 24.6 9.4 33.9 0l28.3-28.3c9.4-9.4 9.4-24.6.1-34zM208 336c-70.7 0-128-57.2-128-128 0-70.7 57.2-128 128-128 70.7 0 128 57.2 128 128 0 70.7-57.2 128-128 128z"
+          />
+        </svg>
+      </button>
+    </form>
+    <button
+      aria-label="Clear Search Button"
+      class="clearButton"
+    >
+      <svg
+        aria-hidden="true"
+        class="svg-inline--fa fa-xmark "
+        data-icon="xmark"
+        data-prefix="fas"
+        focusable="false"
+        role="img"
+        viewBox="0 0 384 512"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          d="M342.6 150.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L192 210.7 86.6 105.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L146.7 256 41.4 361.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0L192 301.3 297.4 406.6c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L237.3 256 342.6 150.6z"
+          fill="currentColor"
+        />
+      </svg>
+    </button>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`SearchBar Component > calls setSearchTerm when the form is submitted 1`] = `
+<DocumentFragment>
+  <div
+    class="searchContainer"
+  >
+    <form
+      aria-label="Search Form"
+      class="searchForm"
+    >
+      <input
+        aria-label="Search Input Field"
+        class="searchInput"
+        placeholder="Search for a song or an artist"
+        value="Search Term"
+      />
+      <button
+        aria-label="Submit Search"
+        class="iconContainer"
+        type="submit"
+      >
+        <svg
+          class="searchIcon"
+          fill="currentColor"
+          height="1em"
+          stroke="currentColor"
+          stroke-width="0"
+          viewBox="0 0 512 512"
+          width="1em"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M505 442.7L405.3 343c-4.5-4.5-10.6-7-17-7H372c27.6-35.3 44-79.7 44-128C416 93.1 322.9 0 208 0S0 93.1 0 208s93.1 208 208 208c48.3 0 92.7-16.4 128-44v16.3c0 6.4 2.5 12.5 7 17l99.7 99.7c9.4 9.4 24.6 9.4 33.9 0l28.3-28.3c9.4-9.4 9.4-24.6.1-34zM208 336c-70.7 0-128-57.2-128-128 0-70.7 57.2-128 128-128 70.7 0 128 57.2 128 128 0 70.7-57.2 128-128 128z"
+          />
+        </svg>
+      </button>
+    </form>
+    <button
+      aria-label="Clear Search Button"
+      class="clearButton"
+    >
+      <svg
+        aria-hidden="true"
+        class="svg-inline--fa fa-xmark "
+        data-icon="xmark"
+        data-prefix="fas"
+        focusable="false"
+        role="img"
+        viewBox="0 0 384 512"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          d="M342.6 150.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L192 210.7 86.6 105.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L146.7 256 41.4 361.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0L192 301.3 297.4 406.6c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L237.3 256 342.6 150.6z"
+          fill="currentColor"
+        />
+      </svg>
+    </button>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`SearchBar Component > clears the input when the clear button is clicked 1`] = `
+<DocumentFragment>
+  <div
+    class="searchContainer"
+  >
+    <form
+      aria-label="Search Form"
+      class="searchForm"
+    >
+      <input
+        aria-label="Search Input Field"
+        class="searchInput"
+        placeholder="Search for a song or an artist"
+        value=""
+      />
+      <button
+        aria-label="Submit Search"
+        class="iconContainer"
+        type="submit"
+      >
+        <svg
+          class="searchIcon"
+          fill="currentColor"
+          height="1em"
+          stroke="currentColor"
+          stroke-width="0"
+          viewBox="0 0 512 512"
+          width="1em"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M505 442.7L405.3 343c-4.5-4.5-10.6-7-17-7H372c27.6-35.3 44-79.7 44-128C416 93.1 322.9 0 208 0S0 93.1 0 208s93.1 208 208 208c48.3 0 92.7-16.4 128-44v16.3c0 6.4 2.5 12.5 7 17l99.7 99.7c9.4 9.4 24.6 9.4 33.9 0l28.3-28.3c9.4-9.4 9.4-24.6.1-34zM208 336c-70.7 0-128-57.2-128-128 0-70.7 57.2-128 128-128 70.7 0 128 57.2 128 128 0 70.7-57.2 128-128 128z"
+          />
+        </svg>
+      </button>
+    </form>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`SearchBar Component > renders the SearchBar component 1`] = `
+<DocumentFragment>
+  <div
+    class="searchContainer"
+  >
+    <form
+      aria-label="Search Form"
+      class="searchForm"
+    >
+      <input
+        aria-label="Search Input Field"
+        class="searchInput"
+        placeholder="Search for a song or an artist"
+        value=""
+      />
+      <button
+        aria-label="Submit Search"
+        class="iconContainer"
+        type="submit"
+      >
+        <svg
+          class="searchIcon"
+          fill="currentColor"
+          height="1em"
+          stroke="currentColor"
+          stroke-width="0"
+          viewBox="0 0 512 512"
+          width="1em"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M505 442.7L405.3 343c-4.5-4.5-10.6-7-17-7H372c27.6-35.3 44-79.7 44-128C416 93.1 322.9 0 208 0S0 93.1 0 208s93.1 208 208 208c48.3 0 92.7-16.4 128-44v16.3c0 6.4 2.5 12.5 7 17l99.7 99.7c9.4 9.4 24.6 9.4 33.9 0l28.3-28.3c9.4-9.4 9.4-24.6.1-34zM208 336c-70.7 0-128-57.2-128-128 0-70.7 57.2-128 128-128 70.7 0 128 57.2 128 128 0 70.7-57.2 128-128 128z"
+          />
+        </svg>
+      </button>
+    </form>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`SearchBar Component > updates the input value as the user types 1`] = `
+<DocumentFragment>
+  <div
+    class="searchContainer"
+  >
+    <form
+      aria-label="Search Form"
+      class="searchForm"
+    >
+      <input
+        aria-label="Search Input Field"
+        class="searchInput"
+        placeholder="Search for a song or an artist"
+        value="New Value"
+      />
+      <button
+        aria-label="Submit Search"
+        class="iconContainer"
+        type="submit"
+      >
+        <svg
+          class="searchIcon"
+          fill="currentColor"
+          height="1em"
+          stroke="currentColor"
+          stroke-width="0"
+          viewBox="0 0 512 512"
+          width="1em"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M505 442.7L405.3 343c-4.5-4.5-10.6-7-17-7H372c27.6-35.3 44-79.7 44-128C416 93.1 322.9 0 208 0S0 93.1 0 208s93.1 208 208 208c48.3 0 92.7-16.4 128-44v16.3c0 6.4 2.5 12.5 7 17l99.7 99.7c9.4 9.4 24.6 9.4 33.9 0l28.3-28.3c9.4-9.4 9.4-24.6.1-34zM208 336c-70.7 0-128-57.2-128-128 0-70.7 57.2-128 128-128 70.7 0 128 57.2 128 128 0 70.7-57.2 128-128 128z"
+          />
+        </svg>
+      </button>
+    </form>
+    <button
+      aria-label="Clear Search Button"
+      class="clearButton"
+    >
+      <svg
+        aria-hidden="true"
+        class="svg-inline--fa fa-xmark "
+        data-icon="xmark"
+        data-prefix="fas"
+        focusable="false"
+        role="img"
+        viewBox="0 0 384 512"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          d="M342.6 150.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L192 210.7 86.6 105.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L146.7 256 41.4 361.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0L192 301.3 297.4 406.6c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L237.3 256 342.6 150.6z"
+          fill="currentColor"
+        />
+      </svg>
+    </button>
+  </div>
+</DocumentFragment>
+`;
