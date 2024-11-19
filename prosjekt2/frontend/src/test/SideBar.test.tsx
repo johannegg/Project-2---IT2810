@@ -24,24 +24,61 @@ vi.mock("../components/Sort/Sort", () => ({
 
 // Describe the test suite for the Sidebar component
 describe("Sidebar", () => {
-  // Mock functions for the props
+  // Mock functions to simulate the behavior of the props
   const mockOnGenreChange = vi.fn();
   const mockOnViewsChange = vi.fn();
   const mockOnSortChange = vi.fn();
   const mockOnToggle = vi.fn();
   const mockOnClearAllFilters = vi.fn();
 
-  // Before each test, reset mocks and cleanup the DOM
+  // Before each test, reset all mocks, variables, and clean up the DOM
   beforeEach(() => {
-    vi.resetAllMocks(); 
+    vi.resetAllMocks();
     isSidebarOpenVar(false); 
     clearFiltersVar(false); 
     cleanup(); 
   });
 
-  // Test 1: Verifies the Sidebar renders in a closed state by default
+  // Snapshot Test: Verifies the default rendering of Sidebar in a closed state
+  test("matches snapshot when Sidebar is closed by default", () => {
+    const { asFragment } = render(
+      <Sidebar
+        onGenreChange={mockOnGenreChange}
+        onViewsChange={mockOnViewsChange}
+        onSortChange={mockOnSortChange}
+        onToggle={mockOnToggle}
+        onClearAllFilters={mockOnClearAllFilters}
+        searchTerm=""
+        songs={[]}
+      />
+    );
+
+    // Ensure that the rendered Sidebar matches the stored snapshot
+    expect(asFragment()).toMatchSnapshot();
+  });
+
+  // Snapshot Test: Verifies the rendering of Sidebar when it is open
+  test("matches snapshot when Sidebar is open", () => {
+    isSidebarOpenVar(true); 
+
+    const { asFragment } = render(
+      <Sidebar
+        onGenreChange={mockOnGenreChange}
+        onViewsChange={mockOnViewsChange}
+        onSortChange={mockOnSortChange}
+        onToggle={mockOnToggle}
+        onClearAllFilters={mockOnClearAllFilters}
+        searchTerm=""
+        songs={[]}
+      />
+    );
+
+    // Ensure that the rendered Sidebar matches the stored snapshot
+    expect(asFragment()).toMatchSnapshot();
+  });
+
+  // Test: Verifies the Sidebar renders in a closed state by default
   test("renders Sidebar in closed state by default", () => {
-    // Render the Sidebar component
     render(
       <Sidebar
         onGenreChange={mockOnGenreChange}
@@ -54,15 +91,14 @@ describe("Sidebar", () => {
       />
     );
 
-    // Find the Sidebar element using the role and check its classes
+    // Select the Sidebar element and verify its initial class states
     const sidebar = screen.getByRole("complementary", { hidden: true });
-    expect(sidebar).toHaveClass("sidebar"); // Ensure it has the correct base class
-    expect(sidebar).not.toHaveClass("open"); // Ensure it does not have the "open" class
+    expect(sidebar).toHaveClass("sidebar"); 
+    expect(sidebar).not.toHaveClass("open"); 
   });
 
-  // Test 2: Verifies the Sidebar toggles between open and closed states
+  // Test: Verifies the Sidebar toggles between open and closed states
   test("toggles Sidebar open and closed", () => {
-    // Render the Sidebar component
     render(
       <Sidebar
         onGenreChange={mockOnGenreChange}
@@ -77,23 +113,22 @@ describe("Sidebar", () => {
 
     // Find the Close button and simulate a click to open the Sidebar
     const closeButton = screen.getByRole("button", { name: /close/i, hidden: true });
-    act(() => fireEvent.click(closeButton));
+    act(() => fireEvent.click(closeButton)); 
 
-    // Assert the Sidebar state is now open and the callback was called
+    // Assert the Sidebar state is now open and the onToggle callback was called
     expect(isSidebarOpenVar()).toBe(true);
     expect(mockOnToggle).toHaveBeenCalledWith(true);
 
     // Simulate another click to close the Sidebar
     act(() => fireEvent.click(closeButton));
 
-    // Assert the Sidebar state is now closed and the callback was called
+    // Assert the Sidebar state is now closed and the onToggle callback was called
     expect(isSidebarOpenVar()).toBe(false);
     expect(mockOnToggle).toHaveBeenCalledWith(false);
   });
 
-  // Test 3: Verifies the Clear Filters button clears all filters
+  // Test: Verifies the Clear Filters button clears all filters
   test("clears all filters when Clear Filters button is clicked", () => {
-    // Render the Sidebar component
     render(
       <Sidebar
         onGenreChange={mockOnGenreChange}
@@ -110,10 +145,10 @@ describe("Sidebar", () => {
     const clearFiltersButton = screen.getByRole("button", { name: /clear filters/i, hidden: true });
     fireEvent.click(clearFiltersButton);
 
-    // Assert the clear filters callback was called
+    // Assert the onClearAllFilters callback was called
     expect(mockOnClearAllFilters).toHaveBeenCalled();
 
-    // Assert the clearFiltersVar state was reset
+    // Assert the clearFiltersVar reactive variable state was reset
     expect(clearFiltersVar()).toBe(false);
   });
 });
