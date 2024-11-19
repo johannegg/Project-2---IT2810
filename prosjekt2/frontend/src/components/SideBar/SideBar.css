@@ -12,6 +12,7 @@
 	transition: transform 0.3s ease;
 	z-index: 998;
 	overflow-y: auto;
+	overflow-x: hidden;
 }
 
 .sidebar.open {
@@ -87,17 +88,25 @@
 	cursor: pointer;
 	font-size: 16px;
 	background-color: white;
+	color: black;
 }
 
 @media (max-width: 1050px) {
 	.sidebar {
 		width: 200px;
 	}
+	.clearFiltersButton {
+		margin-bottom: 100px;
+	}
 }
 
-@media (max-width: 600px) {
+@media (max-width: 950px) {
 	.sidebar {
 		width: 85%;
+	}
+
+	.filteringContainer {
+		justify-self: center;
 	}
 }
 
@@ -115,5 +124,6 @@
 
 	.clearFiltersButton {
 		background-color: var(--theme-almost-black);
+		color: white;
 	}
 }
