@@ -10,6 +10,7 @@ Our project is available on the link above, as long as you are connected to the 
 - [About the Project](#about-the-project)
   - [Features](#features)
   - [Technology](#technology)
+  - [Testing](#testing)
 - [Running the Project](#running-the-project)
   - [Run Project](#run-project)
   - [Run ESLint and Prettier](#run-eslint-and-prettier)
@@ -29,7 +30,8 @@ We’ve focused on sustainability with features like dark mode, efficient data f
 
 ### Features
 
-- **Create User**: You can create a user with a unique username to automatically sync your playlists and favorites to it.
+- **Create User**: You can create a user with a unique username to automatically sync your playlists and favorites to it. 
+  - You are required to create a user to use the functionality such as favoriting and making playlists, but you can explore most of the mainpage without creating a user. 
 - **View Songs**: Clicking on a song from the list takes you to a detailed page with lyrics and more information.
 - **Filter, Sort, and Search**: Use the filter menu on the homepage to filter songs by genre or views. You can also sort the list by title, artist, or views. The search field allows you to find songs by typing the song's title or artist name.
 - **Navigation**: You can navigate between the pages: "Home", "Favorited Songs", and "Your Playlists" to see different features.
@@ -41,6 +43,35 @@ We’ve focused on sustainability with features like dark mode, efficient data f
 We have used the GRAND stack, with the technology GraphQL, React with TypeScript, Apollo and Neo4j Database. CSS and HTML is also used in frontend. Prettier and ESLint is used to maintain code quality.
 
 For state management we have chosen to use Apollo Local State Management, as this integrated well with our tech-stack. We used Apollo's reactive variables to handle states in for example filters, sorting, search terms, favorite songs, and playlists directly on the client side. By syncing these variables with sessionStorage and localStorage, we made sure user settings are saved even when you refresh the page.
+
+### Testing
+We have written component-tests, E2E-tests and API-tests. 
+
+For the component-tests we have used Vitest. 
+
+The E2E-tests are written in Cypress. We have chosen to test interactions with the key-features (from above). The exception is the "Create user", because this is implicitly tested in several tests. The different "specs" are: 
+- **favorite**
+  - The user can mark a song as a favorite and later remove it from the favorites list.
+- **filter**
+  - The user can open the sidebar and see the available filtering options.
+  - The user can apply a genre filter and clear all applied filters using the "Clear Filters" button.
+  - When a genre filter is applied, only songs matching the selected genre are shown.
+- **navigation**
+  - The user can seamlessly navigate between different pages of the application (Home, Favorites, and Playlists).
+- **playlist**
+  - The user can create a new playlist and delete it when no longer needed.
+  - The user can add songs to a playlist and remove them as well.
+- **search**
+  - When the user searches, only songs with the search term in the title or artist are displayed.
+  - If the user searches for something that doesn't exist, a message is displayed indicating no results were found.
+- **sorting**
+  - The user can select a sorting option (e.g., Title A-Z, Views, etc.), and the songs are displayed in the correct order according to the chosen criterion.
+- **viewSong**
+  - The user can click on a song to view its details and navigate back to the previous list or page.
+  -  The user can mark a song as a favorite or add it to a playlist directly from the song detail page.
+
+
+The API-tests are also written in Cypress. 
 
 ## Running the Project
 
@@ -61,8 +92,11 @@ If you want to run the backend on your computer, you have to replace line 8 in `
 ESLint and Prettier is used to ensure good quality of the code. Prettier is used in the whole application. From the root of the project you can run `npx prettier --check .` to ensure everything is up to standards. ESLint can be ran in the frontend of the project. Navigate into the folder using `cd prosjekt2/frontend` and run the command `npm run lint`.
 
 ### Run Tests
+The component-tests ...
 
-??
+To run the E2E-tests by navigating into the correct folder by using `cd prosjekt2/backend/e2e` and then `npx cypress open`. A popupwindow will show up. Here you should choose **E2E Testing** and then **Start E2E Testing in Chrome**. From here you can choose which tests (”specs”) to run. 
+
+The API-tests ...
 
 ## Database
 
