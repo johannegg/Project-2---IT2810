@@ -1,28 +1,23 @@
 import type { Driver } from "neo4j-driver";
 import neo4j from "neo4j-driver";
 
-interface Artist {
-  properties: {
-    name: string;
-  };
-}
-
 interface Song {
-  properties: {
-    id: string;
-    title: string;
-  };
-}
-
-interface FavoriteSong {
-  song: Song;
+  id: string;
+  title: string;
+  views: number;
+  year: number;
+  lyrics: string;
   artist: Artist;
+  genre: Genre;
 }
 
-interface User {
-  properties: {
-    username: string;
-  };
+interface Artist {
+  name: string;
+  id: string;
+}
+
+interface Genre {
+  name: string;
 }
 
 const executeCypherQuery = async (
@@ -45,7 +40,7 @@ const executeCypherQuery = async (
 export const checkUserExists = async (
   _: any,
   { username }: { username: string },
-  { driver }: any
+  { driver }: any,
 ) => {
   const records = await executeCypherQuery(
     driver,
@@ -53,29 +48,15 @@ export const checkUserExists = async (
     MATCH (user:User {username: $username})
     RETURN COUNT(user) > 0 AS exists
     `,
-    { username }
+    { username },
   );
 
   return records.length > 0 && records[0].get("exists");
-}
+};
 
 // Custom resolvers
 export const resolvers = {
   Query: {
-    genres: async (_: any, __: any, { driver }: any) => {
-      const records = await executeCypherQuery(
-        driver,
-        "MATCH (g:Genre) RETURN g LIMIT 5",
-      );
-      // Map the result to fit the GraphQL schema
-      return records.map((record) => {
-        const genreNode = record.get("g");
-        return {
-          id: genreNode.elementId,
-          name: genreNode.properties.name,
-        };
-      });
-    },
     genreCounts: async (
       _: any,
       {
@@ -89,7 +70,7 @@ export const resolvers = {
         maxViews?: number;
         genres?: string[];
       },
-      { driver }: any
+      { driver }: any,
     ) => {
       const searchClause = searchTerm
         ? "AND (toLower(s.title) CONTAINS toLower($searchTerm) OR toLower(a.name) CONTAINS toLower($searchTerm))"
@@ -111,7 +92,7 @@ export const resolvers = {
           minViews: minViews ? neo4j.int(minViews) : null,
           maxViews: maxViews ? neo4j.int(maxViews) : null,
           genres: genres || null,
-        }
+        },
       );
 
       return records.map((record) => ({
@@ -119,17 +100,70 @@ export const resolvers = {
         count: record.get("count").toInt(),
       }));
     },
-    artists: async (_: any, __: any, { driver }: any) => {
+    fetchPlaylists: async (
+      _: any,
+      { username }: { username: string },
+      { driver }: any,
+    ) => {
       const records = await executeCypherQuery(
         driver,
-        "MATCH (a:Artist) RETURN a LIMIT 10",
+        `
+        MATCH (user:User {username: $username})-[:OWNS]->(playlist:Playlist)
+        OPTIONAL MATCH (playlist)-[:CONTAINS]->(playlistSong:Song)
+        OPTIONAL MATCH (playlistSong)-[:PERFORMED_BY]->(playlistArtist:Artist)
+        OPTIONAL MATCH (playlistSong)-[:HAS_GENRE]->(playlistGenre:Genre)
+        WITH playlist, collect({
+          id: playlistSong.id,
+          title: playlistSong.title,
+          views: playlistSong.views,
+          year: playlistSong.year,
+          lyrics: playlistSong.lyrics,
+          artist: playlistArtist { id: playlistArtist.id, name: playlistArtist.name },
+          genre: playlistGenre { name: playlistGenre.name }
+        }) AS songs
+        RETURN {
+          id: playlist.id,
+          name: playlist.name,
+          backgroundcolor: playlist.backgroundcolor,
+          icon: playlist.icon,
+          songs: songs
+        } AS playlist
+        `,
+        { username },
       );
-      // Map the result to fit the GraphQL schema
+
+      if (!records || records.length === 0) return null;
+
       return records.map((record) => {
-        const artistNode = record.get("a");
+        const playlist = record.get("playlist");
+
         return {
-          id: artistNode.elementId,
-          name: artistNode.properties.name,
+          id: playlist.id,
+          name: playlist.name,
+          backgroundcolor: playlist.backgroundcolor,
+          icon: playlist.icon,
+          songs:
+            playlist.songs && playlist.songs.length > 0
+              ? playlist.songs
+                  .filter(
+                    (song: { artist: Artist | null }) =>
+                      song.artist && song.artist.name,
+                  )
+                  .map((song: Song) => ({
+                    id: song.id,
+                    title: song.title,
+                    views: song.views,
+                    year: song.year,
+                    lyrics: song.lyrics,
+                    artist: {
+                      id: song.artist.id,
+                      name: song.artist.name,
+                    },
+                    genre: {
+                      name: song.genre.name,
+                    },
+                  }))
+              : [],
         };
       });
     },
@@ -141,7 +175,7 @@ export const resolvers = {
         genres,
         sortBy,
         searchTerm,
-        minViews, 
+        minViews,
         maxViews,
       }: {
         skip: number;
@@ -244,7 +278,7 @@ export const resolvers = {
         minViews?: number;
         maxViews?: number;
       },
-      { driver }: any
+      { driver }: any,
     ) => {
       const searchClause = searchTerm
         ? "AND (toLower(s.title) CONTAINS toLower($searchTerm) OR toLower(a.name) CONTAINS toLower($searchTerm))"
@@ -264,40 +298,11 @@ export const resolvers = {
           searchTerm: searchTerm || "",
           minViews: minViews ? neo4j.int(minViews) : null,
           maxViews: maxViews ? neo4j.int(maxViews) : null,
-        }
+        },
       );
 
       return records.length > 0 ? records[0].get("songCount").toInt() : 0;
     },
-
-    /* users: async (_: any, __: any, { driver }: any) => {
-      const records = await executeCypherQuery(
-        driver,
-        `
-        MATCH (user:User)-[:HAS_FAVORITES]->(song:Song)-[:PERFORMED_BY]->(artist:Artist)
-        RETURN user, collect( { song: song, artist: artist}) AS favoriteSongs
-        `
-      );
-  
-      // Map the result to the desired format
-      return records.map((record) => {
-        const userNode = record.get("user") as User;
-        const favoriteSongs = record.get("favoriteSongs") as FavoriteSong[];
-  
-        return {
-          username: userNode.properties.username,
-          favoriteSongs: favoriteSongs.map(({song, artist}) => {
-            return {
-              id: song.properties.id,
-              title: song.properties.title,
-              artist: {
-                name: artist.properties.name,
-              },
-            };
-          }),
-        };
-      });
-    }, */
   },
   Mutation: {
     createUser: async (
@@ -309,23 +314,68 @@ export const resolvers = {
         driver,
         `
         MERGE (user:User {username: $username})
-        ON CREATE SET
-          user.id = randomUUID(),
-          user.createdAt = timestamp()
-        RETURN user { .id, .username, isNew: (user.createdAt IS NOT NULL) } AS user
+        ON CREATE SET user.id = randomUUID()
+        WITH user
+        OPTIONAL MATCH (user)-[:HAS_FAVORITES]->(song:Song)-[:PERFORMED_BY]->(artist:Artist)
+        OPTIONAL MATCH (song)-[:HAS_GENRE]->(genre:Genre)
+        OPTIONAL MATCH (user)-[:OWNS_PLAYLIST]->(playlist:Playlist)
+        OPTIONAL MATCH (playlist)-[:CONTAINS]->(playlistSong:Song)-[:PERFORMED_BY]->(playlistArtist:Artist)
+        OPTIONAL MATCH (playlistSong)-[:HAS_GENRE]->(playlistGenre:Genre)
+        RETURN user {
+          id: user.id,
+          username: user.username,
+          favoriteSongs: collect({
+            song: {
+              id: song.id,
+              title: song.title,
+              views: song.views,
+              year: song.year,
+              lyrics: song.lyrics
+            },
+            artist: {
+              id: artist.id,
+              name: artist.name
+            },
+            genre: genre { name: genre.name }
+          })
+        } AS user
         `,
         { username },
       );
       if (records.length > 0) {
-        const user = records[0].get("user");
-        const isNew = records[0].get("user").isNew;
+        const userRecord = records[0].get("user");
 
         return {
-          id: user.id,
-          username: user.username,
-          isNew,
-          playlists: user.playlist || [],
-          favoriteSongs: user.favoriteSongs || [],
+          id: userRecord.id,
+          username: userRecord.username,
+          favoriteSongs:
+            userRecord.favoriteSongs && userRecord.favoriteSongs.length > 0
+              ? userRecord.favoriteSongs
+                  .filter(
+                    (favorite: { artist: Artist | null }) =>
+                      favorite.artist && favorite.artist.name,
+                  )
+                  .map(
+                    (favorite: {
+                      artist: Artist;
+                      song: Song;
+                      genre: Genre;
+                    }) => ({
+                      id: favorite.song.id,
+                      title: favorite.song.title,
+                      views: favorite.song.views,
+                      year: favorite.song.year,
+                      lyrics: favorite.song.lyrics,
+                      artist: {
+                        id: favorite.artist.id,
+                        name: favorite.artist.name,
+                      },
+                      genre: {
+                        name: favorite.genre.name,
+                      },
+                    }),
+                  )
+              : [],
         };
       }
       throw new Error("Failed to create or retrieve user");
@@ -340,13 +390,14 @@ export const resolvers = {
         driver,
         `
         MATCH (user:User {username: $username})
-        DETACH DELETE user
-        RETURN COUNT(user) AS count
+        OPTIONAL MATCH (user)-[:OWNS]->(playlist:Playlist) 
+        DETACH DELETE user, playlist
+        RETURN COUNT(user) > 0 AS userDeleted
         `,
         { username },
       );
-      const isDeleted = records[0].get("count").toInt();
-      return isDeleted > 0;
+      const isDeleted = records[0].get("userDeleted");
+      return isDeleted;
     },
 
     addFavoriteSong: async (
@@ -359,12 +410,12 @@ export const resolvers = {
         `
         MATCH (user:User {username: $username}), (song:Song {id: $songId})
         MERGE (user)-[:HAS_FAVORITES]->(song)
-        RETURN COUNT(song) > 0 AS count
+        RETURN COUNT(song) > 0 AS songAdded
         `,
         { username, songId },
       );
-      const isAdded = records[0].get("count");
-      return isAdded > 0;
+      const isAdded = records[0].get("songAdded");
+      return isAdded;
     },
 
     removeFavoriteSong: async (
@@ -377,12 +428,12 @@ export const resolvers = {
         `
         MATCH (user:User {username: $username})-[f:HAS_FAVORITES]->(song:Song {id: $songId})
         DELETE f
-        RETURN COUNT(f) > 0 AS count
+        RETURN COUNT(f) > 0 AS songRemoved
         `,
         { username, songId },
       );
-      const isRemoved = records[0].get("count");
-      return isRemoved > 0;
+      const isRemoved = records[0].get("songRemoved");
+      return isRemoved;
     },
 
     createPlaylist: async (
@@ -430,13 +481,16 @@ export const resolvers = {
         driver,
         `
         MATCH (user:User {username: $username})-[o:OWNS]->(playlist:Playlist {id: $playlistId})
-        DELETE o
-        RETURN COUNT(o) > 0 AS count
+        WITH playlist, o
+        MATCH (playlist)-[r]-()
+        DELETE r
+        DELETE o, playlist
+        RETURN COUNT(o) > 0 AS playlistDeleted
         `,
         { username, playlistId },
       );
-      const isRemoved = records[0].get("count");
-      return isRemoved > 0;
+      const isRemoved = records[0].get("playlistDeleted");
+      return isRemoved;
     },
 
     addSongToPlaylist: async (

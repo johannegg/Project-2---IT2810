@@ -46,6 +46,7 @@
 	height: 34px;
 	margin: 15px 0 40px 0;
 	background-color: var(--theme-green);
+	color: black;
 }
 
 .loadMoreButton:hover {
@@ -70,6 +71,9 @@
 @media (max-width: 1050px) {
 	.homeComponents.homeComponents.shifted {
 		transform: translateX(10%);
+	}
+	.loadMoreButton {
+		margin-bottom: 100px;
 	}
 }
 
@@ -113,6 +117,10 @@
 	.filterButtonContainer {
 		left: -200px;
 	}
+
+	.numberOfResults {
+		font-size: medium;
+	}
 }
 
 @media (max-width: 520px) {
@@ -125,9 +133,9 @@
 	}
 }
 
-@media (max-width: 450px) {
+@media (max-width: 500px) {
 	.allSongsContainer {
-		width: 95%;
+		width: 100%;
 	}
 
 	.filterButtonContainer {
@@ -137,7 +145,7 @@
 
 @media (max-width: 400px) {
 	.allSongsContainer {
-		width: 90%;
+		width: 100%;
 	}
 
 	.filterButtonContainer {
@@ -148,6 +156,7 @@
 @media (prefers-color-scheme: dark) {
 	.loadMoreButton {
 		background-color: var(--theme-even-darker-green);
+		color: white;
 	}
 
 	.loadMoreButton:hover {

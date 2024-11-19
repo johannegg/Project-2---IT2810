@@ -16,6 +16,7 @@ const DisplayPlaylist: React.FC<DisplayPlaylistProps> = ({ playlistId, onDelete 
 	const playlists = useReactiveVar(playlistsVar);
 	const [showConfirmDelete, setShowConfirmDelete] = useState(false);
 	const currentPlaylist = playlists.find((pl) => pl.id === playlistId);
+	const allGenres = ["pop", "rap", "rb", "country", "rock"];
 
 	if (!currentPlaylist) return <div>Playlist not found</div>;
 
@@ -48,12 +49,14 @@ const DisplayPlaylist: React.FC<DisplayPlaylistProps> = ({ playlistId, onDelete 
 							isInPlaylist
 							playlistId={currentPlaylist.id}
 							onSongRemoved={(songId: string) => handleSongRemoved(songId)}
+							selectedGenres={allGenres}
+							maxViews={10000000}
+							minViews={0}
 						/>
 					) : (
 						<p>No songs here yet.</p>
 					)}
 				</div>
-
 				{showConfirmDelete && (
 					<div className="modal-overlay">
 						<div className="modal">
