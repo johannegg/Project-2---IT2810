@@ -59,7 +59,6 @@ describe("sorting", () => {
                   const artist2 = $artist2.text().trim().charAt(0);
                   const artist3 = $artist3.text().trim().charAt(0);
 
-                  // Check alphabetical order
                   expect(artist2.localeCompare(artist1)).to.be.lessThan(0);
                   expect(artist3.localeCompare(artist2)).to.be.lessThan(0);
                 });
