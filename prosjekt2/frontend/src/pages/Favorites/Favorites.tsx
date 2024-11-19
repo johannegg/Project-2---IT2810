@@ -14,7 +14,7 @@ const Favorites: React.FC = () => {
 	const [searchedSongs, setSearchedSongs] = useState<SongData[]>(favorites);
 	const navigate = useNavigate();
 
-	const allGenres = ["pop", "rap", "rb", "country", "rock"]
+	const allGenres = ["pop", "rap", "rb", "country", "rock"];
 
 	// Filter favorite songs based on search term
 	useEffect(() => {
