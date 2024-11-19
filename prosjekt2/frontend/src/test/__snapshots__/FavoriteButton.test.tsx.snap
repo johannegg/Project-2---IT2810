@@ -1,0 +1,31 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`FavoriteButton > matches snapshot when song is favorited 1`] = `
+<div>
+  <button
+    class="favoriteButton"
+    type="button"
+  >
+    <span
+      data-testid="icon-fas"
+    >
+      Icon
+    </span>
+  </button>
+</div>
+`;
+
+exports[`FavoriteButton > matches snapshot when song is not favorited 1`] = `
+<div>
+  <button
+    class="favoriteButton"
+    type="button"
+  >
+    <span
+      data-testid="icon-far"
+    >
+      Icon
+    </span>
+  </button>
+</div>
+`;
