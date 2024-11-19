@@ -7,72 +7,74 @@ import { Filter } from "../components/GenreFilter/GenreFilter";
 const mockUseGenreCounts = vi.fn();
 
 vi.mock("../utils/hooks/useGenreCounts", () => ({
-  useGenreCounts: () => mockUseGenreCounts(),
+	useGenreCounts: () => mockUseGenreCounts(),
 }));
 
 vi.mock("@apollo/client", async () => {
-  const actual = await vi.importActual("@apollo/client");
-  return {
-    ...actual,
-    useReactiveVar: (variable: any) => variable(),
-  };
+	const actual = await vi.importActual("@apollo/client");
+	return {
+		...actual,
+		useReactiveVar: (variable: any) => variable(),
+	};
 });
 
 describe("Filter Component", () => {
-  let onGenreChangeMock: Mock<(selectedGenres: string[]) => void>;
+	let onGenreChangeMock: Mock<(selectedGenres: string[]) => void>;
 
-  beforeEach(() => {
-    onGenreChangeMock = vi.fn();
-    genreFilterVar([]);
-    minViewsVar(0);
-    maxViewsVar(1000);
-    mockUseGenreCounts.mockReset();
-  });
+	beforeEach(() => {
+		onGenreChangeMock = vi.fn();
+		genreFilterVar([]);
+		minViewsVar(0);
+		maxViewsVar(1000);
+		mockUseGenreCounts.mockReset();
+	});
 
-  it("does not render checkboxes while loading", () => {
-    mockUseGenreCounts.mockImplementation(() => ({
-      genreCounts: [],
-      isLoading: true,
-      error: undefined,
-      refetch: vi.fn(),
-    }));
+	it("does not render checkboxes while loading", () => {
+		mockUseGenreCounts.mockImplementation(() => ({
+			genreCounts: [],
+			isLoading: true,
+			error: undefined,
+			refetch: vi.fn(),
+		}));
 
-    render(
-      <MockedProvider>
-        <Filter onGenreChange={onGenreChangeMock} searchTerm="" />
-      </MockedProvider>
-    );
+		render(
+			<MockedProvider>
+				<Filter onGenreChange={onGenreChangeMock} searchTerm="" />
+			</MockedProvider>,
+		);
 
-    const countryCheckbox = screen.queryByLabelText(/Country/);
-    expect(countryCheckbox).not.toBeInTheDocument();
-  });
+		const countryCheckbox = screen.queryByLabelText(/Country/);
+		expect(countryCheckbox).not.toBeInTheDocument();
+	});
 
-  it("renders genres correctly", async () => {
-    mockUseGenreCounts.mockImplementation(() => ({
-      genreCounts: [
-        { name: "Country", count: 59 },
-        { name: "Pop", count: 990 },
-        { name: "Rap", count: 1246 },
-        { name: "Rb", count: 147 },
-        { name: "Rock", count: 505 },
-      ],
-      isLoading: false,
-      error: undefined,
-      refetch: vi.fn(),
-    }));
+	it("renders genres correctly and matches the snapshot", async () => {
+		mockUseGenreCounts.mockImplementation(() => ({
+			genreCounts: [
+				{ name: "Country", count: 59 },
+				{ name: "Pop", count: 990 },
+				{ name: "Rap", count: 1246 },
+				{ name: "Rb", count: 147 },
+				{ name: "Rock", count: 505 },
+			],
+			isLoading: false,
+			error: undefined,
+			refetch: vi.fn(),
+		}));
 
-    render(
-      <MockedProvider>
-        <Filter onGenreChange={onGenreChangeMock} searchTerm="example" />
-      </MockedProvider>
-    );
+		const { container } = render(
+			<MockedProvider>
+				<Filter onGenreChange={onGenreChangeMock} searchTerm="example" />
+			</MockedProvider>,
+		);
 
-    await waitFor(() => {
-      expect(screen.getByText(/Country/)).toBeInTheDocument();
-      expect(screen.getByText(/Pop/)).toBeInTheDocument();
-      expect(screen.getByText(/Rap/)).toBeInTheDocument();
-      expect(screen.getByText(/Rb/)).toBeInTheDocument();
-      expect(screen.getByText(/Rock/)).toBeInTheDocument();
-    });
-  });
+		await waitFor(() => {
+			expect(screen.getByText(/Country/)).toBeInTheDocument();
+			expect(screen.getByText(/Pop/)).toBeInTheDocument();
+			expect(screen.getByText(/Rap/)).toBeInTheDocument();
+			expect(screen.getByText(/Rb/)).toBeInTheDocument();
+			expect(screen.getByText(/Rock/)).toBeInTheDocument();
+		});
+
+		expect(container).toMatchSnapshot();
+	});
 });
