@@ -2,10 +2,8 @@ import React, { useState, useCallback } from "react";
 import { FiPlusCircle, FiMinusCircle } from "react-icons/fi";
 import { SongData } from "../../utils/types/SongTypes";
 import { PlaylistData } from "../../pages/Playlists/Playlists";
-import { useReactiveVar } from "@apollo/client";
+import { useReactiveVar} from "@apollo/client";
 import { playlistsVar, isSidebarOpenVar } from "../../apollo/cache";
-import { ADD_SONG_TO_PLAYLIST, REMOVE_SONG_FROM_PLAYLIST } from "../../utils/Queries";
-import { useMutation } from "@apollo/client";
 import "./PlusMinusButton.css";
 
 type PlusMinusButtonProps = {
@@ -26,29 +24,6 @@ const PlusMinusButton: React.FC<PlusMinusButtonProps> = ({
 	const [showModal, setShowModal] = useState(false);
 	const [feedbackMessage, setFeedbackMessage] = useState("");
 
-	const [addSongToPlaylist] = useMutation(ADD_SONG_TO_PLAYLIST, {
-		onCompleted: () => {
-			setFeedbackMessage("Song successfully added!");
-			clearFeedbackMessage();
-		},
-		onError: () => {
-			setFeedbackMessage("Error adding song to playlist.");
-			clearFeedbackMessage();
-		},
-	});
-
-	const [removeSongFromPlaylist] = useMutation(REMOVE_SONG_FROM_PLAYLIST, {
-		onCompleted: () => {
-			setFeedbackMessage("Song removed from playlist.");
-			clearFeedbackMessage();
-			if (onSongRemoved) onSongRemoved(song.id);
-		},
-		onError: () => {
-			setFeedbackMessage("Error removing song from playlist.");
-			clearFeedbackMessage();
-		},
-	});
-
 	const debounce = (func: () => void, delay: number) => {
 		let timer: NodeJS.Timeout;
 		return () => {
@@ -64,21 +39,8 @@ const PlusMinusButton: React.FC<PlusMinusButtonProps> = ({
 		[],
 	);
 
-	const isUserLoggedIn = () => {
-		const username = localStorage.getItem("profileName");
-		return username && username !== "";
-	};
-
-	const handleAddSongToPlaylist = async (playlistId: string) => {
-		if (!isUserLoggedIn()) {
-			alert("You need to be logged in to add songs to playlists");
-			return;
-		}
-
+	const handleAddSongToPlaylist = (playlistId: string) => {
 		let songAdded = false;
-		await addSongToPlaylist({
-			variables: { username: localStorage.getItem("profileName"), playlistId, songId: song.id },
-		});
 
 		const updatedPlaylists = playlists.map((playlist: PlaylistData) => {
 			if (playlist.id === playlistId) {
@@ -102,15 +64,8 @@ const PlusMinusButton: React.FC<PlusMinusButtonProps> = ({
 		}
 	};
 
-	const handleRemoveSongFromPlaylist = async () => {
-		if (!isUserLoggedIn()) {
-			alert("You need to be logged in to remove songs from playlists");
-			return;
-		}
+	const handleRemoveSongFromPlaylist = () => {
 		if (playlistId) {
-			await removeSongFromPlaylist({
-				variables: { username: localStorage.getItem("profileName"), playlistId, songId: song.id },
-			});
 			const updatedPlaylists = playlists.map((playlist: PlaylistData) => {
 				if (playlist.id === playlistId) {
 					return { ...playlist, songs: playlist.songs.filter((s) => s.id !== song.id) };
@@ -122,13 +77,7 @@ const PlusMinusButton: React.FC<PlusMinusButtonProps> = ({
 		}
 	};
 
-	const toggleModal = () => {
-		if (isUserLoggedIn()) {
-			setShowModal(!showModal);
-		} else {
-			alert("You need to be logged in to add songs to playlists");
-		}
-	};
+	const toggleModal = () => setShowModal(!showModal);
 
 	return (
 		<>
@@ -148,10 +97,7 @@ const PlusMinusButton: React.FC<PlusMinusButtonProps> = ({
 			</button>
 
 			{showModal && (
-				<div
-					className={`playlist-modal-overlay ${isSidebarOpen ? "sidebar-open" : ""}`}
-					onClick={(e) => e.stopPropagation()}
-				>
+				<div className={`playlist-modal-overlay ${isSidebarOpen ? 'sidebar-open' : ''}`}  onClick={(e) => e.stopPropagation()}>
 					<div className="playlist-modal-container">
 						<h3>Select a playlist to add "{song.title}"</h3>
 						{feedbackMessage && (

@@ -137,12 +137,7 @@ const Home = () => {
 					</p>
 					{!isLoading ? (
 						<section className="allSongsContainer">
-							<AllSongsList
-								songs={songs}
-								selectedGenres={selectedGenres}
-								maxViews={maxViews}
-								minViews={minViews}
-							/>
+							<AllSongsList songs={songs} />
 						</section>
 					) : null}
 				</section>

@@ -16,7 +16,7 @@
 .header-content {
 	display: flex;
 	align-items: center;
-	width: auto;
+	width: 100%;
 	max-width: 1200px;
 	margin: 0 auto;
 	position: relative;
@@ -106,9 +106,15 @@
 	}
 }
 
-@media (max-width: 650px) {
+@media (max-width: 600px) {
 	.header-title {
-		font-size: 18px;
+		font-size: 22px;
+	}
+}
+
+@media (max-width: 420px) {
+	.header-title {
+		font-size: 20px;
 	}
 	.header-width {
 		width: 300px;
@@ -120,23 +126,6 @@
 
 	.navIcon {
 		font-size: 24px;
-	}
-
-	.sofa-icon {
-		height: 45px;
-		width: 45px;
-		margin-right: 10px;
-	}
-}
-
-@media (max-width: 380px) {
-	.sofa-icon {
-		width: 40px;
-		height: 40px;
-	}
-
-	.header-title {
-		font-size: 16px;
 	}
 }
 
