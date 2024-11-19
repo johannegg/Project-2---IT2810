@@ -11,11 +11,11 @@ vi.mock("../utils/hooks/useGenreCounts", () => ({
 }));
 
 vi.mock("@apollo/client", async () => {
-	const actual = await vi.importActual("@apollo/client");
-	return {
-		...actual,
-		useReactiveVar: (variable: any) => variable(),
-	};
+  const actual = await vi.importActual<typeof import("@apollo/client")>("@apollo/client");
+  return {
+    ...actual,
+    useReactiveVar: (variable: () => unknown) => variable(),
+  };
 });
 
 describe("Filter Component", () => {
