@@ -1,0 +1,9 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`DisplayPlaylist Component > renders correctly and matches snapshot 1`] = `
+<DocumentFragment>
+  <div>
+    Playlist not found
+  </div>
+</DocumentFragment>
+`;
