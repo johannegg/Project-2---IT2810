@@ -28,11 +28,7 @@ export const SearchBar: React.FC<SearchBarProps> = ({ setSearchTerm, initialSear
 
 	return (
 		<div className="searchContainer">
-			<form
-				className="searchForm"
-				onSubmit={handleSearchSubmit}
-				aria-label="Search Form" 
-			>
+			<form className="searchForm" onSubmit={handleSearchSubmit} aria-label="Search Form">
 				<input
 					className="searchInput"
 					placeholder="Search for a song or an artist"
@@ -55,5 +51,4 @@ export const SearchBar: React.FC<SearchBarProps> = ({ setSearchTerm, initialSear
 			)}
 		</div>
 	);
-	
 };

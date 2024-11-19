@@ -56,22 +56,14 @@ const Profile: React.FC = () => {
 		<>
 			{isLoggedIn ? (
 				<div className="dropdown">
-					<button
-						className="profile-icon"
-						aria-label="Profile icon menu" 
-						aria-expanded="true"
-					>
+					<button className="profile-icon" aria-label="Profile icon menu" aria-expanded="true">
 						<FontAwesomeIcon icon={faCircleUser} size="2xl" />
 					</button>
 					<div className="dropdown-content">
 						<p className="profileName" aria-live="polite">
 							You're logged in as "{profileName}"
 						</p>
-						<a
-							onClick={logOut}
-							aria-label="Log out"
-							role="button" 
-						>
+						<a onClick={logOut} aria-label="Log out" role="button">
 							Log out
 						</a>
 					</div>
@@ -82,7 +74,7 @@ const Profile: React.FC = () => {
 						<button
 							className="profile-icon"
 							onClick={() => setShowLogin(!showLogin)}
-							aria-label="Profile icon" 
+							aria-label="Profile icon"
 							aria-expanded={showLogin}
 						>
 							<FontAwesomeIcon icon={faCircleUser} size="2xl" />

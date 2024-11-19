@@ -35,7 +35,7 @@ describe("BackButton", () => {
 		render(
 			<MemoryRouter>
 				<BackButton />
-			</MemoryRouter>
+			</MemoryRouter>,
 		);
 
 		// Assert that the button is rendered with the default text
@@ -49,7 +49,7 @@ describe("BackButton", () => {
 		render(
 			<MemoryRouter>
 				<BackButton text={customText} />
-			</MemoryRouter>
+			</MemoryRouter>,
 		);
 
 		// Assert that the button is rendered with the custom text
@@ -62,7 +62,7 @@ describe("BackButton", () => {
 		render(
 			<MemoryRouter>
 				<BackButton />
-			</MemoryRouter>
+			</MemoryRouter>,
 		);
 
 		// Simulate a button click
@@ -78,7 +78,7 @@ describe("BackButton", () => {
 		const { container } = render(
 			<MemoryRouter>
 				<BackButton />
-			</MemoryRouter>
+			</MemoryRouter>,
 		);
 
 		// Assert that the rendered output matches the snapshot
@@ -90,7 +90,7 @@ describe("BackButton", () => {
 		const { container } = render(
 			<MemoryRouter>
 				<BackButton text="Custom Text" />
-			</MemoryRouter>
+			</MemoryRouter>,
 		);
 
 		// Assert that the rendered output matches the snapshot

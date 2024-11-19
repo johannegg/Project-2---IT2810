@@ -1,7 +1,7 @@
 import React from "react";
 import { describe, test, vi, afterEach, expect } from "vitest";
 import { render, screen, fireEvent, cleanup } from "@testing-library/react";
-import Sort from "../components/Sort/Sort"; 
+import Sort from "../components/Sort/Sort";
 
 describe("Sort", () => {
 	const mockOnSortChange = vi.fn(); // Mock function for onSortChange
@@ -14,13 +14,7 @@ describe("Sort", () => {
 
 	// Test 1: Verifies that Sort renders correctly with default sort option
 	test("renders Sort with default sort option", () => {
-		render(
-			<Sort
-				songs={[]}
-				sortOption="title_asc"
-				onSortChange={mockOnSortChange}
-			/>
-		);
+		render(<Sort songs={[]} sortOption="title_asc" onSortChange={mockOnSortChange} />);
 
 		// Assert that the header and select element are rendered
 		expect(screen.getByText("Sort by")).toBeInTheDocument();
@@ -29,13 +23,7 @@ describe("Sort", () => {
 
 	// Test 2: Verifies that the sort options are rendered
 	test("renders all sort options", () => {
-		render(
-			<Sort
-				songs={[]}
-				sortOption="title_asc"
-				onSortChange={mockOnSortChange}
-			/>
-		);
+		render(<Sort songs={[]} sortOption="title_asc" onSortChange={mockOnSortChange} />);
 
 		// Assert that all options are present in the select element
 		const options = screen.getAllByRole("option");
@@ -49,13 +37,7 @@ describe("Sort", () => {
 
 	// Test 3: Verifies that onSortChange is called when a new sort option is selected
 	test("calls onSortChange when a new sort option is selected", () => {
-		render(
-			<Sort
-				songs={[]}
-				sortOption="title_asc"
-				onSortChange={mockOnSortChange}
-			/>
-		);
+		render(<Sort songs={[]} sortOption="title_asc" onSortChange={mockOnSortChange} />);
 
 		// Simulate changing the sort option
 		const select = screen.getByRole("combobox");
@@ -67,13 +49,7 @@ describe("Sort", () => {
 
 	// Test 4: Verifies that Sort renders correctly with a different sort option
 	test("renders Sort with a different sort option", () => {
-		render(
-			<Sort
-				songs={[]}
-				sortOption="artist_desc"
-				onSortChange={mockOnSortChange}
-			/>
-		);
+		render(<Sort songs={[]} sortOption="artist_desc" onSortChange={mockOnSortChange} />);
 
 		// Assert that the selected value is correctly set
 		expect(screen.getByRole("combobox")).toHaveValue("artist_desc");
@@ -82,11 +58,7 @@ describe("Sort", () => {
 	// Test 5: Snapshot test for Sort with default sort option
 	test("matches snapshot with default sort option", () => {
 		const { container } = render(
-			<Sort
-				songs={[]}
-				sortOption="title_asc"
-				onSortChange={mockOnSortChange}
-			/>
+			<Sort songs={[]} sortOption="title_asc" onSortChange={mockOnSortChange} />,
 		);
 
 		// Assert that the rendered output matches the snapshot
@@ -96,11 +68,7 @@ describe("Sort", () => {
 	// Test 6: Snapshot test for Sort with a different sort option
 	test("matches snapshot with a different sort option", () => {
 		const { container } = render(
-			<Sort
-				songs={[]}
-				sortOption="views_desc"
-				onSortChange={mockOnSortChange}
-			/>
+			<Sort songs={[]} sortOption="views_desc" onSortChange={mockOnSortChange} />,
 		);
 
 		// Assert that the rendered output matches the snapshot
