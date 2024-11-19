@@ -6,14 +6,14 @@ import { faXmark } from "@fortawesome/free-solid-svg-icons";
 
 type SearchBarProps = {
 	setSearchTerm: (term: string) => void;
-	initialSearchTerm?: string; // Nytt prop for å sette en initial verdi
+	initialSearchTerm?: string;
 };
 
 export const SearchBar: React.FC<SearchBarProps> = ({ setSearchTerm, initialSearchTerm = "" }) => {
 	const [searchInput, setSearchInput] = useState<string>(initialSearchTerm);
 
 	useEffect(() => {
-		setSearchInput(initialSearchTerm); // Sett initial verdi ved første render
+		setSearchInput(initialSearchTerm);
 	}, [initialSearchTerm]);
 
 	const handleSearchSubmit = (event: React.FormEvent<HTMLFormElement>) => {

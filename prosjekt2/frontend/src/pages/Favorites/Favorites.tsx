@@ -8,7 +8,6 @@ import { favoritesSearchTermVar, favoriteSongsVar } from "../../apollo/cache";
 import { useReactiveVar } from "@apollo/client";
 
 const Favorites: React.FC = () => {
-	// Bruk Apollo reactive variable for favoritter og søketerm
 	const favorites = useReactiveVar(favoriteSongsVar);
 	const searchTerm = useReactiveVar(favoritesSearchTermVar);
 	const [searchedSongs, setSearchedSongs] = useState<SongData[]>(favorites);

@@ -12,7 +12,6 @@ const Profile: React.FC = () => {
 	const [isLoggedIn, setLogin] = useState<boolean>(false);
 	const [inputValue, setInputValue] = useState<string>("");
 	const [showLogin, setShowLogin] = useState<boolean>(false);
-	// Initialize the createUser mutation
 	const [createUser, { loading: creatingUser, error: userError }] = useMutation(CREATE_USER);
 
 	const navigate = useNavigate();

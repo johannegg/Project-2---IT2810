@@ -43,7 +43,6 @@ const FavoriteButton = ({ song }: FavoriteProps) => {
 		}
 	};
 
-	// Oppdater `localStorage` hver gang `favoriteSongsVar` endres
 	useEffect(() => {
 		localStorage.setItem("favoriteSongs", JSON.stringify(favoriteSongs));
 	}, [favoriteSongs]);
