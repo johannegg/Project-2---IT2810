@@ -33,7 +33,6 @@ describe('Make and view playlists', () => {
       });
 
       it('should add and remove songs from playlist', () => {
-        //fjern denne linjen for å kjøre testen
         // Make a playlist
         cy.get('.new-playlist-button').click();
         cy.contains('Create new playlist').should('be.visible');
@@ -44,6 +43,7 @@ describe('Make and view playlists', () => {
         cy.get('.sofa-icon').click();
         cy.get('.plusMinus-button').eq(1).click();
         cy.contains('Test playlist').click();
+        cy.contains('Song successfully added!').should('be.visible');
         cy.get('.closeBtn').click();
 
         // Check if the song is in the playlist
