@@ -10,7 +10,7 @@ import {
 	sortOptionVar,
 	clearFiltersVar,
 } from "../../apollo/cache";
-import { useEffect, useRef } from "react";
+import { forwardRef, useEffect } from "react";
 
 type SidebarProps = {
 	onGenreChange: (selectedGenres: string[]) => void;
@@ -22,68 +22,89 @@ type SidebarProps = {
 	searchTerm: string;
 };
 
-export function Sidebar({
-	onGenreChange,
-	onViewsChange,
-	onSortChange,
-	songs,
-	onToggle,
-	onClearAllFilters,
-	searchTerm,
-}: SidebarProps) {
-	const isSidebarOpen = useReactiveVar(isSidebarOpenVar);
-	const sortOption = useReactiveVar(sortOptionVar);
-	const clearFilters = useReactiveVar(clearFiltersVar);
+export const Sidebar = forwardRef<HTMLDivElement, SidebarProps>(
+	(
+		{ onGenreChange, onViewsChange, onSortChange, songs, onToggle, onClearAllFilters, searchTerm },
+		ref,
+	) => {
+		const isSidebarOpen = useReactiveVar(isSidebarOpenVar);
+		const sortOption = useReactiveVar(sortOptionVar);
+		const clearFilters = useReactiveVar(clearFiltersVar);
 
-	const sidebarRef = useRef<HTMLDivElement>(null);
+		useEffect(() => {
+			const savedState = sessionStorage.getItem("isSidebarOpen");
+			if (savedState !== null) {
+				isSidebarOpenVar(savedState === "true");
+			}
+		}, []);
 
-	useEffect(() => {
-		if (isSidebarOpen && sidebarRef.current) {
-			sidebarRef.current.focus();
-		}
-	}, [isSidebarOpen]);
+		useEffect(() => {
+			sessionStorage.setItem("isSidebarOpen", isSidebarOpen.toString());
+		}, [isSidebarOpen]);
 
-	const toggleMenu = () => {
-		onToggle(!isSidebarOpen);
-	};
+		useEffect(() => {
+			if (!ref || !("current" in ref)) return;
 
-	useEffect(() => {
-		if (clearFilters) {
-			genreFilterVar([]);
-		}
-	}, [clearFilters]);
+			const sidebar = ref.current;
+			if (!sidebar) return;
 
-	return (
-		<div
-			className={`sidebar ${isSidebarOpen ? "open" : ""}`}
-			aria-hidden={!isSidebarOpen}
-			tabIndex={isSidebarOpen ? 0 : -1}
-			ref={sidebarRef}
-		>
-			<button
-				className="close-button"
-				onClick={toggleMenu}
-				type="button"
-				aria-label="Close"
+			const focusableElements = sidebar.querySelectorAll<HTMLElement>(
+				'a, button, input, select, textarea, [tabindex]:not([tabindex="-1"])',
+			);
+
+			focusableElements.forEach((el) => {
+				if (isSidebarOpen) {
+					el.removeAttribute("tabindex");
+				} else {
+					el.setAttribute("tabindex", "-1");
+				}
+			});
+		}, [isSidebarOpen, ref]);
+
+		const toggleMenu = () => {
+			const newState = !isSidebarOpen;
+			isSidebarOpenVar(newState);
+			onToggle(newState);
+		};
+
+		useEffect(() => {
+			if (clearFilters) {
+				genreFilterVar([]);
+			}
+		}, [clearFilters]);
+
+		return (
+			<div
+				className={`sidebar ${isSidebarOpen ? "open" : ""}`}
+				aria-hidden={!isSidebarOpen}
 				tabIndex={isSidebarOpen ? 0 : -1}
+				ref={ref}
 			>
-				✕
-			</button>
-			<div className="filteringContainer">
-				<Sort songs={songs} sortOption={sortOption} onSortChange={onSortChange} />
-				<br />
-				<Filter onGenreChange={onGenreChange} searchTerm={searchTerm} />
-				<br />
-				<ViewsFilter onViewsChange={onViewsChange} />
-				<br />
 				<button
-					onClick={onClearAllFilters}
-					className="clearFiltersButton"
+					className="close-button"
+					onClick={toggleMenu}
+					type="button"
+					aria-label="Close"
 					tabIndex={isSidebarOpen ? 0 : -1}
 				>
-					Clear filters
+					✕
 				</button>
+				<div className="filteringContainer">
+					<Sort songs={songs} sortOption={sortOption} onSortChange={onSortChange} />
+					<br />
+					<Filter onGenreChange={onGenreChange} searchTerm={searchTerm} />
+					<br />
+					<ViewsFilter onViewsChange={onViewsChange} />
+					<br />
+					<button
+						onClick={onClearAllFilters}
+						className="clearFiltersButton"
+						tabIndex={isSidebarOpen ? 0 : -1}
+					>
+						Clear filters
+					</button>
+				</div>
 			</div>
-		</div>
-	);
-}
+		);
+	},
+);

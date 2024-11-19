@@ -27,6 +27,7 @@ const Home = () => {
 
 	const [localSongCount, setLocalSongCount] = useState<number>(0);
 	const debounceTimer = useRef<NodeJS.Timeout | null>(null);
+	const sidebarRef = useRef<HTMLDivElement | null>(null);
 
 	const {
 		songCount,
@@ -81,6 +82,12 @@ const Home = () => {
 
 	const toggleSidebar = () => {
 		isSidebarOpenVar(!isSidebarOpen);
+		// Focus sidebar when it is opened
+		if (!isSidebarOpen && sidebarRef.current) {
+			setTimeout(() => {
+				sidebarRef.current?.focus();
+			}, 0);
+		}
 	};
 
 	const clearAllFilters = () => {
@@ -106,6 +113,7 @@ const Home = () => {
 	return (
 		<>
 			<Sidebar
+				ref={sidebarRef}
 				onGenreChange={handleGenreChange}
 				onSortChange={handleSortChange}
 				songs={songs}
