@@ -19,11 +19,8 @@ vi.mock("@apollo/client", async () => {
 
 vi.mock("@fortawesome/react-fontawesome", () => ({
 	FontAwesomeIcon: ({ icon, style }: { icon: any; style: React.CSSProperties }) => {
-		// Sjekk `icon` direkte
 		const isSolidHeart = icon === heartSolid;
 		const isRegularHeart = icon === heartRegular;
-
-		// Sett testId basert på ikontypen
 		const testId = isSolidHeart ? "icon-fas" : isRegularHeart ? "icon-far" : "unknown";
 
 		return (
@@ -50,8 +47,9 @@ describe("FavoriteButton", () => {
 	const removeFavoriteMock = vi.fn();
 
 	const mockApolloClient = new ApolloClient({
-		uri: "http://localhost:4000", // Mock URI
-		cache: new InMemoryCache(), // Mock cache
+		// Mock URI and cache
+		uri: "http://localhost:4000",
+		cache: new InMemoryCache(),
 	});
 
 	beforeEach(() => {
@@ -85,7 +83,6 @@ describe("FavoriteButton", () => {
 		localStorage.clear();
 	});
 
-	// Snapshot Tests
 	test("matches snapshot when song is not favorited", () => {
 		const { container } = render(<FavoriteButton song={mockSong} />);
 		expect(container).toMatchSnapshot();
@@ -97,7 +94,6 @@ describe("FavoriteButton", () => {
 		expect(container).toMatchSnapshot();
 	});
 
-	// Functional Tests
 	test("renders regular heart icon when song is not favorited", () => {
 		render(<FavoriteButton song={mockSong} />);
 		expect(screen.getByTestId("icon-far")).toBeInTheDocument();

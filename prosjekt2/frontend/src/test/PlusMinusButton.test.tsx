@@ -21,11 +21,11 @@ describe("PlusMinusButton Component", () => {
 	const mockSong = {
 		id: "1",
 		title: "Test Song",
-		artist:{ id: "1", name: "Test Artist" }, // Example value
-		views: 1000,          // Example value
-		year: 2023,           // Example value
-		genre: {name: "Test Genre"},         // Example value
-		lyrics: "La la la...", // Example value
+		artist:{ id: "1", name: "Test Artist" }, 
+		views: 1000,
+		year: 2023,
+		genre: {name: "Test Genre"},
+		lyrics: "La la la...",
 	};
 	const mockPlaylist = {
 		id: "playlist1",

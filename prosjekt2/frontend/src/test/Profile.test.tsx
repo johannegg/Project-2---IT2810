@@ -36,7 +36,6 @@ describe("Profile Component", () => {
 		vi.resetAllMocks();
 	});
 
-	// Snapshot Tests
 	test("matches snapshot when user is not logged in", () => {
 		const { container } = render(
 			<MockedProvider>
@@ -77,7 +76,6 @@ describe("Profile Component", () => {
 		expect(container).toMatchSnapshot();
 	});
 
-	// Test to verify that the Profile component renders correctly when the user is not logged in
 	test("renders login state by default", () => {
 		render(
 			<MockedProvider>
@@ -93,7 +91,6 @@ describe("Profile Component", () => {
 		expect(screen.queryByText(/you're logged in as/i)).not.toBeInTheDocument();
 	});
 
-	// Test to check that the login overlay is displayed when the profile icon is clicked
 	test("displays login overlay when profile icon is clicked", () => {
 		render(
 			<MockedProvider>
@@ -109,7 +106,6 @@ describe("Profile Component", () => {
 		expect(screen.getByText(/choose a unique username/i)).toBeInTheDocument();
 	});
 
-	// Test to ensure a user can log in successfully
 	test("logs in a user successfully", async () => {
 		render(
 			<MockedProvider mocks={[mockCreateUserResult]} addTypename={false}>
@@ -141,7 +137,6 @@ describe("Profile Component", () => {
 		expect(favoriteSongsVar()).toEqual([]);
 	});
 
-	// Test to verify that an error message is displayed when login fails
 	test("displays an error if login fails", async () => {
 		const mockErrorResult = {
 			request: {
@@ -175,7 +170,6 @@ describe("Profile Component", () => {
 		});
 	});
 
-	// Test to ensure a user can log out successfully
 	test("logs out the user successfully", () => {
 		localStorage.setItem("profileName", mockUsername);
 

@@ -20,7 +20,7 @@ vi.mock('@apollo/client', async (importOriginal) => {
 
 // Create a mock Apollo Client
 const mockApolloClient = new ApolloClient({
-  uri: "http://localhost:4000", // Mock URL (not used in testing)
+  uri: "http://localhost:4000",
   cache: new InMemoryCache(),
 });
 

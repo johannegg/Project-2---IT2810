@@ -11,7 +11,6 @@ describe("Sort", () => {
 		vi.resetAllMocks();
 	});
 
-	// Test 1: Verifies that Sort renders correctly with default sort option
 	test("renders Sort with default sort option", () => {
 		render(<Sort songs={[]} sortOption="title_asc" onSortChange={mockOnSortChange} />);
 
@@ -20,7 +19,6 @@ describe("Sort", () => {
 		expect(screen.getByRole("combobox")).toHaveValue("title_asc");
 	});
 
-	// Test 2: Verifies that the sort options are rendered
 	test("renders all sort options", () => {
 		render(<Sort songs={[]} sortOption="title_asc" onSortChange={mockOnSortChange} />);
 
@@ -34,7 +32,6 @@ describe("Sort", () => {
 		expect(screen.getByRole("option", { name: "Views" })).toBeInTheDocument();
 	});
 
-	// Test 3: Verifies that onSortChange is called when a new sort option is selected
 	test("calls onSortChange when a new sort option is selected", () => {
 		render(<Sort songs={[]} sortOption="title_asc" onSortChange={mockOnSortChange} />);
 
@@ -46,7 +43,6 @@ describe("Sort", () => {
 		expect(mockOnSortChange).toHaveBeenCalledWith("title_desc");
 	});
 
-	// Test 4: Verifies that Sort renders correctly with a different sort option
 	test("renders Sort with a different sort option", () => {
 		render(<Sort songs={[]} sortOption="artist_desc" onSortChange={mockOnSortChange} />);
 
@@ -54,7 +50,6 @@ describe("Sort", () => {
 		expect(screen.getByRole("combobox")).toHaveValue("artist_desc");
 	});
 
-	// Test 5: Snapshot test for Sort with default sort option
 	test("matches snapshot with default sort option", () => {
 		const { container } = render(
 			<Sort songs={[]} sortOption="title_asc" onSortChange={mockOnSortChange} />,
@@ -64,7 +59,6 @@ describe("Sort", () => {
 		expect(container).toMatchSnapshot();
 	});
 
-	// Test 6: Snapshot test for Sort with a different sort option
 	test("matches snapshot with a different sort option", () => {
 		const { container } = render(
 			<Sort songs={[]} sortOption="views_desc" onSortChange={mockOnSortChange} />,

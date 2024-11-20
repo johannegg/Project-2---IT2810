@@ -44,7 +44,6 @@ describe("Sidebar", () => {
 		cleanup();
 	});
 
-	// Snapshot Test: Verifies the default rendering of Sidebar in a closed state
 	test("matches snapshot when Sidebar is closed by default", () => {
 		const { asFragment } = render(
 			<Sidebar
@@ -62,7 +61,6 @@ describe("Sidebar", () => {
 		expect(asFragment()).toMatchSnapshot();
 	});
 
-	// Snapshot Test: Verifies the rendering of Sidebar when it is open
 	test("matches snapshot when Sidebar is open", () => {
 		isSidebarOpenVar(true);
 
@@ -82,7 +80,6 @@ describe("Sidebar", () => {
 		expect(asFragment()).toMatchSnapshot();
 	});
 
-	// Test: Verifies the Sidebar renders in a closed state by default
 	test("renders Sidebar in closed state by default", () => {
 		render(
 			<Sidebar
@@ -102,7 +99,6 @@ describe("Sidebar", () => {
 		expect(sidebar).not.toHaveClass("open");
 	});
 
-	// Test: Verifies the Sidebar toggles between open and closed states
 	test("toggles Sidebar open and closed", () => {
 		render(
 			<Sidebar
@@ -132,7 +128,6 @@ describe("Sidebar", () => {
 		expect(mockOnToggle).toHaveBeenCalledWith(false);
 	});
 
-	// Test: Verifies the Clear Filters button clears all filters
 	test("clears all filters when Clear Filters button is clicked", () => {
 		render(
 			<Sidebar

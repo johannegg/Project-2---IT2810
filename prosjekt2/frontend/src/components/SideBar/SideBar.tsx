@@ -84,7 +84,7 @@ export const Sidebar = forwardRef<HTMLDivElement, SidebarProps>(
 				aria-hidden={!isSidebarOpen}
 				tabIndex={isSidebarOpen ? 0 : -1}
 				ref={ref}
-				role="complementary" // Added role for accessibility and testing
+				role="complementary" // Role used for accessibility and testing
 			>
 				<button
 					className="close-button"

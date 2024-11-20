@@ -34,7 +34,7 @@ export const SearchBar: React.FC<SearchBarProps> = ({ setSearchTerm, initialSear
 					placeholder="Search for a song or an artist"
 					value={searchInput}
 					onChange={(e) => setSearchInput(e.target.value)}
-					aria-label="Search Input Field" // Make label unique
+					aria-label="Search Input Field"
 				/>
 				<button type="submit" className="iconContainer" aria-label="Submit Search">
 					<FaSearch className="searchIcon" />
@@ -44,7 +44,7 @@ export const SearchBar: React.FC<SearchBarProps> = ({ setSearchTerm, initialSear
 				<button
 					className="clearButton"
 					onClick={clearInput}
-					aria-label="Clear Search Button" // Make label unique
+					aria-label="Clear Search Button"
 				>
 					<FontAwesomeIcon icon={faXmark} />
 				</button>

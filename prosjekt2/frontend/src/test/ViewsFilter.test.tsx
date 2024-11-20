@@ -26,7 +26,6 @@ describe("ViewsFilter Component", () => {
 		clearFiltersVar(false);
 	});
 
-	// Test that ViewsFilter initializes correctly with sessionStorage values
 	test("initializes with sessionStorage values", async () => {
 		// Set initial values in sessionStorage
 		sessionStorage.setItem("minViews", "200");
@@ -45,7 +44,6 @@ describe("ViewsFilter Component", () => {
 		expect(mockOnViewsChange).toHaveBeenCalledWith(200, 800000);
 	});
 
-	// Test that ViewsFilter matches the saved snapshot
 	test("matches snapshot", async () => {
 		// Render the ViewsFilter component
 		const { container } = render(<ViewsFilter onViewsChange={mockOnViewsChange} />);

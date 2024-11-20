@@ -68,7 +68,6 @@ describe("Playlist Component", () => {
 		onClick: () => {},
 	};
 
-	// Test: Validate the rendering of name and icon
 	test("renders name and icon", () => {
 		const { asFragment } = render(
 			<MemoryRouter>
@@ -83,7 +82,6 @@ describe("Playlist Component", () => {
 		expect(asFragment()).toMatchSnapshot();
 	});
 
-	// Test: Check navigation state with updated background color
 	test("navigates with correct state including updated background color", () => {
 		const mockSetCurrentBackgroundColor = vi.fn();
 
@@ -119,7 +117,6 @@ describe("Playlist Component", () => {
 		expect(asFragment()).toMatchSnapshot();
 	});
 
-	// Test: Validate navigation with dynamically updated background color
 	test("triggers navigation with dynamically updated background color", () => {
 		const { asFragment, rerender } = render(
 			<MemoryRouter>
@@ -159,7 +156,6 @@ describe("Playlist Component", () => {
 		expect(asFragment()).toMatchSnapshot();
 	});
 
-	// Test: Ensure correct number of songs are rendered
 	test("renders the correct number of songs in the playlist", () => {
 		const { asFragment } = render(
 			<MemoryRouter>
@@ -175,7 +171,6 @@ describe("Playlist Component", () => {
 		expect(asFragment()).toMatchSnapshot();
 	});
 
-	// Test: Validate the tabIndex attribute for accessibility
 	test("handles tabIndex correctly", () => {
 		const { asFragment } = render(
 			<MemoryRouter>
