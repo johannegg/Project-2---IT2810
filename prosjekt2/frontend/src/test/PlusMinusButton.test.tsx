@@ -67,53 +67,53 @@ describe("PlusMinusButton Component", () => {
 				<PlusMinusButton song={mockSong} />
 			</MockedProvider>,
 		);
-		expect(screen.getByRole("button", { name: "Add song to playlist" })).toBeInTheDocument();
+		expect(screen.getByRole("button", { name: "Add song" })).toBeInTheDocument();
 	});
-
+	
 	test("renders the remove button if isInPlaylist is true", () => {
 		render(
 			<MockedProvider mocks={mocks} addTypename={false}>
 				<PlusMinusButton song={mockSong} isInPlaylist playlistId="playlist1" />
 			</MockedProvider>,
 		);
-		expect(screen.getByRole("button", { name: "Remove song from playlist" })).toBeInTheDocument();
+		expect(screen.getByRole("button", { name: "Remove song" })).toBeInTheDocument();
 	});
-
+	
 	test("displays modal when add button is clicked", () => {
 		render(
 			<MockedProvider mocks={mocks} addTypename={false}>
 				<PlusMinusButton song={mockSong} />
 			</MockedProvider>,
 		);
-		fireEvent.click(screen.getByRole("button", { name: "Add song to playlist" }));
+		fireEvent.click(screen.getByRole("button", { name: "Add song" })); // Updated
 		expect(screen.getByText('Select a playlist to add "Test Song"')).toBeInTheDocument();
 	});
-
+	
 	test("adds song to a playlist when a playlist button is clicked", async () => {
 		render(
 			<MockedProvider mocks={mocks} addTypename={false}>
 				<PlusMinusButton song={mockSong} />
 			</MockedProvider>,
 		);
-		fireEvent.click(screen.getByRole("button", { name: "Add song to playlist" }));
+		fireEvent.click(screen.getByRole("button", { name: "Add song" })); // Updated
 		fireEvent.click(screen.getByRole("button", { name: "Add song to playlist Test Playlist 🎵" }));
 		expect(await screen.findByText("Song successfully added!")).toBeInTheDocument();
 	});
-
+	
 	test("removes song from playlist when remove button is clicked", async () => {
 		render(
 			<MockedProvider mocks={mocks} addTypename={false}>
 				<PlusMinusButton song={mockSong} isInPlaylist playlistId="playlist1" />
 			</MockedProvider>,
 		);
-		fireEvent.click(screen.getByRole("button", { name: "Remove song from playlist" }));
+		fireEvent.click(screen.getByRole("button", { name: "Remove song" })); // Updated
 		await waitFor(() => {
 			const updatedPlaylists = playlistsVar();
 			const playlist = updatedPlaylists.find((p) => p.id === "playlist1");
 			expect(playlist?.songs).not.toContainEqual(mockSong);
 		});
 	});
-
+	
 	test("alerts user if not logged in when adding a song", () => {
 		localStorage.removeItem("profileName");
 		render(
@@ -121,7 +121,8 @@ describe("PlusMinusButton Component", () => {
 				<PlusMinusButton song={mockSong} />
 			</MockedProvider>,
 		);
-		fireEvent.click(screen.getByRole("button", { name: "Add song to playlist" }));
+		fireEvent.click(screen.getByRole("button", { name: "Add song" })); // Updated
 		expect(window.alert).toHaveBeenCalledWith("You need to be logged in to add songs to playlists");
 	});
+	
 });
