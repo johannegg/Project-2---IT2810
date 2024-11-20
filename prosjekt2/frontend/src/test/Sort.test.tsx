@@ -23,7 +23,7 @@ describe("Sort", () => {
 	// Test 2: Verifies that the sort options are rendered
 	test("renders all sort options", () => {
 		render(<Sort songs={[]} sortOption="title_asc" onSortChange={mockOnSortChange} />);
-	
+
 		// Assert that all options are present and match the aria-labels
 		expect(screen.getByRole("option", { name: "Sort by title A to Z" })).toBeInTheDocument();
 		expect(screen.getByRole("option", { name: "Sort by title Z to A" })).toBeInTheDocument();
@@ -31,7 +31,6 @@ describe("Sort", () => {
 		expect(screen.getByRole("option", { name: "Sort by artist Z to A" })).toBeInTheDocument();
 		expect(screen.getByRole("option", { name: "Sort by views descending" })).toBeInTheDocument();
 	});
-	
 
 	// Test 3: Verifies that onSortChange is called when a new sort option is selected
 	test("calls onSortChange when a new sort option is selected", () => {

@@ -69,7 +69,7 @@ describe("PlusMinusButton Component", () => {
 		);
 		expect(screen.getByRole("button", { name: "Add song" })).toBeInTheDocument();
 	});
-	
+
 	test("renders the remove button if isInPlaylist is true", () => {
 		render(
 			<MockedProvider mocks={mocks} addTypename={false}>
@@ -78,7 +78,7 @@ describe("PlusMinusButton Component", () => {
 		);
 		expect(screen.getByRole("button", { name: "Remove song" })).toBeInTheDocument();
 	});
-	
+
 	test("displays modal when add button is clicked", () => {
 		render(
 			<MockedProvider mocks={mocks} addTypename={false}>
@@ -88,7 +88,7 @@ describe("PlusMinusButton Component", () => {
 		fireEvent.click(screen.getByRole("button", { name: "Add song" })); // Updated
 		expect(screen.getByText('Select a playlist to add "Test Song"')).toBeInTheDocument();
 	});
-	
+
 	test("adds song to a playlist when a playlist button is clicked", async () => {
 		render(
 			<MockedProvider mocks={mocks} addTypename={false}>
@@ -99,7 +99,7 @@ describe("PlusMinusButton Component", () => {
 		fireEvent.click(screen.getByRole("button", { name: "Add song to playlist Test Playlist 🎵" }));
 		expect(await screen.findByText("Song successfully added!")).toBeInTheDocument();
 	});
-	
+
 	test("removes song from playlist when remove button is clicked", async () => {
 		render(
 			<MockedProvider mocks={mocks} addTypename={false}>
@@ -113,7 +113,7 @@ describe("PlusMinusButton Component", () => {
 			expect(playlist?.songs).not.toContainEqual(mockSong);
 		});
 	});
-	
+
 	test("alerts user if not logged in when adding a song", () => {
 		localStorage.removeItem("profileName");
 		render(
@@ -124,5 +124,4 @@ describe("PlusMinusButton Component", () => {
 		fireEvent.click(screen.getByRole("button", { name: "Add song" })); // Updated
 		expect(window.alert).toHaveBeenCalledWith("You need to be logged in to add songs to playlists");
 	});
-	
 });

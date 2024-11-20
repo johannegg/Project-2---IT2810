@@ -85,21 +85,24 @@ const Playlists = () => {
 		}
 	};
 
-	const deletePlaylist = useCallback(async (playlistId: string) => {
-		try {
-			await deletePlaylistMutation({
-				variables: {
-					username: localStorage.getItem("profileName"),
-					playlistId,
-				},
-			});
-			// Remove the playlist locally
-			const updatedPlaylists = playlists.filter((playlist) => playlist.id !== playlistId);
-			playlistsVar(updatedPlaylists);
-		} catch (error) {
-			console.error("Error deleting playlist:", error);
-		}
-	}, [deletePlaylistMutation, playlists]);
+	const deletePlaylist = useCallback(
+		async (playlistId: string) => {
+			try {
+				await deletePlaylistMutation({
+					variables: {
+						username: localStorage.getItem("profileName"),
+						playlistId,
+					},
+				});
+				// Remove the playlist locally
+				const updatedPlaylists = playlists.filter((playlist) => playlist.id !== playlistId);
+				playlistsVar(updatedPlaylists);
+			} catch (error) {
+				console.error("Error deleting playlist:", error);
+			}
+		},
+		[deletePlaylistMutation, playlists],
+	);
 
 	useEffect(() => {
 		// Check if a playlist deletion is requested in location.state
@@ -121,17 +124,11 @@ const Playlists = () => {
 			<PlaylistForm show={showForm} onClose={() => setShowForm(false)} onSubmit={addNewPlaylist} />
 			<div className="outer-playlist-container">
 				{!showLoading && (
-					<button
-						onClick={() => setShowForm(true)}
-						className="new-playlist-button"
-					>
+					<button onClick={() => setShowForm(true)} className="new-playlist-button">
 						New Playlist
 					</button>
 				)}
-				<div
-					className="playlists-container"
-					aria-label="List of your playlists"
-				>
+				<div className="playlists-container" aria-label="List of your playlists">
 					{playlists.length === 0 ? (
 						<p>You have no playlists yet.</p>
 					) : (

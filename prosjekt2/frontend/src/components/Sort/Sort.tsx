@@ -28,11 +28,21 @@ const Sort: React.FC<SortProps> = ({ sortOption, onSortChange }) => {
 				tabIndex={0}
 				aria-label="Sort songs by"
 			>
-				<option value="title_asc" aria-label="Sort by title A to Z">Title A-Z</option>
-				<option value="title_desc" aria-label="Sort by title Z to A">Title Z-A</option>
-				<option value="artist_asc" aria-label="Sort by artist A to Z">Artist A-Z</option>
-				<option value="artist_desc" aria-label="Sort by artist Z to A">Artist Z-A</option>
-				<option value="views_desc" aria-label="Sort by views descending">Views</option>
+				<option value="title_asc" aria-label="Sort by title A to Z">
+					Title A-Z
+				</option>
+				<option value="title_desc" aria-label="Sort by title Z to A">
+					Title Z-A
+				</option>
+				<option value="artist_asc" aria-label="Sort by artist A to Z">
+					Artist A-Z
+				</option>
+				<option value="artist_desc" aria-label="Sort by artist Z to A">
+					Artist Z-A
+				</option>
+				<option value="views_desc" aria-label="Sort by views descending">
+					Views
+				</option>
 			</select>
 		</div>
 	);

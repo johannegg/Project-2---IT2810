@@ -12,12 +12,18 @@ type LyricProps = {
 
 const Lyric = ({ songData }: LyricProps) => {
 	return (
-		<div className="lyrics" aria-label={`Lyrics view for song: ${songData.title} by ${songData.artist.name}`}>
+		<div
+			className="lyrics"
+			aria-label={`Lyrics view for song: ${songData.title} by ${songData.artist.name}`}
+		>
 			<div className="lyrics-header">
 				<BackButton aria-label="Back to previous page" />
 				<div className="buttons-right-container">
 					<FavoriteButton song={songData} aria-label={`Mark ${songData.title} as favorite`} />
-					<PlusMinusButton song={songData} aria-label={`Add or remove ${songData.title} from playlist`} />
+					<PlusMinusButton
+						song={songData}
+						aria-label={`Add or remove ${songData.title} from playlist`}
+					/>
 				</div>
 			</div>
 			<h1 aria-label={`Song title: ${songData.title}`}>{songData.title}</h1>

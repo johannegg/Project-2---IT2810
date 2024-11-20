@@ -137,10 +137,7 @@ const Home = () => {
 					/>
 				</section>
 				<section className="filterButtonContainer">
-					<FilterButton
-						onClick={toggleSidebar}
-						aria-label="Toggle sidebar"
-					/>
+					<FilterButton onClick={toggleSidebar} aria-label="Toggle sidebar" />
 				</section>
 				<section className="searchResults">
 					<p className="numberOfResults">
@@ -160,11 +157,7 @@ const Home = () => {
 					) : null}
 				</section>
 				{!isLoading && hasMoreSongs && songs.length > 0 && (
-					<button
-						className="loadMoreButton"
-						onClick={loadMoreSongs}
-						type="button"
-					>
+					<button className="loadMoreButton" onClick={loadMoreSongs} type="button">
 						Load More Songs
 					</button>
 				)}
@@ -174,4 +167,3 @@ const Home = () => {
 };
 
 export default Home;
-

@@ -36,20 +36,23 @@ const PlaylistForm: React.FC<PlaylistFormProps> = ({ show, onClose, onSubmit }) 
 		{ color: "#445988", name: "Dark Blue" },
 	];
 
-	const colorMapping: { [key: string]: string } = useMemo(() => ({
-		"#ffffff": "#8a8587",
-		"#e8dff5": "#866f95",
-		"#fce1e4": "#9e3369",
-		"#fcf4dd": "#d7ba28",
-		"#ddedea": "#35693f",
-		"#daeaf6": "#445988",
-		"#8a8587": "#ffffff",
-		"#866f95": "#e8dff5",
-		"#9e3369": "#fce1e4",
-		"#d7ba28": "#fcf4dd",
-		"#35693f": "#ddedea",
-		"#445988": "#daeaf6",
-	}), []);
+	const colorMapping: { [key: string]: string } = useMemo(
+		() => ({
+			"#ffffff": "#8a8587",
+			"#e8dff5": "#866f95",
+			"#fce1e4": "#9e3369",
+			"#fcf4dd": "#d7ba28",
+			"#ddedea": "#35693f",
+			"#daeaf6": "#445988",
+			"#8a8587": "#ffffff",
+			"#866f95": "#e8dff5",
+			"#9e3369": "#fce1e4",
+			"#d7ba28": "#fcf4dd",
+			"#35693f": "#ddedea",
+			"#445988": "#daeaf6",
+		}),
+		[],
+	);
 
 	useEffect(() => {
 		if (show && inputRef.current) {
@@ -76,7 +79,9 @@ const PlaylistForm: React.FC<PlaylistFormProps> = ({ show, onClose, onSubmit }) 
 	}, [show, isDarkMode, colorMapping]);
 
 	const handleColorSelection = (color: string) => {
-		const mappedColor = isDarkMode ? colorMapping[color as keyof typeof colorMapping] || color : color;
+		const mappedColor = isDarkMode
+			? colorMapping[color as keyof typeof colorMapping] || color
+			: color;
 		setSelectedColor(mappedColor);
 	};
 

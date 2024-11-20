@@ -56,11 +56,7 @@ const Profile: React.FC = () => {
 		<>
 			{isLoggedIn ? (
 				<div className="dropdown" aria-label="User profile dropdown">
-					<button
-						className="profile-icon"
-						aria-label="Profile icon menu"
-						aria-expanded="true"
-					>
+					<button className="profile-icon" aria-label="Profile icon menu" aria-expanded="true">
 						<FontAwesomeIcon icon={faCircleUser} size="2xl" aria-hidden="true" />
 					</button>
 					<div className="dropdown-content" aria-label="Profile dropdown menu">
@@ -130,7 +126,11 @@ const Profile: React.FC = () => {
 										aria-label="Enter username"
 									/>
 									<button className="login-button" type="submit" aria-label="Submit login">
-										<FontAwesomeIcon icon={faArrowRight} style={{ color: "#FFF" }} aria-hidden="true" />
+										<FontAwesomeIcon
+											icon={faArrowRight}
+											style={{ color: "#FFF" }}
+											aria-hidden="true"
+										/>
 									</button>
 								</form>
 							</div>

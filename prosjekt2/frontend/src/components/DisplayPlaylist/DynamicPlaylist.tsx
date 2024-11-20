@@ -18,9 +18,7 @@ const DynamicPlaylist = () => {
 	if (!playlistData) {
 		// Navigates to a "not found" page if the playlist doesn't exist
 		navigate("/not-found", { replace: true });
-		return (
-			<div aria-label="Playlist not found">Playlist not found. Redirecting...</div>
-		);
+		return <div aria-label="Playlist not found">Playlist not found. Redirecting...</div>;
 	}
 
 	const handleDelete = () => {
