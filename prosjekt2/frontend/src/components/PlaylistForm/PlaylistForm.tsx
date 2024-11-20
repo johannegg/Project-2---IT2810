@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef, useMemo } from "react";
 import "./PlaylistForm.css";
 import { v4 as uuidv4 } from "uuid";
 
@@ -36,7 +36,7 @@ const PlaylistForm: React.FC<PlaylistFormProps> = ({ show, onClose, onSubmit }) 
 		{ color: "#445988", name: "Dark Blue" },
 	];
 
-	const colorMapping: Record<string, string> = {
+	const colorMapping: { [key: string]: string } = useMemo(() => ({
 		"#ffffff": "#8a8587",
 		"#e8dff5": "#866f95",
 		"#fce1e4": "#9e3369",
@@ -49,7 +49,7 @@ const PlaylistForm: React.FC<PlaylistFormProps> = ({ show, onClose, onSubmit }) 
 		"#d7ba28": "#fcf4dd",
 		"#35693f": "#ddedea",
 		"#445988": "#daeaf6",
-	};
+	}), []);
 
 	useEffect(() => {
 		if (show && inputRef.current) {
@@ -73,10 +73,10 @@ const PlaylistForm: React.FC<PlaylistFormProps> = ({ show, onClose, onSubmit }) 
 			const initialColor = isDarkMode ? colorMapping["#8a8587"] : "#ffffff";
 			setSelectedColor(initialColor);
 		}
-	}, [show, isDarkMode]);
+	}, [show, isDarkMode, colorMapping]);
 
 	const handleColorSelection = (color: string) => {
-		const mappedColor = isDarkMode ? colorMapping[color] || color : color;
+		const mappedColor = isDarkMode ? colorMapping[color as keyof typeof colorMapping] || color : color;
 		setSelectedColor(mappedColor);
 	};
 

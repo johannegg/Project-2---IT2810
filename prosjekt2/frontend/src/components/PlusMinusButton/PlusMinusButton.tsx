@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from "react";
+import React, { useRef, useState } from "react";
 import { FiPlusCircle, FiMinusCircle } from "react-icons/fi";
 import { SongData } from "../../utils/types/SongTypes";
 import { PlaylistData } from "../../pages/Playlists/Playlists";
@@ -49,20 +49,20 @@ const PlusMinusButton: React.FC<PlusMinusButtonProps> = ({
 		},
 	});
 
-	const debounce = (func: () => void, delay: number) => {
-		let timer: NodeJS.Timeout;
+	const useDebounce = (func: () => void, delay: number) => {
+		const timerRef = useRef<NodeJS.Timeout | null>(null);
+
 		return () => {
-			clearTimeout(timer);
-			timer = setTimeout(() => {
+			if (timerRef.current) {
+				clearTimeout(timerRef.current);
+			}
+			timerRef.current = setTimeout(() => {
 				func();
 			}, delay);
 		};
 	};
 
-	const clearFeedbackMessage = useCallback(
-		debounce(() => setFeedbackMessage(""), 3000),
-		[],
-	);
+	const clearFeedbackMessage = useDebounce(() => setFeedbackMessage(""), 3000);
 
 	const isUserLoggedIn = () => {
 		const username = localStorage.getItem("profileName");
@@ -135,6 +135,7 @@ const PlusMinusButton: React.FC<PlusMinusButtonProps> = ({
 			<button
 				className="plusMinus-button"
 				aria-label={isInPlaylist ? "Remove song" : "Add song"} // Use aria-label for accessibility
+				data-label={isInPlaylist ? "Remove song" : "Add song"}
 				onClick={(e) => {
 					e.stopPropagation();
 					if (isInPlaylist) {
