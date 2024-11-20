@@ -3,9 +3,11 @@
 exports[`Header Component > alerts and prevents navigation if not logged in 1`] = `
 <div>
   <header
+    aria-label="Main header"
     class="header"
   >
     <a
+      aria-label="Go to home page"
       class="header-content"
       href="/"
     >
@@ -21,9 +23,11 @@ exports[`Header Component > alerts and prevents navigation if not logged in 1`] 
       </h1>
     </a>
     <nav
+      aria-label="Main navigation"
       class="navbar"
     >
       <a
+        aria-label="Go to favorites page"
         class="navButton "
         href="/favorites"
       >
@@ -49,6 +53,7 @@ exports[`Header Component > alerts and prevents navigation if not logged in 1`] 
         </span>
       </a>
       <a
+        aria-label="Go to playlists page"
         class="navButton "
         href="/playlists"
       >
@@ -94,9 +99,11 @@ exports[`Header Component > alerts and prevents navigation if not logged in 1`] 
 exports[`Header Component > highlights the active navigation link 1`] = `
 <div>
   <header
+    aria-label="Main header"
     class="header"
   >
     <a
+      aria-label="Go to home page"
       class="header-content"
       href="/"
     >
@@ -112,9 +119,11 @@ exports[`Header Component > highlights the active navigation link 1`] = `
       </h1>
     </a>
     <nav
+      aria-label="Main navigation"
       class="navbar"
     >
       <a
+        aria-label="Go to favorites page"
         class="navButton active"
         href="/favorites"
       >
@@ -140,6 +149,7 @@ exports[`Header Component > highlights the active navigation link 1`] = `
         </span>
       </a>
       <a
+        aria-label="Go to playlists page"
         class="navButton "
         href="/playlists"
       >
@@ -185,9 +195,11 @@ exports[`Header Component > highlights the active navigation link 1`] = `
 exports[`Header Component > navigates to favorites or playlists if logged in 1`] = `
 <div>
   <header
+    aria-label="Main header"
     class="header"
   >
     <a
+      aria-label="Go to home page"
       class="header-content"
       href="/"
     >
@@ -203,9 +215,11 @@ exports[`Header Component > navigates to favorites or playlists if logged in 1`]
       </h1>
     </a>
     <nav
+      aria-label="Main navigation"
       class="navbar"
     >
       <a
+        aria-label="Go to favorites page"
         class="navButton "
         href="/favorites"
       >
@@ -231,6 +245,7 @@ exports[`Header Component > navigates to favorites or playlists if logged in 1`]
         </span>
       </a>
       <a
+        aria-label="Go to playlists page"
         class="navButton "
         href="/playlists"
       >
@@ -276,9 +291,11 @@ exports[`Header Component > navigates to favorites or playlists if logged in 1`]
 exports[`Header Component > navigates to homepage when the title is clicked 1`] = `
 <div>
   <header
+    aria-label="Main header"
     class="header"
   >
     <a
+      aria-label="Go to home page"
       class="header-content"
       href="/"
     >
@@ -294,9 +311,11 @@ exports[`Header Component > navigates to homepage when the title is clicked 1`] 
       </h1>
     </a>
     <nav
+      aria-label="Main navigation"
       class="navbar"
     >
       <a
+        aria-label="Go to favorites page"
         class="navButton "
         href="/favorites"
       >
@@ -322,6 +341,7 @@ exports[`Header Component > navigates to homepage when the title is clicked 1`] 
         </span>
       </a>
       <a
+        aria-label="Go to playlists page"
         class="navButton "
         href="/playlists"
       >
@@ -367,9 +387,11 @@ exports[`Header Component > navigates to homepage when the title is clicked 1`] 
 exports[`Header Component > renders the header component 1`] = `
 <div>
   <header
+    aria-label="Main header"
     class="header"
   >
     <a
+      aria-label="Go to home page"
       class="header-content"
       href="/"
     >
@@ -385,9 +407,11 @@ exports[`Header Component > renders the header component 1`] = `
       </h1>
     </a>
     <nav
+      aria-label="Main navigation"
       class="navbar"
     >
       <a
+        aria-label="Go to favorites page"
         class="navButton "
         href="/favorites"
       >
@@ -413,6 +437,7 @@ exports[`Header Component > renders the header component 1`] = `
         </span>
       </a>
       <a
+        aria-label="Go to playlists page"
         class="navButton "
         href="/playlists"
       >

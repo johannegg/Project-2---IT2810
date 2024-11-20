@@ -3,17 +3,21 @@
 exports[`Playlist Component > handles tabIndex correctly 1`] = `
 <DocumentFragment>
   <article
+    aria-label="Playlist: My Playlist with 2 song(s)"
     class="playlist-card"
     role="button"
     style="background-color: rgb(138, 133, 135);"
     tabindex="0"
   >
     <div
+      aria-hidden="true"
       class="playlist-icon"
     >
       🎵
     </div>
-    <h3>
+    <h3
+      aria-label="Playlist name: My Playlist"
+    >
       My Playlist
     </h3>
   </article>
@@ -23,17 +27,21 @@ exports[`Playlist Component > handles tabIndex correctly 1`] = `
 exports[`Playlist Component > navigates with correct state including updated background color 1`] = `
 <DocumentFragment>
   <article
+    aria-label="Playlist: My Playlist with 2 song(s)"
     class="playlist-card"
     role="button"
     style="background-color: rgb(138, 133, 135);"
     tabindex="0"
   >
     <div
+      aria-hidden="true"
       class="playlist-icon"
     >
       🎵
     </div>
-    <h3>
+    <h3
+      aria-label="Playlist name: My Playlist"
+    >
       My Playlist
     </h3>
   </article>
@@ -43,17 +51,21 @@ exports[`Playlist Component > navigates with correct state including updated bac
 exports[`Playlist Component > renders name and icon 1`] = `
 <DocumentFragment>
   <article
+    aria-label="Playlist: My Playlist with 2 song(s)"
     class="playlist-card"
     role="button"
     style="background-color: rgb(138, 133, 135);"
     tabindex="0"
   >
     <div
+      aria-hidden="true"
       class="playlist-icon"
     >
       🎵
     </div>
-    <h3>
+    <h3
+      aria-label="Playlist name: My Playlist"
+    >
       My Playlist
     </h3>
   </article>
@@ -63,17 +75,21 @@ exports[`Playlist Component > renders name and icon 1`] = `
 exports[`Playlist Component > renders the correct number of songs in the playlist 1`] = `
 <DocumentFragment>
   <article
+    aria-label="Playlist: My Playlist with 2 song(s)"
     class="playlist-card"
     role="button"
     style="background-color: rgb(138, 133, 135);"
     tabindex="0"
   >
     <div
+      aria-hidden="true"
       class="playlist-icon"
     >
       🎵
     </div>
-    <h3>
+    <h3
+      aria-label="Playlist name: My Playlist"
+    >
       My Playlist
     </h3>
   </article>
@@ -83,17 +99,21 @@ exports[`Playlist Component > renders the correct number of songs in the playlis
 exports[`Playlist Component > triggers navigation with dynamically updated background color 1`] = `
 <DocumentFragment>
   <article
+    aria-label="Playlist: My Playlist with 2 song(s)"
     class="playlist-card"
     role="button"
     style="background-color: rgb(138, 133, 135);"
     tabindex="0"
   >
     <div
+      aria-hidden="true"
       class="playlist-icon"
     >
       🎵
     </div>
-    <h3>
+    <h3
+      aria-label="Playlist name: My Playlist"
+    >
       My Playlist
     </h3>
   </article>

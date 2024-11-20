@@ -24,14 +24,12 @@ describe("Sort", () => {
 	test("renders all sort options", () => {
 		render(<Sort songs={[]} sortOption="title_asc" onSortChange={mockOnSortChange} />);
 
-		// Assert that all options are present in the select element
-		const options = screen.getAllByRole("option");
-		expect(options).toHaveLength(5);
-		expect(screen.getByRole("option", { name: "Title A-Z" })).toBeInTheDocument();
-		expect(screen.getByRole("option", { name: "Title Z-A" })).toBeInTheDocument();
-		expect(screen.getByRole("option", { name: "Artist A-Z" })).toBeInTheDocument();
-		expect(screen.getByRole("option", { name: "Artist Z-A" })).toBeInTheDocument();
-		expect(screen.getByRole("option", { name: "Views" })).toBeInTheDocument();
+		// Assert that all options are present and match the aria-labels
+		expect(screen.getByRole("option", { name: "Sort by title A to Z" })).toBeInTheDocument();
+		expect(screen.getByRole("option", { name: "Sort by title Z to A" })).toBeInTheDocument();
+		expect(screen.getByRole("option", { name: "Sort by artist A to Z" })).toBeInTheDocument();
+		expect(screen.getByRole("option", { name: "Sort by artist Z to A" })).toBeInTheDocument();
+		expect(screen.getByRole("option", { name: "Sort by views descending" })).toBeInTheDocument();
 	});
 
 	// Test 3: Verifies that onSortChange is called when a new sort option is selected

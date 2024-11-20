@@ -55,11 +55,11 @@ const Profile: React.FC = () => {
 	return (
 		<>
 			{isLoggedIn ? (
-				<div className="dropdown">
+				<div className="dropdown" aria-label="User profile dropdown">
 					<button className="profile-icon" aria-label="Profile icon menu" aria-expanded="true">
-						<FontAwesomeIcon icon={faCircleUser} size="2xl" />
+						<FontAwesomeIcon icon={faCircleUser} size="2xl" aria-hidden="true" />
 					</button>
-					<div className="dropdown-content">
+					<div className="dropdown-content" aria-label="Profile dropdown menu">
 						<p className="profileName" aria-live="polite">
 							You're logged in as "{profileName}"
 						</p>
@@ -70,14 +70,14 @@ const Profile: React.FC = () => {
 				</div>
 			) : (
 				<>
-					<div className="dropdown">
+					<div className="dropdown" aria-label="Login dropdown">
 						<button
 							className="profile-icon"
 							onClick={() => setShowLogin(!showLogin)}
 							aria-label="Profile icon"
 							aria-expanded={showLogin}
 						>
-							<FontAwesomeIcon icon={faCircleUser} size="2xl" />
+							<FontAwesomeIcon icon={faCircleUser} size="2xl" aria-hidden="true" />
 						</button>
 					</div>
 					{showLogin && (
@@ -88,7 +88,11 @@ const Profile: React.FC = () => {
 								onClick={() => setShowLogin(false)}
 								aria-label="Close login form"
 							/>
-							<div className="profile-login" aria-labelledby="login-form-title">
+							<div
+								className="profile-login"
+								aria-labelledby="login-form-title"
+								aria-label="Login form container"
+							>
 								<p id="login-form-title" className="login-information">
 									{creatingUser
 										? "Logging in..."
@@ -122,7 +126,11 @@ const Profile: React.FC = () => {
 										aria-label="Enter username"
 									/>
 									<button className="login-button" type="submit" aria-label="Submit login">
-										<FontAwesomeIcon icon={faArrowRight} style={{ color: "#FFF" }} />
+										<FontAwesomeIcon
+											icon={faArrowRight}
+											style={{ color: "#FFF" }}
+											aria-hidden="true"
+										/>
 									</button>
 								</form>
 							</div>

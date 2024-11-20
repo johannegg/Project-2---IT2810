@@ -77,12 +77,12 @@ export function Filter({ onGenreChange, searchTerm }: FilterProps) {
 	);
 
 	return (
-		<section className="filterContainer">
-			<section className="filterHeader">
-				<FaFilter className="filterSortIcon" />
-				<h2>Genre</h2>
+		<section className="filterContainer" aria-label="Genre filter">
+			<section className="filterHeader" aria-label="Filter header">
+				<FaFilter className="filterSortIcon" aria-hidden="true" />
+				<h2 aria-label="Genre filter section">Genre</h2>
 			</section>
-			<section className="categories">
+			<section className="categories" aria-label="Available genres">
 				{cachedGenreCounts.map((genre: { name: string; count: number }) => (
 					<div
 						className="filterRow"
@@ -91,6 +91,7 @@ export function Filter({ onGenreChange, searchTerm }: FilterProps) {
 						onKeyDown={(event) => handleKeyDown(event, genre.name)}
 						role="checkbox"
 						aria-checked={localSelectedGenres.includes(genre.name)}
+						aria-label={`Filter for genre ${genre.name} with ${genre.count} available songs`}
 					>
 						<input
 							type="checkbox"
@@ -100,10 +101,12 @@ export function Filter({ onGenreChange, searchTerm }: FilterProps) {
 							disabled={isLoading || genre.count === 0}
 							className={isLoading || genre.count === 0 ? "disabled-filter" : ""}
 							tabIndex={0}
+							aria-label={`Toggle ${genre.name} genre`}
 						/>
 						<label
 							htmlFor={genre.name}
 							className={genre.count === 0 ? "disabled-filter-label" : ""}
+							aria-label={`Label for ${genre.name} filter`}
 						>
 							{genre.name.charAt(0).toUpperCase() + genre.name.slice(1)}{" "}
 							<span className="filterCount">({genre.count})</span>

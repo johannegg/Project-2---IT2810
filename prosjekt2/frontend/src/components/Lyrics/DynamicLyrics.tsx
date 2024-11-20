@@ -14,9 +14,14 @@ const DynamicLyric = () => {
 		}
 	}, [songData, navigate]);
 
-	if (!songData || songData.length === 0) return <div>Song not found</div>;
+	if (!songData || songData.length === 0)
+		return <div aria-label="Song not found message">Song not found</div>;
 
-	return <Lyric songData={songData[0]} />;
+	return (
+		<section aria-label={`Dynamic lyrics view for song: ${songData[0]?.title || "Unknown song"}`}>
+			<Lyric songData={songData[0]} />
+		</section>
+	);
 };
 
 export default DynamicLyric;

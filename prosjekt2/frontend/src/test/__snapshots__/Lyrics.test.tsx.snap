@@ -3,6 +3,7 @@
 exports[`Lyric Component > matches snapshot 1`] = `
 <div>
   <div
+    aria-label="Lyrics view for song: Test Song by Test Artist"
     class="lyrics"
   >
     <div
@@ -22,24 +23,34 @@ exports[`Lyric Component > matches snapshot 1`] = `
         </button>
       </div>
     </div>
-    <h1>
+    <h1
+      aria-label="Song title: Test Song"
+    >
       Test Song
     </h1>
-    <h2>
+    <h2
+      aria-label="Artist: Test Artist"
+    >
       Test Artist
     </h2>
     <section
+      aria-label="Additional song information"
       class="songInfo"
     >
-      <p>
+      <p
+        aria-label="Release year: 2022"
+      >
         Release year: 
         2022
       </p>
-      <p>
+      <p
+        aria-label="Genre: Pop"
+      >
         Genre: 
         Pop
       </p>
       <div
+        aria-label="Total views: 12,345"
         class="viewsInfo"
       >
         <svg
@@ -62,21 +73,27 @@ exports[`Lyric Component > matches snapshot 1`] = `
         </p>
       </div>
     </section>
-    <hr />
-    <p>
-      <span>
-        This is line 1
-        <br />
-      </span>
-      <span>
-        This is line 2
-        <br />
-      </span>
-      <span>
-        This is line 3
-        <br />
-      </span>
-    </p>
+    <hr
+      aria-hidden="true"
+    />
+    <section
+      aria-label="Lyrics"
+    >
+      <p>
+        <span>
+          This is line 1
+          <br />
+        </span>
+        <span>
+          This is line 2
+          <br />
+        </span>
+        <span>
+          This is line 3
+          <br />
+        </span>
+      </p>
+    </section>
   </div>
 </div>
 `;

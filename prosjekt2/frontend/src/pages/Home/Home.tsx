@@ -1,4 +1,5 @@
 import { useEffect, useState, useRef } from "react";
+import "./Home.css";
 import { AllSongsList } from "../../components/AllSongsComponents/AllSongsList";
 import { SearchBar } from "../../components/SearchBar/SearchBar";
 import { Sidebar } from "../../components/SideBar/SideBar";
@@ -121,14 +122,22 @@ const Home = () => {
 				onViewsChange={(newMin, newMax) => handleViewsChange(newMin, newMax)}
 				searchTerm={searchTerm}
 				onClearAllFilters={clearAllFilters}
+				aria-label="Sidebar with filtering and sorting options"
 			/>
 
-			<section className={`homeComponents ${isSidebarOpen ? "shifted" : ""}`}>
+			<section
+				className={`homeComponents ${isSidebarOpen ? "shifted" : ""}`}
+				aria-label="Main content section"
+			>
 				<section className="searchBarContainer">
-					<SearchBar setSearchTerm={handleSearchSubmit} initialSearchTerm={searchTerm} />
+					<SearchBar
+						setSearchTerm={handleSearchSubmit}
+						initialSearchTerm={searchTerm}
+						aria-label="Search songs"
+					/>
 				</section>
 				<section className="filterButtonContainer">
-					<FilterButton onClick={toggleSidebar} />
+					<FilterButton onClick={toggleSidebar} aria-label="Toggle sidebar" />
 				</section>
 				<section className="searchResults">
 					<p className="numberOfResults">
@@ -137,7 +146,13 @@ const Home = () => {
 					</p>
 					{!isLoading ? (
 						<section className="allSongsContainer">
-							<AllSongsList songs={songs} selectedGenres={selectedGenres} maxViews={maxViews} minViews={minViews} />
+							<AllSongsList
+								songs={songs}
+								selectedGenres={selectedGenres}
+								maxViews={maxViews}
+								minViews={minViews}
+								aria-label="List of songs"
+							/>
 						</section>
 					) : null}
 				</section>

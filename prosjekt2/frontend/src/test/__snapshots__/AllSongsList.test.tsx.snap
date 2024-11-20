@@ -3,34 +3,43 @@
 exports[`AllSongsList Component > renders correctly and matches snapshot 1`] = `
 <DocumentFragment>
   <section
+    aria-label="Songs list"
     class="songContainer"
   >
     <table
+      aria-label="Filtered songs table"
       class="songTable"
     >
       <tbody>
         <tr
+          aria-label="Song: Song One by Artist One"
           class="tableRow"
           tabindex="0"
         >
           <td
+            aria-label="Song title and artist"
             class="title-artist-cell"
           >
             <span
+              aria-label="Title: Song One"
               class="titleCell"
             >
               Song One
             </span>
             <span
+              aria-label="Artist: Artist One"
               class="artistCell"
             >
               Artist One
             </span>
           </td>
-          <td>
+          <td
+            aria-label="Year: 2020"
+          >
             2020
           </td>
           <td
+            aria-label="Views: 5000"
             class="viewsCell"
           >
             <svg
@@ -67,27 +76,34 @@ exports[`AllSongsList Component > renders correctly and matches snapshot 1`] = `
           </td>
         </tr>
         <tr
+          aria-label="Song: Song Two by Artist Two"
           class="tableRow"
           tabindex="0"
         >
           <td
+            aria-label="Song title and artist"
             class="title-artist-cell"
           >
             <span
+              aria-label="Title: Song Two"
               class="titleCell"
             >
               Song Two
             </span>
             <span
+              aria-label="Artist: Artist Two"
               class="artistCell"
             >
               Artist Two
             </span>
           </td>
-          <td>
+          <td
+            aria-label="Year: 2021"
+          >
             2021
           </td>
           <td
+            aria-label="Views: 2000"
             class="viewsCell"
           >
             <svg

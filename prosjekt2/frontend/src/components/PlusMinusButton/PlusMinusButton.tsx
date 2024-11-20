@@ -152,17 +152,24 @@ const PlusMinusButton: React.FC<PlusMinusButtonProps> = ({
 				<div
 					className={`playlist-modal-overlay ${isSidebarOpen ? "sidebar-open" : ""}`}
 					onClick={(e) => e.stopPropagation()}
+					aria-label="Select a playlist to add the song"
 				>
-					<div className="playlist-modal-container">
-						<h3>Select a playlist to add "{song.title}"</h3>
+					<div
+						className="playlist-modal-container"
+						aria-modal="true"
+						role="dialog"
+						aria-labelledby="modal-title"
+					>
+						<h3 id="modal-title">Select a playlist to add "{song.title}"</h3>
 						{feedbackMessage && (
 							<label
 								className={`feedback-message ${feedbackMessage === "Song successfully added!" ? "success" : "error"}`}
+								aria-live="polite"
 							>
 								{feedbackMessage}
 							</label>
 						)}
-						<ul className="playlist-selection">
+						<ul className="playlist-selection" aria-label="List of playlists">
 							{playlists.map((playlist: PlaylistData) => (
 								<li key={playlist.id}>
 									<button
@@ -170,6 +177,7 @@ const PlusMinusButton: React.FC<PlusMinusButtonProps> = ({
 											e.stopPropagation();
 											handleAddSongToPlaylist(playlist.id);
 										}}
+										aria-label={`Add song to playlist ${playlist.name} ${playlist.icon ? playlist.icon : ""}`}
 									>
 										{playlist.name} {playlist.icon ? playlist.icon : ""}
 									</button>
@@ -183,6 +191,7 @@ const PlusMinusButton: React.FC<PlusMinusButtonProps> = ({
 								toggleModal();
 							}}
 							className="closeBtn"
+							aria-label="Close playlist selection"
 						>
 							Close
 						</button>

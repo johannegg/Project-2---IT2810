@@ -22,16 +22,17 @@ const Header: React.FC = () => {
 	};
 
 	return (
-		<header className="header">
-			<Link to="/" className="header-content">
+		<header className="header" aria-label="Main header">
+			<Link to="/" className="header-content" aria-label="Go to home page">
 				<img src={couchIcon} alt="Sofa Icon" className="sofa-icon" />
 				<h1 className="header-title">Lyrical Lounge</h1>
 			</Link>
-			<nav className="navbar">
+			<nav className="navbar" aria-label="Main navigation">
 				<Link
 					to="/favorites"
 					onClick={(e) => handleNavigation("/favorites", e)}
 					className={`navButton ${location.pathname === "/favorites" ? "active" : ""}`}
+					aria-label="Go to favorites page"
 				>
 					<FontAwesomeIcon icon={faHeart} size="2x" className="navIcon" />
 					<span className="navText">Favorited songs</span>
@@ -40,11 +41,12 @@ const Header: React.FC = () => {
 					to="/playlists"
 					onClick={(e) => handleNavigation("/playlists", e)}
 					className={`navButton ${location.pathname === "/playlists" ? "active" : ""}`}
+					aria-label="Go to playlists page"
 				>
 					<BsMusicNoteList className="navIcon musicIcon" />
 					<span className="navText">Your playlists</span>
 				</Link>
-				<Profile />
+				<Profile aria-label="User profile menu" />
 			</nav>
 		</header>
 	);

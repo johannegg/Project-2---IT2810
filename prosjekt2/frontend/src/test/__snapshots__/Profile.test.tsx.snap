@@ -3,6 +3,7 @@
 exports[`Profile Component > matches snapshot when login overlay is displayed 1`] = `
 <div>
   <div
+    aria-label="Login dropdown"
     class="dropdown"
   >
     <button
@@ -47,6 +48,7 @@ exports[`Profile Component > matches snapshot when login overlay is displayed 1`
       />
     </svg>
     <div
+      aria-label="Login form container"
       aria-labelledby="login-form-title"
       class="profile-login"
     >
@@ -113,6 +115,7 @@ exports[`Profile Component > matches snapshot when login overlay is displayed 1`
 exports[`Profile Component > matches snapshot when user is logged in 1`] = `
 <div>
   <div
+    aria-label="User profile dropdown"
     class="dropdown"
   >
     <button
@@ -137,6 +140,7 @@ exports[`Profile Component > matches snapshot when user is logged in 1`] = `
       </svg>
     </button>
     <div
+      aria-label="Profile dropdown menu"
       class="dropdown-content"
     >
       <p
@@ -161,6 +165,7 @@ exports[`Profile Component > matches snapshot when user is logged in 1`] = `
 exports[`Profile Component > matches snapshot when user is not logged in 1`] = `
 <div>
   <div
+    aria-label="Login dropdown"
     class="dropdown"
   >
     <button

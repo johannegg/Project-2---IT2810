@@ -3,12 +3,16 @@
 exports[`PlaylistForm Component > calls onClose when the close button is clicked 1`] = `
 <div>
   <div
+    aria-label="Playlist creation form"
     class="form-overlay"
   >
     <form
+      aria-labelledby="form-title"
       class="form-content"
     >
-      <h2>
+      <h2
+        id="form-title"
+      >
         Create new playlist
       </h2>
       <fieldset>
@@ -19,6 +23,8 @@ exports[`PlaylistForm Component > calls onClose when the close button is clicked
           Enter playlist name:
         </label>
         <input
+          aria-invalid="false"
+          aria-required="true"
           class="playlist-input "
           id="playlist-name"
           maxlength="15"
@@ -35,36 +41,48 @@ exports[`PlaylistForm Component > calls onClose when the close button is clicked
           class="color-options"
         >
           <button
+            aria-label="Select Dark Gray color"
+            aria-pressed="true"
             class="color-button selected"
             data-colorname="Dark Gray"
             style="background-color: rgb(138, 133, 135);"
             type="button"
           />
           <button
+            aria-label="Select Dark Purple color"
+            aria-pressed="false"
             class="color-button "
             data-colorname="Dark Purple"
             style="background-color: rgb(134, 111, 149);"
             type="button"
           />
           <button
+            aria-label="Select Dark Pink color"
+            aria-pressed="false"
             class="color-button "
             data-colorname="Dark Pink"
             style="background-color: rgb(158, 51, 105);"
             type="button"
           />
           <button
+            aria-label="Select Dark Yellow color"
+            aria-pressed="false"
             class="color-button "
             data-colorname="Dark Yellow"
             style="background-color: rgb(215, 186, 40);"
             type="button"
           />
           <button
+            aria-label="Select Dark Green color"
+            aria-pressed="false"
             class="color-button "
             data-colorname="Dark Green"
             style="background-color: rgb(53, 105, 63);"
             type="button"
           />
           <button
+            aria-label="Select Dark Blue color"
+            aria-pressed="false"
             class="color-button "
             data-colorname="Dark Blue"
             style="background-color: rgb(68, 89, 136);"
@@ -80,6 +98,8 @@ exports[`PlaylistForm Component > calls onClose when the close button is clicked
           class="icon-options"
         >
           <button
+            aria-label="Select Music Note icon"
+            aria-pressed="true"
             class="icon-button active"
             data-iconname="Music Note"
             type="button"
@@ -87,6 +107,8 @@ exports[`PlaylistForm Component > calls onClose when the close button is clicked
             🎵
           </button>
           <button
+            aria-label="Select Guitar icon"
+            aria-pressed="false"
             class="icon-button"
             data-iconname="Guitar"
             type="button"
@@ -94,6 +116,8 @@ exports[`PlaylistForm Component > calls onClose when the close button is clicked
             🎸
           </button>
           <button
+            aria-label="Select Microphone icon"
+            aria-pressed="false"
             class="icon-button"
             data-iconname="Microphone"
             type="button"
@@ -101,6 +125,8 @@ exports[`PlaylistForm Component > calls onClose when the close button is clicked
             🎤
           </button>
           <button
+            aria-label="Select Heart on Fire icon"
+            aria-pressed="false"
             class="icon-button"
             data-iconname="Heart on Fire"
             type="button"
@@ -108,6 +134,8 @@ exports[`PlaylistForm Component > calls onClose when the close button is clicked
             ❤️‍🔥
           </button>
           <button
+            aria-label="Select Mushroom icon"
+            aria-pressed="false"
             class="icon-button"
             data-iconname="Mushroom"
             type="button"
@@ -115,6 +143,8 @@ exports[`PlaylistForm Component > calls onClose when the close button is clicked
             🍄
           </button>
           <button
+            aria-label="Select Flower icon"
+            aria-pressed="false"
             class="icon-button"
             data-iconname="Flower"
             type="button"
@@ -122,6 +152,8 @@ exports[`PlaylistForm Component > calls onClose when the close button is clicked
             🌸
           </button>
           <button
+            aria-label="Select Sparkles icon"
+            aria-pressed="false"
             class="icon-button"
             data-iconname="Sparkles"
             type="button"
@@ -129,6 +161,8 @@ exports[`PlaylistForm Component > calls onClose when the close button is clicked
             ✨
           </button>
           <button
+            aria-label="Select Violin icon"
+            aria-pressed="false"
             class="icon-button"
             data-iconname="Violin"
             type="button"
@@ -136,6 +170,8 @@ exports[`PlaylistForm Component > calls onClose when the close button is clicked
             🎻
           </button>
           <button
+            aria-label="Select Projector icon"
+            aria-pressed="false"
             class="icon-button"
             data-iconname="Projector"
             type="button"
@@ -143,6 +179,8 @@ exports[`PlaylistForm Component > calls onClose when the close button is clicked
             📽️
           </button>
           <button
+            aria-label="Select Yoga icon"
+            aria-pressed="false"
             class="icon-button"
             data-iconname="Yoga"
             type="button"
@@ -150,6 +188,8 @@ exports[`PlaylistForm Component > calls onClose when the close button is clicked
             🧘‍♀️
           </button>
           <button
+            aria-label="Select Weight Lifting icon"
+            aria-pressed="false"
             class="icon-button"
             data-iconname="Weight Lifting"
             type="button"
@@ -157,6 +197,8 @@ exports[`PlaylistForm Component > calls onClose when the close button is clicked
             🏋️‍♀️
           </button>
           <button
+            aria-label="Select Running icon"
+            aria-pressed="false"
             class="icon-button"
             data-iconname="Running"
             type="button"
@@ -164,6 +206,8 @@ exports[`PlaylistForm Component > calls onClose when the close button is clicked
             🏃‍♀️‍➡️
           </button>
           <button
+            aria-label="Select Unicorn icon"
+            aria-pressed="false"
             class="icon-button"
             data-iconname="Unicorn"
             type="button"
@@ -171,6 +215,8 @@ exports[`PlaylistForm Component > calls onClose when the close button is clicked
             🦄
           </button>
           <button
+            aria-label="Select Disco Ball icon"
+            aria-pressed="false"
             class="icon-button"
             data-iconname="Disco Ball"
             type="button"
@@ -178,6 +224,8 @@ exports[`PlaylistForm Component > calls onClose when the close button is clicked
             🪩
           </button>
           <button
+            aria-label="Select Dancer icon"
+            aria-pressed="false"
             class="icon-button"
             data-iconname="Dancer"
             type="button"
@@ -185,6 +233,8 @@ exports[`PlaylistForm Component > calls onClose when the close button is clicked
             🕺
           </button>
           <button
+            aria-label="Select Autumn Leaf icon"
+            aria-pressed="false"
             class="icon-button"
             data-iconname="Autumn Leaf"
             type="button"
@@ -192,6 +242,8 @@ exports[`PlaylistForm Component > calls onClose when the close button is clicked
             🍂
           </button>
           <button
+            aria-label="Select Leaf icon"
+            aria-pressed="false"
             class="icon-button"
             data-iconname="Leaf"
             type="button"
@@ -199,6 +251,8 @@ exports[`PlaylistForm Component > calls onClose when the close button is clicked
             🌿
           </button>
           <button
+            aria-label="Select Christmas Tree icon"
+            aria-pressed="false"
             class="icon-button"
             data-iconname="Christmas Tree"
             type="button"
@@ -206,6 +260,8 @@ exports[`PlaylistForm Component > calls onClose when the close button is clicked
             🎄
           </button>
           <button
+            aria-label="Select Pumpkin icon"
+            aria-pressed="false"
             class="icon-button"
             data-iconname="Pumpkin"
             type="button"
@@ -213,6 +269,8 @@ exports[`PlaylistForm Component > calls onClose when the close button is clicked
             🎃
           </button>
           <button
+            aria-label="Select Broken Heart icon"
+            aria-pressed="false"
             class="icon-button"
             data-iconname="Broken Heart"
             type="button"
@@ -222,12 +280,14 @@ exports[`PlaylistForm Component > calls onClose when the close button is clicked
         </div>
       </fieldset>
       <button
+        aria-label="Close playlist creation form"
         class="form-close-button"
         type="button"
       >
         Close
       </button>
       <button
+        aria-label="Submit playlist creation form"
         class="form-submit-button"
         type="submit"
       >
@@ -241,12 +301,16 @@ exports[`PlaylistForm Component > calls onClose when the close button is clicked
 exports[`PlaylistForm Component > calls onSubmit with correct values when the form is submitted 1`] = `
 <div>
   <div
+    aria-label="Playlist creation form"
     class="form-overlay"
   >
     <form
+      aria-labelledby="form-title"
       class="form-content"
     >
-      <h2>
+      <h2
+        id="form-title"
+      >
         Create new playlist
       </h2>
       <fieldset>
@@ -257,6 +321,8 @@ exports[`PlaylistForm Component > calls onSubmit with correct values when the fo
           Enter playlist name:
         </label>
         <input
+          aria-invalid="false"
+          aria-required="true"
           class="playlist-input "
           id="playlist-name"
           maxlength="15"
@@ -273,36 +339,48 @@ exports[`PlaylistForm Component > calls onSubmit with correct values when the fo
           class="color-options"
         >
           <button
+            aria-label="Select Dark Gray color"
+            aria-pressed="true"
             class="color-button selected"
             data-colorname="Dark Gray"
             style="background-color: rgb(138, 133, 135);"
             type="button"
           />
           <button
+            aria-label="Select Dark Purple color"
+            aria-pressed="false"
             class="color-button "
             data-colorname="Dark Purple"
             style="background-color: rgb(134, 111, 149);"
             type="button"
           />
           <button
+            aria-label="Select Dark Pink color"
+            aria-pressed="false"
             class="color-button "
             data-colorname="Dark Pink"
             style="background-color: rgb(158, 51, 105);"
             type="button"
           />
           <button
+            aria-label="Select Dark Yellow color"
+            aria-pressed="false"
             class="color-button "
             data-colorname="Dark Yellow"
             style="background-color: rgb(215, 186, 40);"
             type="button"
           />
           <button
+            aria-label="Select Dark Green color"
+            aria-pressed="false"
             class="color-button "
             data-colorname="Dark Green"
             style="background-color: rgb(53, 105, 63);"
             type="button"
           />
           <button
+            aria-label="Select Dark Blue color"
+            aria-pressed="false"
             class="color-button "
             data-colorname="Dark Blue"
             style="background-color: rgb(68, 89, 136);"
@@ -318,6 +396,8 @@ exports[`PlaylistForm Component > calls onSubmit with correct values when the fo
           class="icon-options"
         >
           <button
+            aria-label="Select Music Note icon"
+            aria-pressed="true"
             class="icon-button active"
             data-iconname="Music Note"
             type="button"
@@ -325,6 +405,8 @@ exports[`PlaylistForm Component > calls onSubmit with correct values when the fo
             🎵
           </button>
           <button
+            aria-label="Select Guitar icon"
+            aria-pressed="false"
             class="icon-button"
             data-iconname="Guitar"
             type="button"
@@ -332,6 +414,8 @@ exports[`PlaylistForm Component > calls onSubmit with correct values when the fo
             🎸
           </button>
           <button
+            aria-label="Select Microphone icon"
+            aria-pressed="false"
             class="icon-button"
             data-iconname="Microphone"
             type="button"
@@ -339,6 +423,8 @@ exports[`PlaylistForm Component > calls onSubmit with correct values when the fo
             🎤
           </button>
           <button
+            aria-label="Select Heart on Fire icon"
+            aria-pressed="false"
             class="icon-button"
             data-iconname="Heart on Fire"
             type="button"
@@ -346,6 +432,8 @@ exports[`PlaylistForm Component > calls onSubmit with correct values when the fo
             ❤️‍🔥
           </button>
           <button
+            aria-label="Select Mushroom icon"
+            aria-pressed="false"
             class="icon-button"
             data-iconname="Mushroom"
             type="button"
@@ -353,6 +441,8 @@ exports[`PlaylistForm Component > calls onSubmit with correct values when the fo
             🍄
           </button>
           <button
+            aria-label="Select Flower icon"
+            aria-pressed="false"
             class="icon-button"
             data-iconname="Flower"
             type="button"
@@ -360,6 +450,8 @@ exports[`PlaylistForm Component > calls onSubmit with correct values when the fo
             🌸
           </button>
           <button
+            aria-label="Select Sparkles icon"
+            aria-pressed="false"
             class="icon-button"
             data-iconname="Sparkles"
             type="button"
@@ -367,6 +459,8 @@ exports[`PlaylistForm Component > calls onSubmit with correct values when the fo
             ✨
           </button>
           <button
+            aria-label="Select Violin icon"
+            aria-pressed="false"
             class="icon-button"
             data-iconname="Violin"
             type="button"
@@ -374,6 +468,8 @@ exports[`PlaylistForm Component > calls onSubmit with correct values when the fo
             🎻
           </button>
           <button
+            aria-label="Select Projector icon"
+            aria-pressed="false"
             class="icon-button"
             data-iconname="Projector"
             type="button"
@@ -381,6 +477,8 @@ exports[`PlaylistForm Component > calls onSubmit with correct values when the fo
             📽️
           </button>
           <button
+            aria-label="Select Yoga icon"
+            aria-pressed="false"
             class="icon-button"
             data-iconname="Yoga"
             type="button"
@@ -388,6 +486,8 @@ exports[`PlaylistForm Component > calls onSubmit with correct values when the fo
             🧘‍♀️
           </button>
           <button
+            aria-label="Select Weight Lifting icon"
+            aria-pressed="false"
             class="icon-button"
             data-iconname="Weight Lifting"
             type="button"
@@ -395,6 +495,8 @@ exports[`PlaylistForm Component > calls onSubmit with correct values when the fo
             🏋️‍♀️
           </button>
           <button
+            aria-label="Select Running icon"
+            aria-pressed="false"
             class="icon-button"
             data-iconname="Running"
             type="button"
@@ -402,6 +504,8 @@ exports[`PlaylistForm Component > calls onSubmit with correct values when the fo
             🏃‍♀️‍➡️
           </button>
           <button
+            aria-label="Select Unicorn icon"
+            aria-pressed="false"
             class="icon-button"
             data-iconname="Unicorn"
             type="button"
@@ -409,6 +513,8 @@ exports[`PlaylistForm Component > calls onSubmit with correct values when the fo
             🦄
           </button>
           <button
+            aria-label="Select Disco Ball icon"
+            aria-pressed="false"
             class="icon-button"
             data-iconname="Disco Ball"
             type="button"
@@ -416,6 +522,8 @@ exports[`PlaylistForm Component > calls onSubmit with correct values when the fo
             🪩
           </button>
           <button
+            aria-label="Select Dancer icon"
+            aria-pressed="false"
             class="icon-button"
             data-iconname="Dancer"
             type="button"
@@ -423,6 +531,8 @@ exports[`PlaylistForm Component > calls onSubmit with correct values when the fo
             🕺
           </button>
           <button
+            aria-label="Select Autumn Leaf icon"
+            aria-pressed="false"
             class="icon-button"
             data-iconname="Autumn Leaf"
             type="button"
@@ -430,6 +540,8 @@ exports[`PlaylistForm Component > calls onSubmit with correct values when the fo
             🍂
           </button>
           <button
+            aria-label="Select Leaf icon"
+            aria-pressed="false"
             class="icon-button"
             data-iconname="Leaf"
             type="button"
@@ -437,6 +549,8 @@ exports[`PlaylistForm Component > calls onSubmit with correct values when the fo
             🌿
           </button>
           <button
+            aria-label="Select Christmas Tree icon"
+            aria-pressed="false"
             class="icon-button"
             data-iconname="Christmas Tree"
             type="button"
@@ -444,6 +558,8 @@ exports[`PlaylistForm Component > calls onSubmit with correct values when the fo
             🎄
           </button>
           <button
+            aria-label="Select Pumpkin icon"
+            aria-pressed="false"
             class="icon-button"
             data-iconname="Pumpkin"
             type="button"
@@ -451,6 +567,8 @@ exports[`PlaylistForm Component > calls onSubmit with correct values when the fo
             🎃
           </button>
           <button
+            aria-label="Select Broken Heart icon"
+            aria-pressed="false"
             class="icon-button"
             data-iconname="Broken Heart"
             type="button"
@@ -460,12 +578,14 @@ exports[`PlaylistForm Component > calls onSubmit with correct values when the fo
         </div>
       </fieldset>
       <button
+        aria-label="Close playlist creation form"
         class="form-close-button"
         type="button"
       >
         Close
       </button>
       <button
+        aria-label="Submit playlist creation form"
         class="form-submit-button"
         type="submit"
       >
@@ -481,12 +601,16 @@ exports[`PlaylistForm Component > does not render when show is false 1`] = `<div
 exports[`PlaylistForm Component > focuses on the input field when the form is shown 1`] = `
 <div>
   <div
+    aria-label="Playlist creation form"
     class="form-overlay"
   >
     <form
+      aria-labelledby="form-title"
       class="form-content"
     >
-      <h2>
+      <h2
+        id="form-title"
+      >
         Create new playlist
       </h2>
       <fieldset>
@@ -497,6 +621,8 @@ exports[`PlaylistForm Component > focuses on the input field when the form is sh
           Enter playlist name:
         </label>
         <input
+          aria-invalid="false"
+          aria-required="true"
           class="playlist-input "
           id="playlist-name"
           maxlength="15"
@@ -513,36 +639,48 @@ exports[`PlaylistForm Component > focuses on the input field when the form is sh
           class="color-options"
         >
           <button
+            aria-label="Select Dark Gray color"
+            aria-pressed="true"
             class="color-button selected"
             data-colorname="Dark Gray"
             style="background-color: rgb(138, 133, 135);"
             type="button"
           />
           <button
+            aria-label="Select Dark Purple color"
+            aria-pressed="false"
             class="color-button "
             data-colorname="Dark Purple"
             style="background-color: rgb(134, 111, 149);"
             type="button"
           />
           <button
+            aria-label="Select Dark Pink color"
+            aria-pressed="false"
             class="color-button "
             data-colorname="Dark Pink"
             style="background-color: rgb(158, 51, 105);"
             type="button"
           />
           <button
+            aria-label="Select Dark Yellow color"
+            aria-pressed="false"
             class="color-button "
             data-colorname="Dark Yellow"
             style="background-color: rgb(215, 186, 40);"
             type="button"
           />
           <button
+            aria-label="Select Dark Green color"
+            aria-pressed="false"
             class="color-button "
             data-colorname="Dark Green"
             style="background-color: rgb(53, 105, 63);"
             type="button"
           />
           <button
+            aria-label="Select Dark Blue color"
+            aria-pressed="false"
             class="color-button "
             data-colorname="Dark Blue"
             style="background-color: rgb(68, 89, 136);"
@@ -558,6 +696,8 @@ exports[`PlaylistForm Component > focuses on the input field when the form is sh
           class="icon-options"
         >
           <button
+            aria-label="Select Music Note icon"
+            aria-pressed="true"
             class="icon-button active"
             data-iconname="Music Note"
             type="button"
@@ -565,6 +705,8 @@ exports[`PlaylistForm Component > focuses on the input field when the form is sh
             🎵
           </button>
           <button
+            aria-label="Select Guitar icon"
+            aria-pressed="false"
             class="icon-button"
             data-iconname="Guitar"
             type="button"
@@ -572,6 +714,8 @@ exports[`PlaylistForm Component > focuses on the input field when the form is sh
             🎸
           </button>
           <button
+            aria-label="Select Microphone icon"
+            aria-pressed="false"
             class="icon-button"
             data-iconname="Microphone"
             type="button"
@@ -579,6 +723,8 @@ exports[`PlaylistForm Component > focuses on the input field when the form is sh
             🎤
           </button>
           <button
+            aria-label="Select Heart on Fire icon"
+            aria-pressed="false"
             class="icon-button"
             data-iconname="Heart on Fire"
             type="button"
@@ -586,6 +732,8 @@ exports[`PlaylistForm Component > focuses on the input field when the form is sh
             ❤️‍🔥
           </button>
           <button
+            aria-label="Select Mushroom icon"
+            aria-pressed="false"
             class="icon-button"
             data-iconname="Mushroom"
             type="button"
@@ -593,6 +741,8 @@ exports[`PlaylistForm Component > focuses on the input field when the form is sh
             🍄
           </button>
           <button
+            aria-label="Select Flower icon"
+            aria-pressed="false"
             class="icon-button"
             data-iconname="Flower"
             type="button"
@@ -600,6 +750,8 @@ exports[`PlaylistForm Component > focuses on the input field when the form is sh
             🌸
           </button>
           <button
+            aria-label="Select Sparkles icon"
+            aria-pressed="false"
             class="icon-button"
             data-iconname="Sparkles"
             type="button"
@@ -607,6 +759,8 @@ exports[`PlaylistForm Component > focuses on the input field when the form is sh
             ✨
           </button>
           <button
+            aria-label="Select Violin icon"
+            aria-pressed="false"
             class="icon-button"
             data-iconname="Violin"
             type="button"
@@ -614,6 +768,8 @@ exports[`PlaylistForm Component > focuses on the input field when the form is sh
             🎻
           </button>
           <button
+            aria-label="Select Projector icon"
+            aria-pressed="false"
             class="icon-button"
             data-iconname="Projector"
             type="button"
@@ -621,6 +777,8 @@ exports[`PlaylistForm Component > focuses on the input field when the form is sh
             📽️
           </button>
           <button
+            aria-label="Select Yoga icon"
+            aria-pressed="false"
             class="icon-button"
             data-iconname="Yoga"
             type="button"
@@ -628,6 +786,8 @@ exports[`PlaylistForm Component > focuses on the input field when the form is sh
             🧘‍♀️
           </button>
           <button
+            aria-label="Select Weight Lifting icon"
+            aria-pressed="false"
             class="icon-button"
             data-iconname="Weight Lifting"
             type="button"
@@ -635,6 +795,8 @@ exports[`PlaylistForm Component > focuses on the input field when the form is sh
             🏋️‍♀️
           </button>
           <button
+            aria-label="Select Running icon"
+            aria-pressed="false"
             class="icon-button"
             data-iconname="Running"
             type="button"
@@ -642,6 +804,8 @@ exports[`PlaylistForm Component > focuses on the input field when the form is sh
             🏃‍♀️‍➡️
           </button>
           <button
+            aria-label="Select Unicorn icon"
+            aria-pressed="false"
             class="icon-button"
             data-iconname="Unicorn"
             type="button"
@@ -649,6 +813,8 @@ exports[`PlaylistForm Component > focuses on the input field when the form is sh
             🦄
           </button>
           <button
+            aria-label="Select Disco Ball icon"
+            aria-pressed="false"
             class="icon-button"
             data-iconname="Disco Ball"
             type="button"
@@ -656,6 +822,8 @@ exports[`PlaylistForm Component > focuses on the input field when the form is sh
             🪩
           </button>
           <button
+            aria-label="Select Dancer icon"
+            aria-pressed="false"
             class="icon-button"
             data-iconname="Dancer"
             type="button"
@@ -663,6 +831,8 @@ exports[`PlaylistForm Component > focuses on the input field when the form is sh
             🕺
           </button>
           <button
+            aria-label="Select Autumn Leaf icon"
+            aria-pressed="false"
             class="icon-button"
             data-iconname="Autumn Leaf"
             type="button"
@@ -670,6 +840,8 @@ exports[`PlaylistForm Component > focuses on the input field when the form is sh
             🍂
           </button>
           <button
+            aria-label="Select Leaf icon"
+            aria-pressed="false"
             class="icon-button"
             data-iconname="Leaf"
             type="button"
@@ -677,6 +849,8 @@ exports[`PlaylistForm Component > focuses on the input field when the form is sh
             🌿
           </button>
           <button
+            aria-label="Select Christmas Tree icon"
+            aria-pressed="false"
             class="icon-button"
             data-iconname="Christmas Tree"
             type="button"
@@ -684,6 +858,8 @@ exports[`PlaylistForm Component > focuses on the input field when the form is sh
             🎄
           </button>
           <button
+            aria-label="Select Pumpkin icon"
+            aria-pressed="false"
             class="icon-button"
             data-iconname="Pumpkin"
             type="button"
@@ -691,6 +867,8 @@ exports[`PlaylistForm Component > focuses on the input field when the form is sh
             🎃
           </button>
           <button
+            aria-label="Select Broken Heart icon"
+            aria-pressed="false"
             class="icon-button"
             data-iconname="Broken Heart"
             type="button"
@@ -700,12 +878,14 @@ exports[`PlaylistForm Component > focuses on the input field when the form is sh
         </div>
       </fieldset>
       <button
+        aria-label="Close playlist creation form"
         class="form-close-button"
         type="button"
       >
         Close
       </button>
       <button
+        aria-label="Submit playlist creation form"
         class="form-submit-button"
         type="submit"
       >
@@ -719,12 +899,16 @@ exports[`PlaylistForm Component > focuses on the input field when the form is sh
 exports[`PlaylistForm Component > handles color selection 1`] = `
 <div>
   <div
+    aria-label="Playlist creation form"
     class="form-overlay"
   >
     <form
+      aria-labelledby="form-title"
       class="form-content"
     >
-      <h2>
+      <h2
+        id="form-title"
+      >
         Create new playlist
       </h2>
       <fieldset>
@@ -735,6 +919,8 @@ exports[`PlaylistForm Component > handles color selection 1`] = `
           Enter playlist name:
         </label>
         <input
+          aria-invalid="false"
+          aria-required="true"
           class="playlist-input "
           id="playlist-name"
           maxlength="15"
@@ -751,36 +937,48 @@ exports[`PlaylistForm Component > handles color selection 1`] = `
           class="color-options"
         >
           <button
+            aria-label="Select Dark Gray color"
+            aria-pressed="true"
             class="color-button selected"
             data-colorname="Dark Gray"
             style="background-color: rgb(138, 133, 135);"
             type="button"
           />
           <button
+            aria-label="Select Dark Purple color"
+            aria-pressed="false"
             class="color-button "
             data-colorname="Dark Purple"
             style="background-color: rgb(134, 111, 149);"
             type="button"
           />
           <button
+            aria-label="Select Dark Pink color"
+            aria-pressed="false"
             class="color-button "
             data-colorname="Dark Pink"
             style="background-color: rgb(158, 51, 105);"
             type="button"
           />
           <button
+            aria-label="Select Dark Yellow color"
+            aria-pressed="false"
             class="color-button "
             data-colorname="Dark Yellow"
             style="background-color: rgb(215, 186, 40);"
             type="button"
           />
           <button
+            aria-label="Select Dark Green color"
+            aria-pressed="false"
             class="color-button "
             data-colorname="Dark Green"
             style="background-color: rgb(53, 105, 63);"
             type="button"
           />
           <button
+            aria-label="Select Dark Blue color"
+            aria-pressed="false"
             class="color-button "
             data-colorname="Dark Blue"
             style="background-color: rgb(68, 89, 136);"
@@ -796,6 +994,8 @@ exports[`PlaylistForm Component > handles color selection 1`] = `
           class="icon-options"
         >
           <button
+            aria-label="Select Music Note icon"
+            aria-pressed="true"
             class="icon-button active"
             data-iconname="Music Note"
             type="button"
@@ -803,6 +1003,8 @@ exports[`PlaylistForm Component > handles color selection 1`] = `
             🎵
           </button>
           <button
+            aria-label="Select Guitar icon"
+            aria-pressed="false"
             class="icon-button"
             data-iconname="Guitar"
             type="button"
@@ -810,6 +1012,8 @@ exports[`PlaylistForm Component > handles color selection 1`] = `
             🎸
           </button>
           <button
+            aria-label="Select Microphone icon"
+            aria-pressed="false"
             class="icon-button"
             data-iconname="Microphone"
             type="button"
@@ -817,6 +1021,8 @@ exports[`PlaylistForm Component > handles color selection 1`] = `
             🎤
           </button>
           <button
+            aria-label="Select Heart on Fire icon"
+            aria-pressed="false"
             class="icon-button"
             data-iconname="Heart on Fire"
             type="button"
@@ -824,6 +1030,8 @@ exports[`PlaylistForm Component > handles color selection 1`] = `
             ❤️‍🔥
           </button>
           <button
+            aria-label="Select Mushroom icon"
+            aria-pressed="false"
             class="icon-button"
             data-iconname="Mushroom"
             type="button"
@@ -831,6 +1039,8 @@ exports[`PlaylistForm Component > handles color selection 1`] = `
             🍄
           </button>
           <button
+            aria-label="Select Flower icon"
+            aria-pressed="false"
             class="icon-button"
             data-iconname="Flower"
             type="button"
@@ -838,6 +1048,8 @@ exports[`PlaylistForm Component > handles color selection 1`] = `
             🌸
           </button>
           <button
+            aria-label="Select Sparkles icon"
+            aria-pressed="false"
             class="icon-button"
             data-iconname="Sparkles"
             type="button"
@@ -845,6 +1057,8 @@ exports[`PlaylistForm Component > handles color selection 1`] = `
             ✨
           </button>
           <button
+            aria-label="Select Violin icon"
+            aria-pressed="false"
             class="icon-button"
             data-iconname="Violin"
             type="button"
@@ -852,6 +1066,8 @@ exports[`PlaylistForm Component > handles color selection 1`] = `
             🎻
           </button>
           <button
+            aria-label="Select Projector icon"
+            aria-pressed="false"
             class="icon-button"
             data-iconname="Projector"
             type="button"
@@ -859,6 +1075,8 @@ exports[`PlaylistForm Component > handles color selection 1`] = `
             📽️
           </button>
           <button
+            aria-label="Select Yoga icon"
+            aria-pressed="false"
             class="icon-button"
             data-iconname="Yoga"
             type="button"
@@ -866,6 +1084,8 @@ exports[`PlaylistForm Component > handles color selection 1`] = `
             🧘‍♀️
           </button>
           <button
+            aria-label="Select Weight Lifting icon"
+            aria-pressed="false"
             class="icon-button"
             data-iconname="Weight Lifting"
             type="button"
@@ -873,6 +1093,8 @@ exports[`PlaylistForm Component > handles color selection 1`] = `
             🏋️‍♀️
           </button>
           <button
+            aria-label="Select Running icon"
+            aria-pressed="false"
             class="icon-button"
             data-iconname="Running"
             type="button"
@@ -880,6 +1102,8 @@ exports[`PlaylistForm Component > handles color selection 1`] = `
             🏃‍♀️‍➡️
           </button>
           <button
+            aria-label="Select Unicorn icon"
+            aria-pressed="false"
             class="icon-button"
             data-iconname="Unicorn"
             type="button"
@@ -887,6 +1111,8 @@ exports[`PlaylistForm Component > handles color selection 1`] = `
             🦄
           </button>
           <button
+            aria-label="Select Disco Ball icon"
+            aria-pressed="false"
             class="icon-button"
             data-iconname="Disco Ball"
             type="button"
@@ -894,6 +1120,8 @@ exports[`PlaylistForm Component > handles color selection 1`] = `
             🪩
           </button>
           <button
+            aria-label="Select Dancer icon"
+            aria-pressed="false"
             class="icon-button"
             data-iconname="Dancer"
             type="button"
@@ -901,6 +1129,8 @@ exports[`PlaylistForm Component > handles color selection 1`] = `
             🕺
           </button>
           <button
+            aria-label="Select Autumn Leaf icon"
+            aria-pressed="false"
             class="icon-button"
             data-iconname="Autumn Leaf"
             type="button"
@@ -908,6 +1138,8 @@ exports[`PlaylistForm Component > handles color selection 1`] = `
             🍂
           </button>
           <button
+            aria-label="Select Leaf icon"
+            aria-pressed="false"
             class="icon-button"
             data-iconname="Leaf"
             type="button"
@@ -915,6 +1147,8 @@ exports[`PlaylistForm Component > handles color selection 1`] = `
             🌿
           </button>
           <button
+            aria-label="Select Christmas Tree icon"
+            aria-pressed="false"
             class="icon-button"
             data-iconname="Christmas Tree"
             type="button"
@@ -922,6 +1156,8 @@ exports[`PlaylistForm Component > handles color selection 1`] = `
             🎄
           </button>
           <button
+            aria-label="Select Pumpkin icon"
+            aria-pressed="false"
             class="icon-button"
             data-iconname="Pumpkin"
             type="button"
@@ -929,6 +1165,8 @@ exports[`PlaylistForm Component > handles color selection 1`] = `
             🎃
           </button>
           <button
+            aria-label="Select Broken Heart icon"
+            aria-pressed="false"
             class="icon-button"
             data-iconname="Broken Heart"
             type="button"
@@ -938,12 +1176,14 @@ exports[`PlaylistForm Component > handles color selection 1`] = `
         </div>
       </fieldset>
       <button
+        aria-label="Close playlist creation form"
         class="form-close-button"
         type="button"
       >
         Close
       </button>
       <button
+        aria-label="Submit playlist creation form"
         class="form-submit-button"
         type="submit"
       >
@@ -957,12 +1197,16 @@ exports[`PlaylistForm Component > handles color selection 1`] = `
 exports[`PlaylistForm Component > handles icon selection 1`] = `
 <div>
   <div
+    aria-label="Playlist creation form"
     class="form-overlay"
   >
     <form
+      aria-labelledby="form-title"
       class="form-content"
     >
-      <h2>
+      <h2
+        id="form-title"
+      >
         Create new playlist
       </h2>
       <fieldset>
@@ -973,6 +1217,8 @@ exports[`PlaylistForm Component > handles icon selection 1`] = `
           Enter playlist name:
         </label>
         <input
+          aria-invalid="false"
+          aria-required="true"
           class="playlist-input "
           id="playlist-name"
           maxlength="15"
@@ -989,36 +1235,48 @@ exports[`PlaylistForm Component > handles icon selection 1`] = `
           class="color-options"
         >
           <button
+            aria-label="Select Dark Gray color"
+            aria-pressed="true"
             class="color-button selected"
             data-colorname="Dark Gray"
             style="background-color: rgb(138, 133, 135);"
             type="button"
           />
           <button
+            aria-label="Select Dark Purple color"
+            aria-pressed="false"
             class="color-button "
             data-colorname="Dark Purple"
             style="background-color: rgb(134, 111, 149);"
             type="button"
           />
           <button
+            aria-label="Select Dark Pink color"
+            aria-pressed="false"
             class="color-button "
             data-colorname="Dark Pink"
             style="background-color: rgb(158, 51, 105);"
             type="button"
           />
           <button
+            aria-label="Select Dark Yellow color"
+            aria-pressed="false"
             class="color-button "
             data-colorname="Dark Yellow"
             style="background-color: rgb(215, 186, 40);"
             type="button"
           />
           <button
+            aria-label="Select Dark Green color"
+            aria-pressed="false"
             class="color-button "
             data-colorname="Dark Green"
             style="background-color: rgb(53, 105, 63);"
             type="button"
           />
           <button
+            aria-label="Select Dark Blue color"
+            aria-pressed="false"
             class="color-button "
             data-colorname="Dark Blue"
             style="background-color: rgb(68, 89, 136);"
@@ -1034,6 +1292,8 @@ exports[`PlaylistForm Component > handles icon selection 1`] = `
           class="icon-options"
         >
           <button
+            aria-label="Select Music Note icon"
+            aria-pressed="false"
             class="icon-button"
             data-iconname="Music Note"
             type="button"
@@ -1041,6 +1301,8 @@ exports[`PlaylistForm Component > handles icon selection 1`] = `
             🎵
           </button>
           <button
+            aria-label="Select Guitar icon"
+            aria-pressed="true"
             class="icon-button active"
             data-iconname="Guitar"
             type="button"
@@ -1048,6 +1310,8 @@ exports[`PlaylistForm Component > handles icon selection 1`] = `
             🎸
           </button>
           <button
+            aria-label="Select Microphone icon"
+            aria-pressed="false"
             class="icon-button"
             data-iconname="Microphone"
             type="button"
@@ -1055,6 +1319,8 @@ exports[`PlaylistForm Component > handles icon selection 1`] = `
             🎤
           </button>
           <button
+            aria-label="Select Heart on Fire icon"
+            aria-pressed="false"
             class="icon-button"
             data-iconname="Heart on Fire"
             type="button"
@@ -1062,6 +1328,8 @@ exports[`PlaylistForm Component > handles icon selection 1`] = `
             ❤️‍🔥
           </button>
           <button
+            aria-label="Select Mushroom icon"
+            aria-pressed="false"
             class="icon-button"
             data-iconname="Mushroom"
             type="button"
@@ -1069,6 +1337,8 @@ exports[`PlaylistForm Component > handles icon selection 1`] = `
             🍄
           </button>
           <button
+            aria-label="Select Flower icon"
+            aria-pressed="false"
             class="icon-button"
             data-iconname="Flower"
             type="button"
@@ -1076,6 +1346,8 @@ exports[`PlaylistForm Component > handles icon selection 1`] = `
             🌸
           </button>
           <button
+            aria-label="Select Sparkles icon"
+            aria-pressed="false"
             class="icon-button"
             data-iconname="Sparkles"
             type="button"
@@ -1083,6 +1355,8 @@ exports[`PlaylistForm Component > handles icon selection 1`] = `
             ✨
           </button>
           <button
+            aria-label="Select Violin icon"
+            aria-pressed="false"
             class="icon-button"
             data-iconname="Violin"
             type="button"
@@ -1090,6 +1364,8 @@ exports[`PlaylistForm Component > handles icon selection 1`] = `
             🎻
           </button>
           <button
+            aria-label="Select Projector icon"
+            aria-pressed="false"
             class="icon-button"
             data-iconname="Projector"
             type="button"
@@ -1097,6 +1373,8 @@ exports[`PlaylistForm Component > handles icon selection 1`] = `
             📽️
           </button>
           <button
+            aria-label="Select Yoga icon"
+            aria-pressed="false"
             class="icon-button"
             data-iconname="Yoga"
             type="button"
@@ -1104,6 +1382,8 @@ exports[`PlaylistForm Component > handles icon selection 1`] = `
             🧘‍♀️
           </button>
           <button
+            aria-label="Select Weight Lifting icon"
+            aria-pressed="false"
             class="icon-button"
             data-iconname="Weight Lifting"
             type="button"
@@ -1111,6 +1391,8 @@ exports[`PlaylistForm Component > handles icon selection 1`] = `
             🏋️‍♀️
           </button>
           <button
+            aria-label="Select Running icon"
+            aria-pressed="false"
             class="icon-button"
             data-iconname="Running"
             type="button"
@@ -1118,6 +1400,8 @@ exports[`PlaylistForm Component > handles icon selection 1`] = `
             🏃‍♀️‍➡️
           </button>
           <button
+            aria-label="Select Unicorn icon"
+            aria-pressed="false"
             class="icon-button"
             data-iconname="Unicorn"
             type="button"
@@ -1125,6 +1409,8 @@ exports[`PlaylistForm Component > handles icon selection 1`] = `
             🦄
           </button>
           <button
+            aria-label="Select Disco Ball icon"
+            aria-pressed="false"
             class="icon-button"
             data-iconname="Disco Ball"
             type="button"
@@ -1132,6 +1418,8 @@ exports[`PlaylistForm Component > handles icon selection 1`] = `
             🪩
           </button>
           <button
+            aria-label="Select Dancer icon"
+            aria-pressed="false"
             class="icon-button"
             data-iconname="Dancer"
             type="button"
@@ -1139,6 +1427,8 @@ exports[`PlaylistForm Component > handles icon selection 1`] = `
             🕺
           </button>
           <button
+            aria-label="Select Autumn Leaf icon"
+            aria-pressed="false"
             class="icon-button"
             data-iconname="Autumn Leaf"
             type="button"
@@ -1146,6 +1436,8 @@ exports[`PlaylistForm Component > handles icon selection 1`] = `
             🍂
           </button>
           <button
+            aria-label="Select Leaf icon"
+            aria-pressed="false"
             class="icon-button"
             data-iconname="Leaf"
             type="button"
@@ -1153,6 +1445,8 @@ exports[`PlaylistForm Component > handles icon selection 1`] = `
             🌿
           </button>
           <button
+            aria-label="Select Christmas Tree icon"
+            aria-pressed="false"
             class="icon-button"
             data-iconname="Christmas Tree"
             type="button"
@@ -1160,6 +1454,8 @@ exports[`PlaylistForm Component > handles icon selection 1`] = `
             🎄
           </button>
           <button
+            aria-label="Select Pumpkin icon"
+            aria-pressed="false"
             class="icon-button"
             data-iconname="Pumpkin"
             type="button"
@@ -1167,6 +1463,8 @@ exports[`PlaylistForm Component > handles icon selection 1`] = `
             🎃
           </button>
           <button
+            aria-label="Select Broken Heart icon"
+            aria-pressed="false"
             class="icon-button"
             data-iconname="Broken Heart"
             type="button"
@@ -1176,12 +1474,14 @@ exports[`PlaylistForm Component > handles icon selection 1`] = `
         </div>
       </fieldset>
       <button
+        aria-label="Close playlist creation form"
         class="form-close-button"
         type="button"
       >
         Close
       </button>
       <button
+        aria-label="Submit playlist creation form"
         class="form-submit-button"
         type="submit"
       >
@@ -1195,12 +1495,16 @@ exports[`PlaylistForm Component > handles icon selection 1`] = `
 exports[`PlaylistForm Component > renders correctly when show is true 1`] = `
 <div>
   <div
+    aria-label="Playlist creation form"
     class="form-overlay"
   >
     <form
+      aria-labelledby="form-title"
       class="form-content"
     >
-      <h2>
+      <h2
+        id="form-title"
+      >
         Create new playlist
       </h2>
       <fieldset>
@@ -1211,6 +1515,8 @@ exports[`PlaylistForm Component > renders correctly when show is true 1`] = `
           Enter playlist name:
         </label>
         <input
+          aria-invalid="false"
+          aria-required="true"
           class="playlist-input "
           id="playlist-name"
           maxlength="15"
@@ -1227,36 +1533,48 @@ exports[`PlaylistForm Component > renders correctly when show is true 1`] = `
           class="color-options"
         >
           <button
+            aria-label="Select Dark Gray color"
+            aria-pressed="true"
             class="color-button selected"
             data-colorname="Dark Gray"
             style="background-color: rgb(138, 133, 135);"
             type="button"
           />
           <button
+            aria-label="Select Dark Purple color"
+            aria-pressed="false"
             class="color-button "
             data-colorname="Dark Purple"
             style="background-color: rgb(134, 111, 149);"
             type="button"
           />
           <button
+            aria-label="Select Dark Pink color"
+            aria-pressed="false"
             class="color-button "
             data-colorname="Dark Pink"
             style="background-color: rgb(158, 51, 105);"
             type="button"
           />
           <button
+            aria-label="Select Dark Yellow color"
+            aria-pressed="false"
             class="color-button "
             data-colorname="Dark Yellow"
             style="background-color: rgb(215, 186, 40);"
             type="button"
           />
           <button
+            aria-label="Select Dark Green color"
+            aria-pressed="false"
             class="color-button "
             data-colorname="Dark Green"
             style="background-color: rgb(53, 105, 63);"
             type="button"
           />
           <button
+            aria-label="Select Dark Blue color"
+            aria-pressed="false"
             class="color-button "
             data-colorname="Dark Blue"
             style="background-color: rgb(68, 89, 136);"
@@ -1272,6 +1590,8 @@ exports[`PlaylistForm Component > renders correctly when show is true 1`] = `
           class="icon-options"
         >
           <button
+            aria-label="Select Music Note icon"
+            aria-pressed="true"
             class="icon-button active"
             data-iconname="Music Note"
             type="button"
@@ -1279,6 +1599,8 @@ exports[`PlaylistForm Component > renders correctly when show is true 1`] = `
             🎵
           </button>
           <button
+            aria-label="Select Guitar icon"
+            aria-pressed="false"
             class="icon-button"
             data-iconname="Guitar"
             type="button"
@@ -1286,6 +1608,8 @@ exports[`PlaylistForm Component > renders correctly when show is true 1`] = `
             🎸
           </button>
           <button
+            aria-label="Select Microphone icon"
+            aria-pressed="false"
             class="icon-button"
             data-iconname="Microphone"
             type="button"
@@ -1293,6 +1617,8 @@ exports[`PlaylistForm Component > renders correctly when show is true 1`] = `
             🎤
           </button>
           <button
+            aria-label="Select Heart on Fire icon"
+            aria-pressed="false"
             class="icon-button"
             data-iconname="Heart on Fire"
             type="button"
@@ -1300,6 +1626,8 @@ exports[`PlaylistForm Component > renders correctly when show is true 1`] = `
             ❤️‍🔥
           </button>
           <button
+            aria-label="Select Mushroom icon"
+            aria-pressed="false"
             class="icon-button"
             data-iconname="Mushroom"
             type="button"
@@ -1307,6 +1635,8 @@ exports[`PlaylistForm Component > renders correctly when show is true 1`] = `
             🍄
           </button>
           <button
+            aria-label="Select Flower icon"
+            aria-pressed="false"
             class="icon-button"
             data-iconname="Flower"
             type="button"
@@ -1314,6 +1644,8 @@ exports[`PlaylistForm Component > renders correctly when show is true 1`] = `
             🌸
           </button>
           <button
+            aria-label="Select Sparkles icon"
+            aria-pressed="false"
             class="icon-button"
             data-iconname="Sparkles"
             type="button"
@@ -1321,6 +1653,8 @@ exports[`PlaylistForm Component > renders correctly when show is true 1`] = `
             ✨
           </button>
           <button
+            aria-label="Select Violin icon"
+            aria-pressed="false"
             class="icon-button"
             data-iconname="Violin"
             type="button"
@@ -1328,6 +1662,8 @@ exports[`PlaylistForm Component > renders correctly when show is true 1`] = `
             🎻
           </button>
           <button
+            aria-label="Select Projector icon"
+            aria-pressed="false"
             class="icon-button"
             data-iconname="Projector"
             type="button"
@@ -1335,6 +1671,8 @@ exports[`PlaylistForm Component > renders correctly when show is true 1`] = `
             📽️
           </button>
           <button
+            aria-label="Select Yoga icon"
+            aria-pressed="false"
             class="icon-button"
             data-iconname="Yoga"
             type="button"
@@ -1342,6 +1680,8 @@ exports[`PlaylistForm Component > renders correctly when show is true 1`] = `
             🧘‍♀️
           </button>
           <button
+            aria-label="Select Weight Lifting icon"
+            aria-pressed="false"
             class="icon-button"
             data-iconname="Weight Lifting"
             type="button"
@@ -1349,6 +1689,8 @@ exports[`PlaylistForm Component > renders correctly when show is true 1`] = `
             🏋️‍♀️
           </button>
           <button
+            aria-label="Select Running icon"
+            aria-pressed="false"
             class="icon-button"
             data-iconname="Running"
             type="button"
@@ -1356,6 +1698,8 @@ exports[`PlaylistForm Component > renders correctly when show is true 1`] = `
             🏃‍♀️‍➡️
           </button>
           <button
+            aria-label="Select Unicorn icon"
+            aria-pressed="false"
             class="icon-button"
             data-iconname="Unicorn"
             type="button"
@@ -1363,6 +1707,8 @@ exports[`PlaylistForm Component > renders correctly when show is true 1`] = `
             🦄
           </button>
           <button
+            aria-label="Select Disco Ball icon"
+            aria-pressed="false"
             class="icon-button"
             data-iconname="Disco Ball"
             type="button"
@@ -1370,6 +1716,8 @@ exports[`PlaylistForm Component > renders correctly when show is true 1`] = `
             🪩
           </button>
           <button
+            aria-label="Select Dancer icon"
+            aria-pressed="false"
             class="icon-button"
             data-iconname="Dancer"
             type="button"
@@ -1377,6 +1725,8 @@ exports[`PlaylistForm Component > renders correctly when show is true 1`] = `
             🕺
           </button>
           <button
+            aria-label="Select Autumn Leaf icon"
+            aria-pressed="false"
             class="icon-button"
             data-iconname="Autumn Leaf"
             type="button"
@@ -1384,6 +1734,8 @@ exports[`PlaylistForm Component > renders correctly when show is true 1`] = `
             🍂
           </button>
           <button
+            aria-label="Select Leaf icon"
+            aria-pressed="false"
             class="icon-button"
             data-iconname="Leaf"
             type="button"
@@ -1391,6 +1743,8 @@ exports[`PlaylistForm Component > renders correctly when show is true 1`] = `
             🌿
           </button>
           <button
+            aria-label="Select Christmas Tree icon"
+            aria-pressed="false"
             class="icon-button"
             data-iconname="Christmas Tree"
             type="button"
@@ -1398,6 +1752,8 @@ exports[`PlaylistForm Component > renders correctly when show is true 1`] = `
             🎄
           </button>
           <button
+            aria-label="Select Pumpkin icon"
+            aria-pressed="false"
             class="icon-button"
             data-iconname="Pumpkin"
             type="button"
@@ -1405,6 +1761,8 @@ exports[`PlaylistForm Component > renders correctly when show is true 1`] = `
             🎃
           </button>
           <button
+            aria-label="Select Broken Heart icon"
+            aria-pressed="false"
             class="icon-button"
             data-iconname="Broken Heart"
             type="button"
@@ -1414,12 +1772,14 @@ exports[`PlaylistForm Component > renders correctly when show is true 1`] = `
         </div>
       </fieldset>
       <button
+        aria-label="Close playlist creation form"
         class="form-close-button"
         type="button"
       >
         Close
       </button>
       <button
+        aria-label="Submit playlist creation form"
         class="form-submit-button"
         type="submit"
       >
@@ -1433,12 +1793,16 @@ exports[`PlaylistForm Component > renders correctly when show is true 1`] = `
 exports[`PlaylistForm Component > resets the form state after submission or close 1`] = `
 <div>
   <div
+    aria-label="Playlist creation form"
     class="form-overlay"
   >
     <form
+      aria-labelledby="form-title"
       class="form-content"
     >
-      <h2>
+      <h2
+        id="form-title"
+      >
         Create new playlist
       </h2>
       <fieldset>
@@ -1449,6 +1813,8 @@ exports[`PlaylistForm Component > resets the form state after submission or clos
           Enter playlist name:
         </label>
         <input
+          aria-invalid="false"
+          aria-required="true"
           class="playlist-input "
           id="playlist-name"
           maxlength="15"
@@ -1465,36 +1831,48 @@ exports[`PlaylistForm Component > resets the form state after submission or clos
           class="color-options"
         >
           <button
+            aria-label="Select Dark Gray color"
+            aria-pressed="true"
             class="color-button selected"
             data-colorname="Dark Gray"
             style="background-color: rgb(138, 133, 135);"
             type="button"
           />
           <button
+            aria-label="Select Dark Purple color"
+            aria-pressed="false"
             class="color-button "
             data-colorname="Dark Purple"
             style="background-color: rgb(134, 111, 149);"
             type="button"
           />
           <button
+            aria-label="Select Dark Pink color"
+            aria-pressed="false"
             class="color-button "
             data-colorname="Dark Pink"
             style="background-color: rgb(158, 51, 105);"
             type="button"
           />
           <button
+            aria-label="Select Dark Yellow color"
+            aria-pressed="false"
             class="color-button "
             data-colorname="Dark Yellow"
             style="background-color: rgb(215, 186, 40);"
             type="button"
           />
           <button
+            aria-label="Select Dark Green color"
+            aria-pressed="false"
             class="color-button "
             data-colorname="Dark Green"
             style="background-color: rgb(53, 105, 63);"
             type="button"
           />
           <button
+            aria-label="Select Dark Blue color"
+            aria-pressed="false"
             class="color-button "
             data-colorname="Dark Blue"
             style="background-color: rgb(68, 89, 136);"
@@ -1510,6 +1888,8 @@ exports[`PlaylistForm Component > resets the form state after submission or clos
           class="icon-options"
         >
           <button
+            aria-label="Select Music Note icon"
+            aria-pressed="true"
             class="icon-button active"
             data-iconname="Music Note"
             type="button"
@@ -1517,6 +1897,8 @@ exports[`PlaylistForm Component > resets the form state after submission or clos
             🎵
           </button>
           <button
+            aria-label="Select Guitar icon"
+            aria-pressed="false"
             class="icon-button"
             data-iconname="Guitar"
             type="button"
@@ -1524,6 +1906,8 @@ exports[`PlaylistForm Component > resets the form state after submission or clos
             🎸
           </button>
           <button
+            aria-label="Select Microphone icon"
+            aria-pressed="false"
             class="icon-button"
             data-iconname="Microphone"
             type="button"
@@ -1531,6 +1915,8 @@ exports[`PlaylistForm Component > resets the form state after submission or clos
             🎤
           </button>
           <button
+            aria-label="Select Heart on Fire icon"
+            aria-pressed="false"
             class="icon-button"
             data-iconname="Heart on Fire"
             type="button"
@@ -1538,6 +1924,8 @@ exports[`PlaylistForm Component > resets the form state after submission or clos
             ❤️‍🔥
           </button>
           <button
+            aria-label="Select Mushroom icon"
+            aria-pressed="false"
             class="icon-button"
             data-iconname="Mushroom"
             type="button"
@@ -1545,6 +1933,8 @@ exports[`PlaylistForm Component > resets the form state after submission or clos
             🍄
           </button>
           <button
+            aria-label="Select Flower icon"
+            aria-pressed="false"
             class="icon-button"
             data-iconname="Flower"
             type="button"
@@ -1552,6 +1942,8 @@ exports[`PlaylistForm Component > resets the form state after submission or clos
             🌸
           </button>
           <button
+            aria-label="Select Sparkles icon"
+            aria-pressed="false"
             class="icon-button"
             data-iconname="Sparkles"
             type="button"
@@ -1559,6 +1951,8 @@ exports[`PlaylistForm Component > resets the form state after submission or clos
             ✨
           </button>
           <button
+            aria-label="Select Violin icon"
+            aria-pressed="false"
             class="icon-button"
             data-iconname="Violin"
             type="button"
@@ -1566,6 +1960,8 @@ exports[`PlaylistForm Component > resets the form state after submission or clos
             🎻
           </button>
           <button
+            aria-label="Select Projector icon"
+            aria-pressed="false"
             class="icon-button"
             data-iconname="Projector"
             type="button"
@@ -1573,6 +1969,8 @@ exports[`PlaylistForm Component > resets the form state after submission or clos
             📽️
           </button>
           <button
+            aria-label="Select Yoga icon"
+            aria-pressed="false"
             class="icon-button"
             data-iconname="Yoga"
             type="button"
@@ -1580,6 +1978,8 @@ exports[`PlaylistForm Component > resets the form state after submission or clos
             🧘‍♀️
           </button>
           <button
+            aria-label="Select Weight Lifting icon"
+            aria-pressed="false"
             class="icon-button"
             data-iconname="Weight Lifting"
             type="button"
@@ -1587,6 +1987,8 @@ exports[`PlaylistForm Component > resets the form state after submission or clos
             🏋️‍♀️
           </button>
           <button
+            aria-label="Select Running icon"
+            aria-pressed="false"
             class="icon-button"
             data-iconname="Running"
             type="button"
@@ -1594,6 +1996,8 @@ exports[`PlaylistForm Component > resets the form state after submission or clos
             🏃‍♀️‍➡️
           </button>
           <button
+            aria-label="Select Unicorn icon"
+            aria-pressed="false"
             class="icon-button"
             data-iconname="Unicorn"
             type="button"
@@ -1601,6 +2005,8 @@ exports[`PlaylistForm Component > resets the form state after submission or clos
             🦄
           </button>
           <button
+            aria-label="Select Disco Ball icon"
+            aria-pressed="false"
             class="icon-button"
             data-iconname="Disco Ball"
             type="button"
@@ -1608,6 +2014,8 @@ exports[`PlaylistForm Component > resets the form state after submission or clos
             🪩
           </button>
           <button
+            aria-label="Select Dancer icon"
+            aria-pressed="false"
             class="icon-button"
             data-iconname="Dancer"
             type="button"
@@ -1615,6 +2023,8 @@ exports[`PlaylistForm Component > resets the form state after submission or clos
             🕺
           </button>
           <button
+            aria-label="Select Autumn Leaf icon"
+            aria-pressed="false"
             class="icon-button"
             data-iconname="Autumn Leaf"
             type="button"
@@ -1622,6 +2032,8 @@ exports[`PlaylistForm Component > resets the form state after submission or clos
             🍂
           </button>
           <button
+            aria-label="Select Leaf icon"
+            aria-pressed="false"
             class="icon-button"
             data-iconname="Leaf"
             type="button"
@@ -1629,6 +2041,8 @@ exports[`PlaylistForm Component > resets the form state after submission or clos
             🌿
           </button>
           <button
+            aria-label="Select Christmas Tree icon"
+            aria-pressed="false"
             class="icon-button"
             data-iconname="Christmas Tree"
             type="button"
@@ -1636,6 +2050,8 @@ exports[`PlaylistForm Component > resets the form state after submission or clos
             🎄
           </button>
           <button
+            aria-label="Select Pumpkin icon"
+            aria-pressed="false"
             class="icon-button"
             data-iconname="Pumpkin"
             type="button"
@@ -1643,6 +2059,8 @@ exports[`PlaylistForm Component > resets the form state after submission or clos
             🎃
           </button>
           <button
+            aria-label="Select Broken Heart icon"
+            aria-pressed="false"
             class="icon-button"
             data-iconname="Broken Heart"
             type="button"
@@ -1652,12 +2070,14 @@ exports[`PlaylistForm Component > resets the form state after submission or clos
         </div>
       </fieldset>
       <button
+        aria-label="Close playlist creation form"
         class="form-close-button"
         type="button"
       >
         Close
       </button>
       <button
+        aria-label="Submit playlist creation form"
         class="form-submit-button"
         type="submit"
       >
@@ -1671,12 +2091,16 @@ exports[`PlaylistForm Component > resets the form state after submission or clos
 exports[`PlaylistForm Component > shows an error when input value is empty and Submit is clicked 1`] = `
 <div>
   <div
+    aria-label="Playlist creation form"
     class="form-overlay"
   >
     <form
+      aria-labelledby="form-title"
       class="form-content"
     >
-      <h2>
+      <h2
+        id="form-title"
+      >
         Create new playlist
       </h2>
       <fieldset>
@@ -1687,6 +2111,8 @@ exports[`PlaylistForm Component > shows an error when input value is empty and S
           Enter playlist name:
         </label>
         <input
+          aria-invalid="true"
+          aria-required="true"
           class="playlist-input input-error"
           id="playlist-name"
           maxlength="15"
@@ -1703,36 +2129,48 @@ exports[`PlaylistForm Component > shows an error when input value is empty and S
           class="color-options"
         >
           <button
+            aria-label="Select Dark Gray color"
+            aria-pressed="true"
             class="color-button selected"
             data-colorname="Dark Gray"
             style="background-color: rgb(138, 133, 135);"
             type="button"
           />
           <button
+            aria-label="Select Dark Purple color"
+            aria-pressed="false"
             class="color-button "
             data-colorname="Dark Purple"
             style="background-color: rgb(134, 111, 149);"
             type="button"
           />
           <button
+            aria-label="Select Dark Pink color"
+            aria-pressed="false"
             class="color-button "
             data-colorname="Dark Pink"
             style="background-color: rgb(158, 51, 105);"
             type="button"
           />
           <button
+            aria-label="Select Dark Yellow color"
+            aria-pressed="false"
             class="color-button "
             data-colorname="Dark Yellow"
             style="background-color: rgb(215, 186, 40);"
             type="button"
           />
           <button
+            aria-label="Select Dark Green color"
+            aria-pressed="false"
             class="color-button "
             data-colorname="Dark Green"
             style="background-color: rgb(53, 105, 63);"
             type="button"
           />
           <button
+            aria-label="Select Dark Blue color"
+            aria-pressed="false"
             class="color-button "
             data-colorname="Dark Blue"
             style="background-color: rgb(68, 89, 136);"
@@ -1748,6 +2186,8 @@ exports[`PlaylistForm Component > shows an error when input value is empty and S
           class="icon-options"
         >
           <button
+            aria-label="Select Music Note icon"
+            aria-pressed="true"
             class="icon-button active"
             data-iconname="Music Note"
             type="button"
@@ -1755,6 +2195,8 @@ exports[`PlaylistForm Component > shows an error when input value is empty and S
             🎵
           </button>
           <button
+            aria-label="Select Guitar icon"
+            aria-pressed="false"
             class="icon-button"
             data-iconname="Guitar"
             type="button"
@@ -1762,6 +2204,8 @@ exports[`PlaylistForm Component > shows an error when input value is empty and S
             🎸
           </button>
           <button
+            aria-label="Select Microphone icon"
+            aria-pressed="false"
             class="icon-button"
             data-iconname="Microphone"
             type="button"
@@ -1769,6 +2213,8 @@ exports[`PlaylistForm Component > shows an error when input value is empty and S
             🎤
           </button>
           <button
+            aria-label="Select Heart on Fire icon"
+            aria-pressed="false"
             class="icon-button"
             data-iconname="Heart on Fire"
             type="button"
@@ -1776,6 +2222,8 @@ exports[`PlaylistForm Component > shows an error when input value is empty and S
             ❤️‍🔥
           </button>
           <button
+            aria-label="Select Mushroom icon"
+            aria-pressed="false"
             class="icon-button"
             data-iconname="Mushroom"
             type="button"
@@ -1783,6 +2231,8 @@ exports[`PlaylistForm Component > shows an error when input value is empty and S
             🍄
           </button>
           <button
+            aria-label="Select Flower icon"
+            aria-pressed="false"
             class="icon-button"
             data-iconname="Flower"
             type="button"
@@ -1790,6 +2240,8 @@ exports[`PlaylistForm Component > shows an error when input value is empty and S
             🌸
           </button>
           <button
+            aria-label="Select Sparkles icon"
+            aria-pressed="false"
             class="icon-button"
             data-iconname="Sparkles"
             type="button"
@@ -1797,6 +2249,8 @@ exports[`PlaylistForm Component > shows an error when input value is empty and S
             ✨
           </button>
           <button
+            aria-label="Select Violin icon"
+            aria-pressed="false"
             class="icon-button"
             data-iconname="Violin"
             type="button"
@@ -1804,6 +2258,8 @@ exports[`PlaylistForm Component > shows an error when input value is empty and S
             🎻
           </button>
           <button
+            aria-label="Select Projector icon"
+            aria-pressed="false"
             class="icon-button"
             data-iconname="Projector"
             type="button"
@@ -1811,6 +2267,8 @@ exports[`PlaylistForm Component > shows an error when input value is empty and S
             📽️
           </button>
           <button
+            aria-label="Select Yoga icon"
+            aria-pressed="false"
             class="icon-button"
             data-iconname="Yoga"
             type="button"
@@ -1818,6 +2276,8 @@ exports[`PlaylistForm Component > shows an error when input value is empty and S
             🧘‍♀️
           </button>
           <button
+            aria-label="Select Weight Lifting icon"
+            aria-pressed="false"
             class="icon-button"
             data-iconname="Weight Lifting"
             type="button"
@@ -1825,6 +2285,8 @@ exports[`PlaylistForm Component > shows an error when input value is empty and S
             🏋️‍♀️
           </button>
           <button
+            aria-label="Select Running icon"
+            aria-pressed="false"
             class="icon-button"
             data-iconname="Running"
             type="button"
@@ -1832,6 +2294,8 @@ exports[`PlaylistForm Component > shows an error when input value is empty and S
             🏃‍♀️‍➡️
           </button>
           <button
+            aria-label="Select Unicorn icon"
+            aria-pressed="false"
             class="icon-button"
             data-iconname="Unicorn"
             type="button"
@@ -1839,6 +2303,8 @@ exports[`PlaylistForm Component > shows an error when input value is empty and S
             🦄
           </button>
           <button
+            aria-label="Select Disco Ball icon"
+            aria-pressed="false"
             class="icon-button"
             data-iconname="Disco Ball"
             type="button"
@@ -1846,6 +2312,8 @@ exports[`PlaylistForm Component > shows an error when input value is empty and S
             🪩
           </button>
           <button
+            aria-label="Select Dancer icon"
+            aria-pressed="false"
             class="icon-button"
             data-iconname="Dancer"
             type="button"
@@ -1853,6 +2321,8 @@ exports[`PlaylistForm Component > shows an error when input value is empty and S
             🕺
           </button>
           <button
+            aria-label="Select Autumn Leaf icon"
+            aria-pressed="false"
             class="icon-button"
             data-iconname="Autumn Leaf"
             type="button"
@@ -1860,6 +2330,8 @@ exports[`PlaylistForm Component > shows an error when input value is empty and S
             🍂
           </button>
           <button
+            aria-label="Select Leaf icon"
+            aria-pressed="false"
             class="icon-button"
             data-iconname="Leaf"
             type="button"
@@ -1867,6 +2339,8 @@ exports[`PlaylistForm Component > shows an error when input value is empty and S
             🌿
           </button>
           <button
+            aria-label="Select Christmas Tree icon"
+            aria-pressed="false"
             class="icon-button"
             data-iconname="Christmas Tree"
             type="button"
@@ -1874,6 +2348,8 @@ exports[`PlaylistForm Component > shows an error when input value is empty and S
             🎄
           </button>
           <button
+            aria-label="Select Pumpkin icon"
+            aria-pressed="false"
             class="icon-button"
             data-iconname="Pumpkin"
             type="button"
@@ -1881,6 +2357,8 @@ exports[`PlaylistForm Component > shows an error when input value is empty and S
             🎃
           </button>
           <button
+            aria-label="Select Broken Heart icon"
+            aria-pressed="false"
             class="icon-button"
             data-iconname="Broken Heart"
             type="button"
@@ -1890,12 +2368,14 @@ exports[`PlaylistForm Component > shows an error when input value is empty and S
         </div>
       </fieldset>
       <button
+        aria-label="Close playlist creation form"
         class="form-close-button"
         type="button"
       >
         Close
       </button>
       <button
+        aria-label="Submit playlist creation form"
         class="form-submit-button"
         type="submit"
       >

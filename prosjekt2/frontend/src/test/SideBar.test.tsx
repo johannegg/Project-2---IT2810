@@ -147,7 +147,10 @@ describe("Sidebar", () => {
 		);
 
 		// Find the Clear Filters button and simulate a click
-		const clearFiltersButton = screen.getByRole("button", { name: /clear filters/i, hidden: true });
+		const clearFiltersButton = screen.getByRole("button", {
+			name: /clear all filters/i,
+			hidden: true,
+		});
 		fireEvent.click(clearFiltersButton);
 
 		// Assert the onClearAllFilters callback was called

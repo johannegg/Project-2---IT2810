@@ -3,6 +3,7 @@
 exports[`SearchBar Component > accepts an initial search term 1`] = `
 <DocumentFragment>
   <div
+    aria-label="Search bar container"
     class="searchContainer"
   >
     <form
@@ -21,6 +22,7 @@ exports[`SearchBar Component > accepts an initial search term 1`] = `
         type="submit"
       >
         <svg
+          aria-hidden="true"
           class="searchIcon"
           fill="currentColor"
           height="1em"
@@ -63,6 +65,7 @@ exports[`SearchBar Component > accepts an initial search term 1`] = `
 exports[`SearchBar Component > calls setSearchTerm when the form is submitted 1`] = `
 <DocumentFragment>
   <div
+    aria-label="Search bar container"
     class="searchContainer"
   >
     <form
@@ -81,6 +84,7 @@ exports[`SearchBar Component > calls setSearchTerm when the form is submitted 1`
         type="submit"
       >
         <svg
+          aria-hidden="true"
           class="searchIcon"
           fill="currentColor"
           height="1em"
@@ -123,6 +127,7 @@ exports[`SearchBar Component > calls setSearchTerm when the form is submitted 1`
 exports[`SearchBar Component > clears the input when the clear button is clicked 1`] = `
 <DocumentFragment>
   <div
+    aria-label="Search bar container"
     class="searchContainer"
   >
     <form
@@ -141,6 +146,7 @@ exports[`SearchBar Component > clears the input when the clear button is clicked
         type="submit"
       >
         <svg
+          aria-hidden="true"
           class="searchIcon"
           fill="currentColor"
           height="1em"
@@ -163,6 +169,7 @@ exports[`SearchBar Component > clears the input when the clear button is clicked
 exports[`SearchBar Component > renders the SearchBar component 1`] = `
 <DocumentFragment>
   <div
+    aria-label="Search bar container"
     class="searchContainer"
   >
     <form
@@ -181,6 +188,7 @@ exports[`SearchBar Component > renders the SearchBar component 1`] = `
         type="submit"
       >
         <svg
+          aria-hidden="true"
           class="searchIcon"
           fill="currentColor"
           height="1em"
@@ -203,6 +211,7 @@ exports[`SearchBar Component > renders the SearchBar component 1`] = `
 exports[`SearchBar Component > updates the input value as the user types 1`] = `
 <DocumentFragment>
   <div
+    aria-label="Search bar container"
     class="searchContainer"
   >
     <form
@@ -221,6 +230,7 @@ exports[`SearchBar Component > updates the input value as the user types 1`] = `
         type="submit"
       >
         <svg
+          aria-hidden="true"
           class="searchIcon"
           fill="currentColor"
           height="1em"

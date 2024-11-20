@@ -75,9 +75,12 @@ const Playlist: React.FC<PlaylistProps> = ({
 			}}
 			style={{ backgroundColor: currentBackgroundColor }}
 			role="button"
+			aria-label={`Playlist: ${name} with ${songs.length} song(s)`} // Beskriver spillelisten for skjermlesere
 		>
-			<div className="playlist-icon">{icon}</div>
-			<h3>{name}</h3>
+			<div className="playlist-icon" aria-hidden="true">
+				{icon}
+			</div>
+			<h3 aria-label={`Playlist name: ${name}`}>{name}</h3>
 		</article>
 	);
 };
