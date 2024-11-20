@@ -33,16 +33,25 @@ const DisplayPlaylist: React.FC<DisplayPlaylistProps> = ({ playlistId, onDelete 
 	};
 
 	return (
-		<section className="playlist-details">
+		<section
+			className="playlist-details"
+			aria-label={`Details for playlist ${currentPlaylist.name}`}
+		>
 			<div className="playlist-details-container">
 				<header className="playlist-header">
 					<BackButton />
-					<button onClick={() => setShowConfirmDelete(true)} className="delete-playlist-button">
+					<button
+						onClick={() => setShowConfirmDelete(true)}
+						className="delete-playlist-button"
+						aria-label="Delete playlist"
+					>
 						<AiOutlineDelete />
 					</button>
 				</header>
-				<h1>{currentPlaylist.name + " " + currentPlaylist.icon}</h1>
-				<div className="songs-container">
+				<h1 aria-label={`Playlist name: ${currentPlaylist.name}`}>
+					{currentPlaylist.name + " " + currentPlaylist.icon}
+				</h1>
+				<div className="songs-container" aria-label={`Songs in ${currentPlaylist.name}`}>
 					{currentPlaylist.songs.length > 0 ? (
 						<AllSongsList
 							songs={currentPlaylist.songs}
@@ -54,15 +63,24 @@ const DisplayPlaylist: React.FC<DisplayPlaylistProps> = ({ playlistId, onDelete 
 							minViews={0}
 						/>
 					) : (
-						<p>No songs here yet.</p>
+						<p aria-label="No songs message">No songs here yet.</p>
 					)}
 				</div>
 				{showConfirmDelete && (
-					<div className="modal-overlay">
+					<div
+						className="modal-overlay"
+						aria-modal="true"
+						role="dialog"
+						aria-labelledby="delete-confirmation-title"
+					>
 						<div className="modal">
-							<p>Are you sure you want to delete this playlist?</p>
+							<p id="delete-confirmation-title">Are you sure you want to delete this playlist?</p>
 							<div className="modal-buttons">
-								<button onClick={() => setShowConfirmDelete(false)} className="cancel-button">
+								<button
+									onClick={() => setShowConfirmDelete(false)}
+									className="cancel-button"
+									aria-label="Cancel delete"
+								>
 									No
 								</button>
 								<button
@@ -71,6 +89,7 @@ const DisplayPlaylist: React.FC<DisplayPlaylistProps> = ({ playlistId, onDelete 
 										setShowConfirmDelete(false);
 									}}
 									className="confirm-button"
+									aria-label="Confirm delete"
 								>
 									Yes
 								</button>

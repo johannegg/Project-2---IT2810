@@ -1,4 +1,3 @@
-import React from "react";
 import { describe, test, vi, beforeEach, afterEach, expect } from "vitest";
 import { render, screen, fireEvent, cleanup } from "@testing-library/react";
 import BackButton from "../components/BackButton/BackButton";
@@ -33,7 +32,7 @@ describe("BackButton", () => {
 		render(
 			<MemoryRouter>
 				<BackButton />
-			</MemoryRouter>
+			</MemoryRouter>,
 		);
 
 		const button = screen.getByRole("button", { name: /Go back/i });
@@ -45,7 +44,7 @@ describe("BackButton", () => {
 		render(
 			<MemoryRouter>
 				<BackButton text={customText} />
-			</MemoryRouter>
+			</MemoryRouter>,
 		);
 
 		const button = screen.getByRole("button", { name: new RegExp(customText, "i") });
@@ -56,7 +55,7 @@ describe("BackButton", () => {
 		render(
 			<MemoryRouter>
 				<BackButton />
-			</MemoryRouter>
+			</MemoryRouter>,
 		);
 
 		const button = screen.getByRole("button", { name: /Go back/i });
@@ -69,7 +68,7 @@ describe("BackButton", () => {
 		const { container } = render(
 			<MemoryRouter>
 				<BackButton />
-			</MemoryRouter>
+			</MemoryRouter>,
 		);
 
 		expect(container).toMatchSnapshot();
@@ -79,7 +78,7 @@ describe("BackButton", () => {
 		const { container } = render(
 			<MemoryRouter>
 				<BackButton text="Custom Text" />
-			</MemoryRouter>
+			</MemoryRouter>,
 		);
 		
 		expect(container).toMatchSnapshot();

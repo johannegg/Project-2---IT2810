@@ -1,0 +1,189 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`Profile Component > matches snapshot when login overlay is displayed 1`] = `
+<div>
+  <div
+    class="dropdown"
+  >
+    <button
+      aria-expanded="true"
+      aria-label="Profile icon"
+      class="profile-icon"
+    >
+      <svg
+        aria-hidden="true"
+        class="svg-inline--fa fa-circle-user fa-2xl "
+        data-icon="circle-user"
+        data-prefix="fas"
+        focusable="false"
+        role="img"
+        viewBox="0 0 512 512"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          d="M399 384.2C376.9 345.8 335.4 320 288 320l-64 0c-47.4 0-88.9 25.8-111 64.2c35.2 39.2 86.2 63.8 143 63.8s107.8-24.7 143-63.8zM0 256a256 256 0 1 1 512 0A256 256 0 1 1 0 256zm256 16a72 72 0 1 0 0-144 72 72 0 1 0 0 144z"
+          fill="currentColor"
+        />
+      </svg>
+    </button>
+  </div>
+  <div
+    class="login-overlay"
+  >
+    <svg
+      aria-hidden="true"
+      aria-label="Close login form"
+      class="svg-inline--fa fa-xmark close-login-button"
+      data-icon="xmark"
+      data-prefix="fas"
+      focusable="false"
+      role="img"
+      viewBox="0 0 384 512"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path
+        d="M342.6 150.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L192 210.7 86.6 105.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L146.7 256 41.4 361.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0L192 301.3 297.4 406.6c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L237.3 256 342.6 150.6z"
+        fill="currentColor"
+      />
+    </svg>
+    <div
+      aria-labelledby="login-form-title"
+      class="profile-login"
+    >
+      <p
+        class="login-information"
+        id="login-form-title"
+      >
+        Choose a unique username, or log in with an existing one
+      </p>
+      <form
+        aria-label="Login form"
+        class="login-form"
+      >
+        <svg
+          aria-hidden="true"
+          class="svg-inline--fa fa-circle-user fa-lg profile-login-icon"
+          data-icon="circle-user"
+          data-prefix="fas"
+          focusable="false"
+          role="img"
+          style="color: rgb(234, 154, 178);"
+          viewBox="0 0 512 512"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M399 384.2C376.9 345.8 335.4 320 288 320l-64 0c-47.4 0-88.9 25.8-111 64.2c35.2 39.2 86.2 63.8 143 63.8s107.8-24.7 143-63.8zM0 256a256 256 0 1 1 512 0A256 256 0 1 1 0 256zm256 16a72 72 0 1 0 0-144 72 72 0 1 0 0 144z"
+            fill="currentColor"
+          />
+        </svg>
+        <input
+          aria-label="Enter username"
+          class="login-input"
+          placeholder="Enter username"
+          value=""
+        />
+        <button
+          aria-label="Submit login"
+          class="login-button"
+          type="submit"
+        >
+          <svg
+            aria-hidden="true"
+            class="svg-inline--fa fa-arrow-right "
+            data-icon="arrow-right"
+            data-prefix="fas"
+            focusable="false"
+            role="img"
+            style="color: rgb(255, 255, 255);"
+            viewBox="0 0 448 512"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M438.6 278.6c12.5-12.5 12.5-32.8 0-45.3l-160-160c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L338.8 224 32 224c-17.7 0-32 14.3-32 32s14.3 32 32 32l306.7 0L233.4 393.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0l160-160z"
+              fill="currentColor"
+            />
+          </svg>
+        </button>
+      </form>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Profile Component > matches snapshot when user is logged in 1`] = `
+<div>
+  <div
+    class="dropdown"
+  >
+    <button
+      aria-expanded="true"
+      aria-label="Profile icon menu"
+      class="profile-icon"
+    >
+      <svg
+        aria-hidden="true"
+        class="svg-inline--fa fa-circle-user fa-2xl "
+        data-icon="circle-user"
+        data-prefix="fas"
+        focusable="false"
+        role="img"
+        viewBox="0 0 512 512"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          d="M399 384.2C376.9 345.8 335.4 320 288 320l-64 0c-47.4 0-88.9 25.8-111 64.2c35.2 39.2 86.2 63.8 143 63.8s107.8-24.7 143-63.8zM0 256a256 256 0 1 1 512 0A256 256 0 1 1 0 256zm256 16a72 72 0 1 0 0-144 72 72 0 1 0 0 144z"
+          fill="currentColor"
+        />
+      </svg>
+    </button>
+    <div
+      class="dropdown-content"
+    >
+      <p
+        aria-live="polite"
+        class="profileName"
+      >
+        You're logged in as "
+        testUser
+        "
+      </p>
+      <a
+        aria-label="Log out"
+        role="button"
+      >
+        Log out
+      </a>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Profile Component > matches snapshot when user is not logged in 1`] = `
+<div>
+  <div
+    class="dropdown"
+  >
+    <button
+      aria-expanded="false"
+      aria-label="Profile icon"
+      class="profile-icon"
+    >
+      <svg
+        aria-hidden="true"
+        class="svg-inline--fa fa-circle-user fa-2xl "
+        data-icon="circle-user"
+        data-prefix="fas"
+        focusable="false"
+        role="img"
+        viewBox="0 0 512 512"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          d="M399 384.2C376.9 345.8 335.4 320 288 320l-64 0c-47.4 0-88.9 25.8-111 64.2c35.2 39.2 86.2 63.8 143 63.8s107.8-24.7 143-63.8zM0 256a256 256 0 1 1 512 0A256 256 0 1 1 0 256zm256 16a72 72 0 1 0 0-144 72 72 0 1 0 0 144z"
+          fill="currentColor"
+        />
+      </svg>
+    </button>
+  </div>
+</div>
+`;

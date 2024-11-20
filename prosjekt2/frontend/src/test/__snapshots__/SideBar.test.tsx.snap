@@ -1,0 +1,97 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`Sidebar > matches snapshot when Sidebar is closed by default 1`] = `
+<DocumentFragment>
+  <div
+    aria-hidden="true"
+    class="sidebar "
+    role="complementary"
+    tabindex="-1"
+  >
+    <button
+      aria-label="Close"
+      class="close-button"
+      tabindex="-1"
+      type="button"
+    >
+      ✕
+    </button>
+    <div
+      class="filteringContainer"
+    >
+      <div
+        data-testid="sort"
+      >
+        Sort
+      </div>
+      <br />
+      <div
+        data-testid="genre-filter"
+      >
+        Genre Filter
+      </div>
+      <br />
+      <div
+        data-testid="views-filter"
+      >
+        Views Filter
+      </div>
+      <br />
+      <button
+        class="clearFiltersButton"
+        tabindex="-1"
+      >
+        Clear filters
+      </button>
+    </div>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`Sidebar > matches snapshot when Sidebar is open 1`] = `
+<DocumentFragment>
+  <div
+    aria-hidden="true"
+    class="sidebar "
+    role="complementary"
+    tabindex="-1"
+  >
+    <button
+      aria-label="Close"
+      class="close-button"
+      tabindex="-1"
+      type="button"
+    >
+      ✕
+    </button>
+    <div
+      class="filteringContainer"
+    >
+      <div
+        data-testid="sort"
+      >
+        Sort
+      </div>
+      <br />
+      <div
+        data-testid="genre-filter"
+      >
+        Genre Filter
+      </div>
+      <br />
+      <div
+        data-testid="views-filter"
+      >
+        Views Filter
+      </div>
+      <br />
+      <button
+        class="clearFiltersButton"
+        tabindex="-1"
+      >
+        Clear filters
+      </button>
+    </div>
+  </div>
+</DocumentFragment>
+`;
