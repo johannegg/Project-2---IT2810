@@ -43,7 +43,12 @@ const FavoriteButton = ({ song }: FavoriteProps) => {
 	};
 
 	return (
-		<button className="favoriteButton" onClick={handleFavorite} type="button">
+		<button
+			className="favoriteButton"
+			onClick={handleFavorite}
+			type="button"
+			aria-label={isFavorite ? `Remove ${song.title} from favorites` : `Add ${song.title} to favorites`}
+		>
 			{isFavorite ? (
 				<FontAwesomeIcon icon={heartSolid} style={{ color: "var(--theme-favorite-pink)" }} />
 			) : (

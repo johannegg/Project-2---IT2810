@@ -12,33 +12,35 @@ type LyricProps = {
 
 const Lyric = ({ songData }: LyricProps) => {
 	return (
-		<div className="lyrics">
+		<div className="lyrics" aria-label={`Lyrics view for song: ${songData.title} by ${songData.artist.name}`}>
 			<div className="lyrics-header">
-				<BackButton />
+				<BackButton aria-label="Back to previous page" />
 				<div className="buttons-right-container">
-					<FavoriteButton song={songData} />
-					<PlusMinusButton song={songData} />
+					<FavoriteButton song={songData} aria-label={`Mark ${songData.title} as favorite`} />
+					<PlusMinusButton song={songData} aria-label={`Add or remove ${songData.title} from playlist`} />
 				</div>
 			</div>
-			<h1>{songData.title}</h1>
-			<h2>{songData.artist.name}</h2>
-			<section className="songInfo">
-				<p>Release year: {songData.year}</p>
-				<p>Genre: {songData.genre.name}</p>
-				<div className="viewsInfo">
+			<h1 aria-label={`Song title: ${songData.title}`}>{songData.title}</h1>
+			<h2 aria-label={`Artist: ${songData.artist.name}`}>{songData.artist.name}</h2>
+			<section className="songInfo" aria-label="Additional song information">
+				<p aria-label={`Release year: ${songData.year}`}>Release year: {songData.year}</p>
+				<p aria-label={`Genre: ${songData.genre.name}`}>Genre: {songData.genre.name}</p>
+				<div className="viewsInfo" aria-label={`Total views: ${formatViews(songData.views)}`}>
 					<FaEye style={{ marginRight: "5px" }} />
 					<p>{formatViews(songData.views)} Views</p>
 				</div>
 			</section>
-			<hr />
-			<p>
-				{songData.lyrics.split("\n").map((line, index) => (
-					<span key={index}>
-						{line}
-						<br />
-					</span>
-				))}
-			</p>
+			<hr aria-hidden="true" />
+			<section aria-label="Lyrics">
+				<p>
+					{songData.lyrics.split("\n").map((line, index) => (
+						<span key={index}>
+							{line}
+							<br />
+						</span>
+					))}
+				</p>
+			</section>
 		</div>
 	);
 };

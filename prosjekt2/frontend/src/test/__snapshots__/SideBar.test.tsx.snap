@@ -4,6 +4,7 @@ exports[`Sidebar > matches snapshot when Sidebar is closed by default 1`] = `
 <DocumentFragment>
   <div
     aria-hidden="true"
+    aria-label="Sidebar with filtering options"
     class="sidebar "
     role="complementary"
     tabindex="-1"
@@ -17,6 +18,7 @@ exports[`Sidebar > matches snapshot when Sidebar is closed by default 1`] = `
       ✕
     </button>
     <div
+      aria-label="Filtering and sorting container"
       class="filteringContainer"
     >
       <div
@@ -38,6 +40,7 @@ exports[`Sidebar > matches snapshot when Sidebar is closed by default 1`] = `
       </div>
       <br />
       <button
+        aria-label="Clear all filters"
         class="clearFiltersButton"
         tabindex="-1"
       >
@@ -52,6 +55,7 @@ exports[`Sidebar > matches snapshot when Sidebar is open 1`] = `
 <DocumentFragment>
   <div
     aria-hidden="true"
+    aria-label="Sidebar with filtering options"
     class="sidebar "
     role="complementary"
     tabindex="-1"
@@ -65,6 +69,7 @@ exports[`Sidebar > matches snapshot when Sidebar is open 1`] = `
       ✕
     </button>
     <div
+      aria-label="Filtering and sorting container"
       class="filteringContainer"
     >
       <div
@@ -86,6 +91,7 @@ exports[`Sidebar > matches snapshot when Sidebar is open 1`] = `
       </div>
       <br />
       <button
+        aria-label="Clear all filters"
         class="clearFiltersButton"
         tabindex="-1"
       >

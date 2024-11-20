@@ -3,12 +3,15 @@
 exports[`Filter Component > renders genres correctly and matches the snapshot 1`] = `
 <div>
   <section
+    aria-label="Genre filter"
     class="filterContainer"
   >
     <section
+      aria-label="Filter header"
       class="filterHeader"
     >
       <svg
+        aria-hidden="true"
         class="filterSortIcon"
         fill="currentColor"
         height="1em"
@@ -22,26 +25,32 @@ exports[`Filter Component > renders genres correctly and matches the snapshot 1`
           d="M487.976 0H24.028C2.71 0-8.047 25.866 7.058 40.971L192 225.941V432c0 7.831 3.821 15.17 10.237 19.662l80 55.98C298.02 518.69 320 507.493 320 487.98V225.941l184.947-184.97C520.021 25.896 509.338 0 487.976 0z"
         />
       </svg>
-      <h2>
+      <h2
+        aria-label="Genre filter section"
+      >
         Genre
       </h2>
     </section>
     <section
+      aria-label="Available genres"
       class="categories"
     >
       <div
         aria-checked="false"
+        aria-label="Filter for genre Country with 59 available songs"
         class="filterRow"
         role="checkbox"
         tabindex="-1"
       >
         <input
+          aria-label="Toggle Country genre"
           class=""
           id="Country"
           tabindex="0"
           type="checkbox"
         />
         <label
+          aria-label="Label for Country filter"
           class=""
           for="Country"
         >
@@ -58,17 +67,20 @@ exports[`Filter Component > renders genres correctly and matches the snapshot 1`
       </div>
       <div
         aria-checked="false"
+        aria-label="Filter for genre Pop with 990 available songs"
         class="filterRow"
         role="checkbox"
         tabindex="-1"
       >
         <input
+          aria-label="Toggle Pop genre"
           class=""
           id="Pop"
           tabindex="0"
           type="checkbox"
         />
         <label
+          aria-label="Label for Pop filter"
           class=""
           for="Pop"
         >
@@ -85,17 +97,20 @@ exports[`Filter Component > renders genres correctly and matches the snapshot 1`
       </div>
       <div
         aria-checked="false"
+        aria-label="Filter for genre Rap with 1246 available songs"
         class="filterRow"
         role="checkbox"
         tabindex="-1"
       >
         <input
+          aria-label="Toggle Rap genre"
           class=""
           id="Rap"
           tabindex="0"
           type="checkbox"
         />
         <label
+          aria-label="Label for Rap filter"
           class=""
           for="Rap"
         >
@@ -112,17 +127,20 @@ exports[`Filter Component > renders genres correctly and matches the snapshot 1`
       </div>
       <div
         aria-checked="false"
+        aria-label="Filter for genre Rb with 147 available songs"
         class="filterRow"
         role="checkbox"
         tabindex="-1"
       >
         <input
+          aria-label="Toggle Rb genre"
           class=""
           id="Rb"
           tabindex="0"
           type="checkbox"
         />
         <label
+          aria-label="Label for Rb filter"
           class=""
           for="Rb"
         >
@@ -139,17 +157,20 @@ exports[`Filter Component > renders genres correctly and matches the snapshot 1`
       </div>
       <div
         aria-checked="false"
+        aria-label="Filter for genre Rock with 505 available songs"
         class="filterRow"
         role="checkbox"
         tabindex="-1"
       >
         <input
+          aria-label="Toggle Rock genre"
           class=""
           id="Rock"
           tabindex="0"
           type="checkbox"
         />
         <label
+          aria-label="Label for Rock filter"
           class=""
           for="Rock"
         >

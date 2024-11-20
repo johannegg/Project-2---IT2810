@@ -32,16 +32,17 @@ export function AllSongsList({
 		.filter((song) => song.views >= minViews && song.views <= maxViews);
 
 	return (
-		<section className="songContainer">
+		<section className="songContainer" aria-label="Songs list">
 			{filteredSongs.length === 0 ? (
-				<p>No songs found</p>
+				<p aria-label="No songs found">No songs found</p>
 			) : (
-				<table className="songTable">
+				<table className="songTable" aria-label="Filtered songs table">
 					<tbody>
 						{filteredSongs.map((song) => (
 							<tr
 								key={song.id}
 								className="tableRow"
+								aria-label={`Song: ${song.title} by ${song.artist.name}`}
 								onClick={(e) => {
 									if (!(e.target instanceof HTMLButtonElement)) {
 										routeChange(song, navigate);
@@ -58,12 +59,16 @@ export function AllSongsList({
 									}
 								}}
 							>
-								<td className="title-artist-cell">
-									<span className="titleCell">{song.title}</span>
-									<span className="artistCell">{song.artist.name}</span>
+								<td className="title-artist-cell" aria-label="Song title and artist">
+									<span className="titleCell" aria-label={`Title: ${song.title}`}>
+										{song.title}
+									</span>
+									<span className="artistCell" aria-label={`Artist: ${song.artist.name}`}>
+										{song.artist.name}
+									</span>
 								</td>
-								<td>{song.year}</td>
-								<td className="viewsCell">
+								<td aria-label={`Year: ${song.year}`}>{song.year}</td>
+								<td className="viewsCell" aria-label={`Views: ${song.views}`}>
 									<FaEye style={{ marginRight: "5px" }} />
 									{formatViews(song.views)}
 								</td>

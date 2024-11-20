@@ -128,9 +128,9 @@ const PlaylistForm: React.FC<PlaylistFormProps> = ({ show, onClose, onSubmit }) 
 	const colorOptions = isDarkMode ? darkModeColors : lightModeColors;
 
 	return (
-		<div className="form-overlay">
-			<form className="form-content" onSubmit={handleSubmit}>
-				<h2>Create new playlist</h2>
+		<div className="form-overlay" aria-label="Playlist creation form">
+			<form className="form-content" onSubmit={handleSubmit} aria-labelledby="form-title">
+				<h2 id="form-title">Create new playlist</h2>
 				<fieldset>
 					<label htmlFor="playlist-name" className="playlist-label">
 						Enter playlist name:
@@ -144,6 +144,8 @@ const PlaylistForm: React.FC<PlaylistFormProps> = ({ show, onClose, onSubmit }) 
 						maxLength={15}
 						ref={inputRef}
 						className={`playlist-input ${hasError ? "input-error" : ""}`}
+						aria-required="true"
+						aria-invalid={hasError}
 					/>
 
 					<label className="playlist-label">Select background color:</label>
@@ -156,6 +158,8 @@ const PlaylistForm: React.FC<PlaylistFormProps> = ({ show, onClose, onSubmit }) 
 								type="button"
 								onClick={() => handleColorSelection(color)}
 								data-colorname={name}
+								aria-label={`Select ${name} color`}
+								aria-pressed={selectedColor === (isDarkMode ? colorMapping[color] : color)}
 							/>
 						))}
 					</div>
@@ -169,6 +173,8 @@ const PlaylistForm: React.FC<PlaylistFormProps> = ({ show, onClose, onSubmit }) 
 								className={selectedIcon === icon ? "icon-button active" : "icon-button"}
 								onClick={() => setSelectedIcon(icon)}
 								data-iconname={name}
+								aria-label={`Select ${name} icon`}
+								aria-pressed={selectedIcon === icon}
 							>
 								{icon}
 							</button>
@@ -176,10 +182,19 @@ const PlaylistForm: React.FC<PlaylistFormProps> = ({ show, onClose, onSubmit }) 
 					</div>
 				</fieldset>
 
-				<button type="button" className="form-close-button" onClick={handleClose}>
+				<button
+					type="button"
+					className="form-close-button"
+					onClick={handleClose}
+					aria-label="Close playlist creation form"
+				>
 					Close
 				</button>
-				<button type="submit" className="form-submit-button">
+				<button
+					type="submit"
+					className="form-submit-button"
+					aria-label="Submit playlist creation form"
+				>
 					Submit
 				</button>
 			</form>

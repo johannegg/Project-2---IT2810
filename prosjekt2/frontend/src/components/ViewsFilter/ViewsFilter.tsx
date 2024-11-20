@@ -57,7 +57,7 @@ export function ViewsFilter({ onViewsChange }: ViewsFilterProps) {
 	return (
 		<section className="filterContainer">
 			<section className="filterHeader">
-				<FaFilter className="filterSortIcon" />
+				<FaFilter className="filterSortIcon" aria-label="Filter icon" />
 				<h2>Views</h2>
 			</section>
 			<div className="slider" tabIndex={-1}>
@@ -70,12 +70,13 @@ export function ViewsFilter({ onViewsChange }: ViewsFilterProps) {
 					value={[minViews, maxViews]}
 					onChange={handleSliderChange}
 					onAfterChange={handleAfterSliderChange}
+					ariaLabel={["Minimum views slider", "Maximum views slider"]}
 					renderThumb={({ key, ...rest }) => (
 						<div {...rest} key={key} tabIndex={-1} className="thumb" />
 					)}
 				/>
 				<div className="viewValues">
-					<span>
+					<span aria-label={`Views range: ${formatViews(minViews)} to ${formatViews(maxViews)}`}>
 						{formatViews(minViews)} - {formatViews(maxViews)}
 					</span>
 				</div>
