@@ -12,7 +12,6 @@ const Profile: React.FC = () => {
 	const [isLoggedIn, setLogin] = useState<boolean>(false);
 	const [inputValue, setInputValue] = useState<string>("");
 	const [showLogin, setShowLogin] = useState<boolean>(false);
-	// Initialize the createUser mutation
 	const [createUser, { loading: creatingUser, error: userError }] = useMutation(CREATE_USER);
 
 	const navigate = useNavigate();
@@ -41,7 +40,6 @@ const Profile: React.FC = () => {
 			try {
 				const { data } = await createUser({ variables: { username: inputValue } });
 				if (data && data.createUser) {
-					// If user creation is successful
 					setProfile(data.createUser.username);
 					setLogin(true);
 					favoriteSongsVar(data.createUser.favoriteSongs);
@@ -49,7 +47,7 @@ const Profile: React.FC = () => {
 					localStorage.setItem("favoriteSongs", JSON.stringify(data.createUser.favoriteSongs));
 				}
 			} catch (error) {
-				console.error("Error creating or retriving user:", error);
+				console.error("Error creating or retrieving user:", error);
 			}
 		}
 	};
@@ -58,18 +56,27 @@ const Profile: React.FC = () => {
 		<>
 			{isLoggedIn ? (
 				<div className="dropdown">
-					<button className="profile-icon">
+					<button className="profile-icon" aria-label="Profile icon menu" aria-expanded="true">
 						<FontAwesomeIcon icon={faCircleUser} size="2xl" />
 					</button>
 					<div className="dropdown-content">
-						<p className="profileName">You're logged in as "{profileName}"</p>
-						<a onClick={logOut}>Log out</a>
+						<p className="profileName" aria-live="polite">
+							You're logged in as "{profileName}"
+						</p>
+						<a onClick={logOut} aria-label="Log out" role="button">
+							Log out
+						</a>
 					</div>
 				</div>
 			) : (
 				<>
 					<div className="dropdown">
-						<button className="profile-icon" onClick={() => setShowLogin(!showLogin)}>
+						<button
+							className="profile-icon"
+							onClick={() => setShowLogin(!showLogin)}
+							aria-label="Profile icon"
+							aria-expanded={showLogin}
+						>
 							<FontAwesomeIcon icon={faCircleUser} size="2xl" />
 						</button>
 					</div>
@@ -79,34 +86,42 @@ const Profile: React.FC = () => {
 								className="close-login-button"
 								icon={faXmark}
 								onClick={() => setShowLogin(false)}
+								aria-label="Close login form"
 							/>
-							<div className="profile-login">
-								<p className="login-information">
+							<div className="profile-login" aria-labelledby="login-form-title">
+								<p id="login-form-title" className="login-information">
 									{creatingUser
 										? "Logging in..."
 										: "Choose a unique username, or log in with an existing one"}
 								</p>
-								{userError && <p className="error-message">{userError.message}</p>}
+								{userError && (
+									<p className="error-message" role="alert">
+										{userError.message}
+									</p>
+								)}
 								<form
 									className="login-form"
 									onSubmit={(e) => {
 										e.preventDefault();
 										logIn();
 									}}
+									aria-label="Login form"
 								>
 									<FontAwesomeIcon
 										className="profile-login-icon"
 										icon={faCircleUser}
 										size="lg"
 										style={{ color: "#ea9ab2" }}
+										aria-hidden="true"
 									/>
 									<input
 										className="login-input"
 										placeholder="Enter username"
 										value={inputValue}
 										onChange={(e) => setInputValue(e.target.value)}
+										aria-label="Enter username"
 									/>
-									<button className="login-button" type="submit">
+									<button className="login-button" type="submit" aria-label="Submit login">
 										<FontAwesomeIcon icon={faArrowRight} style={{ color: "#FFF" }} />
 									</button>
 								</form>

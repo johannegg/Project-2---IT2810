@@ -5,7 +5,6 @@ import "./FavoriteButton.css";
 import { useReactiveVar } from "@apollo/client";
 import { favoriteSongsVar } from "../../apollo/cache";
 import { SongData } from "../../utils/types/SongTypes";
-import { useEffect } from "react";
 import { useMutation } from "@apollo/client";
 import { ADD_FAVORITE_SONG, REMOVE_FAVORITE_SONG } from "../../utils/Queries";
 
@@ -22,19 +21,19 @@ const FavoriteButton = ({ song }: FavoriteProps) => {
 	const handleFavorite = async (e: React.MouseEvent<HTMLButtonElement>) => {
 		e.stopPropagation();
 		const storedUsername = localStorage.getItem("profileName");
-		if (storedUsername == "" || !storedUsername) {
+		if (!storedUsername) {
 			alert("You need to log in to favorite songs");
 			return;
 		}
 		if (isFavorite) {
-			// Remove song from favorites when toggling a already hearted the favorite button
+			// Remove song from favorites
 			const updatedFavorites = favoriteSongs.filter((favoriteSong) => favoriteSong.id !== song.id);
 			favoriteSongsVar([...updatedFavorites]);
 			await removeFavorite({
 				variables: { username: storedUsername, songId: song.id },
 			});
 		} else {
-			// Add entire song object to favorites
+			// Add song to favorites
 			const updatedFavorites = [...favoriteSongs, song];
 			favoriteSongsVar([...updatedFavorites]);
 			await addFavorite({
@@ -42,11 +41,6 @@ const FavoriteButton = ({ song }: FavoriteProps) => {
 			});
 		}
 	};
-
-	// Oppdater `localStorage` hver gang `favoriteSongsVar` endres
-	useEffect(() => {
-		localStorage.setItem("favoriteSongs", JSON.stringify(favoriteSongs));
-	}, [favoriteSongs]);
 
 	return (
 		<button className="favoriteButton" onClick={handleFavorite} type="button">

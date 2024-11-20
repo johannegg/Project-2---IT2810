@@ -31,6 +31,7 @@ export const Sidebar = forwardRef<HTMLDivElement, SidebarProps>(
 		const sortOption = useReactiveVar(sortOptionVar);
 		const clearFilters = useReactiveVar(clearFiltersVar);
 
+		// Load sidebar state from session storage on mount
 		useEffect(() => {
 			const savedState = sessionStorage.getItem("isSidebarOpen");
 			if (savedState !== null) {
@@ -38,10 +39,12 @@ export const Sidebar = forwardRef<HTMLDivElement, SidebarProps>(
 			}
 		}, []);
 
+		// Save sidebar state to session storage whenever it changes
 		useEffect(() => {
 			sessionStorage.setItem("isSidebarOpen", isSidebarOpen.toString());
 		}, [isSidebarOpen]);
 
+		// Manage focusable elements based on sidebar open/close state
 		useEffect(() => {
 			if (!ref || !("current" in ref)) return;
 
@@ -61,12 +64,14 @@ export const Sidebar = forwardRef<HTMLDivElement, SidebarProps>(
 			});
 		}, [isSidebarOpen, ref]);
 
+		// Toggle sidebar open/close state
 		const toggleMenu = () => {
 			const newState = !isSidebarOpen;
 			isSidebarOpenVar(newState);
 			onToggle(newState);
 		};
 
+		// Clear genre filters when clearFilters state is set
 		useEffect(() => {
 			if (clearFilters) {
 				genreFilterVar([]);
@@ -79,6 +84,7 @@ export const Sidebar = forwardRef<HTMLDivElement, SidebarProps>(
 				aria-hidden={!isSidebarOpen}
 				tabIndex={isSidebarOpen ? 0 : -1}
 				ref={ref}
+				role="complementary" // Added role for accessibility and testing
 			>
 				<button
 					className="close-button"

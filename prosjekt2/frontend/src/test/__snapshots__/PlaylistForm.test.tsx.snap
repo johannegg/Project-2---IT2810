@@ -1,0 +1,1907 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`PlaylistForm Component > calls onClose when the close button is clicked 1`] = `
+<div>
+  <div
+    class="form-overlay"
+  >
+    <form
+      class="form-content"
+    >
+      <h2>
+        Create new playlist
+      </h2>
+      <fieldset>
+        <label
+          class="playlist-label"
+          for="playlist-name"
+        >
+          Enter playlist name:
+        </label>
+        <input
+          class="playlist-input "
+          id="playlist-name"
+          maxlength="15"
+          placeholder="Enter playlist name"
+          type="text"
+          value=""
+        />
+        <label
+          class="playlist-label"
+        >
+          Select background color:
+        </label>
+        <div
+          class="color-options"
+        >
+          <button
+            class="color-button selected"
+            data-colorname="Dark Gray"
+            style="background-color: rgb(138, 133, 135);"
+            type="button"
+          />
+          <button
+            class="color-button "
+            data-colorname="Dark Purple"
+            style="background-color: rgb(134, 111, 149);"
+            type="button"
+          />
+          <button
+            class="color-button "
+            data-colorname="Dark Pink"
+            style="background-color: rgb(158, 51, 105);"
+            type="button"
+          />
+          <button
+            class="color-button "
+            data-colorname="Dark Yellow"
+            style="background-color: rgb(215, 186, 40);"
+            type="button"
+          />
+          <button
+            class="color-button "
+            data-colorname="Dark Green"
+            style="background-color: rgb(53, 105, 63);"
+            type="button"
+          />
+          <button
+            class="color-button "
+            data-colorname="Dark Blue"
+            style="background-color: rgb(68, 89, 136);"
+            type="button"
+          />
+        </div>
+        <label
+          class="playlist-label"
+        >
+          Select an icon:
+        </label>
+        <div
+          class="icon-options"
+        >
+          <button
+            class="icon-button active"
+            data-iconname="Music Note"
+            type="button"
+          >
+            🎵
+          </button>
+          <button
+            class="icon-button"
+            data-iconname="Guitar"
+            type="button"
+          >
+            🎸
+          </button>
+          <button
+            class="icon-button"
+            data-iconname="Microphone"
+            type="button"
+          >
+            🎤
+          </button>
+          <button
+            class="icon-button"
+            data-iconname="Heart on Fire"
+            type="button"
+          >
+            ❤️‍🔥
+          </button>
+          <button
+            class="icon-button"
+            data-iconname="Mushroom"
+            type="button"
+          >
+            🍄
+          </button>
+          <button
+            class="icon-button"
+            data-iconname="Flower"
+            type="button"
+          >
+            🌸
+          </button>
+          <button
+            class="icon-button"
+            data-iconname="Sparkles"
+            type="button"
+          >
+            ✨
+          </button>
+          <button
+            class="icon-button"
+            data-iconname="Violin"
+            type="button"
+          >
+            🎻
+          </button>
+          <button
+            class="icon-button"
+            data-iconname="Projector"
+            type="button"
+          >
+            📽️
+          </button>
+          <button
+            class="icon-button"
+            data-iconname="Yoga"
+            type="button"
+          >
+            🧘‍♀️
+          </button>
+          <button
+            class="icon-button"
+            data-iconname="Weight Lifting"
+            type="button"
+          >
+            🏋️‍♀️
+          </button>
+          <button
+            class="icon-button"
+            data-iconname="Running"
+            type="button"
+          >
+            🏃‍♀️‍➡️
+          </button>
+          <button
+            class="icon-button"
+            data-iconname="Unicorn"
+            type="button"
+          >
+            🦄
+          </button>
+          <button
+            class="icon-button"
+            data-iconname="Disco Ball"
+            type="button"
+          >
+            🪩
+          </button>
+          <button
+            class="icon-button"
+            data-iconname="Dancer"
+            type="button"
+          >
+            🕺
+          </button>
+          <button
+            class="icon-button"
+            data-iconname="Autumn Leaf"
+            type="button"
+          >
+            🍂
+          </button>
+          <button
+            class="icon-button"
+            data-iconname="Leaf"
+            type="button"
+          >
+            🌿
+          </button>
+          <button
+            class="icon-button"
+            data-iconname="Christmas Tree"
+            type="button"
+          >
+            🎄
+          </button>
+          <button
+            class="icon-button"
+            data-iconname="Pumpkin"
+            type="button"
+          >
+            🎃
+          </button>
+          <button
+            class="icon-button"
+            data-iconname="Broken Heart"
+            type="button"
+          >
+            💔
+          </button>
+        </div>
+      </fieldset>
+      <button
+        class="form-close-button"
+        type="button"
+      >
+        Close
+      </button>
+      <button
+        class="form-submit-button"
+        type="submit"
+      >
+        Submit
+      </button>
+    </form>
+  </div>
+</div>
+`;
+
+exports[`PlaylistForm Component > calls onSubmit with correct values when the form is submitted 1`] = `
+<div>
+  <div
+    class="form-overlay"
+  >
+    <form
+      class="form-content"
+    >
+      <h2>
+        Create new playlist
+      </h2>
+      <fieldset>
+        <label
+          class="playlist-label"
+          for="playlist-name"
+        >
+          Enter playlist name:
+        </label>
+        <input
+          class="playlist-input "
+          id="playlist-name"
+          maxlength="15"
+          placeholder="Enter playlist name"
+          type="text"
+          value=""
+        />
+        <label
+          class="playlist-label"
+        >
+          Select background color:
+        </label>
+        <div
+          class="color-options"
+        >
+          <button
+            class="color-button selected"
+            data-colorname="Dark Gray"
+            style="background-color: rgb(138, 133, 135);"
+            type="button"
+          />
+          <button
+            class="color-button "
+            data-colorname="Dark Purple"
+            style="background-color: rgb(134, 111, 149);"
+            type="button"
+          />
+          <button
+            class="color-button "
+            data-colorname="Dark Pink"
+            style="background-color: rgb(158, 51, 105);"
+            type="button"
+          />
+          <button
+            class="color-button "
+            data-colorname="Dark Yellow"
+            style="background-color: rgb(215, 186, 40);"
+            type="button"
+          />
+          <button
+            class="color-button "
+            data-colorname="Dark Green"
+            style="background-color: rgb(53, 105, 63);"
+            type="button"
+          />
+          <button
+            class="color-button "
+            data-colorname="Dark Blue"
+            style="background-color: rgb(68, 89, 136);"
+            type="button"
+          />
+        </div>
+        <label
+          class="playlist-label"
+        >
+          Select an icon:
+        </label>
+        <div
+          class="icon-options"
+        >
+          <button
+            class="icon-button active"
+            data-iconname="Music Note"
+            type="button"
+          >
+            🎵
+          </button>
+          <button
+            class="icon-button"
+            data-iconname="Guitar"
+            type="button"
+          >
+            🎸
+          </button>
+          <button
+            class="icon-button"
+            data-iconname="Microphone"
+            type="button"
+          >
+            🎤
+          </button>
+          <button
+            class="icon-button"
+            data-iconname="Heart on Fire"
+            type="button"
+          >
+            ❤️‍🔥
+          </button>
+          <button
+            class="icon-button"
+            data-iconname="Mushroom"
+            type="button"
+          >
+            🍄
+          </button>
+          <button
+            class="icon-button"
+            data-iconname="Flower"
+            type="button"
+          >
+            🌸
+          </button>
+          <button
+            class="icon-button"
+            data-iconname="Sparkles"
+            type="button"
+          >
+            ✨
+          </button>
+          <button
+            class="icon-button"
+            data-iconname="Violin"
+            type="button"
+          >
+            🎻
+          </button>
+          <button
+            class="icon-button"
+            data-iconname="Projector"
+            type="button"
+          >
+            📽️
+          </button>
+          <button
+            class="icon-button"
+            data-iconname="Yoga"
+            type="button"
+          >
+            🧘‍♀️
+          </button>
+          <button
+            class="icon-button"
+            data-iconname="Weight Lifting"
+            type="button"
+          >
+            🏋️‍♀️
+          </button>
+          <button
+            class="icon-button"
+            data-iconname="Running"
+            type="button"
+          >
+            🏃‍♀️‍➡️
+          </button>
+          <button
+            class="icon-button"
+            data-iconname="Unicorn"
+            type="button"
+          >
+            🦄
+          </button>
+          <button
+            class="icon-button"
+            data-iconname="Disco Ball"
+            type="button"
+          >
+            🪩
+          </button>
+          <button
+            class="icon-button"
+            data-iconname="Dancer"
+            type="button"
+          >
+            🕺
+          </button>
+          <button
+            class="icon-button"
+            data-iconname="Autumn Leaf"
+            type="button"
+          >
+            🍂
+          </button>
+          <button
+            class="icon-button"
+            data-iconname="Leaf"
+            type="button"
+          >
+            🌿
+          </button>
+          <button
+            class="icon-button"
+            data-iconname="Christmas Tree"
+            type="button"
+          >
+            🎄
+          </button>
+          <button
+            class="icon-button"
+            data-iconname="Pumpkin"
+            type="button"
+          >
+            🎃
+          </button>
+          <button
+            class="icon-button"
+            data-iconname="Broken Heart"
+            type="button"
+          >
+            💔
+          </button>
+        </div>
+      </fieldset>
+      <button
+        class="form-close-button"
+        type="button"
+      >
+        Close
+      </button>
+      <button
+        class="form-submit-button"
+        type="submit"
+      >
+        Submit
+      </button>
+    </form>
+  </div>
+</div>
+`;
+
+exports[`PlaylistForm Component > does not render when show is false 1`] = `<div />`;
+
+exports[`PlaylistForm Component > focuses on the input field when the form is shown 1`] = `
+<div>
+  <div
+    class="form-overlay"
+  >
+    <form
+      class="form-content"
+    >
+      <h2>
+        Create new playlist
+      </h2>
+      <fieldset>
+        <label
+          class="playlist-label"
+          for="playlist-name"
+        >
+          Enter playlist name:
+        </label>
+        <input
+          class="playlist-input "
+          id="playlist-name"
+          maxlength="15"
+          placeholder="Enter playlist name"
+          type="text"
+          value=""
+        />
+        <label
+          class="playlist-label"
+        >
+          Select background color:
+        </label>
+        <div
+          class="color-options"
+        >
+          <button
+            class="color-button selected"
+            data-colorname="Dark Gray"
+            style="background-color: rgb(138, 133, 135);"
+            type="button"
+          />
+          <button
+            class="color-button "
+            data-colorname="Dark Purple"
+            style="background-color: rgb(134, 111, 149);"
+            type="button"
+          />
+          <button
+            class="color-button "
+            data-colorname="Dark Pink"
+            style="background-color: rgb(158, 51, 105);"
+            type="button"
+          />
+          <button
+            class="color-button "
+            data-colorname="Dark Yellow"
+            style="background-color: rgb(215, 186, 40);"
+            type="button"
+          />
+          <button
+            class="color-button "
+            data-colorname="Dark Green"
+            style="background-color: rgb(53, 105, 63);"
+            type="button"
+          />
+          <button
+            class="color-button "
+            data-colorname="Dark Blue"
+            style="background-color: rgb(68, 89, 136);"
+            type="button"
+          />
+        </div>
+        <label
+          class="playlist-label"
+        >
+          Select an icon:
+        </label>
+        <div
+          class="icon-options"
+        >
+          <button
+            class="icon-button active"
+            data-iconname="Music Note"
+            type="button"
+          >
+            🎵
+          </button>
+          <button
+            class="icon-button"
+            data-iconname="Guitar"
+            type="button"
+          >
+            🎸
+          </button>
+          <button
+            class="icon-button"
+            data-iconname="Microphone"
+            type="button"
+          >
+            🎤
+          </button>
+          <button
+            class="icon-button"
+            data-iconname="Heart on Fire"
+            type="button"
+          >
+            ❤️‍🔥
+          </button>
+          <button
+            class="icon-button"
+            data-iconname="Mushroom"
+            type="button"
+          >
+            🍄
+          </button>
+          <button
+            class="icon-button"
+            data-iconname="Flower"
+            type="button"
+          >
+            🌸
+          </button>
+          <button
+            class="icon-button"
+            data-iconname="Sparkles"
+            type="button"
+          >
+            ✨
+          </button>
+          <button
+            class="icon-button"
+            data-iconname="Violin"
+            type="button"
+          >
+            🎻
+          </button>
+          <button
+            class="icon-button"
+            data-iconname="Projector"
+            type="button"
+          >
+            📽️
+          </button>
+          <button
+            class="icon-button"
+            data-iconname="Yoga"
+            type="button"
+          >
+            🧘‍♀️
+          </button>
+          <button
+            class="icon-button"
+            data-iconname="Weight Lifting"
+            type="button"
+          >
+            🏋️‍♀️
+          </button>
+          <button
+            class="icon-button"
+            data-iconname="Running"
+            type="button"
+          >
+            🏃‍♀️‍➡️
+          </button>
+          <button
+            class="icon-button"
+            data-iconname="Unicorn"
+            type="button"
+          >
+            🦄
+          </button>
+          <button
+            class="icon-button"
+            data-iconname="Disco Ball"
+            type="button"
+          >
+            🪩
+          </button>
+          <button
+            class="icon-button"
+            data-iconname="Dancer"
+            type="button"
+          >
+            🕺
+          </button>
+          <button
+            class="icon-button"
+            data-iconname="Autumn Leaf"
+            type="button"
+          >
+            🍂
+          </button>
+          <button
+            class="icon-button"
+            data-iconname="Leaf"
+            type="button"
+          >
+            🌿
+          </button>
+          <button
+            class="icon-button"
+            data-iconname="Christmas Tree"
+            type="button"
+          >
+            🎄
+          </button>
+          <button
+            class="icon-button"
+            data-iconname="Pumpkin"
+            type="button"
+          >
+            🎃
+          </button>
+          <button
+            class="icon-button"
+            data-iconname="Broken Heart"
+            type="button"
+          >
+            💔
+          </button>
+        </div>
+      </fieldset>
+      <button
+        class="form-close-button"
+        type="button"
+      >
+        Close
+      </button>
+      <button
+        class="form-submit-button"
+        type="submit"
+      >
+        Submit
+      </button>
+    </form>
+  </div>
+</div>
+`;
+
+exports[`PlaylistForm Component > handles color selection 1`] = `
+<div>
+  <div
+    class="form-overlay"
+  >
+    <form
+      class="form-content"
+    >
+      <h2>
+        Create new playlist
+      </h2>
+      <fieldset>
+        <label
+          class="playlist-label"
+          for="playlist-name"
+        >
+          Enter playlist name:
+        </label>
+        <input
+          class="playlist-input "
+          id="playlist-name"
+          maxlength="15"
+          placeholder="Enter playlist name"
+          type="text"
+          value=""
+        />
+        <label
+          class="playlist-label"
+        >
+          Select background color:
+        </label>
+        <div
+          class="color-options"
+        >
+          <button
+            class="color-button selected"
+            data-colorname="Dark Gray"
+            style="background-color: rgb(138, 133, 135);"
+            type="button"
+          />
+          <button
+            class="color-button "
+            data-colorname="Dark Purple"
+            style="background-color: rgb(134, 111, 149);"
+            type="button"
+          />
+          <button
+            class="color-button "
+            data-colorname="Dark Pink"
+            style="background-color: rgb(158, 51, 105);"
+            type="button"
+          />
+          <button
+            class="color-button "
+            data-colorname="Dark Yellow"
+            style="background-color: rgb(215, 186, 40);"
+            type="button"
+          />
+          <button
+            class="color-button "
+            data-colorname="Dark Green"
+            style="background-color: rgb(53, 105, 63);"
+            type="button"
+          />
+          <button
+            class="color-button "
+            data-colorname="Dark Blue"
+            style="background-color: rgb(68, 89, 136);"
+            type="button"
+          />
+        </div>
+        <label
+          class="playlist-label"
+        >
+          Select an icon:
+        </label>
+        <div
+          class="icon-options"
+        >
+          <button
+            class="icon-button active"
+            data-iconname="Music Note"
+            type="button"
+          >
+            🎵
+          </button>
+          <button
+            class="icon-button"
+            data-iconname="Guitar"
+            type="button"
+          >
+            🎸
+          </button>
+          <button
+            class="icon-button"
+            data-iconname="Microphone"
+            type="button"
+          >
+            🎤
+          </button>
+          <button
+            class="icon-button"
+            data-iconname="Heart on Fire"
+            type="button"
+          >
+            ❤️‍🔥
+          </button>
+          <button
+            class="icon-button"
+            data-iconname="Mushroom"
+            type="button"
+          >
+            🍄
+          </button>
+          <button
+            class="icon-button"
+            data-iconname="Flower"
+            type="button"
+          >
+            🌸
+          </button>
+          <button
+            class="icon-button"
+            data-iconname="Sparkles"
+            type="button"
+          >
+            ✨
+          </button>
+          <button
+            class="icon-button"
+            data-iconname="Violin"
+            type="button"
+          >
+            🎻
+          </button>
+          <button
+            class="icon-button"
+            data-iconname="Projector"
+            type="button"
+          >
+            📽️
+          </button>
+          <button
+            class="icon-button"
+            data-iconname="Yoga"
+            type="button"
+          >
+            🧘‍♀️
+          </button>
+          <button
+            class="icon-button"
+            data-iconname="Weight Lifting"
+            type="button"
+          >
+            🏋️‍♀️
+          </button>
+          <button
+            class="icon-button"
+            data-iconname="Running"
+            type="button"
+          >
+            🏃‍♀️‍➡️
+          </button>
+          <button
+            class="icon-button"
+            data-iconname="Unicorn"
+            type="button"
+          >
+            🦄
+          </button>
+          <button
+            class="icon-button"
+            data-iconname="Disco Ball"
+            type="button"
+          >
+            🪩
+          </button>
+          <button
+            class="icon-button"
+            data-iconname="Dancer"
+            type="button"
+          >
+            🕺
+          </button>
+          <button
+            class="icon-button"
+            data-iconname="Autumn Leaf"
+            type="button"
+          >
+            🍂
+          </button>
+          <button
+            class="icon-button"
+            data-iconname="Leaf"
+            type="button"
+          >
+            🌿
+          </button>
+          <button
+            class="icon-button"
+            data-iconname="Christmas Tree"
+            type="button"
+          >
+            🎄
+          </button>
+          <button
+            class="icon-button"
+            data-iconname="Pumpkin"
+            type="button"
+          >
+            🎃
+          </button>
+          <button
+            class="icon-button"
+            data-iconname="Broken Heart"
+            type="button"
+          >
+            💔
+          </button>
+        </div>
+      </fieldset>
+      <button
+        class="form-close-button"
+        type="button"
+      >
+        Close
+      </button>
+      <button
+        class="form-submit-button"
+        type="submit"
+      >
+        Submit
+      </button>
+    </form>
+  </div>
+</div>
+`;
+
+exports[`PlaylistForm Component > handles icon selection 1`] = `
+<div>
+  <div
+    class="form-overlay"
+  >
+    <form
+      class="form-content"
+    >
+      <h2>
+        Create new playlist
+      </h2>
+      <fieldset>
+        <label
+          class="playlist-label"
+          for="playlist-name"
+        >
+          Enter playlist name:
+        </label>
+        <input
+          class="playlist-input "
+          id="playlist-name"
+          maxlength="15"
+          placeholder="Enter playlist name"
+          type="text"
+          value=""
+        />
+        <label
+          class="playlist-label"
+        >
+          Select background color:
+        </label>
+        <div
+          class="color-options"
+        >
+          <button
+            class="color-button selected"
+            data-colorname="Dark Gray"
+            style="background-color: rgb(138, 133, 135);"
+            type="button"
+          />
+          <button
+            class="color-button "
+            data-colorname="Dark Purple"
+            style="background-color: rgb(134, 111, 149);"
+            type="button"
+          />
+          <button
+            class="color-button "
+            data-colorname="Dark Pink"
+            style="background-color: rgb(158, 51, 105);"
+            type="button"
+          />
+          <button
+            class="color-button "
+            data-colorname="Dark Yellow"
+            style="background-color: rgb(215, 186, 40);"
+            type="button"
+          />
+          <button
+            class="color-button "
+            data-colorname="Dark Green"
+            style="background-color: rgb(53, 105, 63);"
+            type="button"
+          />
+          <button
+            class="color-button "
+            data-colorname="Dark Blue"
+            style="background-color: rgb(68, 89, 136);"
+            type="button"
+          />
+        </div>
+        <label
+          class="playlist-label"
+        >
+          Select an icon:
+        </label>
+        <div
+          class="icon-options"
+        >
+          <button
+            class="icon-button"
+            data-iconname="Music Note"
+            type="button"
+          >
+            🎵
+          </button>
+          <button
+            class="icon-button active"
+            data-iconname="Guitar"
+            type="button"
+          >
+            🎸
+          </button>
+          <button
+            class="icon-button"
+            data-iconname="Microphone"
+            type="button"
+          >
+            🎤
+          </button>
+          <button
+            class="icon-button"
+            data-iconname="Heart on Fire"
+            type="button"
+          >
+            ❤️‍🔥
+          </button>
+          <button
+            class="icon-button"
+            data-iconname="Mushroom"
+            type="button"
+          >
+            🍄
+          </button>
+          <button
+            class="icon-button"
+            data-iconname="Flower"
+            type="button"
+          >
+            🌸
+          </button>
+          <button
+            class="icon-button"
+            data-iconname="Sparkles"
+            type="button"
+          >
+            ✨
+          </button>
+          <button
+            class="icon-button"
+            data-iconname="Violin"
+            type="button"
+          >
+            🎻
+          </button>
+          <button
+            class="icon-button"
+            data-iconname="Projector"
+            type="button"
+          >
+            📽️
+          </button>
+          <button
+            class="icon-button"
+            data-iconname="Yoga"
+            type="button"
+          >
+            🧘‍♀️
+          </button>
+          <button
+            class="icon-button"
+            data-iconname="Weight Lifting"
+            type="button"
+          >
+            🏋️‍♀️
+          </button>
+          <button
+            class="icon-button"
+            data-iconname="Running"
+            type="button"
+          >
+            🏃‍♀️‍➡️
+          </button>
+          <button
+            class="icon-button"
+            data-iconname="Unicorn"
+            type="button"
+          >
+            🦄
+          </button>
+          <button
+            class="icon-button"
+            data-iconname="Disco Ball"
+            type="button"
+          >
+            🪩
+          </button>
+          <button
+            class="icon-button"
+            data-iconname="Dancer"
+            type="button"
+          >
+            🕺
+          </button>
+          <button
+            class="icon-button"
+            data-iconname="Autumn Leaf"
+            type="button"
+          >
+            🍂
+          </button>
+          <button
+            class="icon-button"
+            data-iconname="Leaf"
+            type="button"
+          >
+            🌿
+          </button>
+          <button
+            class="icon-button"
+            data-iconname="Christmas Tree"
+            type="button"
+          >
+            🎄
+          </button>
+          <button
+            class="icon-button"
+            data-iconname="Pumpkin"
+            type="button"
+          >
+            🎃
+          </button>
+          <button
+            class="icon-button"
+            data-iconname="Broken Heart"
+            type="button"
+          >
+            💔
+          </button>
+        </div>
+      </fieldset>
+      <button
+        class="form-close-button"
+        type="button"
+      >
+        Close
+      </button>
+      <button
+        class="form-submit-button"
+        type="submit"
+      >
+        Submit
+      </button>
+    </form>
+  </div>
+</div>
+`;
+
+exports[`PlaylistForm Component > renders correctly when show is true 1`] = `
+<div>
+  <div
+    class="form-overlay"
+  >
+    <form
+      class="form-content"
+    >
+      <h2>
+        Create new playlist
+      </h2>
+      <fieldset>
+        <label
+          class="playlist-label"
+          for="playlist-name"
+        >
+          Enter playlist name:
+        </label>
+        <input
+          class="playlist-input "
+          id="playlist-name"
+          maxlength="15"
+          placeholder="Enter playlist name"
+          type="text"
+          value=""
+        />
+        <label
+          class="playlist-label"
+        >
+          Select background color:
+        </label>
+        <div
+          class="color-options"
+        >
+          <button
+            class="color-button selected"
+            data-colorname="Dark Gray"
+            style="background-color: rgb(138, 133, 135);"
+            type="button"
+          />
+          <button
+            class="color-button "
+            data-colorname="Dark Purple"
+            style="background-color: rgb(134, 111, 149);"
+            type="button"
+          />
+          <button
+            class="color-button "
+            data-colorname="Dark Pink"
+            style="background-color: rgb(158, 51, 105);"
+            type="button"
+          />
+          <button
+            class="color-button "
+            data-colorname="Dark Yellow"
+            style="background-color: rgb(215, 186, 40);"
+            type="button"
+          />
+          <button
+            class="color-button "
+            data-colorname="Dark Green"
+            style="background-color: rgb(53, 105, 63);"
+            type="button"
+          />
+          <button
+            class="color-button "
+            data-colorname="Dark Blue"
+            style="background-color: rgb(68, 89, 136);"
+            type="button"
+          />
+        </div>
+        <label
+          class="playlist-label"
+        >
+          Select an icon:
+        </label>
+        <div
+          class="icon-options"
+        >
+          <button
+            class="icon-button active"
+            data-iconname="Music Note"
+            type="button"
+          >
+            🎵
+          </button>
+          <button
+            class="icon-button"
+            data-iconname="Guitar"
+            type="button"
+          >
+            🎸
+          </button>
+          <button
+            class="icon-button"
+            data-iconname="Microphone"
+            type="button"
+          >
+            🎤
+          </button>
+          <button
+            class="icon-button"
+            data-iconname="Heart on Fire"
+            type="button"
+          >
+            ❤️‍🔥
+          </button>
+          <button
+            class="icon-button"
+            data-iconname="Mushroom"
+            type="button"
+          >
+            🍄
+          </button>
+          <button
+            class="icon-button"
+            data-iconname="Flower"
+            type="button"
+          >
+            🌸
+          </button>
+          <button
+            class="icon-button"
+            data-iconname="Sparkles"
+            type="button"
+          >
+            ✨
+          </button>
+          <button
+            class="icon-button"
+            data-iconname="Violin"
+            type="button"
+          >
+            🎻
+          </button>
+          <button
+            class="icon-button"
+            data-iconname="Projector"
+            type="button"
+          >
+            📽️
+          </button>
+          <button
+            class="icon-button"
+            data-iconname="Yoga"
+            type="button"
+          >
+            🧘‍♀️
+          </button>
+          <button
+            class="icon-button"
+            data-iconname="Weight Lifting"
+            type="button"
+          >
+            🏋️‍♀️
+          </button>
+          <button
+            class="icon-button"
+            data-iconname="Running"
+            type="button"
+          >
+            🏃‍♀️‍➡️
+          </button>
+          <button
+            class="icon-button"
+            data-iconname="Unicorn"
+            type="button"
+          >
+            🦄
+          </button>
+          <button
+            class="icon-button"
+            data-iconname="Disco Ball"
+            type="button"
+          >
+            🪩
+          </button>
+          <button
+            class="icon-button"
+            data-iconname="Dancer"
+            type="button"
+          >
+            🕺
+          </button>
+          <button
+            class="icon-button"
+            data-iconname="Autumn Leaf"
+            type="button"
+          >
+            🍂
+          </button>
+          <button
+            class="icon-button"
+            data-iconname="Leaf"
+            type="button"
+          >
+            🌿
+          </button>
+          <button
+            class="icon-button"
+            data-iconname="Christmas Tree"
+            type="button"
+          >
+            🎄
+          </button>
+          <button
+            class="icon-button"
+            data-iconname="Pumpkin"
+            type="button"
+          >
+            🎃
+          </button>
+          <button
+            class="icon-button"
+            data-iconname="Broken Heart"
+            type="button"
+          >
+            💔
+          </button>
+        </div>
+      </fieldset>
+      <button
+        class="form-close-button"
+        type="button"
+      >
+        Close
+      </button>
+      <button
+        class="form-submit-button"
+        type="submit"
+      >
+        Submit
+      </button>
+    </form>
+  </div>
+</div>
+`;
+
+exports[`PlaylistForm Component > resets the form state after submission or close 1`] = `
+<div>
+  <div
+    class="form-overlay"
+  >
+    <form
+      class="form-content"
+    >
+      <h2>
+        Create new playlist
+      </h2>
+      <fieldset>
+        <label
+          class="playlist-label"
+          for="playlist-name"
+        >
+          Enter playlist name:
+        </label>
+        <input
+          class="playlist-input "
+          id="playlist-name"
+          maxlength="15"
+          placeholder="Enter playlist name"
+          type="text"
+          value=""
+        />
+        <label
+          class="playlist-label"
+        >
+          Select background color:
+        </label>
+        <div
+          class="color-options"
+        >
+          <button
+            class="color-button selected"
+            data-colorname="Dark Gray"
+            style="background-color: rgb(138, 133, 135);"
+            type="button"
+          />
+          <button
+            class="color-button "
+            data-colorname="Dark Purple"
+            style="background-color: rgb(134, 111, 149);"
+            type="button"
+          />
+          <button
+            class="color-button "
+            data-colorname="Dark Pink"
+            style="background-color: rgb(158, 51, 105);"
+            type="button"
+          />
+          <button
+            class="color-button "
+            data-colorname="Dark Yellow"
+            style="background-color: rgb(215, 186, 40);"
+            type="button"
+          />
+          <button
+            class="color-button "
+            data-colorname="Dark Green"
+            style="background-color: rgb(53, 105, 63);"
+            type="button"
+          />
+          <button
+            class="color-button "
+            data-colorname="Dark Blue"
+            style="background-color: rgb(68, 89, 136);"
+            type="button"
+          />
+        </div>
+        <label
+          class="playlist-label"
+        >
+          Select an icon:
+        </label>
+        <div
+          class="icon-options"
+        >
+          <button
+            class="icon-button active"
+            data-iconname="Music Note"
+            type="button"
+          >
+            🎵
+          </button>
+          <button
+            class="icon-button"
+            data-iconname="Guitar"
+            type="button"
+          >
+            🎸
+          </button>
+          <button
+            class="icon-button"
+            data-iconname="Microphone"
+            type="button"
+          >
+            🎤
+          </button>
+          <button
+            class="icon-button"
+            data-iconname="Heart on Fire"
+            type="button"
+          >
+            ❤️‍🔥
+          </button>
+          <button
+            class="icon-button"
+            data-iconname="Mushroom"
+            type="button"
+          >
+            🍄
+          </button>
+          <button
+            class="icon-button"
+            data-iconname="Flower"
+            type="button"
+          >
+            🌸
+          </button>
+          <button
+            class="icon-button"
+            data-iconname="Sparkles"
+            type="button"
+          >
+            ✨
+          </button>
+          <button
+            class="icon-button"
+            data-iconname="Violin"
+            type="button"
+          >
+            🎻
+          </button>
+          <button
+            class="icon-button"
+            data-iconname="Projector"
+            type="button"
+          >
+            📽️
+          </button>
+          <button
+            class="icon-button"
+            data-iconname="Yoga"
+            type="button"
+          >
+            🧘‍♀️
+          </button>
+          <button
+            class="icon-button"
+            data-iconname="Weight Lifting"
+            type="button"
+          >
+            🏋️‍♀️
+          </button>
+          <button
+            class="icon-button"
+            data-iconname="Running"
+            type="button"
+          >
+            🏃‍♀️‍➡️
+          </button>
+          <button
+            class="icon-button"
+            data-iconname="Unicorn"
+            type="button"
+          >
+            🦄
+          </button>
+          <button
+            class="icon-button"
+            data-iconname="Disco Ball"
+            type="button"
+          >
+            🪩
+          </button>
+          <button
+            class="icon-button"
+            data-iconname="Dancer"
+            type="button"
+          >
+            🕺
+          </button>
+          <button
+            class="icon-button"
+            data-iconname="Autumn Leaf"
+            type="button"
+          >
+            🍂
+          </button>
+          <button
+            class="icon-button"
+            data-iconname="Leaf"
+            type="button"
+          >
+            🌿
+          </button>
+          <button
+            class="icon-button"
+            data-iconname="Christmas Tree"
+            type="button"
+          >
+            🎄
+          </button>
+          <button
+            class="icon-button"
+            data-iconname="Pumpkin"
+            type="button"
+          >
+            🎃
+          </button>
+          <button
+            class="icon-button"
+            data-iconname="Broken Heart"
+            type="button"
+          >
+            💔
+          </button>
+        </div>
+      </fieldset>
+      <button
+        class="form-close-button"
+        type="button"
+      >
+        Close
+      </button>
+      <button
+        class="form-submit-button"
+        type="submit"
+      >
+        Submit
+      </button>
+    </form>
+  </div>
+</div>
+`;
+
+exports[`PlaylistForm Component > shows an error when input value is empty and Submit is clicked 1`] = `
+<div>
+  <div
+    class="form-overlay"
+  >
+    <form
+      class="form-content"
+    >
+      <h2>
+        Create new playlist
+      </h2>
+      <fieldset>
+        <label
+          class="playlist-label"
+          for="playlist-name"
+        >
+          Enter playlist name:
+        </label>
+        <input
+          class="playlist-input input-error"
+          id="playlist-name"
+          maxlength="15"
+          placeholder="Enter playlist name"
+          type="text"
+          value=""
+        />
+        <label
+          class="playlist-label"
+        >
+          Select background color:
+        </label>
+        <div
+          class="color-options"
+        >
+          <button
+            class="color-button selected"
+            data-colorname="Dark Gray"
+            style="background-color: rgb(138, 133, 135);"
+            type="button"
+          />
+          <button
+            class="color-button "
+            data-colorname="Dark Purple"
+            style="background-color: rgb(134, 111, 149);"
+            type="button"
+          />
+          <button
+            class="color-button "
+            data-colorname="Dark Pink"
+            style="background-color: rgb(158, 51, 105);"
+            type="button"
+          />
+          <button
+            class="color-button "
+            data-colorname="Dark Yellow"
+            style="background-color: rgb(215, 186, 40);"
+            type="button"
+          />
+          <button
+            class="color-button "
+            data-colorname="Dark Green"
+            style="background-color: rgb(53, 105, 63);"
+            type="button"
+          />
+          <button
+            class="color-button "
+            data-colorname="Dark Blue"
+            style="background-color: rgb(68, 89, 136);"
+            type="button"
+          />
+        </div>
+        <label
+          class="playlist-label"
+        >
+          Select an icon:
+        </label>
+        <div
+          class="icon-options"
+        >
+          <button
+            class="icon-button active"
+            data-iconname="Music Note"
+            type="button"
+          >
+            🎵
+          </button>
+          <button
+            class="icon-button"
+            data-iconname="Guitar"
+            type="button"
+          >
+            🎸
+          </button>
+          <button
+            class="icon-button"
+            data-iconname="Microphone"
+            type="button"
+          >
+            🎤
+          </button>
+          <button
+            class="icon-button"
+            data-iconname="Heart on Fire"
+            type="button"
+          >
+            ❤️‍🔥
+          </button>
+          <button
+            class="icon-button"
+            data-iconname="Mushroom"
+            type="button"
+          >
+            🍄
+          </button>
+          <button
+            class="icon-button"
+            data-iconname="Flower"
+            type="button"
+          >
+            🌸
+          </button>
+          <button
+            class="icon-button"
+            data-iconname="Sparkles"
+            type="button"
+          >
+            ✨
+          </button>
+          <button
+            class="icon-button"
+            data-iconname="Violin"
+            type="button"
+          >
+            🎻
+          </button>
+          <button
+            class="icon-button"
+            data-iconname="Projector"
+            type="button"
+          >
+            📽️
+          </button>
+          <button
+            class="icon-button"
+            data-iconname="Yoga"
+            type="button"
+          >
+            🧘‍♀️
+          </button>
+          <button
+            class="icon-button"
+            data-iconname="Weight Lifting"
+            type="button"
+          >
+            🏋️‍♀️
+          </button>
+          <button
+            class="icon-button"
+            data-iconname="Running"
+            type="button"
+          >
+            🏃‍♀️‍➡️
+          </button>
+          <button
+            class="icon-button"
+            data-iconname="Unicorn"
+            type="button"
+          >
+            🦄
+          </button>
+          <button
+            class="icon-button"
+            data-iconname="Disco Ball"
+            type="button"
+          >
+            🪩
+          </button>
+          <button
+            class="icon-button"
+            data-iconname="Dancer"
+            type="button"
+          >
+            🕺
+          </button>
+          <button
+            class="icon-button"
+            data-iconname="Autumn Leaf"
+            type="button"
+          >
+            🍂
+          </button>
+          <button
+            class="icon-button"
+            data-iconname="Leaf"
+            type="button"
+          >
+            🌿
+          </button>
+          <button
+            class="icon-button"
+            data-iconname="Christmas Tree"
+            type="button"
+          >
+            🎄
+          </button>
+          <button
+            class="icon-button"
+            data-iconname="Pumpkin"
+            type="button"
+          >
+            🎃
+          </button>
+          <button
+            class="icon-button"
+            data-iconname="Broken Heart"
+            type="button"
+          >
+            💔
+          </button>
+        </div>
+      </fieldset>
+      <button
+        class="form-close-button"
+        type="button"
+      >
+        Close
+      </button>
+      <button
+        class="form-submit-button"
+        type="submit"
+      >
+        Submit
+      </button>
+    </form>
+  </div>
+</div>
+`;
