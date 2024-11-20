@@ -121,11 +121,17 @@ const Playlists = () => {
 			<PlaylistForm show={showForm} onClose={() => setShowForm(false)} onSubmit={addNewPlaylist} />
 			<div className="outer-playlist-container">
 				{!showLoading && (
-					<button onClick={() => setShowForm(true)} className="new-playlist-button">
+					<button
+						onClick={() => setShowForm(true)}
+						className="new-playlist-button"
+					>
 						New Playlist
 					</button>
 				)}
-				<div className="playlists-container">
+				<div
+					className="playlists-container"
+					aria-label="List of your playlists"
+				>
 					{playlists.length === 0 ? (
 						<p>You have no playlists yet.</p>
 					) : (
@@ -138,6 +144,7 @@ const Playlists = () => {
 								icon={playlist.icon}
 								songs={playlist.songs}
 								onClick={() => handlePlaylistClick(playlist)}
+								aria-label={`Open playlist ${playlist.name}`}
 								tabIndex={0}
 								onKeyDown={(e) => {
 									if (e.key === "Enter" || e.key === " ") {
