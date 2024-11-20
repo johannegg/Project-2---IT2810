@@ -52,10 +52,19 @@ const Favorites: React.FC = () => {
 		<section className="favorites-container">
 			<h1>Your Favorite Songs</h1>
 			<section className="favorites-searchBarContainer">
-				<SearchBar setSearchTerm={handleSearchSubmit} initialSearchTerm={searchTerm} />
+				<SearchBar
+					setSearchTerm={handleSearchSubmit}
+					initialSearchTerm={searchTerm}
+					aria-label="Search through your favorite songs"
+				/>
 			</section>
 			<section className="favorites-allSongsContainer">
-				<AllSongsList songs={searchedSongs} selectedGenres={allGenres} maxViews={10000000} minViews={0} />
+				<AllSongsList
+					songs={searchedSongs}
+					selectedGenres={allGenres}
+					maxViews={10000000}
+					minViews={0}
+				/>
 			</section>
 		</section>
 	);

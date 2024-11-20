@@ -18,7 +18,14 @@ vi.mock("@apollo/client", async () => {
 });
 
 vi.mock("@fortawesome/react-fontawesome", () => ({
-	FontAwesomeIcon: ({ icon, style }: { icon: any; style: React.CSSProperties }) => {
+	FontAwesomeIcon: ({
+		icon,
+		style,
+	}: {
+		icon: typeof heartSolid | typeof heartRegular;
+		style: React.CSSProperties;
+	}) => {
+		// Sjekk `icon` direkte
 		const isSolidHeart = icon === heartSolid;
 		const isRegularHeart = icon === heartRegular;
 		const testId = isSolidHeart ? "icon-fas" : isRegularHeart ? "icon-far" : "unknown";

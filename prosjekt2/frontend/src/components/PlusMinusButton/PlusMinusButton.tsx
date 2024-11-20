@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from "react";
+import React, { useRef, useState } from "react";
 import { FiPlusCircle, FiMinusCircle } from "react-icons/fi";
 import { SongData } from "../../utils/types/SongTypes";
 import { PlaylistData } from "../../pages/Playlists/Playlists";
@@ -49,20 +49,20 @@ const PlusMinusButton: React.FC<PlusMinusButtonProps> = ({
 		},
 	});
 
-	const debounce = (func: () => void, delay: number) => {
-		let timer: NodeJS.Timeout;
+	const useDebounce = (func: () => void, delay: number) => {
+		const timerRef = useRef<NodeJS.Timeout | null>(null);
+
 		return () => {
-			clearTimeout(timer);
-			timer = setTimeout(() => {
+			if (timerRef.current) {
+				clearTimeout(timerRef.current);
+			}
+			timerRef.current = setTimeout(() => {
 				func();
 			}, delay);
 		};
 	};
 
-	const clearFeedbackMessage = useCallback(
-		debounce(() => setFeedbackMessage(""), 3000),
-		[],
-	);
+	const clearFeedbackMessage = useDebounce(() => setFeedbackMessage(""), 3000);
 
 	const isUserLoggedIn = () => {
 		const username = localStorage.getItem("profileName");
@@ -135,6 +135,7 @@ const PlusMinusButton: React.FC<PlusMinusButtonProps> = ({
 			<button
 				className="plusMinus-button"
 				aria-label={isInPlaylist ? "Remove song" : "Add song"} // Use aria-label for accessibility
+				data-label={isInPlaylist ? "Remove song" : "Add song"}
 				onClick={(e) => {
 					e.stopPropagation();
 					if (isInPlaylist) {
@@ -151,17 +152,24 @@ const PlusMinusButton: React.FC<PlusMinusButtonProps> = ({
 				<div
 					className={`playlist-modal-overlay ${isSidebarOpen ? "sidebar-open" : ""}`}
 					onClick={(e) => e.stopPropagation()}
+					aria-label="Select a playlist to add the song"
 				>
-					<div className="playlist-modal-container">
-						<h3>Select a playlist to add "{song.title}"</h3>
+					<div
+						className="playlist-modal-container"
+						aria-modal="true"
+						role="dialog"
+						aria-labelledby="modal-title"
+					>
+						<h3 id="modal-title">Select a playlist to add "{song.title}"</h3>
 						{feedbackMessage && (
 							<label
 								className={`feedback-message ${feedbackMessage === "Song successfully added!" ? "success" : "error"}`}
+								aria-live="polite"
 							>
 								{feedbackMessage}
 							</label>
 						)}
-						<ul className="playlist-selection">
+						<ul className="playlist-selection" aria-label="List of playlists">
 							{playlists.map((playlist: PlaylistData) => (
 								<li key={playlist.id}>
 									<button
@@ -169,6 +177,7 @@ const PlusMinusButton: React.FC<PlusMinusButtonProps> = ({
 											e.stopPropagation();
 											handleAddSongToPlaylist(playlist.id);
 										}}
+										aria-label={`Add song to playlist ${playlist.name} ${playlist.icon ? playlist.icon : ""}`}
 									>
 										{playlist.name} {playlist.icon ? playlist.icon : ""}
 									</button>
@@ -182,6 +191,7 @@ const PlusMinusButton: React.FC<PlusMinusButtonProps> = ({
 								toggleModal();
 							}}
 							className="closeBtn"
+							aria-label="Close playlist selection"
 						>
 							Close
 						</button>

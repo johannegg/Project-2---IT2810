@@ -82,9 +82,10 @@ export const Sidebar = forwardRef<HTMLDivElement, SidebarProps>(
 			<div
 				className={`sidebar ${isSidebarOpen ? "open" : ""}`}
 				aria-hidden={!isSidebarOpen}
+				aria-label="Sidebar with filtering options" // Ny aria-label
 				tabIndex={isSidebarOpen ? 0 : -1}
 				ref={ref}
-				role="complementary" // Role used for accessibility and testing
+				role="complementary"
 			>
 				<button
 					className="close-button"
@@ -95,17 +96,30 @@ export const Sidebar = forwardRef<HTMLDivElement, SidebarProps>(
 				>
 					✕
 				</button>
-				<div className="filteringContainer">
-					<Sort songs={songs} sortOption={sortOption} onSortChange={onSortChange} />
+				<div className="filteringContainer" aria-label="Filtering and sorting container">
+					<Sort
+						songs={songs}
+						sortOption={sortOption}
+						onSortChange={onSortChange}
+						aria-label="Sorting options" // Ny aria-label
+					/>
 					<br />
-					<Filter onGenreChange={onGenreChange} searchTerm={searchTerm} />
+					<Filter
+						onGenreChange={onGenreChange}
+						searchTerm={searchTerm}
+						aria-label="Genre filtering options" // Ny aria-label
+					/>
 					<br />
-					<ViewsFilter onViewsChange={onViewsChange} />
+					<ViewsFilter
+						onViewsChange={onViewsChange}
+						aria-label="Views filtering options" // Ny aria-label
+					/>
 					<br />
 					<button
 						onClick={onClearAllFilters}
 						className="clearFiltersButton"
 						tabIndex={isSidebarOpen ? 0 : -1}
+						aria-label="Clear all filters"
 					>
 						Clear filters
 					</button>

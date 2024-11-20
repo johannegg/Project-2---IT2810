@@ -16,8 +16,9 @@ const DynamicPlaylist = () => {
 	}, []);
 
 	if (!playlistData) {
+		// Navigates to a "not found" page if the playlist doesn't exist
 		navigate("/not-found", { replace: true });
-		return null;
+		return <div aria-label="Playlist not found">Playlist not found. Redirecting...</div>;
 	}
 
 	const handleDelete = () => {
@@ -30,7 +31,11 @@ const DynamicPlaylist = () => {
 		}
 	};
 
-	return <DisplayPlaylist playlistId={playlistData.id} onDelete={handleDelete} />;
+	return (
+		<section aria-label={`Dynamic view for playlist: ${playlistData.name}`}>
+			<DisplayPlaylist playlistId={playlistData.id} onDelete={handleDelete} />
+		</section>
+	);
 };
 
 export default DynamicPlaylist;

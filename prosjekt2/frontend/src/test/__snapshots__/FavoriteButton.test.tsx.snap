@@ -3,6 +3,7 @@
 exports[`FavoriteButton > matches snapshot when song is favorited 1`] = `
 <div>
   <button
+    aria-label="Remove Song One from favorites"
     class="favoriteButton"
     type="button"
   >
@@ -18,6 +19,7 @@ exports[`FavoriteButton > matches snapshot when song is favorited 1`] = `
 exports[`FavoriteButton > matches snapshot when song is not favorited 1`] = `
 <div>
   <button
+    aria-label="Add Song One to favorites"
     class="favoriteButton"
     type="button"
   >

@@ -10,7 +10,11 @@ const BackButton: React.FC<BackButtonProps> = ({ text = "Go back" }) => {
 	const navigate = useNavigate();
 
 	return (
-		<button className="back-button" onClick={() => navigate(-1)}>
+		<button
+			className="back-button"
+			onClick={() => navigate(-1)}
+			aria-label={text === "Go back" ? "Go back to the previous page" : text}
+		>
 			&#10094; {text}
 		</button>
 	);

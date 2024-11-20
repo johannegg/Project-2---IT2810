@@ -13,6 +13,7 @@ exports[`DisplayPlaylist Component > renders correctly and matches snapshot 1`] 
         class="playlist-header"
       >
         <button
+          aria-label="Go back to the previous page"
           class="back-button"
         >
           ❮ Go back
@@ -46,34 +47,43 @@ exports[`DisplayPlaylist Component > renders correctly and matches snapshot 1`] 
         class="songs-container"
       >
         <section
+          aria-label="Songs list"
           class="songContainer"
         >
           <table
+            aria-label="Filtered songs table"
             class="songTable"
           >
             <tbody>
               <tr
+                aria-label="Song: Song 1 by Artist 1"
                 class="tableRow"
                 tabindex="0"
               >
                 <td
+                  aria-label="Song title and artist"
                   class="title-artist-cell"
                 >
                   <span
+                    aria-label="Title: Song 1"
                     class="titleCell"
                   >
                     Song 1
                   </span>
                   <span
+                    aria-label="Artist: Artist 1"
                     class="artistCell"
                   >
                     Artist 1
                   </span>
                 </td>
-                <td>
+                <td
+                  aria-label="Year: 2020"
+                >
                   2020
                 </td>
                 <td
+                  aria-label="Views: 1000"
                   class="viewsCell"
                 >
                   <svg
@@ -96,6 +106,7 @@ exports[`DisplayPlaylist Component > renders correctly and matches snapshot 1`] 
                   class="plusMinusCell"
                 >
                   <button
+                    aria-label="Remove song"
                     class="plusMinus-button"
                     data-label="Remove song"
                   >
@@ -128,6 +139,7 @@ exports[`DisplayPlaylist Component > renders correctly and matches snapshot 1`] 
                 </td>
                 <td>
                   <button
+                    aria-label="Add Song 1 to favorites"
                     class="favoriteButton"
                     type="button"
                   >

@@ -9,6 +9,7 @@ exports[`Sort > matches snapshot with a different sort option 1`] = `
       class="sortHeader"
     >
       <svg
+        aria-label="Sort icon"
         class="filterSortIcon"
         fill="currentColor"
         height="1em"
@@ -29,30 +30,36 @@ exports[`Sort > matches snapshot with a different sort option 1`] = `
       </h2>
     </section>
     <select
+      aria-label="Sort songs by"
       class="sort-options"
       tabindex="0"
     >
       <option
+        aria-label="Sort by title A to Z"
         value="title_asc"
       >
         Title A-Z
       </option>
       <option
+        aria-label="Sort by title Z to A"
         value="title_desc"
       >
         Title Z-A
       </option>
       <option
+        aria-label="Sort by artist A to Z"
         value="artist_asc"
       >
         Artist A-Z
       </option>
       <option
+        aria-label="Sort by artist Z to A"
         value="artist_desc"
       >
         Artist Z-A
       </option>
       <option
+        aria-label="Sort by views descending"
         value="views_desc"
       >
         Views
@@ -71,6 +78,7 @@ exports[`Sort > matches snapshot with default sort option 1`] = `
       class="sortHeader"
     >
       <svg
+        aria-label="Sort icon"
         class="filterSortIcon"
         fill="currentColor"
         height="1em"
@@ -91,30 +99,36 @@ exports[`Sort > matches snapshot with default sort option 1`] = `
       </h2>
     </section>
     <select
+      aria-label="Sort songs by"
       class="sort-options"
       tabindex="0"
     >
       <option
+        aria-label="Sort by title A to Z"
         value="title_asc"
       >
         Title A-Z
       </option>
       <option
+        aria-label="Sort by title Z to A"
         value="title_desc"
       >
         Title Z-A
       </option>
       <option
+        aria-label="Sort by artist A to Z"
         value="artist_asc"
       >
         Artist A-Z
       </option>
       <option
+        aria-label="Sort by artist Z to A"
         value="artist_desc"
       >
         Artist Z-A
       </option>
       <option
+        aria-label="Sort by views descending"
         value="views_desc"
       >
         Views
