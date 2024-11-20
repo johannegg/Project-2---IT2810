@@ -134,7 +134,7 @@ const PlusMinusButton: React.FC<PlusMinusButtonProps> = ({
 		<>
 			<button
 				className="plusMinus-button"
-				aria-label={isInPlaylist ? "Remove song" : "Add song"} // Use aria-label for accessibility
+				aria-label={isInPlaylist ? "Remove song" : "Add song"} 
 				data-label={isInPlaylist ? "Remove song" : "Add song"}
 				onClick={(e) => {
 					e.stopPropagation();

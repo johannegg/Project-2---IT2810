@@ -4,7 +4,6 @@ import { render, screen, fireEvent, cleanup, act } from "@testing-library/react"
 import { isSidebarOpenVar, clearFiltersVar } from "../apollo/cache";
 import { Sidebar } from "../components/SideBar/SideBar";
 
-// Mock dependencies for child components to simplify testing
 vi.mock("../components/GenreFilter/GenreFilter", () => ({
 	Filter: ({ onGenreChange }: { onGenreChange: (genres: string[]) => void }) => (
 		<div data-testid="genre-filter" onClick={() => onGenreChange(["Pop"])}>
@@ -27,16 +26,13 @@ vi.mock("../components/Sort/Sort", () => ({
 	),
 }));
 
-// Describe the test suite for the Sidebar component
 describe("Sidebar", () => {
-	// Mock functions to simulate the behavior of the props
 	const mockOnGenreChange = vi.fn();
 	const mockOnViewsChange = vi.fn();
 	const mockOnSortChange = vi.fn();
 	const mockOnToggle = vi.fn();
 	const mockOnClearAllFilters = vi.fn();
 
-	// Before each test, reset all mocks, variables, and clean up the DOM
 	beforeEach(() => {
 		vi.resetAllMocks();
 		isSidebarOpenVar(false);
@@ -57,7 +53,6 @@ describe("Sidebar", () => {
 			/>,
 		);
 
-		// Ensure that the rendered Sidebar matches the stored snapshot
 		expect(asFragment()).toMatchSnapshot();
 	});
 
@@ -76,7 +71,6 @@ describe("Sidebar", () => {
 			/>,
 		);
 
-		// Ensure that the rendered Sidebar matches the stored snapshot
 		expect(asFragment()).toMatchSnapshot();
 	});
 
@@ -93,7 +87,6 @@ describe("Sidebar", () => {
 			/>,
 		);
 
-		// Select the Sidebar element and verify its initial class states
 		const sidebar = screen.getByRole("complementary", { hidden: true });
 		expect(sidebar).toHaveClass("sidebar");
 		expect(sidebar).not.toHaveClass("open");
@@ -112,18 +105,14 @@ describe("Sidebar", () => {
 			/>,
 		);
 
-		// Find the Close button and simulate a click to open the Sidebar
 		const closeButton = screen.getByRole("button", { name: /close/i, hidden: true });
 		act(() => fireEvent.click(closeButton));
 
-		// Assert the Sidebar state is now open and the onToggle callback was called
 		expect(isSidebarOpenVar()).toBe(true);
 		expect(mockOnToggle).toHaveBeenCalledWith(true);
 
-		// Simulate another click to close the Sidebar
 		act(() => fireEvent.click(closeButton));
 
-		// Assert the Sidebar state is now closed and the onToggle callback was called
 		expect(isSidebarOpenVar()).toBe(false);
 		expect(mockOnToggle).toHaveBeenCalledWith(false);
 	});
@@ -141,17 +130,14 @@ describe("Sidebar", () => {
 			/>,
 		);
 
-		// Find the Clear Filters button and simulate a click
 		const clearFiltersButton = screen.getByRole("button", {
 			name: /clear all filters/i,
 			hidden: true,
 		});
 		fireEvent.click(clearFiltersButton);
 
-		// Assert the onClearAllFilters callback was called
 		expect(mockOnClearAllFilters).toHaveBeenCalled();
 
-		// Assert the clearFiltersVar reactive variable state was reset
 		expect(clearFiltersVar()).toBe(false);
 	});
 });

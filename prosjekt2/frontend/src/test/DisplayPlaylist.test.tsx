@@ -18,7 +18,6 @@ vi.mock("@apollo/client", async (importOriginal) => {
 	};
 });
 
-// Create a mock Apollo Client
 const mockApolloClient = new ApolloClient({
   uri: "http://localhost:4000",
   cache: new InMemoryCache(),
@@ -68,7 +67,7 @@ describe("DisplayPlaylist Component", () => {
 
 	it('displays "Playlist not found" when no playlist matches', () => {
 		act(() => {
-			mockPlaylistsVar([]); // Set an empty playlist array
+			mockPlaylistsVar([]); 
 		});
 
 		renderWithProviders(<DisplayPlaylist playlistId="invalid" onDelete={vi.fn()} />);

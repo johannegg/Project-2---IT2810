@@ -14,7 +14,6 @@ interface PlaylistProps {
 	onKeyDown?: (event: React.KeyboardEvent) => void;
 }
 
-// Color mapping moved outside component for better performance
 const colorMapping: Record<string, string> = {
 	"#ffffff": "#8a8587",
 	"#e8dff5": "#866f95",

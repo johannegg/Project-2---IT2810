@@ -3,7 +3,6 @@ import { render, screen, fireEvent, cleanup } from "@testing-library/react";
 import BackButton from "../components/BackButton/BackButton";
 import { MemoryRouter } from "react-router-dom";
 
-// Mock implementation of useNavigate from react-router-dom
 vi.mock("react-router-dom", async () => {
 	const actual = await vi.importActual("react-router-dom");
 	return {
@@ -17,12 +16,10 @@ import { useNavigate } from "react-router-dom";
 describe("BackButton", () => {
 	const mockNavigate = vi.fn();
 
-	// Set up mock before each test
 	beforeEach(() => {
 		vi.mocked(useNavigate).mockReturnValue(mockNavigate);
 	});
 
-	// Clean up after each test
 	afterEach(() => {
 		cleanup();
 		vi.resetAllMocks();

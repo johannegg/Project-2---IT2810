@@ -6,7 +6,6 @@ import Playlist from "../components/Playlist/Playlist";
 import { SongData } from "../utils/types/SongTypes";
 import "@testing-library/jest-dom";
 
-// Mock implementation for the `useNavigate` hook
 const mockNavigate = vi.fn();
 
 vi.mock("react-router-dom", async () => {
@@ -50,7 +49,6 @@ beforeAll(() => {
 });
 
 describe("Playlist Component", () => {
-	// Mock song data used in tests
 	const mockSongs: SongData[] = [
 		{
 			id: "1",
@@ -72,7 +70,6 @@ describe("Playlist Component", () => {
 		},
 	];
 
-	// Default props for the Playlist component
 	const defaultProps = {
 		id: "playlist1",
 		name: "My Playlist",
@@ -93,16 +90,14 @@ describe("Playlist Component", () => {
 		expect(screen.getByText("My Playlist")).toBeInTheDocument();
 		expect(screen.getByText("🎵")).toBeInTheDocument();
 
-		// Snapshot test to ensure UI consistency
 		expect(asFragment()).toMatchSnapshot();
 	});
 
 	test("navigates with correct state including updated background color", () => {
 		const mockSetCurrentBackgroundColor = vi.fn();
 
-		// Mock `useState` to capture updates
 		vi.spyOn(React, "useState").mockImplementationOnce(() => [
-			"#8a8587", // Dark mode background color
+			"#8a8587", 
 			mockSetCurrentBackgroundColor,
 		]);
 
@@ -115,7 +110,6 @@ describe("Playlist Component", () => {
 		const playlistCard = screen.getByRole("button");
 		fireEvent.click(playlistCard);
 
-		// Verify that navigation was triggered with the correct state
 		expect(mockNavigate).toHaveBeenCalledWith("/playlist/playlist1", {
 			state: {
 				playlist: {
@@ -128,7 +122,6 @@ describe("Playlist Component", () => {
 			},
 		});
 
-		// Snapshot test to ensure UI consistency
 		expect(asFragment()).toMatchSnapshot();
 	});
 
@@ -139,12 +132,10 @@ describe("Playlist Component", () => {
 			</MemoryRouter>,
 		);
 
-		// Simulate dark mode using matchMedia mock
 		vi.spyOn(window.matchMedia("(prefers-color-scheme: dark)"), "matches", "get").mockReturnValue(
 			true,
 		);
 
-		// Rerender the component to reflect dark mode changes
 		rerender(
 			<MemoryRouter>
 				<Playlist {...defaultProps} />
@@ -154,7 +145,6 @@ describe("Playlist Component", () => {
 		const playlistCard = screen.getByRole("button");
 		fireEvent.click(playlistCard);
 
-		// Verify navigation with updated state for dark mode
 		expect(mockNavigate).toHaveBeenCalledWith("/playlist/playlist1", {
 			state: {
 				playlist: {
@@ -167,7 +157,6 @@ describe("Playlist Component", () => {
 			},
 		});
 
-		// Snapshot test to ensure UI consistency
 		expect(asFragment()).toMatchSnapshot();
 	});
 
@@ -182,7 +171,6 @@ describe("Playlist Component", () => {
 		expect(playlistCard).toHaveTextContent("My Playlist");
 		expect(mockSongs.length).toBe(2);
 
-		// Snapshot test to ensure UI consistency
 		expect(asFragment()).toMatchSnapshot();
 	});
 
@@ -196,7 +184,6 @@ describe("Playlist Component", () => {
 		const playlistCard = screen.getByRole("button");
 		expect(playlistCard).toHaveAttribute("tabIndex", "0");
 
-		// Snapshot test to ensure UI consistency
 		expect(asFragment()).toMatchSnapshot();
 	});
 });

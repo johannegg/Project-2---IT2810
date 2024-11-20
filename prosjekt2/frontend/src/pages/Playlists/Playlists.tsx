@@ -42,7 +42,6 @@ const Playlists = () => {
 		}
 	}, [fetchedPlaylists]);
 
-	// Sync playlists with localStorage and reactive variable
 	useEffect(() => {
 		localStorage.setItem("playlists", JSON.stringify(playlists));
 	}, [playlists]);
@@ -67,7 +66,6 @@ const Playlists = () => {
 
 	const addNewPlaylist = async (newPlaylistName: string, backgroundColor: string, icon: string) => {
 		try {
-			// Call the createPlaylist mutation
 			const { data } = await createPlaylist({
 				variables: {
 					username: profileName,
@@ -94,7 +92,6 @@ const Playlists = () => {
 						playlistId,
 					},
 				});
-				// Remove the playlist locally
 				const updatedPlaylists = playlists.filter((playlist) => playlist.id !== playlistId);
 				playlistsVar(updatedPlaylists);
 			} catch (error) {
@@ -105,11 +102,9 @@ const Playlists = () => {
 	);
 
 	useEffect(() => {
-		// Check if a playlist deletion is requested in location.state
 		const deletedPlaylistId = location.state?.deletedPlaylistId;
 		if (deletedPlaylistId) {
 			deletePlaylist(deletedPlaylistId);
-			// Clear the deletion flag from location.state to avoid repeating the deletion
 			navigate("/playlists", { replace: true });
 		}
 	}, [deletePlaylist, location.state, navigate]);

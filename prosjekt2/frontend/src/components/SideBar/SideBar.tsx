@@ -82,7 +82,7 @@ export const Sidebar = forwardRef<HTMLDivElement, SidebarProps>(
 			<div
 				className={`sidebar ${isSidebarOpen ? "open" : ""}`}
 				aria-hidden={!isSidebarOpen}
-				aria-label="Sidebar with filtering options" // Ny aria-label
+				aria-label="Sidebar with filtering options"
 				tabIndex={isSidebarOpen ? 0 : -1}
 				ref={ref}
 				role="complementary"
@@ -101,18 +101,18 @@ export const Sidebar = forwardRef<HTMLDivElement, SidebarProps>(
 						songs={songs}
 						sortOption={sortOption}
 						onSortChange={onSortChange}
-						aria-label="Sorting options" // Ny aria-label
+						aria-label="Sorting options" 
 					/>
 					<br />
 					<Filter
 						onGenreChange={onGenreChange}
 						searchTerm={searchTerm}
-						aria-label="Genre filtering options" // Ny aria-label
+						aria-label="Genre filtering options" 
 					/>
 					<br />
 					<ViewsFilter
 						onViewsChange={onViewsChange}
-						aria-label="Views filtering options" // Ny aria-label
+						aria-label="Views filtering options"
 					/>
 					<br />
 					<button
