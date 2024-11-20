@@ -42,4 +42,22 @@ The E2E-tests are written in Cypress. We have chosen to test interactions with t
   -  The user can mark a song as a favorite or add it to a playlist directly from the song detail page.
 
 ## API Tests
-The API tests are also written using Cypress. 
+The API tests are also written using Cypress by interacting with the GraphQL resolvers through HTTP requests. The tests cover mutations and queries for **users**, **favorite songs**, and **playlists**, and ensure proper structure and correctness of returned data.
+
+### Mutation tests
+The mutations tests are testing these scenarios
+- **User management**
+  - Create a user and check that a newly created user has no favorite songs and correct username
+  - Add a favorite song to a user and check if it updates correctly
+  - Remove a favorite song and confirm that the favoriteSongs list is empty afterwards
+- **Playlist management**
+  - Create a new playlist with specific properties (backgroundcolor, icon, etc) and verify that it returns the right properties and has no songs
+  - Add song to playlist and verify that it is present with correct properties 
+  - Remove song from playlist and verify its absence
+  - Delete a playlist and verify that the operation returns true
+
+### Query tests
+The query tests are testing these operations:
+- Fetching songs with filters (with a simple scenario of genre, views range and sorting choice)
+- Fetching the count of songs that matches the criteria
+- Fetching an users playlists, including their songs, and validates correct song data
