@@ -66,9 +66,12 @@ ESLint and Prettier is used to ensure good quality of the code. Prettier is used
 ### Run Tests
 The component-tests are ran by navigating into the frontend folder, using `cd prosjekt2/frontend` and run tests with `npm test`. 
 
-To run the E2E-tests by navigating into the correct folder by using `cd prosjekt2/backend/e2e` and then `npx cypress open`. A popupwindow will show up. Here you should choose **E2E Testing** and then **Start E2E Testing in Chrome**. From here you can choose which tests (”specs”) to run. 
+Since both regular E2E-tests and API-tests are implemented using Cypress, they can be ran the same way. 
+In order for them to work, both backend and frontend have to be ran locally, because they run the tests on localhost. 
 
-The API-tests ...
+First, you need to .... noe med main.tsx bare tror jeg
+
+Navigate into the correct folder by using cd prosjekt2/backend/e2e and then npx cypress open. A popupwindow will show up. Here you should choose *E2E Testing* and then *Start E2E Testing in Chrome*. From here you can choose which tests (”specs”) to run. The tests inside the folder called api are the API-tests, and the rest are regular E2E-tests. Read more on the tests [here](prosjekt2/backend/e2e/README.md).
 
 ## Database
 
