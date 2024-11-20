@@ -1,3 +1,4 @@
+/// <reference types="cypress" />
 const graphqlEndpoint = "http://localhost:4000/";
 
 describe("GraphQL API mutation tests", () => {
