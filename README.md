@@ -57,8 +57,6 @@ If you want to install the project from your computer, clone the project using g
 
 The backend is running on the virtual machine, so you need to be connected to NTNU network or VPN.
 
-If you want to run the backend on your computer, you have to replace line 8 in `prosjekt2/frontend/src/main.tsx` from `uri: "http://it2810-12.idi.ntnu.no:3001",` to `uri: "http://localhost:4000/",`.
-
 ### Run ESLint and Prettier
 
 ESLint and Prettier is used to ensure good quality of the code. Prettier is used in the whole application. From the root of the project you can run `npx prettier --check .` to ensure everything is up to standards. ESLint can be ran in the frontend of the project. Navigate into the folder using `cd prosjekt2/frontend` and run the command `npm run lint`.
@@ -69,9 +67,18 @@ The component-tests are ran by navigating into the frontend folder, using `cd pr
 Since both regular E2E-tests and API-tests are implemented using Cypress, they can be ran the same way. 
 In order for them to work, both backend and frontend have to be ran locally, because they run the tests on localhost. 
 
-First, you need to .... noe med main.tsx bare tror jeg
+First, you need to run both frontend and backend. Open one terminal and run:
+`cd prosjekt2/frontend`  
+`npm install`  
+`npm run dev`
+And then open a new terminal and run:
+`cd prosjekt2/backend`
+`npm install`
+`cd e2e`
+`cd ..`
+`npx ts-node src/index.ts`
 
-Navigate into the correct folder by using cd prosjekt2/backend/e2e and then npx cypress open. A popupwindow will show up. Here you should choose *E2E Testing* and then *Start E2E Testing in Chrome*. From here you can choose which tests (”specs”) to run. The tests inside the folder called api are the API-tests, and the rest are regular E2E-tests. Read more on the tests [here](prosjekt2/backend/e2e/README.md).
+Navigate into the correct folder by using `cd prosjekt2/backend/e2e` and then `npx cypress open`. A popupwindow will show up. Here you should choose **E2E Testing** and then **Start E2E Testing in Chrome**. From here you can choose which tests (”specs”) to run. The tests inside the folder called api are the API-tests, and the rest are regular E2E-tests. Read more on the tests [here](prosjekt2/backend/e2e/README.md).
 
 ## Database
 
