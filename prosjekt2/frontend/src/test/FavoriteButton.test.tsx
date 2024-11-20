@@ -7,7 +7,6 @@ import { ADD_FAVORITE_SONG, REMOVE_FAVORITE_SONG } from "../utils/Queries";
 import { faHeart as heartRegular } from "@fortawesome/free-regular-svg-icons";
 import { faHeart as heartSolid } from "@fortawesome/free-solid-svg-icons";
 
-// Mock Apollo Client
 vi.mock("@apollo/client", async () => {
 	const actual = await vi.importActual("@apollo/client");
 	return {
@@ -25,11 +24,8 @@ vi.mock("@fortawesome/react-fontawesome", () => ({
 		icon: typeof heartSolid | typeof heartRegular;
 		style: React.CSSProperties;
 	}) => {
-		// Sjekk `icon` direkte
 		const isSolidHeart = icon === heartSolid;
 		const isRegularHeart = icon === heartRegular;
-
-		// Sett testId basert på ikontypen
 		const testId = isSolidHeart ? "icon-fas" : isRegularHeart ? "icon-far" : "unknown";
 
 		return (
@@ -40,7 +36,6 @@ vi.mock("@fortawesome/react-fontawesome", () => ({
 	},
 }));
 
-// Mock data
 const mockSong = {
 	id: "1",
 	title: "Song One",
@@ -56,18 +51,13 @@ describe("FavoriteButton", () => {
 	const removeFavoriteMock = vi.fn();
 
 	const mockApolloClient = new ApolloClient({
-		uri: "http://localhost:4000", // Mock URI
-		cache: new InMemoryCache(), // Mock cache
+		uri: "http://localhost:4000",
+		cache: new InMemoryCache(),
 	});
 
 	beforeEach(() => {
-		// Set a valid profile name in localStorage
 		localStorage.setItem("profileName", "testUser");
-
-		// Mock `useReactiveVar`
 		vi.mocked(useReactiveVar).mockReturnValue([]);
-
-		// Mock `useMutation`
 		vi.mocked(useMutation).mockImplementation((mutation) => {
 			if (mutation === ADD_FAVORITE_SONG) {
 				return [
@@ -91,7 +81,6 @@ describe("FavoriteButton", () => {
 		localStorage.clear();
 	});
 
-	// Snapshot Tests
 	test("matches snapshot when song is not favorited", () => {
 		const { container } = render(<FavoriteButton song={mockSong} />);
 		expect(container).toMatchSnapshot();
@@ -103,7 +92,6 @@ describe("FavoriteButton", () => {
 		expect(container).toMatchSnapshot();
 	});
 
-	// Functional Tests
 	test("renders regular heart icon when song is not favorited", () => {
 		render(<FavoriteButton song={mockSong} />);
 		expect(screen.getByTestId("icon-far")).toBeInTheDocument();
@@ -138,7 +126,7 @@ describe("FavoriteButton", () => {
 
 	test("shows an alert when user is not logged in and tries to favorite a song", () => {
 		const alertMock = vi.spyOn(window, "alert").mockImplementation(() => {});
-		localStorage.setItem("profileName", ""); // Simulate not logged in
+		localStorage.setItem("profileName", "");
 
 		render(<FavoriteButton song={mockSong} />);
 		const button = screen.getByRole("button");

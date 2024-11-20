@@ -16,7 +16,6 @@ const DynamicPlaylist = () => {
 	}, []);
 
 	if (!playlistData) {
-		// Navigates to a "not found" page if the playlist doesn't exist
 		navigate("/not-found", { replace: true });
 		return <div aria-label="Playlist not found">Playlist not found. Redirecting...</div>;
 	}
@@ -26,7 +25,6 @@ const DynamicPlaylist = () => {
 		playlistsVar(updatedPlaylists);
 		localStorage.setItem("playlists", JSON.stringify(updatedPlaylists));
 		if (playlistData) {
-			// Navigate back to Playlists page and pass a deletion flag
 			navigate("/playlists", { state: { deletedPlaylistId: playlistData.id } });
 		}
 	};

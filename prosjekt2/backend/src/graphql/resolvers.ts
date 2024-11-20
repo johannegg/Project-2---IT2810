@@ -244,9 +244,9 @@ export const resolvers = {
 
       // Map the result to fit the GraphQL schema
       return records.map((record) => {
-        const songNode = record.get("s"); // Song node
-        const artistNode = record.get("a"); // Artist node related to the song
-        const genreNode = record.get("g"); // The genre node of the song
+        const songNode = record.get("s");
+        const artistNode = record.get("a");
+        const genreNode = record.get("g");
 
         return {
           id: songNode.properties.id,

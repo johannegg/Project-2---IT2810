@@ -18,7 +18,6 @@ function App() {
 					<Route path="/" element={<Home />} />
 					<Route path="/favorites" element={<Favorites />} />
 					<Route path="/playlists" element={<Playlists />} />
-					{/* Dynamic route with artistName and songTitle */}
 					<Route path="/:artistName/:songTitle" element={<DynamicLyric />} />
 					<Route path="/playlist/:playlistId" element={<DynamicPlaylist />} />
 				</Routes>

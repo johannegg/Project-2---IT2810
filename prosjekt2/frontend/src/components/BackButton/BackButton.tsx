@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import "./BackButton.css";
 
 interface BackButtonProps {
-	text?: string; // valgfri tekst som kan settes for tilbake-knappen
+	text?: string;
 }
 
 const BackButton: React.FC<BackButtonProps> = ({ text = "Go back" }) => {

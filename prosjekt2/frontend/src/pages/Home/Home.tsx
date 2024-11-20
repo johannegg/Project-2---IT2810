@@ -83,7 +83,6 @@ const Home = () => {
 
 	const toggleSidebar = () => {
 		isSidebarOpenVar(!isSidebarOpen);
-		// Focus sidebar when it is opened
 		if (!isSidebarOpen && sidebarRef.current) {
 			setTimeout(() => {
 				sidebarRef.current?.focus();

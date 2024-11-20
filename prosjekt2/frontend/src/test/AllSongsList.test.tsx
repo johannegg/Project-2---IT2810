@@ -63,7 +63,6 @@ describe("AllSongsList Component", () => {
 			<AllSongsList songs={mockSongs} selectedGenres={["pop"]} maxViews={6000} minViews={0} />,
 		);
 
-		// Check that only the song matching the criteria is rendered
 		expect(screen.getByText("Song One")).toBeInTheDocument();
 		expect(screen.queryByText("Song Two")).not.toBeInTheDocument();
 	});
