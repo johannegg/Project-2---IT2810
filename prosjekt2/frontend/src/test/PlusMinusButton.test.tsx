@@ -84,7 +84,7 @@ describe("PlusMinusButton Component", () => {
 				<PlusMinusButton song={mockSong} />
 			</MockedProvider>,
 		);
-		fireEvent.click(screen.getByRole("button", { name: "Add song" })); 
+		fireEvent.click(screen.getByRole("button", { name: "Add song" }));
 		expect(screen.getByText('Select a playlist to add "Test Song"')).toBeInTheDocument();
 	});
 
@@ -94,7 +94,7 @@ describe("PlusMinusButton Component", () => {
 				<PlusMinusButton song={mockSong} />
 			</MockedProvider>,
 		);
-		fireEvent.click(screen.getByRole("button", { name: "Add song" })); 
+		fireEvent.click(screen.getByRole("button", { name: "Add song" }));
 		fireEvent.click(screen.getByRole("button", { name: "Add song to playlist Test Playlist 🎵" }));
 		expect(await screen.findByText("Song successfully added!")).toBeInTheDocument();
 	});
@@ -105,7 +105,7 @@ describe("PlusMinusButton Component", () => {
 				<PlusMinusButton song={mockSong} isInPlaylist playlistId="playlist1" />
 			</MockedProvider>,
 		);
-		fireEvent.click(screen.getByRole("button", { name: "Remove song" })); 
+		fireEvent.click(screen.getByRole("button", { name: "Remove song" }));
 		await waitFor(() => {
 			const updatedPlaylists = playlistsVar();
 			const playlist = updatedPlaylists.find((p) => p.id === "playlist1");
@@ -120,7 +120,7 @@ describe("PlusMinusButton Component", () => {
 				<PlusMinusButton song={mockSong} />
 			</MockedProvider>,
 		);
-		fireEvent.click(screen.getByRole("button", { name: "Add song" })); 
+		fireEvent.click(screen.getByRole("button", { name: "Add song" }));
 		expect(window.alert).toHaveBeenCalledWith("You need to be logged in to add songs to playlists");
 	});
 });

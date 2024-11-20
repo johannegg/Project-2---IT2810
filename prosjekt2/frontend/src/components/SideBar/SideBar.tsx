@@ -101,19 +101,16 @@ export const Sidebar = forwardRef<HTMLDivElement, SidebarProps>(
 						songs={songs}
 						sortOption={sortOption}
 						onSortChange={onSortChange}
-						aria-label="Sorting options" 
+						aria-label="Sorting options"
 					/>
 					<br />
 					<Filter
 						onGenreChange={onGenreChange}
 						searchTerm={searchTerm}
-						aria-label="Genre filtering options" 
+						aria-label="Genre filtering options"
 					/>
 					<br />
-					<ViewsFilter
-						onViewsChange={onViewsChange}
-						aria-label="Views filtering options"
-					/>
+					<ViewsFilter onViewsChange={onViewsChange} aria-label="Views filtering options" />
 					<br />
 					<button
 						onClick={onClearAllFilters}

@@ -41,11 +41,7 @@ export const SearchBar: React.FC<SearchBarProps> = ({ setSearchTerm, initialSear
 				</button>
 			</form>
 			{searchInput && (
-				<button
-					className="clearButton"
-					onClick={clearInput}
-					aria-label="Clear Search Button"
-				>
+				<button className="clearButton" onClick={clearInput} aria-label="Clear Search Button">
 					<FontAwesomeIcon icon={faXmark} />
 				</button>
 			)}

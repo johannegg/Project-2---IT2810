@@ -77,7 +77,7 @@ describe("BackButton", () => {
 				<BackButton text="Custom Text" />
 			</MemoryRouter>,
 		);
-		
+
 		expect(container).toMatchSnapshot();
 	});
 });

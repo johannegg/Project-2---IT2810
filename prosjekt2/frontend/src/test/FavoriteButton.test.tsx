@@ -126,7 +126,7 @@ describe("FavoriteButton", () => {
 
 	test("shows an alert when user is not logged in and tries to favorite a song", () => {
 		const alertMock = vi.spyOn(window, "alert").mockImplementation(() => {});
-		localStorage.setItem("profileName", ""); 
+		localStorage.setItem("profileName", "");
 
 		render(<FavoriteButton song={mockSong} />);
 		const button = screen.getByRole("button");

@@ -77,7 +77,7 @@ describe("PlaylistForm Component", () => {
 			<PlaylistForm show={true} onClose={onCloseMock} onSubmit={onSubmitMock} />,
 		);
 		const submitButton = screen.getByText(/submit/i);
-		fireEvent.click(submitButton); 
+		fireEvent.click(submitButton);
 		expect(screen.getByPlaceholderText(/enter playlist name/i)).toHaveClass("input-error");
 		expect(onSubmitMock).not.toHaveBeenCalled();
 		expect(container).toMatchSnapshot();

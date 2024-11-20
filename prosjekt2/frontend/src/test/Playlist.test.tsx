@@ -97,7 +97,7 @@ describe("Playlist Component", () => {
 		const mockSetCurrentBackgroundColor = vi.fn();
 
 		vi.spyOn(React, "useState").mockImplementationOnce(() => [
-			"#8a8587", 
+			"#8a8587",
 			mockSetCurrentBackgroundColor,
 		]);
 
