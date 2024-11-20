@@ -7,8 +7,9 @@ import "@testing-library/jest-dom";
 import { describe, test, vi, beforeEach, beforeAll, expect } from "vitest";
 import { waitFor } from "@testing-library/react";
 
-vi.mock("../apollo/cache", () => {
-	const { makeVar } = require("@apollo/client");
+// Mocking Apollo cache
+vi.mock("../apollo/cache", async () => {
+	const { makeVar } = await import("@apollo/client");
 	return {
 		playlistsVar: makeVar([]),
 		isSidebarOpenVar: makeVar(false),
