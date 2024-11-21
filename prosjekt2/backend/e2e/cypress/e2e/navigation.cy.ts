@@ -4,7 +4,7 @@ describe("Navigate", () => {
 
     // Log in first
     cy.get(".profile-icon").click();
-    cy.get(".login-input").type("test");
+    cy.get(".login-input").type("testUserE2E");
     cy.get(".login-button").click();
   });
 

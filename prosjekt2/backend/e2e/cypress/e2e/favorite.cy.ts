@@ -1,8 +1,8 @@
 describe("Favorites", () => {
   beforeEach(() => {
-    cy.visit("http://localhost:5173/project2/");
+    cy.visit("http://localhost:5173/project2");
     cy.get(".profile-icon").click();
-    cy.get(".login-input").type("test");
+    cy.get(".login-input").type("testUserE2E");
     cy.get(".login-button").click();
   });
 

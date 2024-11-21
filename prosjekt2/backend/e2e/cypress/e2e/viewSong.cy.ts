@@ -20,7 +20,7 @@ describe("View a song", () => {
   it("should add song to favorite from song page", () => {
     // Log in first
     cy.get(".profile-icon").click();
-    cy.get(".login-input").type("test");
+    cy.get(".login-input").type("testUserE2E");
     cy.get(".login-button").click();
 
     // Add a song to favorites
@@ -44,14 +44,14 @@ describe("View a song", () => {
   it("should add song to playlist from song page", () => {
     // Log in first
     cy.get(".profile-icon").click();
-    cy.get(".login-input").type("test");
+    cy.get(".login-input").type("testUserE2E");
     cy.get(".login-button").click();
 
     // Make a playlist
     cy.contains("Your playlists").click();
     cy.get(".new-playlist-button").click();
     cy.contains("Create new playlist").should("be.visible");
-    cy.get(".playlist-input").type("Test playlist");
+    cy.get(".playlist-input").type("E2E-testing");
     cy.get(".form-submit-button").click();
 
     // Add song to playlist
@@ -64,12 +64,12 @@ describe("View a song", () => {
         expect(title).to.exist;
         cy.get(".tableRow").eq(4).click();
         cy.get(".plusMinus-button").click();
-        cy.contains("Test playlist").click();
+        cy.contains("E2E-testing").click();
         cy.get(".closeBtn").click();
 
         // Check if the song is in the playlist
         cy.contains("Your playlists").click();
-        cy.contains("Test playlist").click();
+        cy.contains("E2E-testing").click();
         cy.contains(title).should("be.visible");
 
         // Remove the song from the playlist
