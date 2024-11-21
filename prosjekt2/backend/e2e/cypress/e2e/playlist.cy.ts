@@ -1,3 +1,4 @@
+/// <reference types="cypress" />
 describe("Make and view playlists", () => {
   beforeEach(() => {
     cy.visit("http://localhost:5173/project2/");

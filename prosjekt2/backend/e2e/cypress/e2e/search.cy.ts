@@ -1,3 +1,4 @@
+/// <reference types="cypress" />
 describe("Search for a song", () => {
   beforeEach(() => {
     cy.visit("http://localhost:5173/project2/");
