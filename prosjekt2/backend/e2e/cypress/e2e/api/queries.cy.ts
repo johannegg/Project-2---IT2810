@@ -1,4 +1,5 @@
-const graphqlEndpoint = "http://localhost:4000/";
+/// <reference types="cypress" />
+const graphqlEndpoint = "http://localhost:3001/";
 
 describe("GraphQL API query tests", () => {
 	before(() => {
