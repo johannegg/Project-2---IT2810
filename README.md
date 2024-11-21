@@ -61,6 +61,8 @@ The backend is running on the virtual machine, so you need to be connected to NT
 
 ESLint and Prettier is used to ensure good quality of the code. Prettier is used in the whole application. From the root of the project you can run `npx prettier --check .` to ensure everything is up to standards. ESLint can be ran in the frontend of the project. Navigate into the folder using `cd prosjekt2/frontend` and run the command `npm run lint`.
 
+**NOTE**: When running ESLint, there is a warning on the version of typescript. We have chosen to ignore this warning for now, as we don't want to downgrade the typescript version just to get rid of the warning on ESLint.
+
 ### Run Tests
 
 The component-tests are ran by navigating into the frontend folder, using `cd prosjekt2/frontend` and run tests with `npm test`.
