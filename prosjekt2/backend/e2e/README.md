@@ -20,7 +20,7 @@ The following components have been tested, and they all have test coverage >= 80
 - ViewsFilter.tsx
 
 ## End-To-End Tests
-The E2E-tests are written in Cypress. We have chosen to test interactions with the key-features (from above). The exception is the "Create user", because this is implicitly tested in several tests. The different "specs" are: 
+The E2E-tests are written in Cypress. We have chosen to test interactions with the key-features. The exception is the "Create user", because this is implicitly tested in several tests. The different "specs" are: 
 - **favorite**
   - The user can mark a song as a favorite and later remove it from the favorites list.
 - **filter**
