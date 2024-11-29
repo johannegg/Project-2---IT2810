@@ -1,7 +1,8 @@
 /// <reference types="cypress" />
 describe("Search for a song", () => {
 	beforeEach(() => {
-		cy.visit("http://localhost:5173/project2/");
+		//cy.visit("http://localhost:5173/project2"); // for testing locally
+		cy.visit("http://it2810-12.idi.ntnu.no/project2"); // for testing on VM
 	});
 
 	it("should show the song you searched for", () => {
