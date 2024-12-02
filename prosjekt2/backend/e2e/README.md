@@ -46,6 +46,8 @@ The E2E-tests are written in Cypress. We have chosen to test interactions with t
   - The user can click on a song to view its details and navigate back to the previous list or page.
   - The user can mark a song as a favorite or add it to a playlist directly from the song detail page.
 
+**NOTE**: Some of the tests stopped working when we updated them to work on the VM for simplicity. If you wish to run all the tests locally, follow [this](cypress/README.md) guide.  
+
 ## API Tests
 
 The API tests are also written using Cypress by interacting with the GraphQL resolvers through HTTP requests. The tests cover mutations and queries for **users**, **favorite songs**, and **playlists**, and ensure proper structure and correctness of returned data.

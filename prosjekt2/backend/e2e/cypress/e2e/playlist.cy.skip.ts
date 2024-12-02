@@ -13,7 +13,7 @@ describe("Make and view playlists", () => {
 		cy.contains("Your playlists").click();
 	});
 
-	it("should make new playlist and delete it", () => { // TODO: fix this test. Doesn't delete playlist.
+	it("should make new playlist and delete it", () => {
 		// Click on the new playlist button
 		cy.get(".new-playlist-button").click();
 		cy.contains("Create new playlist").should("be.visible");
@@ -37,7 +37,7 @@ describe("Make and view playlists", () => {
 		cy.contains("E2E-testing1").should("not.exist");
 	});
 
-	it("should add and remove songs from playlist", () => { // TODO: Fix this test. Doesn't delete playlist, and gets error in adding songs. 
+	it("should add and remove songs from playlist", () => {
 		// Make a playlist
 		cy.get(".new-playlist-button").click();
 		cy.contains("Create new playlist").should("be.visible");

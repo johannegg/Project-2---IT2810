@@ -43,7 +43,7 @@ describe("View a song", () => {
 			});
 	});
 
-	// it("should add song to playlist from song page", () => { // TODO: Fix this test. Doesn't delete playlist.
+	// it("should add song to playlist from song page", () => { // Run this test locally, by uncommenting the code below (use command+shift+7)
 	// 	// Log in first
 	// 	cy.get(".profile-icon").click();
 	// 	cy.get(".login-input").type("testUserE2E");
