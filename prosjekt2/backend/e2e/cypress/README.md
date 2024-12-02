@@ -17,15 +17,7 @@ Go into all the specs, and follow the directions there to change the links from 
 - viewSong.cy.ts
 
 **Step 3:**  
-Start up the frontend and backend. Open a terminal and write  
-`cd prosjekt2/backend`  
-`npm install`  
-`cd e2e`  
-`npm install`  
-`cd ..`  
-`npx ts-node src/index.ts`
-
-Open a new terminal (without closing the first one) and write  
+Start up the frontend. Open a terminal and write  
 `cd prosjekt2/frontend`  
 `npm install`  
 `npm run dev`
