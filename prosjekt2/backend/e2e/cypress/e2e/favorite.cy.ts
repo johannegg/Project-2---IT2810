@@ -3,7 +3,7 @@ describe("Favorites", () => {
 	beforeEach(() => {
 		//cy.visit("http://localhost:5173/project2"); // for testing locally
 		cy.visit("http://it2810-12.idi.ntnu.no/project2"); // for testing on VM
-		
+
 		cy.get(".profile-icon").click();
 		cy.get(".login-input").type("testUserE2E");
 		cy.get(".login-button").click();

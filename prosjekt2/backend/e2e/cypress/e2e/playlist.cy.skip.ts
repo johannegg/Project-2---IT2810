@@ -27,7 +27,7 @@ describe("Make and view playlists", () => {
 
 		// View the playlist
 		//cy.contains("E2E-testing").click();
-		cy.get(".playlist-card").click(); 
+		cy.get(".playlist-card").click();
 
 		// Delete the playlist
 		cy.get(".delete-playlist-button", { timeout: 10000 }).click();
