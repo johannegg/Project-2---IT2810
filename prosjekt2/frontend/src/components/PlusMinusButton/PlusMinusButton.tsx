@@ -10,9 +10,9 @@ import "./PlusMinusButton.css";
 
 type PlusMinusButtonProps = {
 	song: SongData;
-	isInPlaylist?: boolean; 
-	playlistId?: string; 
-	onSongRemoved?: (songId: string) => void; 
+	isInPlaylist?: boolean;
+	playlistId?: string;
+	onSongRemoved?: (songId: string) => void;
 };
 
 const PlusMinusButton: React.FC<PlusMinusButtonProps> = ({
@@ -21,10 +21,10 @@ const PlusMinusButton: React.FC<PlusMinusButtonProps> = ({
 	playlistId,
 	onSongRemoved,
 }) => {
-	const playlists = useReactiveVar(playlistsVar); 
-	const isSidebarOpen = useReactiveVar(isSidebarOpenVar); 
-	const [showModal, setShowModal] = useState(false); 
-	const [feedbackMessage, setFeedbackMessage] = useState(""); 
+	const playlists = useReactiveVar(playlistsVar);
+	const isSidebarOpen = useReactiveVar(isSidebarOpenVar);
+	const [showModal, setShowModal] = useState(false);
+	const [feedbackMessage, setFeedbackMessage] = useState("");
 
 	// Apollo mutation to add a song to a playlist
 	const [addSongToPlaylist] = useMutation(ADD_SONG_TO_PLAYLIST, {
@@ -100,7 +100,7 @@ const PlusMinusButton: React.FC<PlusMinusButtonProps> = ({
 		});
 
 		if (songAdded) {
-			playlistsVar(updatedPlaylists); 
+			playlistsVar(updatedPlaylists);
 		}
 	};
 

@@ -27,7 +27,7 @@ export function AllSongsList({
 	onSongRemoved,
 }: AllSongsListProps) {
 	const navigate = useNavigate();
-	
+
 	// Filter songs based on selected genres and view range
 	const filteredSongs = songs
 		.filter((song) => (selectedGenres.length > 0 ? selectedGenres.includes(song.genre.name) : true))

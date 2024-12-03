@@ -3,20 +3,20 @@ import "./PlaylistForm.css";
 import { v4 as uuidv4 } from "uuid";
 
 interface PlaylistFormProps {
-	show: boolean; 
-	onClose: () => void; 
-	onSubmit: (playlistName: string, backgroundColor: string, icon: string, id: string) => void; 
+	show: boolean;
+	onClose: () => void;
+	onSubmit: (playlistName: string, backgroundColor: string, icon: string, id: string) => void;
 }
 
 const PlaylistForm: React.FC<PlaylistFormProps> = ({ show, onClose, onSubmit }) => {
-	const [inputValue, setInputValue] = useState(""); 
-	const [selectedIcon, setSelectedIcon] = useState("🎵"); 
-	const [hasError, setHasError] = useState(false); 
-	const [selectedColor, setSelectedColor] = useState("#ffffff"); 
+	const [inputValue, setInputValue] = useState("");
+	const [selectedIcon, setSelectedIcon] = useState("🎵");
+	const [hasError, setHasError] = useState(false);
+	const [selectedColor, setSelectedColor] = useState("#ffffff");
 	const [isDarkMode, setIsDarkMode] = useState(
 		window.matchMedia("(prefers-color-scheme: dark)").matches,
-	); 
-	const inputRef = useRef<HTMLInputElement>(null); 
+	);
+	const inputRef = useRef<HTMLInputElement>(null);
 
 	const colorMapping: { [key: string]: string } = useMemo(
 		() => ({
@@ -73,7 +73,7 @@ const PlaylistForm: React.FC<PlaylistFormProps> = ({ show, onClose, onSubmit }) 
 	const handleSubmit = (e: React.FormEvent) => {
 		e.preventDefault();
 		if (!inputValue.trim()) {
-			setHasError(true); 
+			setHasError(true);
 			return;
 		}
 		setHasError(false);
@@ -165,9 +165,7 @@ const PlaylistForm: React.FC<PlaylistFormProps> = ({ show, onClose, onSubmit }) 
 							<button
 								key={color}
 								className={`color-button ${
-									selectedColor === (isDarkMode ? colorMapping[color] : color)
-										? "selected"
-										: ""
+									selectedColor === (isDarkMode ? colorMapping[color] : color) ? "selected" : ""
 								}`}
 								style={{ backgroundColor: color }}
 								type="button"
@@ -185,9 +183,7 @@ const PlaylistForm: React.FC<PlaylistFormProps> = ({ show, onClose, onSubmit }) 
 							<button
 								key={icon}
 								type="button"
-								className={
-									selectedIcon === icon ? "icon-button active" : "icon-button"
-								}
+								className={selectedIcon === icon ? "icon-button active" : "icon-button"}
 								onClick={() => setSelectedIcon(icon)}
 								data-iconname={name}
 								aria-label={`Select ${name} icon`}

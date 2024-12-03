@@ -4,14 +4,14 @@ import "./Playlist.css";
 import { SongData } from "../../utils/types/SongTypes";
 
 interface PlaylistProps {
-	id: string; 
-	name: string; 
-	backgroundColor: string; 
-	icon: string; 
-	songs: SongData[]; 
-	onClick: () => void; 
-	tabIndex?: number; 
-	onKeyDown?: (event: React.KeyboardEvent) => void; 
+	id: string;
+	name: string;
+	backgroundColor: string;
+	icon: string;
+	songs: SongData[];
+	onClick: () => void;
+	tabIndex?: number;
+	onKeyDown?: (event: React.KeyboardEvent) => void;
 }
 
 // Maps light mode background colors to dark mode equivalents

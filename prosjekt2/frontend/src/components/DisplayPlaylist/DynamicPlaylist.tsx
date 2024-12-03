@@ -5,7 +5,7 @@ import DisplayPlaylist from "./DisplayPlaylist";
 import { useEffect } from "react";
 
 const DynamicPlaylist = () => {
-	const { playlistId } = useParams<{ playlistId: string }>(); 
+	const { playlistId } = useParams<{ playlistId: string }>();
 	const navigate = useNavigate();
 	const playlists = useReactiveVar(playlistsVar);
 	const playlistData = playlists.find((playlist) => playlist.id === playlistId);

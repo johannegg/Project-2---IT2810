@@ -6,15 +6,15 @@ import { clearFiltersVar, genreFilterVar, maxViewsVar, minViewsVar } from "../..
 import { useEffect, useState, useCallback } from "react";
 
 interface FilterProps {
-	onGenreChange: (selectedGenres: string[]) => void; 
-	searchTerm: string; 
+	onGenreChange: (selectedGenres: string[]) => void;
+	searchTerm: string;
 }
 
 export function Filter({ onGenreChange, searchTerm }: FilterProps) {
-	const minViews = useReactiveVar(minViewsVar); 
+	const minViews = useReactiveVar(minViewsVar);
 	const maxViews = useReactiveVar(maxViewsVar);
-	const selectedGenresFromApollo = useReactiveVar(genreFilterVar); 
-	const clearFilters = useReactiveVar(clearFiltersVar); 
+	const selectedGenresFromApollo = useReactiveVar(genreFilterVar);
+	const clearFilters = useReactiveVar(clearFiltersVar);
 	const { genreCounts, isLoading } = useGenreCounts(
 		searchTerm,
 		minViews,

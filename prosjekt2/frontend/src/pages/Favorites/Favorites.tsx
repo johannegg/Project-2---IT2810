@@ -8,18 +8,18 @@ import { favoritesSearchTermVar, favoriteSongsVar } from "../../apollo/cache";
 import { useReactiveVar } from "@apollo/client";
 
 const Favorites: React.FC = () => {
-	const favorites = useReactiveVar(favoriteSongsVar); 
+	const favorites = useReactiveVar(favoriteSongsVar);
 	const searchTerm = useReactiveVar(favoritesSearchTermVar);
-	const [searchedSongs, setSearchedSongs] = useState<SongData[]>(favorites); 
+	const [searchedSongs, setSearchedSongs] = useState<SongData[]>(favorites);
 	const navigate = useNavigate();
 
-	const allGenres = ["pop", "rap", "rb", "country", "rock"]; 
+	const allGenres = ["pop", "rap", "rb", "country", "rock"];
 
 	// Filter favorite songs based on search term
 	useEffect(() => {
 		const filterSongs = () => {
-			if (searchTerm === "") return favorites; 
-			const keywords = searchTerm.toLowerCase().split(" "); 
+			if (searchTerm === "") return favorites;
+			const keywords = searchTerm.toLowerCase().split(" ");
 
 			return favorites.filter((song) => {
 				return keywords.every(
@@ -29,7 +29,7 @@ const Favorites: React.FC = () => {
 				);
 			});
 		};
-		setSearchedSongs(filterSongs()); 
+		setSearchedSongs(filterSongs());
 	}, [searchTerm, favorites]);
 
 	const handleSearchSubmit = (term: string) => {

@@ -14,12 +14,12 @@ type FavoriteProps = {
 
 const FavoriteButton = ({ song }: FavoriteProps) => {
 	const favoriteSongs = useReactiveVar(favoriteSongsVar);
-	const isFavorite = favoriteSongs.some((favSong) => favSong.id === song.id); 
-	const [addFavorite] = useMutation(ADD_FAVORITE_SONG); 
-	const [removeFavorite] = useMutation(REMOVE_FAVORITE_SONG); 
+	const isFavorite = favoriteSongs.some((favSong) => favSong.id === song.id);
+	const [addFavorite] = useMutation(ADD_FAVORITE_SONG);
+	const [removeFavorite] = useMutation(REMOVE_FAVORITE_SONG);
 
 	const handleFavorite = async (e: React.MouseEvent<HTMLButtonElement>) => {
-		e.stopPropagation(); 
+		e.stopPropagation();
 		const storedUsername = localStorage.getItem("profileName");
 		if (!storedUsername) {
 			// Ensure the user is logged in before allowing favoriting

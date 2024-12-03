@@ -7,7 +7,7 @@ import { SongData } from "../../utils/types/SongTypes";
 import BackButton from "../BackButton/BackButton";
 
 type LyricProps = {
-	songData: SongData; 
+	songData: SongData;
 };
 
 const Lyric = ({ songData }: LyricProps) => {

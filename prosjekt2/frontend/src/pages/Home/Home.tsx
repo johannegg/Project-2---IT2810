@@ -26,9 +26,9 @@ const Home = () => {
 	const searchTerm = useReactiveVar(homeSearchTermVar);
 	const isSidebarOpen = useReactiveVar(isSidebarOpenVar);
 
-	const [localSongCount, setLocalSongCount] = useState<number>(0); 
-	const debounceTimer = useRef<NodeJS.Timeout | null>(null); 
-	const sidebarRef = useRef<HTMLDivElement | null>(null); 
+	const [localSongCount, setLocalSongCount] = useState<number>(0);
+	const debounceTimer = useRef<NodeJS.Timeout | null>(null);
+	const sidebarRef = useRef<HTMLDivElement | null>(null);
 
 	// Fetch song count and state from backend/cache
 	const {

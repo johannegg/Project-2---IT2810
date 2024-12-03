@@ -6,7 +6,7 @@ import { useReactiveVar } from "@apollo/client";
 
 const DynamicLyric = () => {
 	const navigate = useNavigate();
-	const songData = useReactiveVar(songDataVar); 
+	const songData = useReactiveVar(songDataVar);
 
 	useEffect(() => {
 		// Redirect to "not found" page if there is no song data
