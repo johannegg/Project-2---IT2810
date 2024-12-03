@@ -6,15 +6,15 @@ import { clearFiltersVar, genreFilterVar, maxViewsVar, minViewsVar } from "../..
 import { useEffect, useState, useCallback } from "react";
 
 interface FilterProps {
-	onGenreChange: (selectedGenres: string[]) => void;
-	searchTerm: string;
+	onGenreChange: (selectedGenres: string[]) => void; 
+	searchTerm: string; 
 }
 
 export function Filter({ onGenreChange, searchTerm }: FilterProps) {
-	const minViews = useReactiveVar(minViewsVar);
+	const minViews = useReactiveVar(minViewsVar); 
 	const maxViews = useReactiveVar(maxViewsVar);
-	const selectedGenresFromApollo = useReactiveVar(genreFilterVar);
-	const clearFilters = useReactiveVar(clearFiltersVar);
+	const selectedGenresFromApollo = useReactiveVar(genreFilterVar); 
+	const clearFilters = useReactiveVar(clearFiltersVar); 
 	const { genreCounts, isLoading } = useGenreCounts(
 		searchTerm,
 		minViews,
@@ -28,6 +28,7 @@ export function Filter({ onGenreChange, searchTerm }: FilterProps) {
 
 	const handleGenreChange = useCallback(
 		(genre: string) => {
+			// Toggle genre selection and update Apollo cache and sessionStorage
 			const isSelected = localSelectedGenres.includes(genre);
 			const newSelectedGenres = isSelected
 				? localSelectedGenres.filter((g) => g !== genre)
@@ -41,14 +42,14 @@ export function Filter({ onGenreChange, searchTerm }: FilterProps) {
 		[localSelectedGenres, onGenreChange],
 	);
 
-	// Cache genre counts only when loading completes to prevent "flickering"
+	// Cache genre counts after loading completes to prevent flickering
 	useEffect(() => {
 		if (!isLoading) {
 			setCachedGenreCounts(genreCounts);
 		}
 	}, [isLoading, genreCounts]);
 
-	// Load genres from sessionStorage on initial mount
+	// Load saved genres from sessionStorage
 	useEffect(() => {
 		const savedGenres = JSON.parse(sessionStorage.getItem("selectedGenres") || "[]");
 		if (savedGenres.length > 0) {
@@ -57,7 +58,7 @@ export function Filter({ onGenreChange, searchTerm }: FilterProps) {
 		}
 	}, []);
 
-	// Reset genres when clearFilters is true
+	// Clear selected genres when clearFilters is triggered
 	useEffect(() => {
 		if (clearFilters) {
 			setLocalSelectedGenres([]);
@@ -65,7 +66,7 @@ export function Filter({ onGenreChange, searchTerm }: FilterProps) {
 		}
 	}, [clearFilters]);
 
-	// Handle keyboard input for accessibility
+	// Handle keyboard interaction for toggling genres
 	const handleKeyDown = useCallback(
 		(event: React.KeyboardEvent<HTMLDivElement>, genre: string) => {
 			if (event.key === "Enter" || event.key === " ") {
@@ -83,6 +84,7 @@ export function Filter({ onGenreChange, searchTerm }: FilterProps) {
 				<h2 aria-label="Genre filter section">Genre</h2>
 			</section>
 			<section className="categories" aria-label="Available genres">
+				{/* Render genre filters dynamically */}
 				{cachedGenreCounts.map((genre: { name: string; count: number }) => (
 					<div
 						className="filterRow"
@@ -93,6 +95,7 @@ export function Filter({ onGenreChange, searchTerm }: FilterProps) {
 						aria-checked={localSelectedGenres.includes(genre.name)}
 						aria-label={`Filter for genre ${genre.name} with ${genre.count} available songs`}
 					>
+						{/* Checkbox for toggling genre filter */}
 						<input
 							type="checkbox"
 							id={genre.name}

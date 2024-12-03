@@ -12,6 +12,7 @@ type SearchBarProps = {
 export const SearchBar: React.FC<SearchBarProps> = ({ setSearchTerm, initialSearchTerm = "" }) => {
 	const [searchInput, setSearchInput] = useState<string>(initialSearchTerm);
 
+	// Setting the search term to be empty at the start
 	useEffect(() => {
 		setSearchInput(initialSearchTerm);
 	}, [initialSearchTerm]);
@@ -33,6 +34,7 @@ export const SearchBar: React.FC<SearchBarProps> = ({ setSearchTerm, initialSear
 					className="searchInput"
 					placeholder="Search for a song or an artist"
 					value={searchInput}
+					// The search is done as the user clicks search (or enter)
 					onChange={(e) => setSearchInput(e.target.value)}
 					aria-label="Search Input Field"
 				/>

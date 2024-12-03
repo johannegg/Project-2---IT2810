@@ -108,7 +108,6 @@ exports[`DisplayPlaylist Component > renders correctly and matches snapshot 1`] 
                   <button
                     aria-label="Remove song"
                     class="plusMinus-button"
-                    data-label="Remove song"
                   >
                     <svg
                       color="#afc188"

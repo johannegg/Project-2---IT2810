@@ -10,6 +10,7 @@ interface ViewsFilterProps {
 	onViewsChange: (minViews: number, maxViews: number) => void;
 }
 
+// Component in the sidebar to filter on an interval of views
 export function ViewsFilter({ onViewsChange }: ViewsFilterProps) {
 	const minViews = useReactiveVar(minViewsVar);
 	const maxViews = useReactiveVar(maxViewsVar);
@@ -25,6 +26,7 @@ export function ViewsFilter({ onViewsChange }: ViewsFilterProps) {
 		onViewsChange(initialMinViews, initialMaxViews);
 	}, [onViewsChange]);
 
+	// Setting the views to default if "Clear filter" button is clicked
 	useEffect(() => {
 		if (clearFilters) {
 			if (minViews !== 0 || maxViews !== 1000000) {
@@ -61,6 +63,7 @@ export function ViewsFilter({ onViewsChange }: ViewsFilterProps) {
 				<h2>Views</h2>
 			</section>
 			<div className="slider" tabIndex={-1}>
+				{/* Using the react-slider component */}
 				<ReactSlider
 					className="horizontal-slider"
 					thumbClassName="thumb"

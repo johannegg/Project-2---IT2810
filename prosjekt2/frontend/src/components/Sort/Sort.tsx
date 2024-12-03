@@ -15,6 +15,8 @@ const Sort: React.FC<SortProps> = ({ sortOption, onSortChange }) => {
 		onSortChange(newSortOption);
 	};
 
+	// When choosing a sortOption, it is sent to the backend to fetch the correct sorting from the API
+	// This way, it sorts before we fetch the 30 songs
 	return (
 		<div className="sort-container">
 			<section className="sortHeader">

@@ -16,6 +16,7 @@ const Profile: React.FC = () => {
 
 	const navigate = useNavigate();
 
+	// Check local storage for existing user
 	useEffect(() => {
 		const storedProfileName = localStorage.getItem("profileName");
 		if (storedProfileName) {
@@ -24,6 +25,7 @@ const Profile: React.FC = () => {
 		}
 	}, []);
 
+	// Clears the user data when logging out
 	const logOut = () => {
 		setLogin(false);
 		localStorage.removeItem("profileName");
@@ -35,6 +37,7 @@ const Profile: React.FC = () => {
 		navigate("/");
 	};
 
+	// Creates a user or retrieves an existing user on login
 	const logIn = async () => {
 		if (inputValue.trim() !== "") {
 			try {

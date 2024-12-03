@@ -54,6 +54,7 @@ const Playlists = () => {
 		}
 	}, []);
 
+	// If playlists are loading, set a timeout to display the loading indicator after 500ms, to hinder it from popping up immediately
 	useEffect(() => {
 		let loadingTimeout: NodeJS.Timeout;
 		if (playlistsLoading) {

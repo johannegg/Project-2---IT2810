@@ -27,6 +27,8 @@ export function AllSongsList({
 	onSongRemoved,
 }: AllSongsListProps) {
 	const navigate = useNavigate();
+	
+	// Filter songs based on selected genres and view range
 	const filteredSongs = songs
 		.filter((song) => (selectedGenres.length > 0 ? selectedGenres.includes(song.genre.name) : true))
 		.filter((song) => song.views >= minViews && song.views <= maxViews);
@@ -43,12 +45,14 @@ export function AllSongsList({
 								key={song.id}
 								className="tableRow"
 								aria-label={`Song: ${song.title} by ${song.artist.name}`}
+								// Navigate to song details page unless a button is clicked
 								onClick={(e) => {
 									if (!(e.target instanceof HTMLButtonElement)) {
 										routeChange(song, navigate);
 									}
 								}}
 								tabIndex={0}
+								// Handle keyboard navigation for accessibility
 								onKeyDown={(e) => {
 									if (
 										!(e.target instanceof HTMLButtonElement) &&
@@ -69,6 +73,7 @@ export function AllSongsList({
 								</td>
 								<td aria-label={`Year: ${song.year}`}>{song.year}</td>
 								<td className="viewsCell" aria-label={`Views: ${song.views}`}>
+									{/* Display view count with icon */}
 									<FaEye style={{ marginRight: "5px" }} />
 									{formatViews(song.views)}
 								</td>

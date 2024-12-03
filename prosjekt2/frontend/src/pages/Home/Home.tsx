@@ -16,9 +16,9 @@ import {
 } from "../../apollo/cache";
 import { useReactiveVar } from "@apollo/client";
 import { useSongCount } from "../../utils/hooks/useSongCount";
-import "./Home.css";
 
 const Home = () => {
+	// Reactive variables from Apollo cache
 	const selectedGenres = useReactiveVar(genreFilterVar);
 	const minViews = useReactiveVar(minViewsVar);
 	const maxViews = useReactiveVar(maxViewsVar);
@@ -26,10 +26,11 @@ const Home = () => {
 	const searchTerm = useReactiveVar(homeSearchTermVar);
 	const isSidebarOpen = useReactiveVar(isSidebarOpenVar);
 
-	const [localSongCount, setLocalSongCount] = useState<number>(0);
-	const debounceTimer = useRef<NodeJS.Timeout | null>(null);
-	const sidebarRef = useRef<HTMLDivElement | null>(null);
+	const [localSongCount, setLocalSongCount] = useState<number>(0); 
+	const debounceTimer = useRef<NodeJS.Timeout | null>(null); 
+	const sidebarRef = useRef<HTMLDivElement | null>(null); 
 
+	// Fetch song count and state from backend/cache
 	const {
 		songCount,
 		isLoading: isSongCountLoading,
@@ -54,11 +55,13 @@ const Home = () => {
 		refetchSongCount();
 	}, [refetchSongCount]);
 
+	// Update genres in Apollo cache and refetch song count
 	const handleGenreChange = (genres: string[]) => {
 		genreFilterVar(genres.length > 0 ? genres : []);
 		refetchSongCount();
 	};
 
+	// Update min/max views in Apollo cache and debounce refetch
 	const handleViewsChange = (newMinViews: number, newMaxViews: number) => {
 		minViewsVar(newMinViews);
 		maxViewsVar(newMaxViews);
@@ -81,6 +84,7 @@ const Home = () => {
 		refetchSongCount();
 	};
 
+	// Toggle the sidebar and focus if opened
 	const toggleSidebar = () => {
 		isSidebarOpenVar(!isSidebarOpen);
 		if (!isSidebarOpen && sidebarRef.current) {
@@ -90,6 +94,7 @@ const Home = () => {
 		}
 	};
 
+	// Clear all filters and reset state in Apollo cache
 	const clearAllFilters = () => {
 		genreFilterVar([]);
 		sortOptionVar("views_desc");
@@ -135,9 +140,11 @@ const Home = () => {
 						aria-label="Search songs"
 					/>
 				</section>
+
 				<section className="filterButtonContainer">
 					<FilterButton onClick={toggleSidebar} aria-label="Toggle sidebar" />
 				</section>
+
 				<section className="searchResults">
 					<p className="numberOfResults">
 						<span className="resultNumber">{isSongCountLoading ? localSongCount : songCount}</span>{" "}
@@ -155,6 +162,7 @@ const Home = () => {
 						</section>
 					) : null}
 				</section>
+
 				{!isLoading && hasMoreSongs && songs.length > 0 && (
 					<button className="loadMoreButton" onClick={loadMoreSongs} type="button">
 						Load More Songs
