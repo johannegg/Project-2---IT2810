@@ -27,6 +27,13 @@ The main functionality of the application is creating a user, viewing individual
 
 We’ve focused on sustainability with features like dark mode, efficient data fetching, and caching to save energy. Also, we’ve made the app more accessible with features such as labels and keyboard navigation.
 
+<p>
+  <img src="./prosjekt2/images/homepage.png" alt="Homepage" width="45%">
+  <img src="./prosjekt2/images/favorites.png" alt="Favorites" width="45%">
+  <img src="./prosjekt2/images/playlists.png" alt="Playlists" width="45%">
+  <img src="./prosjekt2/images/playlist.png" alt="Playlist" width="45%">
+</p>
+
 ### Features
 
 - **Create User**: You can create a user with a unique username to automatically sync your playlists and favorites to it.
@@ -36,6 +43,8 @@ We’ve focused on sustainability with features like dark mode, efficient data f
 - **Navigation**: You can navigate between the pages: "Home", "Favorited Songs", and "Your Playlists" to see different features.
 - **Create Playlists**: Create your own playlists on the "Your Playlists" page using the "New Playlist" button. Songs can be added to playlists from either the homepage or favorite song-page, and they can also be removed from the playlist. Playlists can also be deleted.
 - **Favorite Songs**: Mark your favorite songs by clicking the heart icon next to them. These favorited songs appear on the "Favorited Songs" page.
+
+The app is built so that each key functionality has its own component. This keeps things organized and makes it easier to update or add features.
 
 ### Technology
 
