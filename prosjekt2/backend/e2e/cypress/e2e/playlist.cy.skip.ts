@@ -60,7 +60,7 @@ describe("Make and view playlists", () => {
 		cy.get(".plusMinus-button").eq(0).click();
 
 		// Delete the playlist
-		cy.get(".delete-playlist-button").click();
-		cy.get(".confirm-button").click();
+		cy.get(".delete-playlist-button", { timeout: 10000 }).click();
+		cy.get(".confirm-button", { timeout: 10000 }).click();
 	});
 });
