@@ -8,6 +8,7 @@ import Profile from "../Profile/Profile";
 
 const Header: React.FC = () => {
 	const navigate = useNavigate();
+	// Prevent navigation if user is not logged in
 	const handleNavigation = (
 		path: string,
 		event: React.MouseEvent<HTMLAnchorElement, MouseEvent>,

@@ -14,6 +14,7 @@ interface PlaylistProps {
 	onKeyDown?: (event: React.KeyboardEvent) => void;
 }
 
+// Maps light mode background colors to dark mode equivalents
 const colorMapping: Record<string, string> = {
 	"#ffffff": "#8a8587",
 	"#e8dff5": "#866f95",
@@ -41,6 +42,7 @@ const Playlist: React.FC<PlaylistProps> = ({
 	const [currentBackgroundColor, setCurrentBackgroundColor] = useState(backgroundColor);
 
 	useEffect(() => {
+		// Updates the background color based on system color scheme
 		const updateBackgroundColor = () => {
 			const isDarkModeActive = window.matchMedia("(prefers-color-scheme: dark)").matches;
 			const targetColor =
@@ -51,14 +53,17 @@ const Playlist: React.FC<PlaylistProps> = ({
 			setCurrentBackgroundColor(targetColor);
 		};
 
+		// Initial background color setup
 		updateBackgroundColor();
 		const colorSchemeMedia = window.matchMedia("(prefers-color-scheme: dark)");
 		colorSchemeMedia.addEventListener("change", updateBackgroundColor);
 
+		// Cleanup event listener on component unmount
 		return () => colorSchemeMedia.removeEventListener("change", updateBackgroundColor);
 	}, [backgroundColor]);
 
 	const handleClick = () => {
+		// Navigate to playlist detail page with playlist data in state
 		navigate(`/playlist/${id}`, {
 			state: { playlist: { id, name, backgroundColor: currentBackgroundColor, icon, songs } },
 		});

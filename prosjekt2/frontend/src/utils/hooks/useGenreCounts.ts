@@ -1,6 +1,7 @@
 import { useQuery } from "@apollo/client";
 import { GET_GENRE_COUNTS } from "../Queries";
 
+// Hook to fetch genre counts with applied filters and search term
 export const useGenreCounts = (
 	searchTerm: string,
 	minViews: number,

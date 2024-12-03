@@ -1,6 +1,7 @@
 import { useQuery } from "@apollo/client";
 import { GET_SONG_COUNT } from "../Queries";
 
+// Hook to fetch the count of songs based on filters and search criteria
 export const useSongCount = (
 	selectedGenres: string[] | null,
 	searchTerm: string,
