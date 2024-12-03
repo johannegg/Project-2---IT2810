@@ -46,6 +46,8 @@ The E2E-tests are written in Cypress. We have chosen to test interactions with t
   - The user can click on a song to view its details and navigate back to the previous list or page.
   - The user can mark a song as a favorite or add it to a playlist directly from the song detail page.
 
+**NOTE**: Some of the tests stopped working when we updated them to work on the VM for simplicity. After trying to fix these for a long time, we've decided to comment out these tests, but you can still find the code in prosjekt2/backend/e2e/cypress/e2e. The reason we chose to still run the tests on VM, even though it meant skipping some tests, was a wish from the lecturer, as this will be simpler than having to run the backend locally.
+
 ## API Tests
 
 The API tests are also written using Cypress by interacting with the GraphQL resolvers through HTTP requests. The tests cover mutations and queries for **users**, **favorite songs**, and **playlists**, and ensure proper structure and correctness of returned data.

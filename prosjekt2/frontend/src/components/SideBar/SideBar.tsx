@@ -1,4 +1,4 @@
-import "./Sidebar.css";
+import "./SideBar.css";
 import { Filter } from "../GenreFilter/GenreFilter";
 import { ViewsFilter } from "../ViewsFilter/ViewsFilter";
 import Sort from "../Sort/Sort";

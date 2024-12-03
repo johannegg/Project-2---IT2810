@@ -76,24 +76,7 @@ ESLint and Prettier is used to ensure good quality of the code. Prettier is used
 
 The component-tests are ran by navigating into the frontend folder, using `cd prosjekt2/frontend` and run tests with `npm test`.
 
-Since both regular E2E-tests and API-tests are implemented using Cypress, they can be ran the same way.
-In order for them to work, both backend and frontend have to be ran locally, because they run the tests on localhost.
-
-First, you need to run both frontend and backend. Open one terminal and run:  
-`cd prosjekt2/frontend`  
-`npm install`  
-`npm run dev`
-
-And then open a new terminal and run:  
-`cd prosjekt2/backend`  
-`npm install`  
-`cd e2e`  
-`npm install`  
-`cd ..`  
-`npx ts-node src/index.ts`
-
-Now you are ready to run the tests! Open a new terminal, navigate into the correct folder by using `cd prosjekt2/backend/e2e` and then `npx cypress open`. A popupwindow will show up. Here you should choose **E2E Testing** and then **Start E2E Testing in Chrome**. From here you can choose which tests (”specs”) to run. The tests inside the folder called api are the API-tests, and the rest are regular E2E-tests. Read more on the tests [here](prosjekt2/backend/e2e/README.md).  
-**NOTE**: In some cases, the tests don't work due it not finding the localhost. If this happens, close all terminals and restart the process. If the network-connection is slow, you might have to wait a bit to open the tests after you open the frontend and backend.
+Since both regular E2E-tests and API-tests are implemented using Cypress, they can be ran the same way. Make sure you are using NTNU Wi-Fi or VPN. Open a new terminal, navigate into the correct folder by using `cd prosjekt2/backend/e2e` and then `npx cypress open`. A popupwindow will show up. Here you should choose **E2E Testing** and then **Start E2E Testing in Chrome**. From here you can choose which tests (”specs”) to run. The tests inside the folder called api are the API-tests, and the rest are regular E2E-tests. Read more on the tests [here](prosjekt2/backend/e2e/README.md).
 
 ## Database
 
