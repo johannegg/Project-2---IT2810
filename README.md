@@ -44,6 +44,8 @@ We’ve focused on sustainability with features like dark mode, efficient data f
 - **Create Playlists**: Create your own playlists on the "Your Playlists" page using the "New Playlist" button. Songs can be added to playlists from either the homepage or favorite song-page, and they can also be removed from the playlist. Playlists can also be deleted.
 - **Favorite Songs**: Mark your favorite songs by clicking the heart icon next to them. These favorited songs appear on the "Favorited Songs" page.
 
+The app is built so that each key functionality has its own component. This keeps things organized and makes it easier to update or add features.
+
 ### Technology
 
 We have used the GRAND stack, with the technology GraphQL, React with TypeScript, Apollo and Neo4j Database. CSS and HTML is also used in frontend. Prettier and ESLint is used to maintain code quality.
