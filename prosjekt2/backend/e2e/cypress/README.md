@@ -16,13 +16,16 @@ Go into all the specs, and follow the directions there to change the links from 
 - sorting.cy.ts
 - viewSong.cy.ts
 
-**Step 3:**  
+**Step 3:**
+You now need to change the file `prosjekt2/frontend/src/apollo/client.ts`, from using line 5 to using line 6. 
+
+**Step 4:**  
 Start up the frontend. Open a terminal and write  
 `cd prosjekt2/frontend`  
 `npm install`  
 `npm run dev`
 
-**Step 4:**  
+**Step 5:**  
 Now you are ready to run the actual tests. Open a new terminal and write  
 `cd prosjekt2/backend/e2e`  
 `npx cypress open`
