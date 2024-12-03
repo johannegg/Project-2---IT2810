@@ -28,10 +28,10 @@ The main functionality of the application is creating a user, viewing individual
 We’ve focused on sustainability with features like dark mode, efficient data fetching, and caching to save energy. Also, we’ve made the app more accessible with features such as labels and keyboard navigation.
 
 <p>
-  <img src="./prosjekt2/images/homepage.png" alt="Homepage" width="23%">
-  <img src="./prosjekt2/images/favorites.png" alt="Favorites" width="23%">
-  <img src="./prosjekt2/images/playlists.png" alt="Playlists" width="23%">
-  <img src="./prosjekt2/images/playlist.png" alt="Playlist" width="23%">
+  <img src="./prosjekt2/images/homepage.png" alt="Homepage" width="45%">
+  <img src="./prosjekt2/images/favorites.png" alt="Favorites" width="45%">
+  <img src="./prosjekt2/images/playlists.png" alt="Playlists" width="45%">
+  <img src="./prosjekt2/images/playlist.png" alt="Playlist" width="45%">
 </p>
 
 ### Features
