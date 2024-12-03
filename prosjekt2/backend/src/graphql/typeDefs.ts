@@ -1,9 +1,10 @@
 import { ApolloServer } from "@apollo/server";
 import { startStandaloneServer } from "@apollo/server/standalone";
 
+// GraphQL schema definitions
 export const typeDefs = `#graphql
 
-  type Song {
+type Song {
     id: ID!
     title: String!
     year: Int
@@ -11,71 +12,71 @@ export const typeDefs = `#graphql
     views: Int
     artist: Artist
     genre: Genre
-  }
+}
 
-  type Artist {
+type Artist {
     id: ID
     name: String!
     songs: [Song]
-  }
+}
 
-  type Genre {
+type Genre {
     id: ID!
     name: String!
     songs: [Song]
-  }
+}
   
-  type GenreCount {
+type GenreCount {
     name: String!
     count: Int!
-  }
+}
 
-  type User {
+type User {
     id: ID!
     username: String!
     favoriteSongs: [Song]
     playlists: [Playlist]
-  }
+}
 
-  type Playlist {
+type Playlist {
     id: ID!
     name: String!
     songs: [Song]
     backgroundcolor: String!
     icon: String!
-  }
+}
 
-  enum SortBy {
+enum SortBy {
     title_asc
     title_desc
     artist_asc
     artist_desc
     views_desc
-  }
+}
 
-  type Query {
+type Query {
     songs(
-      skip: Int
-      limit: Int
-      genres: [String]
-      sortBy: SortBy
-      searchTerm: String
-      minViews: Int
-      maxViews: Int
+        skip: Int
+        limit: Int
+        genres: [String]
+        sortBy: SortBy
+        searchTerm: String
+        minViews: Int
+        maxViews: Int
     ): [Song]
 
     songCount(
-      genres: [String]
-      searchTerm: String
-      minViews: Int
-      maxViews: Int
+        genres: [String]
+        searchTerm: String
+        minViews: Int
+        maxViews: Int
     ): Int
 
     genreCounts(
-      searchTerm: String
-      minViews: Int
-      maxViews: Int
-      genres: [String]
+        searchTerm: String
+        minViews: Int
+        maxViews: Int
+        genres: [String]
     ): [GenreCount]
 
     song(id: ID!): Song
@@ -84,9 +85,9 @@ export const typeDefs = `#graphql
     genres: [Genre]
     genre(id: ID!): Genre
     fetchPlaylists(username: String!): [Playlist]
-  }
+}
   
-  type Mutation {
+type Mutation {
     createUser(username: String!): User
     deleteUser(username: String!): Boolean
     addFavoriteSong(username: String!, songId: ID!): Boolean
@@ -95,5 +96,5 @@ export const typeDefs = `#graphql
     deletePlaylist(username: String!, playlistId: ID!): Boolean
     addSongToPlaylist(username: String!, playlistId: ID!, songId: ID!): Playlist
     removeSongFromPlaylist(username: String!, playlistId: ID!, songId: ID!): Playlist
-  }
+}
 `;

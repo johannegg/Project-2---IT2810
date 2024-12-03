@@ -20,6 +20,7 @@ interface Genre {
 	name: string;
 }
 
+// Helper function to execute Cypher query and handle errors
 const executeCypherQuery = async (driver: Driver, cypherQuery: string, params: any = {}) => {
 	const session = driver.session();
 	try {
@@ -41,18 +42,18 @@ export const checkUserExists = async (
 	const records = await executeCypherQuery(
 		driver,
 		`
-    MATCH (user:User {username: $username})
-    RETURN COUNT(user) > 0 AS exists
-    `,
+		MATCH (user:User {username: $username})
+		RETURN COUNT(user) > 0 AS exists
+		`,
 		{ username },
 	);
-
 	return records.length > 0 && records[0].get("exists");
 };
 
 // Custom resolvers
 export const resolvers = {
 	Query: {
+		// Retrieve the number of songs grouped by genre
 		genreCounts: async (
 			_: any,
 			{
@@ -75,14 +76,14 @@ export const resolvers = {
 			const records = await executeCypherQuery(
 				driver,
 				`
-        MATCH (g:Genre)
-        OPTIONAL MATCH (g)<-[:HAS_GENRE]-(s:Song)-[:PERFORMED_BY]->(a:Artist)
-        WHERE ($searchTerm IS NULL OR toLower(s.title) CONTAINS toLower($searchTerm) OR toLower(a.name) CONTAINS toLower($searchTerm))
-          AND ($minViews IS NULL OR s.views >= $minViews)
-          AND ($maxViews IS NULL OR s.views <= $maxViews)
-        RETURN g.name AS name, COUNT(s) AS count
-        ORDER BY g.name
-        `,
+				MATCH (g:Genre)
+				OPTIONAL MATCH (g)<-[:HAS_GENRE]-(s:Song)-[:PERFORMED_BY]->(a:Artist)
+				WHERE ($searchTerm IS NULL OR toLower(s.title) CONTAINS toLower($searchTerm) OR toLower(a.name) CONTAINS toLower($searchTerm))
+					AND ($minViews IS NULL OR s.views >= $minViews)
+					AND ($maxViews IS NULL OR s.views <= $maxViews)
+				RETURN g.name AS name, COUNT(s) AS count
+				ORDER BY g.name
+				`,
 				{
 					searchTerm: searchTerm || "",
 					minViews: minViews ? neo4j.int(minViews) : null,
@@ -96,36 +97,39 @@ export const resolvers = {
 				count: record.get("count").toInt(),
 			}));
 		},
+
+		//Fetches playlists owned by a specific user
 		fetchPlaylists: async (_: any, { username }: { username: string }, { driver }: any) => {
 			const records = await executeCypherQuery(
 				driver,
 				`
-        MATCH (user:User {username: $username})-[:OWNS]->(playlist:Playlist)
-        OPTIONAL MATCH (playlist)-[:CONTAINS]->(playlistSong:Song)
-        OPTIONAL MATCH (playlistSong)-[:PERFORMED_BY]->(playlistArtist:Artist)
-        OPTIONAL MATCH (playlistSong)-[:HAS_GENRE]->(playlistGenre:Genre)
-        WITH playlist, collect({
-          id: playlistSong.id,
-          title: playlistSong.title,
-          views: playlistSong.views,
-          year: playlistSong.year,
-          lyrics: playlistSong.lyrics,
-          artist: playlistArtist { id: playlistArtist.id, name: playlistArtist.name },
-          genre: playlistGenre { name: playlistGenre.name }
-        }) AS songs
-        RETURN {
-          id: playlist.id,
-          name: playlist.name,
-          backgroundcolor: playlist.backgroundcolor,
-          icon: playlist.icon,
-          songs: songs
-        } AS playlist
-        `,
+				MATCH (user:User {username: $username})-[:OWNS]->(playlist:Playlist)
+				OPTIONAL MATCH (playlist)-[:CONTAINS]->(playlistSong:Song)
+				OPTIONAL MATCH (playlistSong)-[:PERFORMED_BY]->(playlistArtist:Artist)
+				OPTIONAL MATCH (playlistSong)-[:HAS_GENRE]->(playlistGenre:Genre)
+				WITH playlist, collect({
+					id: playlistSong.id,
+					title: playlistSong.title,
+					views: playlistSong.views,
+					year: playlistSong.year,
+					lyrics: playlistSong.lyrics,
+					artist: playlistArtist { id: playlistArtist.id, name: playlistArtist.name },
+					genre: playlistGenre { name: playlistGenre.name }
+				}) AS songs
+				RETURN {
+					id: playlist.id,
+					name: playlist.name,
+					backgroundcolor: playlist.backgroundcolor,
+					icon: playlist.icon,
+					songs: songs
+				} AS playlist
+				`,
 				{ username },
 			);
 
 			if (!records || records.length === 0) return null;
 
+			// Map playlists and filter valid songs
 			return records.map((record) => {
 				const playlist = record.get("playlist");
 
@@ -156,6 +160,8 @@ export const resolvers = {
 				};
 			});
 		},
+
+		// Fetches a paginated list of songs with optional filters
 		songs: async (
 			_: any,
 			{
@@ -212,15 +218,15 @@ export const resolvers = {
 			const records = await executeCypherQuery(
 				driver,
 				`
-        MATCH (s:Song)-[:PERFORMED_BY]->(a:Artist), (s)-[:HAS_GENRE]->(g:Genre)
-        WHERE ($genres IS NULL OR g.name IN $genres) ${searchClause}
-          AND ($minViews IS NULL OR s.views >= $minViews)
-          AND ($maxViews IS NULL OR s.views <= $maxViews)
-        RETURN s, a, g
-        ${orderByClause}  
-        SKIP $skip
-        LIMIT $limit
-        `,
+				MATCH (s:Song)-[:PERFORMED_BY]->(a:Artist), (s)-[:HAS_GENRE]->(g:Genre)
+				WHERE ($genres IS NULL OR g.name IN $genres) ${searchClause}
+					AND ($minViews IS NULL OR s.views >= $minViews)
+					AND ($maxViews IS NULL OR s.views <= $maxViews)
+				RETURN s, a, g
+				${orderByClause}  
+				SKIP $skip
+				LIMIT $limit
+				`,
 				{
 					skip: neo4j.int(intSkip),
 					limit: neo4j.int(intLimit),
@@ -254,6 +260,7 @@ export const resolvers = {
 			});
 		},
 
+		// Fetches the total count of songs with optional filters
 		songCount: async (
 			_: any,
 			{
@@ -276,12 +283,12 @@ export const resolvers = {
 			const records = await executeCypherQuery(
 				driver,
 				`
-        MATCH (s:Song)-[:PERFORMED_BY]->(a:Artist), (s)-[:HAS_GENRE]->(g:Genre)
-        WHERE ($genres IS NULL OR g.name IN $genres) ${searchClause}
-          AND ($minViews IS NULL OR s.views >= $minViews)
-          AND ($maxViews IS NULL OR s.views <= $maxViews)
-        RETURN COUNT(s) as songCount
-        `,
+				MATCH (s:Song)-[:PERFORMED_BY]->(a:Artist), (s)-[:HAS_GENRE]->(g:Genre)
+				WHERE ($genres IS NULL OR g.name IN $genres) ${searchClause}
+					AND ($minViews IS NULL OR s.views >= $minViews)
+					AND ($maxViews IS NULL OR s.views <= $maxViews)
+				RETURN COUNT(s) as songCount
+				`,
 				{
 					genres: genres || null,
 					searchTerm: searchTerm || "",
@@ -294,37 +301,38 @@ export const resolvers = {
 		},
 	},
 	Mutation: {
+		// Creates a user or finds existing user, and returns the user along with their favorite songs and playlists
 		createUser: async (_: any, { username }: { username: string }, { driver }: any) => {
 			const records = await executeCypherQuery(
 				driver,
 				`
-        MERGE (user:User {username: $username})
-        ON CREATE SET user.id = randomUUID()
-        WITH user
-        OPTIONAL MATCH (user)-[:HAS_FAVORITES]->(song:Song)-[:PERFORMED_BY]->(artist:Artist)
-        OPTIONAL MATCH (song)-[:HAS_GENRE]->(genre:Genre)
-        OPTIONAL MATCH (user)-[:OWNS_PLAYLIST]->(playlist:Playlist)
-        OPTIONAL MATCH (playlist)-[:CONTAINS]->(playlistSong:Song)-[:PERFORMED_BY]->(playlistArtist:Artist)
-        OPTIONAL MATCH (playlistSong)-[:HAS_GENRE]->(playlistGenre:Genre)
-        RETURN user {
-          id: user.id,
-          username: user.username,
-          favoriteSongs: collect({
-            song: {
-              id: song.id,
-              title: song.title,
-              views: song.views,
-              year: song.year,
-              lyrics: song.lyrics
-            },
-            artist: {
-              id: artist.id,
-              name: artist.name
-            },
-            genre: genre { name: genre.name }
-          })
-        } AS user
-        `,
+				MERGE (user:User {username: $username})
+				ON CREATE SET user.id = randomUUID()
+				WITH user
+				OPTIONAL MATCH (user)-[:HAS_FAVORITES]->(song:Song)-[:PERFORMED_BY]->(artist:Artist)
+				OPTIONAL MATCH (song)-[:HAS_GENRE]->(genre:Genre)
+				OPTIONAL MATCH (user)-[:OWNS_PLAYLIST]->(playlist:Playlist)
+				OPTIONAL MATCH (playlist)-[:CONTAINS]->(playlistSong:Song)-[:PERFORMED_BY]->(playlistArtist:Artist)
+				OPTIONAL MATCH (playlistSong)-[:HAS_GENRE]->(playlistGenre:Genre)
+				RETURN user {
+				id: user.id,
+					username: user.username,
+					favoriteSongs: collect({
+						song: {
+							id: song.id,
+							title: song.title,
+							views: song.views,
+							year: song.year,
+							lyrics: song.lyrics
+						},
+						artist: {
+							id: artist.id,
+							name: artist.name
+						},
+						genre: genre { name: genre.name }
+					})
+				} AS user
+				`,
 				{ username },
 			);
 			if (records.length > 0) {
@@ -360,21 +368,23 @@ export const resolvers = {
 			throw new Error("Failed to create or retrieve user");
 		},
 
+		// Deletes a user and all their playlists
 		deleteUser: async (_: any, { username }: { username: string }, { driver }: any) => {
 			const records = await executeCypherQuery(
 				driver,
 				`
-        MATCH (user:User {username: $username})
-        OPTIONAL MATCH (user)-[:OWNS]->(playlist:Playlist) 
-        DETACH DELETE user, playlist
-        RETURN COUNT(user) > 0 AS userDeleted
-        `,
+				MATCH (user:User {username: $username})
+				OPTIONAL MATCH (user)-[:OWNS]->(playlist:Playlist) 
+				DETACH DELETE user, playlist
+				RETURN COUNT(user) > 0 AS userDeleted
+				`,
 				{ username },
 			);
 			const isDeleted = records[0].get("userDeleted");
 			return isDeleted;
 		},
 
+		// Adds a song to the user's favorites
 		addFavoriteSong: async (
 			_: any,
 			{ username, songId }: { username: string; songId: string },
@@ -383,16 +393,17 @@ export const resolvers = {
 			const records = await executeCypherQuery(
 				driver,
 				`
-        MATCH (user:User {username: $username}), (song:Song {id: $songId})
-        MERGE (user)-[:HAS_FAVORITES]->(song)
-        RETURN COUNT(song) > 0 AS songAdded
-        `,
+				MATCH (user:User {username: $username}), (song:Song {id: $songId})
+				MERGE (user)-[:HAS_FAVORITES]->(song)
+				RETURN COUNT(song) > 0 AS songAdded
+				`,
 				{ username, songId },
 			);
 			const isAdded = records[0].get("songAdded");
 			return isAdded;
 		},
 
+		// Removed a song from the user's favorites
 		removeFavoriteSong: async (
 			_: any,
 			{ username, songId }: { username: string; songId: string },
@@ -401,16 +412,17 @@ export const resolvers = {
 			const records = await executeCypherQuery(
 				driver,
 				`
-        MATCH (user:User {username: $username})-[f:HAS_FAVORITES]->(song:Song {id: $songId})
-        DELETE f
-        RETURN COUNT(f) > 0 AS songRemoved
-        `,
+				MATCH (user:User {username: $username})-[f:HAS_FAVORITES]->(song:Song {id: $songId})
+				DELETE f
+				RETURN COUNT(f) > 0 AS songRemoved
+				`,
 				{ username, songId },
 			);
 			const isRemoved = records[0].get("songRemoved");
 			return isRemoved;
 		},
 
+		// Creates a new playlist for the user
 		createPlaylist: async (
 			_: any,
 			{
@@ -429,11 +441,11 @@ export const resolvers = {
 			const records = await executeCypherQuery(
 				driver,
 				`
-        MATCH (user:User {username: $username})
-        CREATE (playlist:Playlist {id: randomUUID(), name: $name, backgroundcolor: $backgroundcolor, icon: $icon})
-        MERGE (user)-[:OWNS]->(playlist)
-        RETURN playlist { .id, .name, .backgroundcolor, .icon } AS playlist
-        `,
+				MATCH (user:User {username: $username})
+				CREATE (playlist:Playlist {id: randomUUID(), name: $name, backgroundcolor: $backgroundcolor, icon: $icon})
+				MERGE (user)-[:OWNS]->(playlist)
+				RETURN playlist { .id, .name, .backgroundcolor, .icon } AS playlist
+				`,
 				{ username, name, backgroundcolor, icon },
 			);
 			if (records.length > 0) {
@@ -447,6 +459,7 @@ export const resolvers = {
 			}
 		},
 
+		// Deletes a playlist owned by the user
 		deletePlaylist: async (
 			_: any,
 			{ username, playlistId }: { username: string; playlistId: string },
@@ -455,19 +468,20 @@ export const resolvers = {
 			const records = await executeCypherQuery(
 				driver,
 				`
-        MATCH (user:User {username: $username})-[o:OWNS]->(playlist:Playlist {id: $playlistId})
-        WITH playlist, o
-        MATCH (playlist)-[r]-()
-        DELETE r
-        DELETE o, playlist
-        RETURN COUNT(o) > 0 AS playlistDeleted
-        `,
+				MATCH (user:User {username: $username})-[o:OWNS]->(playlist:Playlist {id: $playlistId})
+				WITH playlist, o
+				MATCH (playlist)-[r]-()
+				DELETE r
+				DELETE o, playlist
+				RETURN COUNT(o) > 0 AS playlistDeleted
+				`,
 				{ username, playlistId },
 			);
 			const isRemoved = records[0].get("playlistDeleted");
 			return isRemoved;
 		},
 
+		// Adds a song to a user's playlist
 		addSongToPlaylist: async (
 			_: any,
 			{ username, playlistId, songId }: { username: string; playlistId: string; songId: string },
@@ -476,12 +490,12 @@ export const resolvers = {
 			const records = await executeCypherQuery(
 				driver,
 				`
-        MATCH (user:User {username: $username})-[:OWNS]->(playlist:Playlist {id: $playlistId}), (song:Song {id: $songId})
-        MERGE (playlist)-[:CONTAINS]->(song)
-        WITH playlist
-        MATCH (playlist)-[:CONTAINS]->(s:Song)-[:PERFORMED_BY]->(a:Artist)
-        RETURN playlist { .id, .name, songs: collect({ id: s.id, title: s.title, views: s.views, artist: { name: a.name } }) } AS playlist
-        `,
+				MATCH (user:User {username: $username})-[:OWNS]->(playlist:Playlist {id: $playlistId}), (song:Song {id: $songId})
+				MERGE (playlist)-[:CONTAINS]->(song)
+				WITH playlist
+				MATCH (playlist)-[:CONTAINS]->(s:Song)-[:PERFORMED_BY]->(a:Artist)
+				RETURN playlist { .id, .name, songs: collect({ id: s.id, title: s.title, views: s.views, artist: { name: a.name } }) } AS playlist
+				`,
 				{ username, playlistId, songId },
 			);
 			if (records.length > 0) {
@@ -502,6 +516,7 @@ export const resolvers = {
 			throw new Error("Failed to add song to playlist");
 		},
 
+		// Removes a song from a user's playlist
 		removeSongFromPlaylist: async (
 			_: any,
 			{ username, playlistId, songId }: { username: string; playlistId: string; songId: string },
@@ -510,12 +525,12 @@ export const resolvers = {
 			const records = await executeCypherQuery(
 				driver,
 				`
-        MATCH (user:User {username: $username})-[:OWNS]->(playlist:Playlist {id: $playlistId})-[c:CONTAINS]->(song:Song {id: $songId})
-        DELETE c
-        WITH playlist
-        MATCH (playlist)-[:CONTAINS]->(s:Song)-[:PERFORMED_BY]->(a:Artist)
-        RETURN playlist { .id, .name, songs: collect({ id: s.id, title: s.title, views: s.views, artist: { name: a.name } }) } AS playlist
-        `,
+				MATCH (user:User {username: $username})-[:OWNS]->(playlist:Playlist {id: $playlistId})-[c:CONTAINS]->(song:Song {id: $songId})
+				DELETE c
+				WITH playlist
+				MATCH (playlist)-[:CONTAINS]->(s:Song)-[:PERFORMED_BY]->(a:Artist)
+				RETURN playlist { .id, .name, songs: collect({ id: s.id, title: s.title, views: s.views, artist: { name: a.name } }) } AS playlist
+				`,
 				{ username, playlistId, songId },
 			);
 			const playlist = records[0].get("playlist");
