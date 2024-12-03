@@ -1,6 +1,7 @@
 import { useQuery } from "@apollo/client";
 import { GET_USER_PLAYLISTS } from "../Queries";
 
+// Hook to fetch a user's playlists
 export const useUserPlaylist = (username: string) => {
 	const { data, error, loading, refetch } = useQuery(GET_USER_PLAYLISTS, {
 		variables: { username },

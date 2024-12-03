@@ -38,6 +38,7 @@ const Lyric = ({ songData }: LyricProps) => {
 			</section>
 			<hr aria-hidden="true" />
 			<section aria-label="Lyrics">
+				{/* Render the lyrics, splitting by lines */}
 				<p>
 					{songData.lyrics.split("\n").map((line, index) => (
 						<span key={index}>

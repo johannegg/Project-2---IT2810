@@ -10,6 +10,7 @@ type UseCachedSongsProps = {
 	sortOption: string;
 };
 
+// Hook to fetch and manage a cached list of songs
 export const useCachedSongs = ({
 	selectedGenres,
 	sortOption,
@@ -35,6 +36,7 @@ export const useCachedSongs = ({
 		},
 	});
 
+	// Function to load more songs for infinite scrolling or pagination
 	const loadMoreSongs = () => {
 		if (!data?.songs || !hasMoreSongs) return;
 
@@ -60,6 +62,7 @@ export const useCachedSongs = ({
 		});
 	};
 
+	// Refetch songs whenever dependencies change
 	useEffect(() => {
 		setHasMoreSongs(true);
 		refetch({

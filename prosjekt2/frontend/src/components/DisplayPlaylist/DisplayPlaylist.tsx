@@ -52,6 +52,7 @@ const DisplayPlaylist: React.FC<DisplayPlaylistProps> = ({ playlistId, onDelete 
 					{currentPlaylist.name + " " + currentPlaylist.icon}
 				</h1>
 				<div className="songs-container" aria-label={`Songs in ${currentPlaylist.name}`}>
+					{/* Render list of songs or message if playlist is empty */}
 					{currentPlaylist.songs.length > 0 ? (
 						<AllSongsList
 							songs={currentPlaylist.songs}
@@ -66,6 +67,7 @@ const DisplayPlaylist: React.FC<DisplayPlaylistProps> = ({ playlistId, onDelete 
 						<p aria-label="No songs message">No songs here yet.</p>
 					)}
 				</div>
+				{/* Show delete confirmation modal if state is true */}
 				{showConfirmDelete && (
 					<div
 						className="modal-overlay"

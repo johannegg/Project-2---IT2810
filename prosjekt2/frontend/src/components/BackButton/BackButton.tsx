@@ -15,6 +15,7 @@ const BackButton: React.FC<BackButtonProps> = ({ text = "Go back" }) => {
 			onClick={() => navigate(-1)}
 			aria-label={text === "Go back" ? "Go back to the previous page" : text}
 		>
+			{/* Display a left-pointing arrow along with the button text */}
 			&#10094; {text}
 		</button>
 	);

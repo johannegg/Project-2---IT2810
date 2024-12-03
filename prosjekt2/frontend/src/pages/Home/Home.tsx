@@ -30,6 +30,7 @@ const Home = () => {
 	const debounceTimer = useRef<NodeJS.Timeout | null>(null);
 	const sidebarRef = useRef<HTMLDivElement | null>(null);
 
+	// Fetch song count and state from backend/cache
 	const {
 		songCount,
 		isLoading: isSongCountLoading,
@@ -54,11 +55,13 @@ const Home = () => {
 		refetchSongCount();
 	}, [refetchSongCount]);
 
+	// Update genres in Apollo cache and refetch song count
 	const handleGenreChange = (genres: string[]) => {
 		genreFilterVar(genres.length > 0 ? genres : []);
 		refetchSongCount();
 	};
 
+	// Update min/max views in Apollo cache and debounce refetch
 	const handleViewsChange = (newMinViews: number, newMaxViews: number) => {
 		minViewsVar(newMinViews);
 		maxViewsVar(newMaxViews);
@@ -90,6 +93,7 @@ const Home = () => {
 		}
 	};
 
+	// Clear all filters and reset state in Apollo cache
 	const clearAllFilters = () => {
 		genreFilterVar([]);
 		sortOptionVar("views_desc");
