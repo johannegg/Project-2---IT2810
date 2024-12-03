@@ -27,6 +27,13 @@ The main functionality of the application is creating a user, viewing individual
 
 We’ve focused on sustainability with features like dark mode, efficient data fetching, and caching to save energy. Also, we’ve made the app more accessible with features such as labels and keyboard navigation.
 
+<p>
+  <img src="./prosjekt2/images/homepage.png" alt="Homepage" width="45%">
+  <img src="./prosjekt2/images/favorites.png" alt="Favorites" width="45%">
+  <img src="./prosjekt2/images/playlists.png" alt="Playlists" width="45%">
+  <img src="./prosjekt2/images/playlist.png" alt="Playlist" width="45%">
+</p>
+
 ### Features
 
 - **Create User**: You can create a user with a unique username to automatically sync your playlists and favorites to it.
@@ -36,6 +43,8 @@ We’ve focused on sustainability with features like dark mode, efficient data f
 - **Navigation**: You can navigate between the pages: "Home", "Favorited Songs", and "Your Playlists" to see different features.
 - **Create Playlists**: Create your own playlists on the "Your Playlists" page using the "New Playlist" button. Songs can be added to playlists from either the homepage or favorite song-page, and they can also be removed from the playlist. Playlists can also be deleted.
 - **Favorite Songs**: Mark your favorite songs by clicking the heart icon next to them. These favorited songs appear on the "Favorited Songs" page.
+
+The app is built so that each key functionality has its own component. This keeps things organized and makes it easier to update or add features.
 
 ### Technology
 
@@ -67,24 +76,7 @@ ESLint and Prettier is used to ensure good quality of the code. Prettier is used
 
 The component-tests are ran by navigating into the frontend folder, using `cd prosjekt2/frontend` and run tests with `npm test`.
 
-Since both regular E2E-tests and API-tests are implemented using Cypress, they can be ran the same way.
-In order for them to work, both backend and frontend have to be ran locally, because they run the tests on localhost.
-
-First, you need to run both frontend and backend. Open one terminal and run:  
-`cd prosjekt2/frontend`  
-`npm install`  
-`npm run dev`
-
-And then open a new terminal and run:  
-`cd prosjekt2/backend`  
-`npm install`  
-`cd e2e`  
-`npm install`  
-`cd ..`  
-`npx ts-node src/index.ts`
-
-Now you are ready to run the tests! Open a new terminal, navigate into the correct folder by using `cd prosjekt2/backend/e2e` and then `npx cypress open`. A popupwindow will show up. Here you should choose **E2E Testing** and then **Start E2E Testing in Chrome**. From here you can choose which tests (”specs”) to run. The tests inside the folder called api are the API-tests, and the rest are regular E2E-tests. Read more on the tests [here](prosjekt2/backend/e2e/README.md).  
-**NOTE**: In some cases, the tests don't work due it not finding the localhost. If this happens, close all terminals and restart the process. If the network-connection is slow, you might have to wait a bit to open the tests after you open the frontend and backend.
+Since both regular E2E-tests and API-tests are implemented using Cypress, they can be ran the same way. Make sure you are using NTNU Wi-Fi or VPN. Open a new terminal, navigate into the correct folder by using `cd prosjekt2/backend/e2e` and then `npx cypress open`. A popupwindow will show up. Here you should choose **E2E Testing** and then **Start E2E Testing in Chrome**. From here you can choose which tests (”specs”) to run. The tests inside the folder called api are the API-tests, and the rest are regular E2E-tests. Read more on the tests [here](prosjekt2/backend/e2e/README.md).
 
 ## Database
 

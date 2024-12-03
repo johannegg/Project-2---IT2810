@@ -26,6 +26,7 @@ const PlusMinusButton: React.FC<PlusMinusButtonProps> = ({
 	const [showModal, setShowModal] = useState(false);
 	const [feedbackMessage, setFeedbackMessage] = useState("");
 
+	// Apollo mutation to add a song to a playlist
 	const [addSongToPlaylist] = useMutation(ADD_SONG_TO_PLAYLIST, {
 		onCompleted: () => {
 			setFeedbackMessage("Song successfully added!");
@@ -37,6 +38,7 @@ const PlusMinusButton: React.FC<PlusMinusButtonProps> = ({
 		},
 	});
 
+	// Apollo mutation to remove a song from a playlist
 	const [removeSongFromPlaylist] = useMutation(REMOVE_SONG_FROM_PLAYLIST, {
 		onCompleted: () => {
 			setFeedbackMessage("Song removed from playlist.");
@@ -49,6 +51,7 @@ const PlusMinusButton: React.FC<PlusMinusButtonProps> = ({
 		},
 	});
 
+	// Custom debounce function to delay clearing feedback messages
 	const useDebounce = (func: () => void, delay: number) => {
 		const timerRef = useRef<NodeJS.Timeout | null>(null);
 
@@ -69,6 +72,7 @@ const PlusMinusButton: React.FC<PlusMinusButtonProps> = ({
 		return username && username !== "";
 	};
 
+	// Handle adding a song to a playlist
 	const handleAddSongToPlaylist = async (playlistId: string) => {
 		if (!isUserLoggedIn()) {
 			alert("You need to be logged in to add songs to playlists");
@@ -102,6 +106,7 @@ const PlusMinusButton: React.FC<PlusMinusButtonProps> = ({
 		}
 	};
 
+	// Handle removing a song from a playlist
 	const handleRemoveSongFromPlaylist = async () => {
 		if (!isUserLoggedIn()) {
 			alert("You need to be logged in to remove songs from playlists");

@@ -38,6 +38,7 @@ const Favorites: React.FC = () => {
 		favoritesSearchTermVar(term);
 	};
 
+	// Show message if no favorite songs exist
 	if (favorites.length === 0) {
 		return (
 			<section className="no-favorites-container">

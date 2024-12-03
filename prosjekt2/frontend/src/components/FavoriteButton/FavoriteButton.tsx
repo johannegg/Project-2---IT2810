@@ -22,18 +22,19 @@ const FavoriteButton = ({ song }: FavoriteProps) => {
 		e.stopPropagation();
 		const storedUsername = localStorage.getItem("profileName");
 		if (!storedUsername) {
+			// Ensure the user is logged in before allowing favoriting
 			alert("You need to log in to favorite songs");
 			return;
 		}
 		if (isFavorite) {
-			// Remove song from favorites
+			// Remove song from favorites and update cache
 			const updatedFavorites = favoriteSongs.filter((favoriteSong) => favoriteSong.id !== song.id);
 			favoriteSongsVar([...updatedFavorites]);
 			await removeFavorite({
 				variables: { username: storedUsername, songId: song.id },
 			});
 		} else {
-			// Add song to favorites
+			// Add song to favorites and update cache
 			const updatedFavorites = [...favoriteSongs, song];
 			favoriteSongsVar([...updatedFavorites]);
 			await addFavorite({

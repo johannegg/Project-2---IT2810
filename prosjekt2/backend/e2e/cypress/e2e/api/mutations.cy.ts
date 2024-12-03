@@ -1,5 +1,6 @@
 /// <reference types="cypress" />
-const graphqlEndpoint = "http://localhost:3001/";
+//const graphqlEndpoint = "http://localhost:3001/"; // for testing locally
+const graphqlEndpoint = "http://it2810-12.idi.ntnu.no:3001/"; // for testing on VM
 
 describe("GraphQL API mutation tests", () => {
 	before(() => {

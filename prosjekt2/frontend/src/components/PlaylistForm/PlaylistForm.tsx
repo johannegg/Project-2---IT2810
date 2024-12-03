@@ -55,12 +55,14 @@ const PlaylistForm: React.FC<PlaylistFormProps> = ({ show, onClose, onSubmit }) 
 	);
 
 	useEffect(() => {
+		// Focus input field when form is shown
 		if (show && inputRef.current) {
 			inputRef.current.focus();
 		}
 	}, [show]);
 
 	useEffect(() => {
+		// Update dark mode state on system preference change
 		const updateDarkMode = (e: MediaQueryListEvent) => {
 			setIsDarkMode(e.matches);
 		};
@@ -72,6 +74,7 @@ const PlaylistForm: React.FC<PlaylistFormProps> = ({ show, onClose, onSubmit }) 
 	}, []);
 
 	useEffect(() => {
+		// Set default color when the form is shown
 		if (show) {
 			const initialColor = isDarkMode ? colorMapping["#8a8587"] : "#ffffff";
 			setSelectedColor(initialColor);
@@ -79,6 +82,7 @@ const PlaylistForm: React.FC<PlaylistFormProps> = ({ show, onClose, onSubmit }) 
 	}, [show, isDarkMode, colorMapping]);
 
 	const handleColorSelection = (color: string) => {
+		// Select color based on current mode (dark/light)
 		const mappedColor = isDarkMode
 			? colorMapping[color as keyof typeof colorMapping] || color
 			: color;
@@ -92,12 +96,13 @@ const PlaylistForm: React.FC<PlaylistFormProps> = ({ show, onClose, onSubmit }) 
 			return;
 		}
 		setHasError(false);
-		const playlistId = uuidv4();
+		const playlistId = uuidv4(); // Generate unique ID for the playlist
 		onSubmit(inputValue, selectedColor, selectedIcon, playlistId);
 		handleClose();
 	};
 
 	const handleClose = () => {
+		// Reset form state and close the form
 		setInputValue("");
 		setHasError(false);
 		setSelectedIcon("🎵");
@@ -137,6 +142,7 @@ const PlaylistForm: React.FC<PlaylistFormProps> = ({ show, onClose, onSubmit }) 
 			<form className="form-content" onSubmit={handleSubmit} aria-labelledby="form-title">
 				<h2 id="form-title">Create new playlist</h2>
 				<fieldset>
+					{/* Input for playlist name */}
 					<label htmlFor="playlist-name" className="playlist-label">
 						Enter playlist name:
 					</label>
@@ -153,6 +159,7 @@ const PlaylistForm: React.FC<PlaylistFormProps> = ({ show, onClose, onSubmit }) 
 						aria-invalid={hasError}
 					/>
 
+					{/* Buttons for selecting icons */}
 					<label className="playlist-label">Select background color:</label>
 					<div className="color-options">
 						{colorOptions.map(({ color, name }) => (
