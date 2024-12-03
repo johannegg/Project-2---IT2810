@@ -9,11 +9,11 @@ describe("GraphQL API query tests", () => {
 			url: graphqlEndpoint,
 			body: {
 				query: `
-              mutation CreateUser($username: String!) {
-                createUser(username: $username) {
-                  id
-                }
-              }`,
+				mutation CreateUser($username: String!) {
+					createUser(username: $username) {
+						id
+					}
+				}`,
 				variables: {
 					username: "John Doe",
 				},
@@ -28,9 +28,9 @@ describe("GraphQL API query tests", () => {
 			url: graphqlEndpoint,
 			body: {
 				query: `
-              mutation DeleteUser($username: String!) {
-                deleteUser(username: $username)
-              }`,
+				mutation DeleteUser($username: String!) {
+					deleteUser(username: $username)
+				}`,
 				variables: {
 					username: "John Doe",
 				},
@@ -45,37 +45,37 @@ describe("GraphQL API query tests", () => {
 				url: graphqlEndpoint,
 				body: {
 					query: `
-                query GetSongs(
-                  $skip: Int
-                  $limit: Int
-                  $genres: [String]
-                  $sortBy: SortBy
-                  $searchTerm: String
-                  $minViews: Int
-                  $maxViews: Int
-                ) {
-                  songs(
-                    skip: $skip
-                    limit: $limit
-                    genres: $genres
-                    sortBy: $sortBy
-                    searchTerm: $searchTerm
-                    minViews: $minViews
-                    maxViews: $maxViews
-                  ) {
-                    id
-                    title
-                    views
-                    year
-                    lyrics
-                    artist {
-                      name
-                    }
-                    genre {
-                      name
-                    }
-                  }
-                }`,
+					query GetSongs(
+						$skip: Int
+						$limit: Int
+						$genres: [String]
+						$sortBy: SortBy
+						$searchTerm: String
+						$minViews: Int
+						$maxViews: Int
+					) {
+						songs(
+							skip: $skip
+							limit: $limit
+							genres: $genres
+							sortBy: $sortBy
+							searchTerm: $searchTerm
+							minViews: $minViews
+							maxViews: $maxViews
+						) {
+							id
+							title
+							views
+							year
+							lyrics
+							artist {
+								name
+							}
+							genre {
+								name
+							}
+						}
+					}`,
 					variables: {
 						skip: 0,
 						limit: 5,
@@ -112,9 +112,9 @@ describe("GraphQL API query tests", () => {
 				url: graphqlEndpoint,
 				body: {
 					query: `
-                query GetSongCount($genres: [String], $searchTerm: String, $minViews: Int, $maxViews: Int) {
-                  songCount(genres: $genres, searchTerm: $searchTerm, minViews: $minViews, maxViews: $maxViews)
-                }`,
+					query GetSongCount($genres: [String], $searchTerm: String, $minViews: Int, $maxViews: Int) {
+						songCount(genres: $genres, searchTerm: $searchTerm, minViews: $minViews, maxViews: $maxViews)
+					}`,
 					variables: {
 						genres: ["pop"],
 						searchTerm: "the",
@@ -150,24 +150,24 @@ describe("GraphQL API query tests", () => {
 					url: graphqlEndpoint,
 					body: {
 						query: `
-                mutation CreatePlaylist(
-                  $username: String!
-                  $name: String!
-                  $backgroundcolor: String!
-                  $icon: String!
-                ) {
-                  createPlaylist(
-                    username: $username
-                    name: $name
-                    backgroundcolor: $backgroundcolor
-                    icon: $icon
-                  ) {
-                    id
-                    name
-                    backgroundcolor
-                    icon
-                  }
-                }`,
+						mutation CreatePlaylist(
+							$username: String!
+							$name: String!
+							$backgroundcolor: String!
+							$icon: String!
+						) {
+							createPlaylist(
+								username: $username
+								name: $name
+								backgroundcolor: $backgroundcolor
+								icon: $icon
+							) {
+								id
+								name
+								backgroundcolor
+								icon
+							}
+						}`,
 						variables: {
 							username,
 							name: playlist.name,
@@ -200,16 +200,17 @@ describe("GraphQL API query tests", () => {
 					method: "POST",
 					url: graphqlEndpoint,
 					body: {
-						query: `mutation AddSongToPlaylist(
-                  $username: String!
-                  $playlistId: ID!
-                  $songId: ID!
-                ) {
-                  addSongToPlaylist(username: $username, playlistId: $playlistId, songId: $songId) {
-                    id
-                    name
-                  }
-                }`,
+						query: `
+						mutation AddSongToPlaylist(
+							$username: String!
+							$playlistId: ID!
+							$songId: ID!
+						) {
+							addSongToPlaylist(username: $username, playlistId: $playlistId, songId: $songId) {
+								id
+								name
+							}
+						}`,
 						variables: {
 							username,
 							playlistId: playlistId1, // Add songs to the first playlist
@@ -231,26 +232,26 @@ describe("GraphQL API query tests", () => {
 				url: graphqlEndpoint,
 				body: {
 					query: `
-          query FetchPlaylists($username: String!) {
-        fetchPlaylists(username: $username) {
-          id
-          name
-          backgroundcolor
-          icon
-          songs {
-            id
-            title
-            views
-            year
-            artist {
-              name
-            }
-            genre {
-              name
-            }
-          }
-        }
-      }`,
+					query FetchPlaylists($username: String!) {
+						fetchPlaylists(username: $username) {
+							id
+							name
+							backgroundcolor
+							icon
+							songs {
+								id
+								title
+								views
+								year
+								artist {
+									name
+								}
+								genre {
+									name
+								}
+							}
+						}
+					}`,
 					variables: {
 						username,
 					},

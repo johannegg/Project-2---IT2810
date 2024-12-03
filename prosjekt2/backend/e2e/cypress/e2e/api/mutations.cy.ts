@@ -9,11 +9,11 @@ describe("GraphQL API mutation tests", () => {
 			url: graphqlEndpoint,
 			body: {
 				query: `
-              mutation CreateUser($username: String!) {
-                createUser(username: $username) {
-                  id
-                }
-              }`,
+				mutation CreateUser($username: String!) {
+					createUser(username: $username) {
+						id
+					}
+				}`,
 				variables: {
 					username: "John Doe",
 				},
@@ -28,9 +28,9 @@ describe("GraphQL API mutation tests", () => {
 			url: graphqlEndpoint,
 			body: {
 				query: `
-              mutation DeleteUser($username: String!) {
-                deleteUser(username: $username)
-              }`,
+				mutation DeleteUser($username: String!) {
+					deleteUser(username: $username)
+				}`,
 				variables: {
 					username: "John Doe",
 				},
@@ -45,16 +45,16 @@ describe("GraphQL API mutation tests", () => {
 				url: graphqlEndpoint,
 				body: {
 					query: `
-                mutation CreateUser($username: String!) {
-                  createUser(username: $username) {
-                    id
-                    username
-                    favoriteSongs {
-                      id
-                      title
-                    }
-                  }
-                }`,
+					mutation CreateUser($username: String!) {
+						createUser(username: $username) {
+							id
+							username
+							favoriteSongs {
+								id
+								title
+							}
+						}
+                	}`,
 					variables: {
 						username: "John Doe",
 					},
@@ -74,9 +74,9 @@ describe("GraphQL API mutation tests", () => {
 				url: graphqlEndpoint,
 				body: {
 					query: `
-                mutation AddFavoriteSong($username: String!, $songId: ID!) {
-                  addFavoriteSong(username: $username, songId: $songId)
-                }`,
+					mutation AddFavoriteSong($username: String!, $songId: ID!) {
+						addFavoriteSong(username: $username, songId: $songId)
+					}`,
 					variables: {
 						username: "John Doe",
 						songId: "1954",
@@ -95,19 +95,19 @@ describe("GraphQL API mutation tests", () => {
 				url: graphqlEndpoint,
 				body: {
 					query: `
-                mutation CreateUser($username: String!) {
-                  createUser(username: $username) {
-                    id
-                    username
-                    favoriteSongs {
-                      id
-                      title
-                      artist {
-                        name
-                      }
-                    }
-                  }
-                }`,
+					mutation CreateUser($username: String!) {
+						createUser(username: $username) {
+							id
+							username
+							favoriteSongs {
+								id
+								title
+								artist {
+									name
+								}
+							}
+						}
+					}`,
 					variables: {
 						username: "John Doe",
 					},
@@ -135,9 +135,9 @@ describe("GraphQL API mutation tests", () => {
 				url: graphqlEndpoint,
 				body: {
 					query: `
-                mutation RemoveFavoriteSong($username: String!, $songId: ID!) {
-                  removeFavoriteSong(username: $username, songId: $songId)
-                }`,
+					mutation RemoveFavoriteSong($username: String!, $songId: ID!) {
+						removeFavoriteSong(username: $username, songId: $songId)
+					}`,
 					variables: {
 						username: "John Doe",
 						songId: "1954",
@@ -156,19 +156,19 @@ describe("GraphQL API mutation tests", () => {
 				url: graphqlEndpoint,
 				body: {
 					query: `
-                mutation CreateUser($username: String!) {
-                  createUser(username: $username) {
-                    id
-                    username
-                    favoriteSongs {
-                      id
-                      title
-                      artist {
-                        name
-                      }
-                    }
-                  }
-                }`,
+					mutation CreateUser($username: String!) {
+						createUser(username: $username) {
+							id
+							username
+							favoriteSongs {
+								id
+								title
+								artist {
+									name
+								}
+							}
+						}
+					}`,
 					variables: {
 						username: "John Doe",
 					},
@@ -192,28 +192,28 @@ describe("GraphQL API mutation tests", () => {
 				url: graphqlEndpoint,
 				body: {
 					query: `
-              mutation CreatePlaylist(
-                $username: String!
-                $name: String!
-                $backgroundcolor: String!
-                $icon: String!
-              ) {
-                createPlaylist(
-                  username: $username
-                  name: $name
-                  backgroundcolor: $backgroundcolor
-                  icon: $icon
-                ) {
-                  id
-                  name
-                  backgroundcolor
-                  icon
-                  songs {
-                    id
-                    title
-                  }
-                }
-              }`,
+					mutation CreatePlaylist(
+						$username: String!
+						$name: String!
+						$backgroundcolor: String!
+						$icon: String!
+					) {
+						createPlaylist(
+							username: $username
+							name: $name
+							backgroundcolor: $backgroundcolor
+							icon: $icon
+						) {
+							id
+							name
+							backgroundcolor
+							icon
+							songs {
+								id
+								title
+							}
+						}
+					}`,
 					variables: {
 						username: "John Doe",
 						name: "playlist1",
@@ -243,20 +243,19 @@ describe("GraphQL API mutation tests", () => {
 				url: graphqlEndpoint,
 				body: {
 					query: `
-                mutation AddSongToPlaylist($username: String!, $playlistId: ID!, $songId: ID!) {
-                  addSongToPlaylist(username: $username, playlistId: $playlistId, songId: $songId) {
-                    id
-                    name
-                    songs {
-                      id
-                      title
-                      artist {
-                        name
-                      }
-                    }
-                  }
-                }
-              `,
+					mutation AddSongToPlaylist($username: String!, $playlistId: ID!, $songId: ID!) {
+						addSongToPlaylist(username: $username, playlistId: $playlistId, songId: $songId) {
+							id
+							name
+							songs {
+								id
+								title
+								artist {
+									name
+								}
+							}
+						}
+					}`,
 					variables: {
 						username: "John Doe",
 						playlistId: playlistId,
@@ -281,20 +280,19 @@ describe("GraphQL API mutation tests", () => {
 				url: graphqlEndpoint,
 				body: {
 					query: `
-                mutation RemoveSongFromPlaylist($username: String!, $playlistId: ID!, $songId: ID!) {
-                  removeSongFromPlaylist(username: $username, playlistId: $playlistId, songId: $songId) {
-                    id
-                    name
-                    songs {
-                      id
-                      title
-                      artist {
-                        name
-                      }
-                    }
-                  }
-                }
-                `,
+					mutation RemoveSongFromPlaylist($username: String!, $playlistId: ID!, $songId: ID!) {
+						removeSongFromPlaylist(username: $username, playlistId: $playlistId, songId: $songId) {
+							id
+							name
+							songs {
+								id
+								title
+								artist {
+									name
+								}
+							}
+						}
+					}`,
 					variables: {
 						username: "John Doe",
 						playlistId: playlistId,
@@ -315,10 +313,9 @@ describe("GraphQL API mutation tests", () => {
 				url: graphqlEndpoint,
 				body: {
 					query: `
-                mutation DeletePlaylist($username: String!, $playlistId: ID!) {
-                  deletePlaylist(username: $username, playlistId: $playlistId)
-                }
-              `,
+					mutation DeletePlaylist($username: String!, $playlistId: ID!) {
+						deletePlaylist(username: $username, playlistId: $playlistId)
+					}`,
 					variables: {
 						username: "John Doe",
 						playlistId: playlistId,
