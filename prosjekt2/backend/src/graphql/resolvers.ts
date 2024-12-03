@@ -383,7 +383,7 @@ export const resolvers = {
 			const isDeleted = records[0].get("userDeleted");
 			return isDeleted;
 		},
-		
+
 		// Adds a song to the user's favorites
 		addFavoriteSong: async (
 			_: any,
